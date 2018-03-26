@@ -1,7 +1,7 @@
 package com.fundation.search;
 
 /**
- * Main class.
+ * Main class .
  */
 public class Main {
 }
