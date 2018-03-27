@@ -23,7 +23,8 @@ public class ValidatorTest {
         assertTrue(validator.validatorPath("C:\\MSI\\GamingAPP\\Hotkey\\Script"));
         assertTrue(validator.validatorPath("C:\\Users\\Ariel Gonzales\\Downloads\\The witcher\\The_Witcher_wallpapers\\1600 x 1200"));
         assertTrue(validator.validatorPath("C:\\Users\\Ariel Gonzales\\Downloads\\CINEBENCHR15.038\\CINEBENCH R15.038_RC184115\\modules\\mograph\\res\\strings_us\\description"));
-
+        //assertTrue(validator.validatorPath("C:\\Users\\Administrator\\Downloads\\Fun_Search_A-develop (1).zip\\Fun_Search_A-develop\\config\\checkstyle"));
+        assertFalse(validator.validatorPath(""));
     }
 
     @Test
@@ -33,6 +34,15 @@ public class ValidatorTest {
         assertFalse(validator.validatorPath("D:\\D:\\DESCARGAS\\\\jre1.8.0_162\\\\bin\\\\dtplugin\""));
         //assertFalse(validator.validatorPath());
     }
+
+
+    @Test
+    public  void testIsValidPath(){
+        assertTrue(validator.isValidPath("C:\\Users\\Administrator\\Downloads"));
+//        assertTrue(validator.isValidPath("C:\\Users\\Ariel Gonzales\\Desktop\\Fundacion Jala\\Ingles"));
+    }
+
+
 
     /**
      * Check the validatorFile.
@@ -77,6 +87,28 @@ public class ValidatorTest {
         assertFalse(validator.validatorType(".treepack"));
         assertFalse(validator.validatorType("..dll"));
         assertFalse(validator.validatorType(".gg"));
+    }
+
+    @Test
+    public void testValidatorSize(){
+        assertTrue(validator.validatorSize("6565465465654654"));
+        assertTrue(validator.validatorSize("3.071970"));
+        assertTrue(validator.validatorSize("25.2"));
+        assertTrue(validator.validatorSize("158.3"));
+        assertTrue(validator.validatorSize("25874"));
+
+    }
+
+    @Test
+    public void testInvalidSize(){
+        assertFalse(validator.validatorSize("656holas65465654654"));
+        assertFalse(validator.validatorSize("3*071970"));
+        assertFalse(validator.validatorSize("25..2"));
+        assertFalse(validator.validatorSize("158.3.0"));
+        assertFalse(validator.validatorSize("25.87.4"));
+        assertFalse(validator.validatorSize("25.87 4"));
+
+
     }
 
 
