@@ -13,9 +13,10 @@
  */
 package com.fundation.search.view.MainWindow;
 
-import javax.swing.*;
+import java.awt.GridLayout;
+import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
 
 /**
  * This class is for create Center Panel.
@@ -25,8 +26,8 @@ import java.awt.*;
  */
 public class CenterPanel extends JPanel {
 
-    JTable resultsOfCriteria;
-    DefaultTableModel modelOfJTableResult;
+    private JTable resultsOfCriteria;
+    private DefaultTableModel modelOfJTableResult;
 
     /**
      * Constructor for CentralPanel.
@@ -42,7 +43,7 @@ public class CenterPanel extends JPanel {
     /**
      * This method is for initialize all components.
      */
-    public void initComponents() {
+    private void initComponents() {
 
         resultsOfCriteria = new JTable();
         modelOfJTableResult = new DefaultTableModel();
@@ -57,6 +58,8 @@ public class CenterPanel extends JPanel {
         modelOfJTableResult.addColumn("Creation");
         modelOfJTableResult.addColumn("Owner");
 
+
+        //Sample data
         this.insertRowToJTableResult(new Object[]{"File1", "Parth1", "Type1",
                 "Size1", "Modification1", "Creation1", "Owner1"});
         this.insertRowToJTableResult(new Object[]{"File2", "Parth2", "Type2",
@@ -65,6 +68,8 @@ public class CenterPanel extends JPanel {
                 "Size3", "Modification3", "Creation3", "Owner3"});
         this.insertRowToJTableResult(new Object[]{"File4", "Parth4", "Type4",
                 "Size4", "Modification4", "Creation4", "Owner4"});
+
+
     }
 
     /**
@@ -78,9 +83,31 @@ public class CenterPanel extends JPanel {
     }
 
     /**
+     * This method is reset all data of Table Result.
+     */
+    public void resetAllDataOfTableResult() {
+
+        this.cleanModelOfJTable((DefaultTableModel) resultsOfCriteria.getModel());
+    }
+
+    /**
+     * This method is for clean model from JtableResult.
+     *
+     * @param model
+     */
+    private void cleanModelOfJTable(DefaultTableModel model) {
+        int filas = model.getRowCount();
+        if (filas > 0) {
+            for (int i = 0; i < filas; i++) {
+                model.removeRow(0);
+            }
+        }
+    }
+
+    /**
      * This method is for add all components.
      */
-    public void addComponents() {
+    private void addComponents() {
         this.add(resultsOfCriteria);
 
     }

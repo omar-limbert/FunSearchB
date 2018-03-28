@@ -13,12 +13,15 @@
  */
 package com.fundation.search.view.MainWindow;
 
-import org.fundacionjala.coding.omar.view.CriteriaPanels.CriteriaPanel;
-import org.fundacionjala.coding.omar.view.SearchTextField;
-import org.fundacionjala.coding.omar.view.SearchToolBar;
+import com.fundation.search.view.CriteriaPanels.CriteriaPanel;
+import com.fundation.search.view.SearchTextField;
+import com.fundation.search.view.SearchToolBar;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 /**
  * This class is for create Top Panel.
@@ -29,18 +32,16 @@ import java.awt.*;
 public class TopPanel extends JPanel {
 
     private SearchTextField searchTextField;
-    private JToolBar toolbar;
+    private SearchToolBar toolbar;
     private JButton searchButton;
     private CriteriaPanel criteriaPanel;
-    GridBagConstraints constraints;
-
-
+    private GridBagConstraints constraints;
 
 
     /**
      * Constructor for TopPanel.
-     * @param placeHolderText
-     * This is text for place holder.
+     *
+     * @param placeHolderText This is text for place holder.
      */
     public TopPanel(String placeHolderText) {
 
@@ -53,20 +54,19 @@ public class TopPanel extends JPanel {
         this.constraints = new GridBagConstraints();
 
 
-
-        this.setLayout (new GridBagLayout());
+        this.setLayout(new GridBagLayout());
         this.initComponents(placeHolderText);
         this.addComponents();
         this.repaint();
 
-      //  System.out.println("Ariel =>"+searchTextField.getText());
     }
+
     /**
      * This method is for initialize all components.
-     * @param placeHolderText
-     * This is text for place holder.
+     *
+     * @param placeHolderText This is text for place holder.
      */
-    public void initComponents(String placeHolderText) {
+    private void initComponents(String placeHolderText) {
         this.searchTextField = new SearchTextField(placeHolderText);
 
         this.criteriaPanel = new CriteriaPanel();
@@ -74,29 +74,30 @@ public class TopPanel extends JPanel {
         this.toolbar = new SearchToolBar(criteriaPanel);
 
     }
+
     /**
      * This method is for add all components.
      */
-    public void addComponents() {
+    private void addComponents() {
 
         // First Row, "Search", SearchTextField, JButton.
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
-        this.add (new JLabel("Search: "), constraints);
+        this.add(new JLabel("Search: "), constraints);
 
         constraints.gridx = 1;
         constraints.gridy = 0;
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
-        this.add (searchTextField, constraints);
+        this.add(searchTextField, constraints);
 
         constraints.gridx = 2;
         constraints.gridy = 0;
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
-        this.add (searchButton, constraints);
+        this.add(searchButton, constraints);
 
 
         // Second Row only toolbar.
@@ -104,7 +105,7 @@ public class TopPanel extends JPanel {
         constraints.gridy = 1;
         constraints.gridwidth = 3;
         constraints.gridheight = 1;
-        this.add (toolbar, constraints);
+        this.add(toolbar, constraints);
 
         // Third Row CardLayout of criterias.
 
@@ -112,19 +113,47 @@ public class TopPanel extends JPanel {
         constraints.gridy = 2;
         constraints.gridwidth = 3;
         constraints.gridheight = 3;
-        this.add (criteriaPanel, constraints);
-
-
+        this.add(criteriaPanel, constraints);
 
 
     }
 
+    /**
+     * This method is return Path criteria.
+     *
+     * @return Path of criteria.
+     */
     public String getPathOfCriteria() {
 
-        return null;
+        return toolbar.getPathOfCriteria();
     }
 
+    /**
+     * This method is return File name criteria.
+     *
+     * @return File name of criteria.
+     */
     public String getFileNameOfCriteria() {
-        return null;
+        return toolbar.getFileNameOfCriteria();
     }
+
+    /**
+     * This method is return Hidden criteria.
+     *
+     * @return Hidden of criteria.
+     */
+    public boolean isShowHiddenFilesChecked() {
+        return toolbar.isShowHiddenFilesChecked();
+    }
+
+    /**
+     * This method is return Search button.
+     *
+     * @return SearchButton.
+     */
+    public JButton getSearchButton() {
+        return searchButton;
+    }
+
+
 }

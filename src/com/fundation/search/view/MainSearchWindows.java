@@ -16,8 +16,10 @@ package com.fundation.search.view;
 import com.fundation.search.view.MainWindow.CenterPanel;
 import com.fundation.search.view.MainWindow.TopPanel;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import java.awt.BorderLayout;
+
 
 /**
  * This class main windows.
@@ -33,31 +35,45 @@ public class MainSearchWindows extends JFrame {
 
     /**
      * Constructor for MainSearchWindows.
-     *
-     * @param tittle This is a Tittle of Main Windows.
      */
-    private MainSearchWindows(String tittle) {
+    public MainSearchWindows() {
 
-        super(tittle);
+        super();
 
+    }
+
+    /**
+     * This method is for initialize all components on main windows.
+     */
+    public void initWindows(String tittle) {
+
+        this.setTitle(tittle);
         this.topPanel = new TopPanel("Searching...");
         this.centerPanel = new CenterPanel();
-
-        // this.searchButton.setVisible(true);
 
         this.getContentPane().setLayout(new BorderLayout());
         this.getContentPane().add(topPanel, BorderLayout.NORTH);
 
         this.getContentPane().add(centerPanel, BorderLayout.CENTER);
-
         this.repaint();
-
     }
 
     /**
-     * Constructor for CentralPanel.
+     * This method return Search JButton.
+     * Controller can use this.
      *
-     * @return path of criteria.
+     * @return JButton.
+     */
+    public JButton getSearchButton() {
+
+        return topPanel.getSearchButton();
+    }
+
+    /**
+     * This method return Path criteria.
+     * Controller can use this.
+     *
+     * @return String.
      */
     public String getPathOfCriteria() {
 
@@ -65,9 +81,10 @@ public class MainSearchWindows extends JFrame {
     }
 
     /**
-     * Constructor for CentralPanel.
+     * This method return File Name criteria.
+     * Controller can use this.
      *
-     * @return File name criteria.
+     * @return String.
      */
     public String getFileNameOfCriteria() {
 
@@ -75,19 +92,35 @@ public class MainSearchWindows extends JFrame {
     }
 
     /**
-     * Constructor for CentralPanel.
+     * This method return Hidden File criteria.
+     * Controller can use this.
      *
-     * @param args
+     * @return String.
      */
-    public static void main(String[] args) {
+    public boolean isShowHiddenFilesChecked() {
 
-        final int width = 600;
-        final int height = 400;
+        return topPanel.isShowHiddenFilesChecked();
+    }
 
-        JFrame windows = new MainSearchWindows("Search Application");
-        windows.setSize(width, height);
-        windows.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        windows.setVisible(true);
+    /**
+     * This method is for insert one row to JTableResult.
+     * Controller can use this.
+     *
+     * @param row
+     */
+    public void setDataOfJTableResult(Object[] row) {
+
+        //centerPanel.resetAllDataOfTableResult();
+        centerPanel.insertRowToJTableResult(row);
+    }
+
+    /**
+     * This method is for reset all values of JTableResult.
+     * Controller can use this.
+     */
+    public void setDataOfJTableResult() {
+
+        centerPanel.resetAllDataOfTableResult();
     }
 
 

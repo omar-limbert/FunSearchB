@@ -14,9 +14,10 @@
 package com.fundation.search.view.CriteriaPanels;
 
 import javax.swing.*;
+import java.util.Map;
 
 /**
- * This class is for create Top Panel.
+ * This class is for create Criteria Panel with all sub-panels.
  *
  * @author Omar Limbert Huanca Sanchez - AT-[06].
  * @version 1.0.
@@ -32,29 +33,37 @@ public class CriteriaPanel extends JPanel {
 
 
         BoxLayout boxlayout = new BoxLayout(this, BoxLayout.Y_AXIS);
-        this.setLayout (boxlayout);
+        this.setLayout(boxlayout);
         this.initComponents();
-      //  this.addComponents();
+        this.revalidate();
         this.repaint();
 
-        //  System.out.println("Ariel =>"+searchTextField.getText());
+
     }
+
     /**
      * This method is for initialize all components.
-     * This is text for place holder.
      */
-    public void initComponents() {
+    private void initComponents() {
 
-     //   this.add(new FileNamePanel());
 
     }
+
     /**
      * This method is for add all components.
+     *
+     * @param panelList This is Map with all criteria panels.
      */
-    public void addComponent(JPanel component) {
+    public void addComponent(Map<String, JPanel> panelList) {
+        this.removeAll();
 
-        this.add(component);
+        for (Map.Entry<String, JPanel> entry : panelList.entrySet()) {
+            this.add(entry.getValue());
+
+        }
+        this.revalidate();
         this.repaint();
+
 
     }
 

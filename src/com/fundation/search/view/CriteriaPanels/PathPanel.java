@@ -13,13 +13,18 @@
  */
 package com.fundation.search.view.CriteriaPanels;
 
-import com.fundation.search.view.SearchTextField;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import javax.swing.JFileChooser;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import java.awt.FlowLayout;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
- * This class is for create Top Panel.
+ * This class is for create the configuration for Path button.
  *
  * @author Omar Limbert Huanca Sanchez - AT-[06].
  * @version 1.0.
@@ -29,28 +34,24 @@ public class PathPanel extends JPanel {
 
     private JFileChooser directoryChooser;
     private JButton pathButton;
-    private SearchTextField pathTextField;
+    private JTextField pathTextField;
 
     /**
-     * Constructor for TopPanel.
-     * This is text for place holder.
+     * Constructor for PathPanel.
      */
     public PathPanel() {
 
-
-
-        this.setLayout (new FlowLayout());
+        this.setLayout(new FlowLayout());
         this.initComponents();
         this.addComponents();
         this.repaint();
 
-        //  System.out.println("Ariel =>"+searchTextField.getText());
     }
+
     /**
      * This method is for initialize all components.
-     * This is text for place holder.
      */
-    public void initComponents() {
+    private void initComponents() {
 
         directoryChooser = new JFileChooser();
         directoryChooser.setCurrentDirectory(new java.io.File("/"));
@@ -60,32 +61,51 @@ public class PathPanel extends JPanel {
 
         pathButton = new JButton();
         pathButton.setText("Choose Folder");
+        pathButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ChooseButton1MouseClicked(e);
+            }
+        });
 
-        pathTextField = new SearchTextField(directoryChooser.getCurrentDirectory().getPath());
-        pathTextField.setEditable(false);
+        pathTextField = new JTextField();
+        pathTextField.setPreferredSize(new Dimension(200, 35));
+        pathTextField.setText(directoryChooser.getCurrentDirectory().getPath());
+        // pathTextField.setEditable(false);
 
+
+    }
+
+    /**
+     * This method is for open file chooser and search path for folder.
+     *
+     * @param event
+     */
+    private void ChooseButton1MouseClicked(ActionEvent event) {
 
 
         if (directoryChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            System.out.println("getCurrentDirectory(): " + directoryChooser.getCurrentDirectory());
-            System.out.println("getSelectedFile() : " + directoryChooser.getSelectedFile());
+
+            pathTextField.setText(directoryChooser.getSelectedFile().getAbsolutePath());
         } else {
             System.out.println("No Selection ");
         }
     }
+
     /**
      * This method is for add all components.
      */
-    public void addComponents() {
+    private void addComponents() {
         this.add(pathTextField);
         this.add(pathButton);
-
-
     }
+
     /**
-     * This method is for add all components.
+     * This method is for return path.
+     *
+     * @return path selected for file chooser.
      */
-    public String getPathCriteria(){
+    public String getPathCriteria() {
 
         return pathTextField.getText();
     }

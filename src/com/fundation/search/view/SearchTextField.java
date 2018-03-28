@@ -13,10 +13,13 @@
  */
 package com.fundation.search.view;
 
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Insets;
+import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import java.awt.*;
 
 /**
  * This class is for create JTexField with place holder.
@@ -73,7 +76,7 @@ public class SearchTextField extends JTextField {
         final int three = 3;
         final int zero = 0;
         final int six = 6;
-        final int width = 300;
+        final int width = 270;
         final int height = 32;
 
 
@@ -95,7 +98,7 @@ public class SearchTextField extends JTextField {
      *
      * @param placeHolderText This is a text for place holder.
      */
-    public void setPlaceHolderText(String placeHolderText) {
+    private void setPlaceHolderText(String placeHolderText) {
         this.placeHolderText = placeHolderText;
     }
 
