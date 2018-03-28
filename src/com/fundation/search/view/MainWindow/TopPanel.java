@@ -138,7 +138,7 @@ public class TopPanel extends JPanel {
     }
 
     /**
-     * This method is return Hidden criteria.
+     * This method is for return Hidden criteria.
      *
      * @return Hidden of criteria.
      */
@@ -147,12 +147,20 @@ public class TopPanel extends JPanel {
     }
 
     /**
-     * This method is return Search button.
+     * This method is for return Search button.
      *
      * @return SearchButton.
      */
     public JButton getSearchButton() {
         return searchButton;
+    }
+    /**
+     * This method is for return Search Text.
+     *
+     * @return String.
+     */
+    public String getSearchText() {
+        return searchTextField.getText();
     }
 
 

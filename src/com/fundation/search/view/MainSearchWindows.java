@@ -65,7 +65,16 @@ public class MainSearchWindows extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
+    /**
+     * This method return word on SearchJTextField.
+     * Controller can use this.
+     *
+     * @return String.
+     */
+    public String getSearchText() {
 
+        return topPanel.getSearchText();
+    }
     /**
      * This method return Search JButton.
      * Controller can use this.
@@ -118,7 +127,6 @@ public class MainSearchWindows extends JFrame {
      */
     public void setDataOfJTableResult(Object[] row) {
 
-        //centerPanel.resetAllDataOfTableResult();
         centerPanel.insertRowToJTableResult(row);
     }
 
