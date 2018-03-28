@@ -2,7 +2,7 @@
  * @(#)SearchTextField.java
  *
  * Copyright (c) 2018 Jala Foundation.
- * Address
+ * 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
  * All rights reserved.
  *
  * This software is the confidential and proprietary information of
@@ -13,13 +13,10 @@
  */
 package com.fundation.search.view;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Insets;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import java.awt.*;
 
 /**
  * This class is for create JTexField with place holder.
@@ -33,6 +30,7 @@ public class SearchTextField extends JTextField {
     private String placeHolderText;
     private Color placeHolderColor;
     private boolean band;
+    private boolean disable;
 
     /**
      * Constructor for SearchTextField.
@@ -75,7 +73,7 @@ public class SearchTextField extends JTextField {
         final int three = 3;
         final int zero = 0;
         final int six = 6;
-        final int width = 200;
+        final int width = 300;
         final int height = 32;
 
 

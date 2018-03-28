@@ -2,7 +2,7 @@
  * @(#)SearchToolBar.java
  *
  * Copyright (c) 2018 Jala Foundation.
- * Address
+ * 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
  * All rights reserved.
  *
  * This software is the confidential and proprietary information of
@@ -13,8 +13,13 @@
  */
 package com.fundation.search.view;
 
-import javax.swing.JToggleButton;
-import javax.swing.JToolBar;
+import com.fundation.search.view.CriteriaPanels.CriteriaPanel;
+import com.fundation.search.view.CriteriaPanels.FileNamePanel;
+import com.fundation.search.view.CriteriaPanels.PathPanel;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.Vector;
 
@@ -31,13 +36,18 @@ public class SearchToolBar extends JToolBar {
      * toggleButtonCollection Collection of JToggleButtons.
      */
     private Collection<JToggleButton> toggleButtonCollection;
+    private String action;
+    private CriteriaPanel criteriaPanel;
 
     /**
      * Constructor for SearchToolBar.
      */
-    public SearchToolBar() {
+    public SearchToolBar(CriteriaPanel criteriaPanel) {
 
-        toggleButtonCollection = new Vector<>();
+        this.toggleButtonCollection = new Vector<>();
+        this.action ="";
+        this.criteriaPanel = criteriaPanel;
+
 
         // adding buttons
         this.addButtonToToggleCollection("All Tags");
@@ -48,9 +58,56 @@ public class SearchToolBar extends JToolBar {
         this.addButtonToToggleCollection("Owner");
         this.addButtonToToggleCollection("Date");
 
+        this.addActionListeners();
+
 
     }
+    /**
+     * Method addActionListeners.
+     *
+     */
+    protected void addActionListeners() {
+        for(JToggleButton button:toggleButtonCollection){
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JToggleButton sourceButton = (JToggleButton) e.getSource();
 
+                    String newAction = sourceButton.isSelected() ? e.getActionCommand():"";
+                    firePropertyChange("action",action,newAction);
+
+                    action = e.getActionCommand();
+                    //System.out.println(action + " selected");
+
+                    if(sourceButton.isSelected()){
+                        System.out.println(action + " selected");
+                        if(action.equalsIgnoreCase("File Name")){
+
+                            criteriaPanel.addComponent(new FileNamePanel());
+                        }
+                        if(action.equalsIgnoreCase("Path")){
+
+                            criteriaPanel.addComponent(new PathPanel());
+                        }
+
+                    }
+                    else{
+
+                        System.out.println(action + " not selected");
+                    }
+
+                    for(JToggleButton toggleButton: toggleButtonCollection){
+                        if(!toggleButton.equals(sourceButton)){
+                            toggleButton.setSelected(false);
+                        }
+                    }
+
+
+                }
+            });
+
+        }
+    }
     /**
      * Method addButtonToToggleCollection.
      * This method is for JToggleButtons to Collection.
