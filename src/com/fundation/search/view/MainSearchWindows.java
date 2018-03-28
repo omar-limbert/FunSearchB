@@ -45,17 +45,25 @@ public class MainSearchWindows extends JFrame {
     /**
      * This method is for initialize all components on main windows.
      */
-    public void initWindows(String tittle) {
+    public void initWindows() {
 
-        this.setTitle(tittle);
+        this.setTitle("Search Application");
         this.topPanel = new TopPanel("Searching...");
         this.centerPanel = new CenterPanel();
+
+        // this.searchButton.setVisible(true);
 
         this.getContentPane().setLayout(new BorderLayout());
         this.getContentPane().add(topPanel, BorderLayout.NORTH);
 
         this.getContentPane().add(centerPanel, BorderLayout.CENTER);
         this.repaint();
+
+        final int width = 600;
+        final int height = 400;
+        this.setSize(width, height);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setVisible(true);
     }
 
     /**
