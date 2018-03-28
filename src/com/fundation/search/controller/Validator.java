@@ -1,8 +1,31 @@
 package com.fundation.search.controller;
 
+
+/*
+ * @(#)FileClass.java
+ *
+ * Copyright (c) 2018 Jala Foundation.
+ * Address
+ * All rights reserved.
+ *
+ * This software is the confidential and proprietary information of
+ * Jala Foundation, ("Confidential Information").  You shall not
+ * disclose such Confidential Information and shall use it only in
+ * accordance with the terms of the license agreement you entered into
+ * with Sun.
+ */
+
+
 import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+/**
+ * This class is to validate the input format.
+ *
+ * @author Ariel Gonzales Vargas  - AT-[06].
+ * @version 1.0.
+ */
 
 public class Validator {
     public Validator() {
@@ -15,9 +38,9 @@ public class Validator {
      * @return boolean
      */
     public boolean validatorPath(String path) {
-        Pattern pat = Pattern.compile("(^[A-Z]:)?((\\\\)\\w+((\\s|\\.)\\w+)*)+");
-        Matcher mat = pat.matcher(path);
-        return mat.matches();
+        Pattern patternFormat = Pattern.compile("(^[A-Z]:)?((\\\\)\\w+((\\s|\\.)\\w+)*)+");
+        Matcher matcher = patternFormat.matcher(path);
+        return matcher.matches();
 
     }
 
@@ -28,21 +51,21 @@ public class Validator {
      * @return boolean
      */
     public boolean validatorFile(String file) {
-        Pattern pat = Pattern.compile("(\\w+(\\s|[^:*?\"<>|]\\w+)*)+");
-        Matcher mat = pat.matcher(file);
-        return mat.matches();
+        Pattern patternFormat = Pattern.compile("(\\w+(\\s|[^:*?\"<>|]\\w+)*)+");
+        Matcher matcher = patternFormat.matcher(file);
+        return matcher.matches();
     }
 
     /**
      * It method checks if the input is a valid Type format.
      *
-     * @param type
+     * @param extension
      * @return
      */
-    public boolean validatorType(String type) {
-        Pattern pat = Pattern.compile("^\\.[a-z]{3,4}");
-        Matcher mat = pat.matcher(type);
-        return mat.matches();
+    public boolean validatorType(String extension) {
+        Pattern patternFormat = Pattern.compile("^\\.[a-z]{3,4}");
+        Matcher matcher = patternFormat.matcher(extension);
+        return matcher.matches();
     }
 
     /**
@@ -51,17 +74,17 @@ public class Validator {
      * @param size number double.
      * @return boolean
      */
-    public boolean validatorSize(String size) {
-        Pattern pat = Pattern.compile("[0-9]+(\\.[0-9]+)?");
-        Matcher mat = pat.matcher(size);
-        return mat.matches();
+    public boolean isValidSizeFormat(String size) {
+        Pattern patternFormat = Pattern.compile("[0-9]+(\\.[0-9]+)?");
+        Matcher matcher = patternFormat.matcher(size);
+        return matcher.matches();
 
     }
 
-    public boolean validatorDate(String date) {
-        Pattern pat = Pattern.compile("\\d{1,2}\\/\\d{2}\\/\\d{2,4}");
-        Matcher mat = pat.matcher(date);
-        return mat.matches();
+    public boolean isValidDate(String date) {
+        Pattern patternFormat = Pattern.compile("\\d{1,2}\\/\\d{2}\\/\\d{2,4}");
+        Matcher matcher = patternFormat.matcher(date);
+        return matcher.matches();
     }
 
 
