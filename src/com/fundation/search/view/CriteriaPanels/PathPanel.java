@@ -64,7 +64,7 @@ public class PathPanel extends JPanel {
         pathButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ChooseButton1MouseClicked(e);
+                fileChooserEvent(e);
             }
         });
 
@@ -81,7 +81,7 @@ public class PathPanel extends JPanel {
      *
      * @param event
      */
-    private void ChooseButton1MouseClicked(ActionEvent event) {
+    private void fileChooserEvent(ActionEvent event) {
 
 
         if (directoryChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
