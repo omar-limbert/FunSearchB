@@ -33,7 +33,6 @@ public class SearchTextField extends JTextField {
     private String placeHolderText;
     private Color placeHolderColor;
     private boolean band;
-    private boolean disable;
 
     /**
      * Constructor for SearchTextField.
@@ -79,12 +78,10 @@ public class SearchTextField extends JTextField {
         final int width = 270;
         final int height = 32;
 
-
         Dimension dimension = new Dimension(width, height);
         this.placeHolderText = placeHolderText;
         this.placeHolderColor = new Color(zero, zero, zero);
         this.band = true;
-
 
         this.setSize(dimension);
         this.setPreferredSize(dimension);

@@ -21,10 +21,9 @@ import javax.swing.JTextField;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
- * This class is for create the configuration for Path button.
+ * This class is to create the configuration for Path button.
  *
  * @author Omar Limbert Huanca Sanchez - AT-[06].
  * @version 1.0.
@@ -53,25 +52,24 @@ public class PathPanel extends JPanel {
      */
     private void initComponents() {
 
+        // Initialize and config Folder Chooser.
         directoryChooser = new JFileChooser();
         directoryChooser.setCurrentDirectory(new java.io.File("/"));
-        directoryChooser.setDialogTitle("choosertitle");
+        directoryChooser.setDialogTitle("Folder chooser for search files");
         directoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         directoryChooser.setAcceptAllFileFilterUsed(false);
 
+        // Button for open Folder Chooser.
         pathButton = new JButton();
         pathButton.setText("Choose Folder");
-        pathButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                fileChooserEvent(e);
-            }
-        });
 
+        // Action Listener for Folder Chooser.
+        pathButton.addActionListener(e -> folderChooser(e));
+
+        // JTextField for show result.
         pathTextField = new JTextField();
         pathTextField.setPreferredSize(new Dimension(200, 35));
         pathTextField.setText(directoryChooser.getCurrentDirectory().getPath());
-        // pathTextField.setEditable(false);
 
 
     }
@@ -81,8 +79,7 @@ public class PathPanel extends JPanel {
      *
      * @param event
      */
-    private void fileChooserEvent(ActionEvent event) {
-
+    private void folderChooser(ActionEvent event) {
 
         if (directoryChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 
@@ -96,6 +93,7 @@ public class PathPanel extends JPanel {
      * This method is for add all components.
      */
     private void addComponents() {
+
         this.add(pathTextField);
         this.add(pathButton);
     }
@@ -103,11 +101,12 @@ public class PathPanel extends JPanel {
     /**
      * This method is for return path.
      *
-     * @return path selected for file chooser.
+     * @return String
      */
     public String getPathCriteria() {
 
         return pathTextField.getText();
+
     }
 
 }

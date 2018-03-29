@@ -36,6 +36,7 @@ public class TopPanel extends JPanel {
     private JButton searchButton;
     private CriteriaPanel criteriaPanel;
     private GridBagConstraints constraints;
+    private JLabel searchJLabel;
 
 
     /**
@@ -67,10 +68,14 @@ public class TopPanel extends JPanel {
      * @param placeHolderText This is text for place holder.
      */
     private void initComponents(String placeHolderText) {
-        this.searchTextField = new SearchTextField(placeHolderText);
 
+        // Dynamic criteria JPanel.
         this.criteriaPanel = new CriteriaPanel();
-
+        // JLabel "Search".
+        this.searchJLabel = new JLabel("Search: ");
+        // JTextField with place holder.
+        this.searchTextField = new SearchTextField(placeHolderText);
+        // JToolbar with all buttons
         this.toolbar = new SearchToolBar(criteriaPanel);
 
     }
@@ -80,48 +85,47 @@ public class TopPanel extends JPanel {
      */
     private void addComponents() {
 
-        // First Row, "Search", SearchTextField, JButton.
+        // Adding Search JLabel to first row.
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
-        this.add(new JLabel("Search: "), constraints);
+        this.add(searchJLabel, constraints);
 
+        // Adding Search SearchJTextField to first row.
         constraints.gridx = 1;
         constraints.gridy = 0;
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
         this.add(searchTextField, constraints);
 
+        // Adding Search JButton to first row.
         constraints.gridx = 2;
         constraints.gridy = 0;
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
         this.add(searchButton, constraints);
 
-
-        // Second Row only toolbar.
+        // Second Row only for add toolbar buttons.
         constraints.gridx = 0;
         constraints.gridy = 1;
         constraints.gridwidth = 3;
         constraints.gridheight = 1;
         this.add(toolbar, constraints);
 
-        // Third Row CardLayout of criterias.
-
+        // Third Row only for add criteria dynamic JPanel.
         constraints.gridx = 0;
         constraints.gridy = 2;
         constraints.gridwidth = 3;
         constraints.gridheight = 3;
         this.add(criteriaPanel, constraints);
 
-
     }
 
     /**
      * This method is return Path criteria.
      *
-     * @return Path of criteria.
+     * @return String
      */
     public String getPathOfCriteria() {
 
@@ -131,7 +135,7 @@ public class TopPanel extends JPanel {
     /**
      * This method is return File name criteria.
      *
-     * @return File name of criteria.
+     * @return String
      */
     public String getFileNameOfCriteria() {
         return toolbar.getFileNameOfCriteria();
@@ -140,7 +144,7 @@ public class TopPanel extends JPanel {
     /**
      * This method is for return Hidden criteria.
      *
-     * @return Hidden of criteria.
+     * @return boolean
      */
     public boolean isShowHiddenFilesChecked() {
         return toolbar.isShowHiddenFilesChecked();
@@ -149,15 +153,16 @@ public class TopPanel extends JPanel {
     /**
      * This method is for return Search button.
      *
-     * @return SearchButton.
+     * @return JButton
      */
     public JButton getSearchButton() {
         return searchButton;
     }
+
     /**
      * This method is for return Search Text.
      *
-     * @return String.
+     * @return String
      */
     public String getSearchText() {
         return searchTextField.getText();

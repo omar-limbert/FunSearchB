@@ -20,7 +20,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
 /**
- * This class is for create the configuration for File Name button.
+ * This class is to create the configuration for File Name button.
  *
  * @author Omar Limbert Huanca Sanchez - AT-[06].
  * @version 1.0.
@@ -31,12 +31,13 @@ public class FileNamePanel extends JPanel {
     private JRadioButton startWithRadioButton;
     private JRadioButton endWithRadioButton;
     private JRadioButton equalsToRadioButton;
+
     private ButtonGroup radioButtonGroup;
 
-    private JCheckBox showHiddenFiles;
+    private JCheckBox hiddenFileJCheckButton;
 
     /**
-     * Constructor for FileNamePanel.
+     * Constructor to FileNamePanel.
      */
     public FileNamePanel() {
 
@@ -48,49 +49,57 @@ public class FileNamePanel extends JPanel {
     }
 
     /**
-     * This method is for initialize all components.
+     * This method is to initialize all components.
      */
     private void initComponents() {
 
-        this.showHiddenFiles = new JCheckBox();
+        // Initialize Hidden Check Button.
+        this.hiddenFileJCheckButton = new JCheckBox();
+        this.hiddenFileJCheckButton.setText("Hidden Files");
 
-        this.showHiddenFiles.setText("Hidden Files");
+        // Initialize RadioButtons.
         this.radioButtonGroup = new ButtonGroup();
         this.allWordsRadioButton = new JRadioButton("all words");
         this.startWithRadioButton = new JRadioButton("start with");
         this.endWithRadioButton = new JRadioButton("end with");
         this.equalsToRadioButton = new JRadioButton("equal to");
 
+        // Setting Action Command.
         this.allWordsRadioButton.setActionCommand("all words");
         this.startWithRadioButton.setActionCommand("start with");
         this.endWithRadioButton.setActionCommand("end with");
         this.equalsToRadioButton.setActionCommand("equal to");
 
+
+    }
+
+    /**
+     * This method is to add all components.
+     */
+    private void addComponents() {
+
+        // Adding radioButtons to one Group Radio Button.
         this.radioButtonGroup.add(allWordsRadioButton);
         this.radioButtonGroup.add(startWithRadioButton);
         this.radioButtonGroup.add(endWithRadioButton);
         this.radioButtonGroup.add(equalsToRadioButton);
 
-        this.allWordsRadioButton.setSelected(true);
-    }
-
-    /**
-     * This method is for add all components.
-     */
-    private void addComponents() {
-
+        // Adding radioButtons to Panel
         this.add(allWordsRadioButton);
         this.add(startWithRadioButton);
         this.add(endWithRadioButton);
         this.add(equalsToRadioButton);
-        this.add(showHiddenFiles);
+        this.add(hiddenFileJCheckButton);
+
+        // Default radioButton selected.
+        this.allWordsRadioButton.setSelected(true);
 
     }
 
     /**
-     * This method is for add all components.
+     * This method is to get File Name criteria.
      *
-     * @return only one radioButton selected.
+     * @return String
      */
     public String getFileNameCriteria() {
 
@@ -99,12 +108,12 @@ public class FileNamePanel extends JPanel {
     }
 
     /**
-     * This method is for add all components.
+     * This method is to get state of hiddenFileJCheckBox.
      *
-     * @return state of hidden button.
+     * @return boolean
      */
-    public boolean isShowHiddenFilesChecked() {
-        return showHiddenFiles.isSelected();
+    public boolean isHiddenFilesChecked() {
+        return hiddenFileJCheckButton.isSelected();
     }
 
 }
