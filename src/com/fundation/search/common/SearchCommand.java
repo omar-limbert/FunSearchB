@@ -22,12 +22,23 @@ package fundation.search.common;
 25 Mar 2018  * @author
 J Christian Galarza Crespo  */
 
+
 public class SearchCommand {
     /**
      * @param args the command line arguments.
      */
     public static void main(String[] args) {
+        /*
+        How use the console
 
+        1 for start in console enter this code the path of a SearchCommand.java
+         <dir> javac SearchCommand.java for example
+        < C:\FunSearch\FunSearchB\src\com\fundation\search\common> > javac SearchCommand.java
+        2 enter this code
+        < dir > until com
+        < java -classpath C:\FunSearch\FunSearchB\src\com > fundation.search.common.SearchCommand (the command selected)
+
+         */
 
         for (int i = 0; i < args.length; i++){
             /*
@@ -57,7 +68,7 @@ public class SearchCommand {
                 */
                 case "-v":{
                     if(versionString.equals(versionString)){
-                        System.out.println("Version program: 1.0.1 ");
+                        System.out.println("Version program: 1.0 ");
                     }
                     break;
                 }
