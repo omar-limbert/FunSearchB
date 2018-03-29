@@ -1,6 +1,6 @@
 package com.fundation.search.controller;
 /*
- * @(#)FileClass.java
+ * @(#)ControlCriteria.java
  *
  * Copyright (c) 2018 Jala Foundation.
  * Address
@@ -31,14 +31,14 @@ public class ControlCriteria {
     public ControlCriteria(MainSearchWindows searchWindows) {
         this.searchWindows = searchWindows;
         searchWindows.initWindows();
-        searchWindows.getSearchButton().addActionListener(e -> checkButton());
+        searchWindows.getSearchButton().addActionListener(e -> listenSearchButton());
     }
 
     /**
      * This method check the event of the button "search".
      * then the inputs are insert for validate.
      */
-    public void checkButton() {
+    public void listenSearchButton() {
         searchWindows.resetDataOfJTableResult();
         validInputs(searchWindows.getPathOfCriteria(), searchWindows.getSearchText());
     }
