@@ -1,15 +1,15 @@
 /*
- * @(#)FunSearch.java
+ * @(#)SearchCommand.java
  *
- * Copyright (c) Fundation Jala.
+ * Copyright (c) Jala Foundation.
  * 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
  * All rights reserved.
  *
  * This software is the confidential and proprietary information of
- * Fundation Jala. ("Confidential Information").  You shall not
+ * Jala Foundation. ("Confidential Information").  You shall not
  * disclose such Confidential Information and shall use it only in
  * accordance with the terms of the license agreement you entered into
- * with Fundation Jala.
+ * with Jala Foundation.
  */
 
 package fundation.search.common;
@@ -21,7 +21,7 @@ package fundation.search.common;
  * @version 1.0
 25 Mar 2018  * @author
 J Christian Galarza Crespo  */
-import java.util.Scanner;
+
 public class SearchCommand {
     /**
      * @param args the command line arguments.
@@ -29,25 +29,20 @@ public class SearchCommand {
     public static void main(String[] args) {
 
 
-        Scanner sc = new Scanner(System.in);
-
-
         for (int i = 0; i < args.length; i++){
-            /**
+            /*
              * Convert the command of char to String for combine the commands easy.
              */
-            String v = new StringBuilder("").append("-v").toString();
-            String e = new StringBuilder("").append("-e").toString();
-            String f = new StringBuilder("").append("-f").toString();
-            String s = new StringBuilder("").append("-s").toString();
-            String p = new StringBuilder("").append("-p").toString();
-            String t = new StringBuilder("").append("-t").toString();
-            String o = new StringBuilder("").append("-o").toString();
-            String d = new StringBuilder("").append("-d").toString();
+            String versionString = new StringBuilder("").append("-v").toString();
+            String fileString = new StringBuilder("").append("-f").toString();
+            String sizeString = new StringBuilder("").append("-s").toString();
+            String pathString = new StringBuilder("").append("-p").toString();
+            String typeString = new StringBuilder("").append("-t").toString();
+            String ownerString = new StringBuilder("").append("-o").toString();
+            String dateString = new StringBuilder("").append("-d").toString();
             /* Declaration of commands
 
              * -v version
-             * -e enter
              * -f file
              * -p path
              * -t type
@@ -55,61 +50,108 @@ public class SearchCommand {
              * -o owner
              * -d date
              */
+            //----------------------------------------------------------------------
             switch (args[i]){
+                /*
+                Command Version
+                */
                 case "-v":{
-                    if(v.equals(v)){
-                        System.out.println("Version program: 1.0 ");
+                    if(versionString.equals(versionString)){
+                        System.out.println("Version program: 1.0.1 ");
                     }
                     break;
                 }
-                case "-e":{
-                    if(e.equals(e)){
-                        String str = args[i + 1];
-                        System.out.println(str);
-                    }
-                    break;
-                }
+                /*
+                Command File
+                */
                 case "-f":{
-                    if(f.equals(f)){
-                        System.out.println("File ");
+                    if(fileString.equals(fileString)) {
+                        String file;
+                        if (args.length > 1) {
+                            file = args[i + 1];
+                            System.out.println(file + " file ");
+                        } else {
+                            System.out.println("please insert valid file");
+                        }
                     }
-
                     break;
                 }
+                /*
+                Command Size
+                */
                 case "-s":{
-                    if(s.equals(s)){
-                        System.out.println("Size ");
+                    if(sizeString.equals(sizeString)){
+                        String size;
+                        if(args.length > 1) {
+                            size = args[i + 1];
+                            System.out.println(size + " Size ");
+                        }else
+                            System.out.println("please insert valid Size");
                     }
                     break;
                 }
+                /*
+                Command Path
+                */
                 case "-p":{
-                    if(p.equals(p)){
-                        System.out.println("Path");
+                    if(pathString.equals(pathString)){
+                        String path;
+                        if (args.length > 1) {
+                            path = args[i + 1];
+                            System.out.println(path + " Path");
+                        }else
+                            System.out.println("please insert valid Patch");
                     }
                     break;
                 }
+                /*
+                Command Type
+                */
                 case "-t":{
-                    if(t.equals(t)){
-                        System.out.println("Type ");
+                    if(typeString.equals(typeString)){
+                        String type;
+                        if (args.length > 1) {
+                            type = args[i + 1];
+                            System.out.println(type + " Type ");
+                        }else
+                            System.out.println("please insert valid Type");
                     }
                     break;
                 }
+                /*
+                Command Owner
+                */
                 case "-o":{
-                    if(o.equals(o)){
-                        System.out.println("Owner ");
+                    if(ownerString.equals(ownerString)){
+                        String owner;
+                        if (args.length > 1) {
+                            owner = args[i + 1];
+                            System.out.println(owner + " Owner ");
+                        }else
+                            System.out.println("please insert valid Owner");
                     }
                     break;
                 }
+                /*
+                Command Date
+                */
                 case "-d":{
-                    if(d.equals(d)){
-                        System.out.println("Date ");
+                    if(dateString.equals(dateString)){
+                        String date;
+                        if (args.length > 1) {
+                            date = args[i + 1];
+                            System.out.println(date + " Date ");
+                        }else
+                            System.out.println("please insert valid date");
                     }
                     break;
                 }
+                /*
+                Command Help
+                */
                 case "-h":{
                     System.out.println("help ");
                     System.out.println("-v  version program " + '\n');
-                    System.out.println("-e print String ");
                     System.out.println("-f file type");
                     System.out.println("-p Path ");
                     System.out.println("-t type ");
@@ -118,21 +160,16 @@ public class SearchCommand {
                     System.out.println("-d date ");
                     break;
                 }
+                //--------------------------------------------------------------------
+                /* Commands failed
+                Command incomplete
+                */
                 case "-":{
                     System.out.println("Incomplete character try again");
                     break;
                 }
-                default :{
-                    System.out.println(" Command don't valid, Please press -h  ");
-                    break;
-                }
             }
-            /*
-            * combine the commands and verify that is valid
-            * */
-            String File = ( e + f);
-            String Path = ( e + p);
-
         }
     }
+
 }
