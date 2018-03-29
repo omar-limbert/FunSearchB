@@ -25,6 +25,8 @@ import java.util.regex.Pattern;
  * @version 1.0.
  */
 public class Validator {
+    private Pattern pattern;
+    private Matcher matcher;
 
     /**
      * Init the Validator.
@@ -39,10 +41,9 @@ public class Validator {
      * @return boolean
      */
     public boolean validatorPath(String path) {
-        Pattern pat = Pattern.compile("(^[A-Z]:(\\\\)*)?((\\\\)\\w+((\\s|\\.)\\w+)*)+");
-        Matcher mat = pat.matcher(path);
-        return mat.matches();
-
+        pattern = Pattern.compile("(^[A-Z]:(\\\\)*)?((\\\\)\\w+((\\s|\\.)\\w+)*)+");
+        matcher = pattern.matcher(path);
+        return matcher.matches();
     }
 
     /**
@@ -63,9 +64,9 @@ public class Validator {
      * @return boolean
      */
     public boolean validatorFile(String file) {
-        Pattern pat = Pattern.compile("(\\w+(\\s|[^:*?\"<>|]\\w+)*)+");
-        Matcher mat = pat.matcher(file);
-        return mat.matches();
+        pattern = Pattern.compile("(\\w+(\\s|[^:*?\"<>|]\\w+)*)+");
+        matcher = pattern.matcher(file);
+        return matcher.matches();
     }
 
     /**
@@ -75,9 +76,9 @@ public class Validator {
      * @return
      */
     public boolean validatorType(String type) {
-        Pattern pat = Pattern.compile("^\\.[a-z]{3,4}");
-        Matcher mat = pat.matcher(type);
-        return mat.matches();
+        pattern = Pattern.compile("^\\.[a-z]{3,4}");
+        matcher = pattern.matcher(type);
+        return matcher.matches();
     }
 
     /**
@@ -87,9 +88,9 @@ public class Validator {
      * @return boolean
      */
     public boolean validatorSize(String size) {
-        Pattern pat = Pattern.compile("[0-9]+(\\.[0-9]+)?");
-        Matcher mat = pat.matcher(size);
-        return mat.matches();
+        pattern = Pattern.compile("[0-9]+(\\.[0-9]+)?");
+        matcher = pattern.matcher(size);
+        return matcher.matches();
 
     }
 
@@ -100,9 +101,9 @@ public class Validator {
      * @return
      */
     public boolean validatorDate(String date) {
-        Pattern pat = Pattern.compile("\\d{1,2}\\/\\d{2}\\/\\d{2,4}");
-        Matcher mat = pat.matcher(date);
-        return mat.matches();
+        pattern = Pattern.compile("\\d{1,2}\\/\\d{2}\\/\\d{2,4}");
+        matcher = pattern.matcher(date);
+        return matcher.matches();
     }
 
 }
