@@ -44,7 +44,6 @@ public class SearchToolBar extends JToolBar {
     private String action;
     private CriteriaPanel criteriaPanel;
     private Map<String, JPanel> panelList;
-    private static final Color BACKGROUND = Color.BLACK;
     private static final FileNamePanel FILE_NAME_PANEL = new FileNamePanel();
     private static final PathPanel PATH_PANEL = new PathPanel();
 
@@ -53,10 +52,24 @@ public class SearchToolBar extends JToolBar {
      */
     public SearchToolBar(CriteriaPanel criteriaPanel) {
 
+        // This is a collection of buttons.
         this.toggleButtonCollection = new Vector<>();
+        // Action for define button.
         this.action = "";
+        // Dynamic JPanel for add all button panels.
         this.criteriaPanel = criteriaPanel;
+        // Hashtable of all Criteria Panels
         this.panelList = new Hashtable<>();
+        // Adding components
+        this.addComponents();
+
+
+    }
+
+    /**
+     * Method for add al components.
+     */
+    private void addComponents() {
 
         // adding buttons
         this.addButtonToToggleCollection("All Tags");
@@ -66,9 +79,10 @@ public class SearchToolBar extends JToolBar {
         this.addButtonToToggleCollection("Size");
         this.addButtonToToggleCollection("Owner");
         this.addButtonToToggleCollection("Date");
+        // you need implements others buttons here.
 
+        // Adding action listeners for all buttons
         this.addActionListeners();
-
 
     }
 
@@ -76,64 +90,88 @@ public class SearchToolBar extends JToolBar {
      * Method addActionListeners.
      */
     private void addActionListeners() {
-        for (JToggleButton button : toggleButtonCollection) {
-            button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    JToggleButton sourceButton = (JToggleButton) e.getSource();
 
-                    String newAction = sourceButton.isSelected() ? e.getActionCommand() : "";
-                    firePropertyChange("action", action, newAction);
+        // lambda is amazing..!! XD
+        toggleButtonCollection
+                .forEach(e -> e.addActionListener(this::actionListenerForAllButtons));
 
-                    action = e.getActionCommand();
+    }
 
+    /**
+     * Method addActionListeners.
+     *
+     * @param actionEvent This is action event.
+     */
+    private void actionListenerForAllButtons(ActionEvent actionEvent) {
 
-                    if (sourceButton.isSelected()) {
-                        if (action.equalsIgnoreCase("All Tags")) {
+        JToggleButton sourceButton = (JToggleButton) actionEvent.getSource();
 
-                            panelList.put("File Name", FILE_NAME_PANEL);
-                            panelList.put("Path", PATH_PANEL);
+        String newAction = sourceButton.isSelected() ? actionEvent.getActionCommand() : "";
 
-                        }
-                        if (action.equalsIgnoreCase("File Name")) {
+        firePropertyChange("action", action, newAction);
 
-                            panelList.put(action, FILE_NAME_PANEL);
-
-
-                        }
-                        if (action.equalsIgnoreCase("Path")) {
-
-                            panelList.put(action, PATH_PANEL);
-                            System.out.println(FILE_NAME_PANEL.getFileNameCriteria());
-                        }
-
-                    } else {
-                        if (action.equalsIgnoreCase("All Tags")) {
-
-                            panelList = new Hashtable<>();
-                        }
-                        if (action.equalsIgnoreCase("File Name")) {
-
-                            panelList.remove(action);
-                        }
-                        if (action.equalsIgnoreCase("Path")) {
-
-                            panelList.remove(action);
-                        }
-                    }
+        action = actionEvent.getActionCommand();
 
 
-                    for (JToggleButton toggleButton : toggleButtonCollection) {
-                        if (!toggleButton.equals(sourceButton)) {
-                            toggleButton.setSelected(false);
-                        }
-                    }
+        if (sourceButton.isSelected()) {
 
-                    criteriaPanel.addComponent(panelList);
+            this.addingCriteriaPanelToActionListenerButton();
+
+        } else {
+
+            this.removingCriteriaPanelToActionListenerButton();
+        }
 
 
-                }
-            });
+        criteriaPanel.addComponent(panelList);
+
+
+    }
+
+    /**
+     * Method for remove criteria panel.
+     */
+    private void removingCriteriaPanelToActionListenerButton() {
+
+        // Removing "All Tags Panel Criteria"
+        if (action.equalsIgnoreCase("All Tags")) {
+
+            panelList = new Hashtable<>();
+        }
+        // Removing "File Name Panel Criteria"
+        if (action.equalsIgnoreCase("File Name")) {
+
+            panelList.remove(action);
+        }
+        // Removing "Path Panel Criteria"
+        if (action.equalsIgnoreCase("Path")) {
+
+            panelList.remove(action);
+        }
+    }
+
+    /**
+     * Method add criteria panel.
+     */
+    private void addingCriteriaPanelToActionListenerButton() {
+
+        // Adding "All Tags Panel Criteria"
+        if (action.equalsIgnoreCase("All Tags")) {
+
+            panelList.put("File Name", FILE_NAME_PANEL);
+            panelList.put("Path", PATH_PANEL);
+
+        }
+        // Adding "File Name Panel Criteria"
+        if (action.equalsIgnoreCase("File Name")) {
+
+            panelList.put(action, FILE_NAME_PANEL);
+
+        }
+        // Adding "Path Panel Criteria"
+        if (action.equalsIgnoreCase("Path")) {
+
+            panelList.put(action, PATH_PANEL);
 
         }
     }
@@ -145,9 +183,10 @@ public class SearchToolBar extends JToolBar {
      * @param nameOfJToggleButton Name of JToggleButton to add collection.
      */
     private void addButtonToToggleCollection(String nameOfJToggleButton) {
+
         JToggleButton buttonToAddCollection = new JToggleButton(nameOfJToggleButton);
         this.add(buttonToAddCollection);
-        toggleButtonCollection.add(buttonToAddCollection);
+        this.toggleButtonCollection.add(buttonToAddCollection);
     }
 
     /**
@@ -175,6 +214,6 @@ public class SearchToolBar extends JToolBar {
      */
     public boolean isShowHiddenFilesChecked() {
 
-        return FILE_NAME_PANEL.isShowHiddenFilesChecked();
+        return FILE_NAME_PANEL.isHiddenFilesChecked();
     }
 }

@@ -26,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CenterPanel extends JPanel {
 
-    private JTable resultsOfCriteria;
+    private JTable resultsOfCriteria; //maybe you need convert this to new extend class.
     private DefaultTableModel modelOfJTableResult;
 
     /**
@@ -41,16 +41,13 @@ public class CenterPanel extends JPanel {
     }
 
     /**
-     * This method is for initialize all components.
+     * This method is for add all components.
      */
-    private void initComponents() {
+    private void addComponents() {
 
-        resultsOfCriteria = new JTable();
-        modelOfJTableResult = new DefaultTableModel();
-        resultsOfCriteria.setModel(modelOfJTableResult);
+        this.add(resultsOfCriteria);
 
-
-        //Adding columns.
+        //Adding columns. (you will fix this when extend class table is will create)
         modelOfJTableResult.addColumn("File");
         modelOfJTableResult.addColumn("Type");
         modelOfJTableResult.addColumn("Size");
@@ -69,17 +66,27 @@ public class CenterPanel extends JPanel {
         this.insertRowToJTableResult(new Object[]{"File4", "Parth4", "Type4",
                 "Size4", "Modification4", "Creation4", "Owner4"});
 
+    }
+
+    /**
+     * This method is for initialize all components.
+     */
+    private void initComponents() {
+
+        resultsOfCriteria = new JTable();
+        modelOfJTableResult = new DefaultTableModel();
+        resultsOfCriteria.setModel(modelOfJTableResult);
 
     }
 
     /**
      * This method is for add row to TableResult.
      *
-     * @param row Is Object[] with 5 positions {File, Type,Size, Modification, Creation, Owner}.
+     * @param rowForInsertToTableResult Is Object[] with 5 positions {File, Type,Size, Modification, Creation, Owner}.
      */
-    public void insertRowToJTableResult(Object[] row) {
+    public void insertRowToJTableResult(Object[] rowForInsertToTableResult) {
 
-        modelOfJTableResult.addRow(row);
+        modelOfJTableResult.addRow(rowForInsertToTableResult);
     }
 
     /**
@@ -93,23 +100,16 @@ public class CenterPanel extends JPanel {
     /**
      * This method is for clean model from JtableResult.
      *
-     * @param model
+     * @param modelOfJTableResult
      */
-    private void cleanModelOfJTable(DefaultTableModel model) {
-        int filas = model.getRowCount();
+    private void cleanModelOfJTable(DefaultTableModel modelOfJTableResult) {
+        int filas = modelOfJTableResult.getRowCount();
         if (filas > 0) {
             for (int i = 0; i < filas; i++) {
-                model.removeRow(0);
+                modelOfJTableResult.removeRow(0);
             }
         }
     }
 
-    /**
-     * This method is for add all components.
-     */
-    private void addComponents() {
-        this.add(resultsOfCriteria);
-
-    }
 
 }
