@@ -1,13 +1,13 @@
 package com.fundation.search.model;
 
 /*
- * @(#)FileClass.java
+ * @(#)Search.java
  *
  * Copyright (c) 2018 Jala Foundation.
  * Address
  * All rights reserved.
  *
- * This software is the confidential and proprietary information of
+ * This software is the confidential and propietary information of
  * Jala Foundation, ("Confidential Information").  You shall not
  * disclose such Confidential Information and shall use it only in
  * accordance with the terms of the license agreement you entered into
@@ -30,36 +30,79 @@ public class Search {
     private SearchCriteria criteria;
     private List<File> fileList;
 
-
     /**
-     * Search Class.
+     * Search Class constructor.
      */
     public Search() {
         fileList = new ArrayList<>();
     }
 
+    /**
+     * This method receives a criteria.
+     */
+    public void setSearchCriteria(SearchCriteria criteria) {
+        this.criteria = criteria;
+    }
+
+    /**
+     * This method initialize the criteria filtering.
+     */
+    public void initSearch() {
+        filterByCriteria(criteria);
+    }
+
+    /**
+     * Is a method that filter a List according that receibe of SearchCriteria.
+     */
+    private void filterByCriteria(SearchCriteria criteria) {
+        if (criteria.getPath() != null) {
+            fileList = searchByPath(criteria.getPath());
+            if (criteria.getName() != null) {
+                fileList = searchByName(fileList, criteria.getName());
+            }
+            if (criteria.getSize() > 0) {
+                fileList = searchBySize(fileList, criteria.getSize(), criteria.getOperator());
+            }
+            if (criteria.getIsHidden()) {
+                fileList = searchHiddenFiles(fileList, criteria.getIsHidden());
+            }
+        }
+    }
+
+    /**
+     * Is the list(FileClass) result of a search by criterias.
+     */
     public List<FileClass> getResultList() {
         List<FileClass> result = new ArrayList<>();
-        for (File file : fileList) {
-            result.add(new FileClass(file.getPath(), file.getName(), file.length(), file.isHidden()));
+        if (!fileList.isEmpty()) {
+            for (File file : fileList) {
+                result.add(new FileClass(file.getPath(), file.getName(), file.length(), file.isHidden()));
+            }
         }
         return result;
     }
 
+    /**
+     * @param path .
+     * @return list all the files contained within the path.
+     */
     public List<File> searchByPath(String path) {
-        File[] files = new File(path).listFiles();
-        for (File file : files) {
-            fileList.add(file);
-            if (file.isDirectory()) {
-                searchByPath(file.getPath());
+        try {
+            File[] files = new File(path).listFiles();
+            for (File file : files) {
+                fileList.add(file);
+                if (file.isDirectory()) {
+                    searchByPath(file.getPath());
+                }
             }
+        } catch (NullPointerException e) {
         }
         return fileList;
     }
 
-
     /**
-     * @param nameFile is the namefile.
+     * @param listFile .
+     * @param nameFile .
      * @return list all the files that contains the name of a file.
      */
     public List<File> searchByName(List<File> listFile, String nameFile) {
@@ -74,9 +117,10 @@ public class Search {
     }
 
     /**
+     * @param listFile file list.
      * @param size     is the file size.
      * @param operator is "<" or ">" or "=".
-     * @return list all the files that contains the name of a file.
+     * @return list all the files minor or major or equal to given size.
      */
     public List<File> searchBySize(List<File> listFile, double size, char operator) {
 
@@ -102,9 +146,11 @@ public class Search {
         listFile.removeAll(listFilter);
         return listFile;
     }
-    /*
-     * @param
-     * @return list all the content given a path.
+
+    /**
+     * @param listFile list file
+     * @param isHidden true.
+     * @return list all the files minor or major or equal to given size.
      */
 
     public List<File> searchHiddenFiles(List<File> listFile, boolean isHidden) {
@@ -119,29 +165,4 @@ public class Search {
         listFile.removeAll(listFilter);
         return listFile;
     }
-    /** public void setSearchCriteria(SearchCriteria criteria) {
-     this.criteria = criteria;
-     }
-
-     public void init() {
-     fileList = new ArrayList<>();
-     filter(criteria);
-     }
-
-     private void filter(SearchCriteria criteria) {
-     if (criteria.getPath() != null) {
-     fileList = searchByPath(criteria.getPath());
-     if (criteria.getName() != null) {
-     fileList = searchByName(fileList, criteria.getName());
-     }
-     if (criteria.getSize() > 0) {
-     fileList = searchBySize(fileList, criteria.getSize(), criteria.getOperator());
-     }
-     if (criteria.getIsHidden()) {
-     fileList = searchHiddenFiles(fileList, criteria.getIsHidden());
-     }
-     }
-     }
-     **/
-
 }

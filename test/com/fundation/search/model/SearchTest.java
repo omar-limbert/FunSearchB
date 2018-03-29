@@ -1,4 +1,17 @@
 package com.fundation.search.model;
+/*
+ * @(#)SearchTest.java
+ *
+ * Copyright (c) 2018 Jala Foundation.
+ * Address
+ * All rights reserved.
+ *
+ * This software is the confidential and propietary information of
+ * Jala Foundation, ("Confidential Information").  You shall not
+ * disclose such Confidential Information and shall use it only in
+ * accordance with the terms of the license agreement you entered into
+ * with Sun.
+ */
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +23,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 /**
- * This class is to test the files search by criterias.
+ * This class is to test the files searched by criterias.
  *
  * @author Escarleth Ledezma Quiroga - AT-[06].
  * @version 1.0.
@@ -20,7 +33,7 @@ public class SearchTest {
     private static List<File> filesList;
 
     /**
-     * initialize File Class.
+     * initialize SearchTest Class.
      */
     @Before
     public void initialize() {
@@ -45,10 +58,10 @@ public class SearchTest {
     }
 
     /**
-     * testToSearchFileByName2.
+     * testToSearchFileByNameGivenAFileList.
      */
     @Test
-    public void testToSearchByName() {
+    public void testToSearchFilesByName() {
         final List<File> case1 = new ArrayList<>();
         case1.add(new File("src\\com\\fundation\\search\\filesTest\\test2"));
         case1.add(new File("src\\com\\fundation\\search\\filesTest\\test2\\test2.1.txt"));
@@ -56,7 +69,7 @@ public class SearchTest {
     }
 
     /**
-     * testToSearchFileByName.
+     * testToSearchHiddenFilesFalseGivenAFileList.
      */
     @Test
     public void testToSearchHiddenFilesFalse() {
@@ -70,6 +83,9 @@ public class SearchTest {
         assertEquals(case1, file.searchHiddenFiles(filesList, false));
     }
 
+    /**
+     * testToSearchHiddenFilesTrueGivenAFileList.
+     */
     @Test
     public void testToSearchHiddenFilesTrue() {
         final List<File> case1 = new ArrayList<>();
@@ -83,18 +99,21 @@ public class SearchTest {
     }
 
     /**
-     * testToSearchFileByName2.
+     * testToSearchBySizeEqualGivenAFileList.
      */
     @Test
-    public void testToSearchBySizeEqual() {
+    public void testToSearchFilesBySizeEqual() {
         final List<File> case1 = new ArrayList<>();
         case1.add(new File("src\\com\\fundation\\search\\filesTest\\test1\\test1.1.txt"));
 
         assertEquals(case1, file.searchBySize(filesList, 6, '='));
     }
 
+    /**
+     * testToSearchBySizeMajorGivenAFileList.
+     */
     @Test
-    public void testToSearchBySizeMajor() {
+    public void testToSearchFilesBySizeMajor() {
         final List<File> case1 = new ArrayList<>();
         case1.add(new File("src\\com\\fundation\\search\\filesTest\\test1\\test1.1.txt"));
         case1.add(new File("src\\com\\fundation\\search\\filesTest\\test1\\test1.2.txt"));
@@ -102,8 +121,11 @@ public class SearchTest {
         assertEquals(case1, file.searchBySize(filesList, 5, '>'));
     }
 
+    /**
+     * testToSearchBySizeMinorGivenAFileList.
+     */
     @Test
-    public void testToSearchBySizeMinor() {
+    public void testToSearchFilesBySizeMinor() {
         final List<File> case1 = new ArrayList<>();
         case1.add(new File("src\\com\\fundation\\search\\filesTest\\test1"));
         case1.add(new File("src\\com\\fundation\\search\\filesTest\\test2"));
@@ -113,5 +135,4 @@ public class SearchTest {
 
         assertEquals(case1, file.searchBySize(filesList, 3, '<'));
     }
-
 }
