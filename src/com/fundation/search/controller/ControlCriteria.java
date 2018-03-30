@@ -38,7 +38,7 @@ public class ControlCriteria {
      * This method check the event of the button "search".
      * then the inputs are insert for validate.
      */
-    public void listenSearchButton() {
+    private void listenSearchButton() {
         searchWindows.resetDataOfJTableResult();
         validInputs(searchWindows.getPathOfCriteria(), searchWindows.getSearchText());
     }
@@ -49,15 +49,14 @@ public class ControlCriteria {
      * <p>
      * For the first sprint we only just use the search by path.
      * and search by file name.
-     * So the others attributes are empty by the dafult.
+     * So the others attributes are empty by the default.
      *
      * @param namePath validate the inputs of the name path on GUI.
      * @param nameFile validate the input of the FieldName on GUI.
      */
-    public void validInputs(String namePath, String nameFile) {
+    private void validInputs(String namePath, String nameFile) {
 
         Validator validateInputs = new Validator();
-        SearchCriteria searchCriteria;
         String validNamePath = null;
         String validNameFile = null;
         String extension = null;
@@ -71,8 +70,7 @@ public class ControlCriteria {
                 validNameFile = nameFile;
             }
         }
-        System.out.println(validNamePath);
-        searchCriteria = new SearchCriteria(validNamePath, validNameFile, extension, validFormatSize, operatorForSize, isHidden);
+        SearchCriteria searchCriteria = new SearchCriteria(validNamePath, validNameFile, extension, validFormatSize, operatorForSize, isHidden);
         getResults(searchCriteria);
 
     }
@@ -83,7 +81,7 @@ public class ControlCriteria {
      *
      * @param sc An object that contain all the Inputs from GUI.
      */
-    public void getResults(SearchCriteria sc) {
+    private void getResults(SearchCriteria sc) {
         Search search = new Search();
         search.initSearch();
         search.setSearchCriteria(sc);
