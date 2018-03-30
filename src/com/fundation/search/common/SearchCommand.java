@@ -11,17 +11,14 @@
  * accordance with the terms of the license agreement you entered into
  * with Jala Foundation.
  */
-
 package fundation.search.common;
-
 /**
  *
  Class SearchCommand command.
  *
  * @version 1.0
-25 Mar 2018  * @author
-J Christian Galarza Crespo  */
-
+25 Mar 2018  * @author J Christian Galarza Crespo
+ */
 
 public class SearchCommand {
     /**
@@ -29,17 +26,13 @@ public class SearchCommand {
      */
     public static void main(String[] args) {
         /*
-        How use the console
-
-        1 for start in console enter this code the path of a SearchCommand.java
-         <dir> javac SearchCommand.java for example
-        < C:\FunSearch\FunSearchB\src\com\fundation\search\common> > javac SearchCommand.java
-        2 enter this code
-        < dir > until com
-        < java -classpath C:\FunSearch\FunSearchB\src\com > fundation.search.common.SearchCommand (the command selected)
-
+        * How use the console
+        * 1 for start in console enter this code the path of a SearchCommand.java
+        * < path > javac SearchCommand.java for example
+        * < C:\FunSearch\FunSearchB\src\com\fundation\search\common> > javac SearchCommand.java
+        * 2 enter this code  < path > until com
+        * < java -classpath C:\FunSearch\FunSearchB\src\com > fundation.search.common.SearchCommand (the command selected)
          */
-
         for (int i = 0; i < args.length; i++){
             /*
              * Convert the command of char to String for combine the commands easy.
@@ -50,37 +43,40 @@ public class SearchCommand {
             String pathString = new StringBuilder("").append("-p").toString();
             String typeString = new StringBuilder("").append("-t").toString();
             String ownerString = new StringBuilder("").append("-o").toString();
-            String dateString = new StringBuilder("").append("-d").toString();
+            String modifyDateString = new StringBuilder("").append("-dm").toString();
+            String createDateString = new StringBuilder("").append("-dc").toString();
             /* Declaration of commands
-
              * -v version
              * -f file
              * -p path
              * -t type
              * -s size
              * -o owner
-             * -d date
+             * -dm modification date
+             * -dc create date
              */
-            //----------------------------------------------------------------------
             switch (args[i]){
                 /*
-                Command Version
+                Command Version -v
                 */
                 case "-v":{
+                    //here verify the command enter is -v
                     if(versionString.equals(versionString)){
-                        System.out.println("Version program: 1.0 ");
+                        System.out.println("Version program: 1.0");
                     }
                     break;
                 }
                 /*
-                Command File
+                Command File -f
                 */
                 case "-f":{
+                    //here verify the command enter is -f
                     if(fileString.equals(fileString)) {
                         String file;
+                        //  verify that don't enter a empty space after the command
                         if (args.length > 1) {
                             file = args[i + 1];
-                            System.out.println(file + " file ");
+                            System.out.println(file + " File ");
                         } else {
                             System.out.println("please insert valid file");
                         }
@@ -88,79 +84,112 @@ public class SearchCommand {
                     break;
                 }
                 /*
-                Command Size
+                Command Size -s
                 */
                 case "-s":{
+                    //here verify the command enter is -s
                     if(sizeString.equals(sizeString)){
                         String size;
+                        //  verify that don't enter a empty space after the command
                         if(args.length > 1) {
                             size = args[i + 1];
                             System.out.println(size + " Size ");
-                        }else
+                        }else {
                             System.out.println("please insert valid Size");
+                        }
                     }
                     break;
                 }
                 /*
-                Command Path
+                Command Path -p
                 */
                 case "-p":{
+                    //here verify the command enter is -p
                     if(pathString.equals(pathString)){
                         String path;
+                        //  verify that don't enter a empty space after the command
                         if (args.length > 1) {
                             path = args[i + 1];
                             System.out.println(path + " Path");
-                        }else
+                        } else{
                             System.out.println("please insert valid Patch");
+                        }
                     }
                     break;
                 }
                 /*
-                Command Type
+                Command Type -t
                 */
                 case "-t":{
+                    //here verify the command enter is -t
                     if(typeString.equals(typeString)){
                         String type;
+                        //  verify that don't enter a empty space after the command
                         if (args.length > 1) {
                             type = args[i + 1];
                             System.out.println(type + " Type ");
-                        }else
+                        } else{
                             System.out.println("please insert valid Type");
+                        }
                     }
                     break;
                 }
                 /*
-                Command Owner
+                Command Owner -o
                 */
                 case "-o":{
+                    //here verify the command enter is -o
                     if(ownerString.equals(ownerString)){
                         String owner;
+                        //  verify that don't enter a empty space after the command
                         if (args.length > 1) {
                             owner = args[i + 1];
                             System.out.println(owner + " Owner ");
-                        }else
+                        }else{
                             System.out.println("please insert valid Owner");
+                        }
                     }
                     break;
                 }
                 /*
-                Command Date
+                Command modification  Date -dm
                 */
-                case "-d":{
-                    if(dateString.equals(dateString)){
-                        String date;
+                case "-dm":{
+                    //here verify the command enter is -dm
+                    if(modifyDateString.equals(modifyDateString)){
+                        String modifyDate;
+                        //  verify that don't enter a empty space after the command
                         if (args.length > 1) {
-                            date = args[i + 1];
-                            System.out.println(date + " Date ");
-                        }else
-                            System.out.println("please insert valid date");
+                            modifyDate = args[i + 1];
+                            System.out.println(modifyDate + " Modification  Date ");
+                        }else{
+                            System.out.println("Please insert valid date");
+                        }
                     }
                     break;
                 }
                 /*
-                Command Help
+                Command Create Date -dc
+                */
+                case "-dc":{
+                    //here verify the command enter is -dc
+                    if(createDateString.equals(createDateString)){
+                        String createDate;
+                        //  verify that don't enter a empty space after the command
+                        if (args.length > 1) {
+                            createDate = args[i + 1];
+                            System.out.println(createDate + " Create Date ");
+                        } else{
+                            System.out.println("please insert valid date");
+                        }
+                    }
+                    break;
+                }
+                /*
+                Command Help -h
                 */
                 case "-h":{
+                    //here verify the command enter is -h
                     System.out.println("help ");
                     System.out.println("-v  version program " + '\n');
                     System.out.println("-f file type");
@@ -168,14 +197,16 @@ public class SearchCommand {
                     System.out.println("-t type ");
                     System.out.println("-s Size ");
                     System.out.println("-o owner ");
-                    System.out.println("-d date ");
+                    System.out.println("-dm modification date ");
+                    System.out.println("-dc Create date ");
                     break;
                 }
-                //--------------------------------------------------------------------
-                /* Commands failed
-                Command incomplete
-                */
-                case "-":{
+                /*
+                 *Command failed
+                 *Command incomplete -
+                 */
+                case "-": {
+                    //here verify the command enter is incomplete
                     System.out.println("Incomplete character try again");
                     break;
                 }
