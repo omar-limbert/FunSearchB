@@ -28,7 +28,7 @@ public class Convertor {
      * Mb to Kb.
      * Kb to B.
      *
-     * @author Ariel Gonzales Vargas - AT-[06].
+     * @author Ariel Gonzales Vargas - AT-[06]..
      * @version 1.0.
      */
     public Convertor() {

@@ -52,7 +52,7 @@ public class ControlCriteria {
      * So the others attributes are empty by the default.
      *
      * @param namePath validate the inputs of the name path on GUI.
-     * @param nameFile validate the input of the FieldName on GUI.
+     * @param nameFile validate the input of the FieldName on GUI..
      */
     private void validInputs(String namePath, String nameFile) {
 

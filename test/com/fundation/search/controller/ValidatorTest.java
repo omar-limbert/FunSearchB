@@ -5,6 +5,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * The validatorTest, verify all the formats.
+ * for Path a real path, filename, extension, size.
+ * an others that we add on the project.
+ */
 public class ValidatorTest {
     private Validator validator;
 
@@ -14,8 +19,8 @@ public class ValidatorTest {
     }
 
     /**
-     * This test check
-     * Check the validatorPath.
+     * This test check the valid format Path
+     * Check the validatorPath..
      */
     @Test
     public void testValidPaths() {
@@ -26,6 +31,10 @@ public class ValidatorTest {
         assertTrue(validator.validatorPath("C:\\Users\\Ariel Gonzales\\Downloads\\CINEBENCHR15.038\\CINEBENCH R15.038_RC184115\\modules\\mograph\\res\\strings_us\\description"));
     }
 
+    /**
+     * This test check the invalid format Path
+     * Check the validatorPath.
+     */
     @Test
     public void testInvalidPaths() {
         assertFalse(validator.validatorPath("C:\\Users\\Ariel Gonzales\\Downloads\\\\Motospeed V20"));
@@ -47,7 +56,7 @@ public class ValidatorTest {
 
 
     /**
-     * Check the format for validatorFile.
+     * Check the valid format for validatorFile.
      */
     @Test
     public void testValidFiles() {
@@ -60,6 +69,9 @@ public class ValidatorTest {
         assertTrue(validator.validatorFile("MotoSpeed Gaming MouseV20"));
     }
 
+    /**
+     * Check the invalid format for validatorFile.
+     */
     @Test
     public void testInvalidFiles() {
 
@@ -72,7 +84,7 @@ public class ValidatorTest {
     }
 
     /**
-     * Check the Format for a validatorType.
+     * Check the valid Format for a validatorType.
      */
     @Test
     public void testValidTypes() {
@@ -82,6 +94,9 @@ public class ValidatorTest {
         assertTrue(validator.validatorType(".dll"));
     }
 
+    /**
+     * Check the invalid Format for a validatorType.
+     */
     @Test
     public void testInvalidTypes() {
         assertFalse(validator.validatorType("doc."));
@@ -92,7 +107,7 @@ public class ValidatorTest {
     }
 
     /**
-     * This test check the format size.
+     * This test check the valid format size.
      * It must to be a float number.
      */
     @Test
@@ -105,6 +120,10 @@ public class ValidatorTest {
 
     }
 
+    /**
+     * This test check the invalid format size.
+     * It must to be a float number.
+     */
     @Test
     public void testInvalidSize() {
         assertFalse(validator.validatorSize("656holas65465654654"));
