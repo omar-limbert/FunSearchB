@@ -47,27 +47,34 @@ public class MainSearchWindows extends JFrame {
      */
     public void initWindows() {
 
+        // Setting tittle of application.
         this.setTitle("Search Application");
+
+        // Initialize Top and Center Panel, you need add new Bottom panel for new functionalities.
         this.topPanel = new TopPanel("Searching...");
         this.centerPanel = new CenterPanel();
 
-        // this.searchButton.setVisible(true);
+        // this.bottom = new BottomPanel(); <= you need implement this for next features.
 
+        // Setting Border Layout and repaint.
         this.getContentPane().setLayout(new BorderLayout());
         this.getContentPane().add(topPanel, BorderLayout.NORTH);
-
         this.getContentPane().add(centerPanel, BorderLayout.CENTER);
+        this.revalidate();
         this.repaint();
 
+        // Setting main windows <= maybe you could be this dynamic.
         final int width = 600;
         final int height = 400;
         this.setSize(width, height);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+
     }
+
     /**
      * This method return word on SearchJTextField.
-     * Controller can use this.
+     * Controller need use this.
      *
      * @return String.
      */
@@ -75,9 +82,10 @@ public class MainSearchWindows extends JFrame {
 
         return topPanel.getSearchText();
     }
+
     /**
      * This method return Search JButton.
-     * Controller can use this.
+     * Controller need use this.
      *
      * @return JButton.
      */
@@ -88,7 +96,7 @@ public class MainSearchWindows extends JFrame {
 
     /**
      * This method return Path criteria.
-     * Controller can use this.
+     * Controller need use this.
      *
      * @return String.
      */
@@ -99,7 +107,7 @@ public class MainSearchWindows extends JFrame {
 
     /**
      * This method return File Name criteria.
-     * Controller can use this.
+     * Controller need use this.
      *
      * @return String.
      */
@@ -110,22 +118,22 @@ public class MainSearchWindows extends JFrame {
 
     /**
      * This method return Hidden File criteria.
-     * Controller can use this.
+     * Controller need use this.
      *
      * @return String.
      */
-    public boolean isShowHiddenFilesChecked() {
+    public boolean isHiddenFilesButtonChecked() {
 
         return topPanel.isShowHiddenFilesChecked();
     }
 
     /**
      * This method is for insert one row to JTableResult.
-     * Controller can use this.
+     * Controller need use this.
      *
      * @param row
      */
-    public void setDataOfJTableResult(Object[] row) {
+    public void insertDataOfJTableResult(Object[] row) {
 
         centerPanel.insertRowToJTableResult(row);
     }
@@ -134,7 +142,7 @@ public class MainSearchWindows extends JFrame {
      * This method is for reset all values of JTableResult.
      * Controller can use this.
      */
-    public void setDataOfJTableResult() {
+    public void resetDataOfJTableResult() {
 
         centerPanel.resetAllDataOfTableResult();
     }
