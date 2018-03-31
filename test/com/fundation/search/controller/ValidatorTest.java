@@ -1,3 +1,17 @@
+/*
+ * @(#)ValidatorTest.java
+ *
+ * Copyright (c) 2018 Jala Foundation.
+ * Address
+ * All rights reserved.
+ *
+ * This software is the confidential and proprietary information of
+ * Jala Foundation, ("Confidential Information").  You shall not
+ * disclose such Confidential Information and shall use it only in
+ * accordance with the terms of the license agreement you entered into
+ * with Sun.
+ */
+
 package com.fundation.search.controller;
 
 import org.junit.Before;
@@ -13,6 +27,9 @@ import static org.junit.Assert.*;
 public class ValidatorTest {
     private Validator validator;
 
+    /**
+     * Init the object validator.
+     */
     @Before
     public void init() {
         validator = new Validator();

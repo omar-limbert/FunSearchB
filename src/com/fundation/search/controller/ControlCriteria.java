@@ -1,4 +1,3 @@
-package com.fundation.search.controller;
 /*
  * @(#)ControlCriteria.java
  *
@@ -12,6 +11,9 @@ package com.fundation.search.controller;
  * accordance with the terms of the license agreement you entered into
  * with Sun.
  */
+
+
+package com.fundation.search.controller;
 
 import com.fundation.search.model.FileClass;
 import com.fundation.search.model.Search;

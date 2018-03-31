@@ -1,7 +1,5 @@
-package com.fundation.search.controller;
-
 /*
- * @(#)FileClass.java
+ * @(#)Validator.java
  *
  * Copyright (c) 2018 Jala Foundation.
  * Address
@@ -13,6 +11,9 @@ package com.fundation.search.controller;
  * accordance with the terms of the license agreement you entered into
  * with Sun.
  */
+
+
+package com.fundation.search.controller;
 
 import java.io.File;
 import java.util.regex.Matcher;

@@ -1,6 +1,5 @@
-package com.fundation.search.controller;
 /*
- * @(#)FileClass.java
+ * @(#)SearchCriteria.java
  *
  * Copyright (c) 2018 Jala Foundation.
  * Address
@@ -12,6 +11,8 @@ package com.fundation.search.controller;
  * accordance with the terms of the license agreement you entered into
  * with Sun.
  */
+
+package com.fundation.search.controller;
 
 /**
  * This class save the SearchCriterial..

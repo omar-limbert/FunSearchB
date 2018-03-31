@@ -1,5 +1,3 @@
-package com.fundation.search.controller;
-
 /*
  * @(#)Convertor.java
  *
@@ -13,6 +11,9 @@ package com.fundation.search.controller;
  * accordance with the terms of the license agreement you entered into
  * with Sun.
  */
+
+package com.fundation.search.controller;
+
 
 /**
  * This class made the conversion from size to bytes.
