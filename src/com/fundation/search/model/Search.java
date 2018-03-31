@@ -30,6 +30,7 @@ public class Search {
     private SearchCriteria criteria;
     private List<File> fileList;
 
+
     /**
      * Search Class constructor.
      */
@@ -60,7 +61,7 @@ public class Search {
             if (criteria.getName() != null) {
                 fileList = searchByName(fileList, criteria.getName());
             }
-            if (criteria.getSize() > 0) {
+            if (criteria.getSize() > -1) {
                 fileList = searchBySize(fileList, criteria.getSize(), criteria.getOperator());
             }
             if (criteria.getIsHidden()) {
@@ -86,7 +87,7 @@ public class Search {
      * @param path .
      * @return list all the files contained within the path.
      */
-    public List<File> searchByPath(String path) {
+    private List<File> searchByPath(String path) {
         try {
             File[] files = new File(path).listFiles();
             for (File file : files) {
@@ -105,7 +106,7 @@ public class Search {
      * @param nameFile .
      * @return list all the files that contains the name of a file.
      */
-    public List<File> searchByName(List<File> listFile, String nameFile) {
+    private List<File> searchByName(List<File> listFile, String nameFile) {
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
             if (!file.getName().contains(nameFile)) {
@@ -122,7 +123,7 @@ public class Search {
      * @param operator is "<" or ">" or "=".
      * @return list all the files minor or major or equal to given size.
      */
-    public List<File> searchBySize(List<File> listFile, double size, char operator) {
+    private List<File> searchBySize(List<File> listFile, double size, char operator) {
 
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
@@ -153,7 +154,7 @@ public class Search {
      * @return list all the files minor or major or equal to given size.
      */
 
-    public List<File> searchHiddenFiles(List<File> listFile, boolean isHidden) {
+    private List<File> searchHiddenFiles(List<File> listFile, boolean isHidden) {
         List<File> listFilter = new ArrayList<>();
         if (!isHidden) {
             for (File file : listFile) {

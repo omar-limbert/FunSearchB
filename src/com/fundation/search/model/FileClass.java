@@ -19,6 +19,12 @@ public class FileClass {
     private long sizeFile;
     private boolean isHiddenFile;
 
+    /**
+     * @param pathFile     path .
+     * @param nameFile     name file.
+     * @param sizeFile     lenght file.
+     * @param isHiddenFile state hidden file.
+     */
 
     public FileClass(String pathFile, String nameFile, long sizeFile, boolean isHiddenFile) {
         this.pathFile = pathFile;

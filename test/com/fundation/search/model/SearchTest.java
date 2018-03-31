@@ -17,6 +17,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,14 +33,30 @@ import static org.junit.Assert.assertEquals;
 public class SearchTest {
     private Search file;
     private static List<File> filesList;
+    private Method methodSearchByPath;
+    private Method methodSearchByName;
+    private Method methodSearchBySize;
+    private Method methodSearchByHidden;
 
     /**
-     * initialize SearchTest Class.
+     * initialize SearchTest Class and access to private methods.
      */
     @Before
     public void initialize() {
         file = new Search();
         filesList = new ArrayList<>();
+        try {
+            methodSearchByPath = file.getClass().getDeclaredMethod("searchByPath", new Class[]{String.class});
+            methodSearchByName = file.getClass().getDeclaredMethod("searchByName", List.class, String.class);
+            methodSearchBySize = file.getClass().getDeclaredMethod("searchBySize", new Class[]{List.class, double.class, char.class});
+            methodSearchByHidden = file.getClass().getDeclaredMethod("searchHiddenFiles", new Class[]{List.class, boolean.class});
+            methodSearchByPath.setAccessible(true);
+            methodSearchByName.setAccessible(true);
+            methodSearchBySize.setAccessible(true);
+            methodSearchByHidden.setAccessible(true);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
         filesList.add(new File("src\\com\\fundation\\search\\filesTest\\test1"));
         filesList.add(new File("src\\com\\fundation\\search\\filesTest\\test1\\test1.1.txt"));
         filesList.add(new File("src\\com\\fundation\\search\\filesTest\\test1\\test1.2.txt"));
@@ -53,8 +71,14 @@ public class SearchTest {
      */
     @Test
     public void testToVerifyThePathContent() {
-
-        assertEquals(filesList, file.searchByPath("src\\com\\fundation\\search\\filesTest"));
+        try {
+            List<File> result = (List) methodSearchByPath.invoke(file, new Object[]{"src\\com\\fundation\\search\\filesTest"});
+            assertEquals(filesList, result);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -65,7 +89,14 @@ public class SearchTest {
         final List<File> case1 = new ArrayList<>();
         case1.add(new File("src\\com\\fundation\\search\\filesTest\\test2"));
         case1.add(new File("src\\com\\fundation\\search\\filesTest\\test2\\test2.1.txt"));
-        assertEquals(case1, file.searchByName(filesList, "test2"));
+        try {
+            List<File> result = (List) methodSearchByName.invoke(file, new Object[]{filesList, "test2"});
+            assertEquals(case1, result);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -80,7 +111,14 @@ public class SearchTest {
         case1.add(new File("src\\com\\fundation\\search\\filesTest\\test2"));
         case1.add(new File("src\\com\\fundation\\search\\filesTest\\test2\\test2.1.txt"));
         case1.add(new File("src\\com\\fundation\\search\\filesTest\\test3\\test3.1.txt"));
-        assertEquals(case1, file.searchHiddenFiles(filesList, false));
+        try {
+            List<File> result = (List) methodSearchByHidden.invoke(file, new Object[]{filesList, false});
+            assertEquals(case1, result);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -88,14 +126,14 @@ public class SearchTest {
      */
     @Test
     public void testToSearchHiddenFilesTrue() {
-        final List<File> case1 = new ArrayList<>();
-        case1.add(new File("src\\com\\fundation\\search\\filesTest\\test1"));
-        case1.add(new File("src\\com\\fundation\\search\\filesTest\\test1\\test1.1.txt"));
-        case1.add(new File("src\\com\\fundation\\search\\filesTest\\test1\\test1.2.txt"));
-        case1.add(new File("src\\com\\fundation\\search\\filesTest\\test2"));
-        case1.add(new File("src\\com\\fundation\\search\\filesTest\\test2\\test2.1.txt"));
-        case1.add(new File("src\\com\\fundation\\search\\filesTest\\test3"));
-        assertEquals(filesList, file.searchHiddenFiles(filesList, true));
+        try {
+            List<File> result = (List) methodSearchByHidden.invoke(file, new Object[]{filesList, true});
+            assertEquals(filesList, result);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -105,8 +143,14 @@ public class SearchTest {
     public void testToSearchFilesBySizeEqual() {
         final List<File> case1 = new ArrayList<>();
         case1.add(new File("src\\com\\fundation\\search\\filesTest\\test1\\test1.1.txt"));
-
-        assertEquals(case1, file.searchBySize(filesList, 6, '='));
+        try {
+            List<File> result = (List) methodSearchBySize.invoke(file, new Object[]{filesList, 6, '='});
+            assertEquals(case1, result);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -117,8 +161,14 @@ public class SearchTest {
         final List<File> case1 = new ArrayList<>();
         case1.add(new File("src\\com\\fundation\\search\\filesTest\\test1\\test1.1.txt"));
         case1.add(new File("src\\com\\fundation\\search\\filesTest\\test1\\test1.2.txt"));
-
-        assertEquals(case1, file.searchBySize(filesList, 5, '>'));
+        try {
+            List<File> result = (List) methodSearchBySize.invoke(file, new Object[]{filesList, 5, '>'});
+            assertEquals(case1, result);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -132,7 +182,13 @@ public class SearchTest {
         case1.add(new File("src\\com\\fundation\\search\\filesTest\\test2\\test2.1.txt"));
         case1.add(new File("src\\com\\fundation\\search\\filesTest\\test3"));
         case1.add(new File("src\\com\\fundation\\search\\filesTest\\test3\\test3.1.txt"));
-
-        assertEquals(case1, file.searchBySize(filesList, 3, '<'));
+        try {
+            List<File> result = (List) methodSearchBySize.invoke(file, new Object[]{filesList, 3, '<'});
+            assertEquals(case1, result);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 }
