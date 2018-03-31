@@ -70,7 +70,7 @@ public class Validator {
     }
 
     /**
-     * It method checks if the input is a valid Type format..
+     * It method checks if the input is a valid Type format.
      *
      * @param type
      * @return

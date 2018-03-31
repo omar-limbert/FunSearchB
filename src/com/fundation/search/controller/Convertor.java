@@ -17,7 +17,7 @@ package com.fundation.search.controller;
 /**
  * This class made the conversion from size to bytes.
  *
- * @author Ariel Gonzales Vargas - AT-[06].
+ * @author Ariel Gonzales Vargas - AT-[06]..
  * @version 1.0.
  */
 public class Convertor {

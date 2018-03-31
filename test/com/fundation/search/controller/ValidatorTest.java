@@ -20,7 +20,7 @@ public class ValidatorTest {
 
     /**
      * This test check the valid format Path
-     * Check the validatorPath..
+     * Check the validatorPath.
      */
     @Test
     public void testValidPaths() {

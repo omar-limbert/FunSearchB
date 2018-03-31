@@ -18,7 +18,7 @@ public class ConvertorTest {
     }
 
     /**
-     * this method check the conversion from Gb to Mb.
+     * this method check the conversion from Gb to Mb..
      */
     @Test
     public void testGbtoMb() {

@@ -23,7 +23,7 @@ import java.util.List;
  * This class is made the control between View and Model.
  *
  * @author Ariel Gonzales Vargas - AT-[06].
- * @version 1.0.
+ * @version 1.0..
  */
 public class ControlCriteria {
     private MainSearchWindows searchWindows;
