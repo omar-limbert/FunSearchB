@@ -85,8 +85,8 @@ public class ControlCriteria {
      */
     private void getResults(SearchCriteria sc) {
         Search search = new Search();
-        search.initSearch();
         search.setSearchCriteria(sc);
+        search.initSearch();
         List<FileClass> fileClasses = search.getResultList();
         for (FileClass fileClass : fileClasses) {
             searchWindows.insertDataOfJTableResult(new Object[]{fileClass.getName(), fileClass.getPathFile()});
