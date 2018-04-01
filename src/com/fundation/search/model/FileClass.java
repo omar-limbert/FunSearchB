@@ -1,5 +1,3 @@
-package com.fundation.search.model;
-
 /*
  * @(#)FileClass.java
  *
@@ -13,6 +11,8 @@ package com.fundation.search.model;
  * accordance with the terms of the license agreement you entered into
  * with Sun.
  */
+package com.fundation.search.model;
+
 public class FileClass {
     private String pathFile;
     private String nameFile;

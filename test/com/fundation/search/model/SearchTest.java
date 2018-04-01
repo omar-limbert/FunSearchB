@@ -1,4 +1,3 @@
-package com.fundation.search.model;
 /*
  * @(#)SearchTest.java
  *
@@ -12,6 +11,7 @@ package com.fundation.search.model;
  * accordance with the terms of the license agreement you entered into
  * with Sun.
  */
+package com.fundation.search.model;
 
 import org.junit.Before;
 import org.junit.Test;

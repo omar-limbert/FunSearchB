@@ -1,5 +1,3 @@
-package com.fundation.search.model;
-
 /*
  * @(#)Search.java
  *
@@ -13,6 +11,7 @@ package com.fundation.search.model;
  * accordance with the terms of the license agreement you entered into
  * with Sun.
  */
+package com.fundation.search.model;
 
 import com.fundation.search.controller.SearchCriteria;
 
