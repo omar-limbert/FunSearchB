@@ -11,28 +11,27 @@
  * accordance with the terms of the license agreement you entered into
  * with Jala Foundation.
  */
-package fundation.search.common;
+package fundation.search.view.ViewParameters;
+
 /**
  *
  Class SearchCommand command.
  *
  * @version 1.0
-25 Mar 2018  * @author J Christian Galarza Crespo
+25 Mar 2018  * @author J Christian Galarza Crespo - AT-[06].
  */
 
 public class SearchCommand {
     /**
      * @param args the command line arguments.
      */
-    public static void main(String[] args) {
-        /*
-        * How use the console
-        * 1 for start in console enter this code the path of a SearchCommand.java
-        * < path > javac SearchCommand.java for example
-        * < C:\FunSearch\FunSearchB\src\com\fundation\search\common> > javac SearchCommand.java
-        * 2 enter this code  < path > until com
-        * < java -classpath C:\FunSearch\FunSearchB\src\com > fundation.search.common.SearchCommand (the command selected)
-         */
+
+
+    public SearchCommand(){
+
+    }
+    public void searchCommand2(String[] args) {
+
         for (int i = 0; i < args.length; i++){
             /*
              * Convert the command of char to String for combine the commands easy.
@@ -213,4 +212,5 @@ public class SearchCommand {
             }
         }
     }
+
 }
