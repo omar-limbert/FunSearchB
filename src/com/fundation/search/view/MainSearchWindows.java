@@ -29,7 +29,13 @@ import java.awt.BorderLayout;
  */
 public class MainSearchWindows extends JFrame {
 
+    /**
+     * topPanel, Type: TopPanel, this is top panel of main windows.
+     */
     private TopPanel topPanel;
+    /**
+     * topPanel, Type: CenterPanel, this is center panel of main windows.
+     */
     private CenterPanel centerPanel;
 
 
@@ -37,49 +43,40 @@ public class MainSearchWindows extends JFrame {
      * Constructor for MainSearchWindows.
      */
     public MainSearchWindows() {
-
         super();
-
     }
 
     /**
      * This method is for initialize all components on main windows.
      */
     public void initWindows() {
-
         // Setting tittle of application.
         this.setTitle("Search Application");
-
         // Initialize Top and Center Panel, you need add new Bottom panel for new functionalities.
         this.topPanel = new TopPanel("Searching...");
         this.centerPanel = new CenterPanel();
-
         // this.bottom = new BottomPanel(); <= you need implement this for next features.
-
         // Setting Border Layout and repaint.
         this.getContentPane().setLayout(new BorderLayout());
         this.getContentPane().add(topPanel, BorderLayout.NORTH);
         this.getContentPane().add(centerPanel, BorderLayout.CENTER);
         this.revalidate();
         this.repaint();
-
         // Setting main windows <= maybe you could be this dynamic.
         final int width = 600;
         final int height = 400;
         this.setSize(width, height);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
-
     }
 
     /**
      * This method return word on SearchJTextField.
      * Controller need use this.
      *
-     * @return String.
+     * @return String, this is a text on SearchJTextField.
      */
     public String getSearchText() {
-
         return topPanel.getSearchText();
     }
 
@@ -87,43 +84,39 @@ public class MainSearchWindows extends JFrame {
      * This method return Search JButton.
      * Controller need use this.
      *
-     * @return JButton.
+     * @return JButton, this is a JButton on Top pane.
      */
     public JButton getSearchButton() {
-
         return topPanel.getSearchButton();
     }
 
     /**
-     * This method return Path criteria.
-     * Controller need use this.
+     * This method is for return path.
+     * Controller nee ise this.
      *
-     * @return String.
+     * @return String, this contains a complete path for search files.
      */
     public String getPathOfCriteria() {
-
         return topPanel.getPathOfCriteria();
     }
 
     /**
-     * This method return File Name criteria.
-     * Controller need use this.
+     * This method return Hidden File criteria.
+     * Controller nee ise this.
      *
-     * @return String.
+     * @return String, this is a action command can be "all words", "start with", "end with" and "equal to".
      */
     public String getFileNameOfCriteria() {
-
         return topPanel.getFileNameOfCriteria();
     }
 
     /**
-     * This method return Hidden File criteria.
-     * Controller need use this.
+     * This method is to get state of hiddenFileJCheckBox.
+     * Controller nee ise this.
      *
-     * @return String.
+     * @return boolean, true for search with hidden files and false for search without hidden files.
      */
     public boolean isHiddenFilesButtonChecked() {
-
         return topPanel.isShowHiddenFilesChecked();
     }
 
@@ -131,10 +124,9 @@ public class MainSearchWindows extends JFrame {
      * This method is for insert one row to JTableResult.
      * Controller need use this.
      *
-     * @param row
+     * @param row, this row contains all values for insert to table result.
      */
     public void insertDataOfJTableResult(Object[] row) {
-
         centerPanel.insertRowToJTableResult(row);
     }
 
@@ -143,7 +135,6 @@ public class MainSearchWindows extends JFrame {
      * Controller can use this.
      */
     public void resetDataOfJTableResult() {
-
         centerPanel.resetAllDataOfTableResult();
     }
 

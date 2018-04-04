@@ -27,20 +27,20 @@ public class CriteriaPanel extends JPanel {
 
     /**
      * Constructor for TopPanel.
+     * This constructor call initComponents() after this
+     * revalidate and repaint all panel.
      */
     public CriteriaPanel() {
-
         this.initComponents();
         this.revalidate();
         this.repaint();
-
     }
 
     /**
      * This method is for initialize all components.
+     * This is for set Layout to BoxLayout on vertical position.
      */
     private void initComponents() {
-
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
 
@@ -51,14 +51,11 @@ public class CriteriaPanel extends JPanel {
      */
     public void addComponent(Map<String, JPanel> panelList) {
         this.removeAll();
-
         //Adding Panel for each button
         panelList.forEach((k, v) -> this.add(v));
-
+        // Revalidate and repaint.
         this.revalidate();
         this.repaint();
-
-
     }
 
 }

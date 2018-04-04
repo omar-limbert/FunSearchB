@@ -31,35 +31,47 @@ import javax.swing.JLabel;
  */
 public class TopPanel extends JPanel {
 
+    /**
+     * searchTextField, Type: SearchTextField, this is input for initialize search.
+     */
     private SearchTextField searchTextField;
+    /**
+     * toolbar, Type: SearchToolBar, this toolbar contains all buttons for set search.
+     */
     private SearchToolBar toolbar;
+    /**
+     * searchButton, Type: JButton, this button is for Controller and send all data.
+     */
     private JButton searchButton;
+    /**
+     * criteriaPanel, Type: CriteriaPanel, this contains all criteria panels.
+     */
     private CriteriaPanel criteriaPanel;
+    /**
+     * constraints, Type: GridBagConstraints, this is initialize GridBag Layout.
+     */
     private GridBagConstraints constraints;
+    /**
+     * searchJLabel, Type: JLabel, this is a plane text with "Search: ".
+     */
     private JLabel searchJLabel;
 
 
     /**
      * Constructor for TopPanel.
+     * This method is for initialize searchButton, setting layout and repaint panel.
      *
      * @param placeHolderText This is text for place holder.
      */
     public TopPanel(String placeHolderText) {
-
-
         this.searchButton = new JButton();
         this.searchButton.setText("Search");
-
-
         //setup layout
         this.constraints = new GridBagConstraints();
-
-
         this.setLayout(new GridBagLayout());
         this.initComponents(placeHolderText);
         this.addComponents();
         this.repaint();
-
     }
 
     /**
@@ -68,7 +80,6 @@ public class TopPanel extends JPanel {
      * @param placeHolderText This is text for place holder.
      */
     private void initComponents(String placeHolderText) {
-
         // Dynamic criteria JPanel.
         this.criteriaPanel = new CriteriaPanel();
         // JLabel "Search".
@@ -77,49 +88,42 @@ public class TopPanel extends JPanel {
         this.searchTextField = new SearchTextField(placeHolderText);
         // JToolbar with all buttons
         this.toolbar = new SearchToolBar(criteriaPanel);
-
     }
 
     /**
      * This method is for add all components.
      */
     private void addComponents() {
-
         // Adding Search JLabel to first row.
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
         this.add(searchJLabel, constraints);
-
         // Adding Search SearchJTextField to first row.
         constraints.gridx = 1;
         constraints.gridy = 0;
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
         this.add(searchTextField, constraints);
-
         // Adding Search JButton to first row.
         constraints.gridx = 2;
         constraints.gridy = 0;
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
         this.add(searchButton, constraints);
-
         // Second Row only for add toolbar buttons.
         constraints.gridx = 0;
         constraints.gridy = 1;
         constraints.gridwidth = 3;
         constraints.gridheight = 1;
         this.add(toolbar, constraints);
-
         // Third Row only for add criteria dynamic JPanel.
         constraints.gridx = 0;
         constraints.gridy = 2;
         constraints.gridwidth = 3;
         constraints.gridheight = 3;
         this.add(criteriaPanel, constraints);
-
     }
 
     /**
@@ -128,7 +132,6 @@ public class TopPanel extends JPanel {
      * @return String
      */
     public String getPathOfCriteria() {
-
         return toolbar.getPathOfCriteria();
     }
 
