@@ -30,21 +30,28 @@ import java.awt.event.ActionEvent;
  */
 public class PathPanel extends JPanel {
 
-
+    /**
+     * directoryChooser, Type: JFileChooser, this is a file chooser for get path of directory.
+     */
     private JFileChooser directoryChooser;
+    /**
+     * pathButton, Type: JButton, this is a button for open JFileChooser.
+     */
     private JButton pathButton;
+    /**
+     * pathTextField, Type: JTextField, this is a JTextField for contains final path result.
+     */
     private JTextField pathTextField;
 
     /**
      * Constructor for PathPanel.
+     * This method is for set Layout, call initComponents(), call addComponents() and repaint() panel.
      */
     public PathPanel() {
-
         this.setLayout(new FlowLayout());
         this.initComponents();
         this.addComponents();
         this.repaint();
-
     }
 
     /**
@@ -58,34 +65,28 @@ public class PathPanel extends JPanel {
         directoryChooser.setDialogTitle("Folder chooser for search files");
         directoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         directoryChooser.setAcceptAllFileFilterUsed(false);
-
         // Button for open Folder Chooser.
         pathButton = new JButton();
         pathButton.setText("Choose Folder");
-
         // Action Listener for Folder Chooser.
         pathButton.addActionListener(e -> folderChooser(e));
-
         // JTextField for show result.
         pathTextField = new JTextField();
         pathTextField.setPreferredSize(new Dimension(200, 35));
         pathTextField.setText(directoryChooser.getCurrentDirectory().getPath());
-
-
     }
 
     /**
      * This method is for open file chooser and search path for folder.
      *
-     * @param event
+     * @param event, this is event from Action Listener.
      */
     private void folderChooser(ActionEvent event) {
-
         if (directoryChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 
             pathTextField.setText(directoryChooser.getSelectedFile().getAbsolutePath());
         } else {
-            System.out.println("No Selection ");
+            System.out.println("No Selection "); // maybe you will replace this for logger.
         }
     }
 
@@ -93,7 +94,6 @@ public class PathPanel extends JPanel {
      * This method is for add all components.
      */
     private void addComponents() {
-
         this.add(pathTextField);
         this.add(pathButton);
     }
@@ -101,12 +101,10 @@ public class PathPanel extends JPanel {
     /**
      * This method is for return path.
      *
-     * @return String
+     * @return String, this contains a complete path for search files.
      */
     public String getPathCriteria() {
-
         return pathTextField.getText();
-
     }
 
 }

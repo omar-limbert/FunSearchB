@@ -29,9 +29,25 @@ import javax.swing.event.DocumentListener;
  */
 public class SearchTextField extends JTextField {
 
-
+    /**
+     * WIDTH_OF_JTEXTFIELD, Type: Integer, this is width for JTextField.
+     */
+    public static final int WIDTH_OF_JTEXTFIELD = 270;
+    /**
+     * HEIGHT_OF_JTEXTFIELD, Type: Integer, this is height for JTextField.
+     */
+    public static final int HEIGHT_OF_JTEXTFIELD = 32;
+    /**
+     * placeHolderText, Type: String, text for place holder.
+     */
     private String placeHolderText;
-    private Color placeHolderColor;
+    /**
+     * placeHolderColor, Type: Color, color for text on place holder.
+     */
+    private Color placeHolderColor; // maybe you will use this in the future.
+    /**
+     * band, Type: boolean, this is for controller changes on place holder.
+     */
     private boolean band;
 
     /**
@@ -40,14 +56,10 @@ public class SearchTextField extends JTextField {
      * @param placeHolderText This is text for place holder.
      */
     public SearchTextField(String placeHolderText) {
-
         super();
-
         this.initComponents(placeHolderText);
-
         //Mapping changes on textField.
         getDocument().addDocumentListener(new DocumentListener() {
-
             @Override
             public void removeUpdate(DocumentEvent e) {
                 band = getText().length() <= 0;
@@ -61,7 +73,6 @@ public class SearchTextField extends JTextField {
             @Override
             public void changedUpdate(DocumentEvent de) {
             }
-
         });
     }
 
@@ -71,22 +82,19 @@ public class SearchTextField extends JTextField {
      * @param placeHolderText This is a text for place holder.
      */
     private void initComponents(String placeHolderText) {
-
-        final int three = 3;
-        final int zero = 0;
-        final int six = 6;
-        final int width = 270;
-        final int height = 32;
-
-        Dimension dimension = new Dimension(width, height);
+        // Dimension for JTextField.
+        Dimension dimension = new Dimension(WIDTH_OF_JTEXTFIELD, HEIGHT_OF_JTEXTFIELD);
+        // Text for place holder.
         this.placeHolderText = placeHolderText;
-        this.placeHolderColor = new Color(zero, zero, zero);
+        // Color for place holder.
+        this.placeHolderColor = new Color(0, 0, 0);
+        // Flag controller for place holder.
         this.band = true;
-
+        // Setting JTextField.
         this.setSize(dimension);
         this.setPreferredSize(dimension);
         this.setVisible(true);
-        this.setMargin(new Insets(three, six, three, six));
+        this.setMargin(new Insets(3, 6, 3, 6));
         this.setPlaceHolderText(placeHolderText);
     }
 
@@ -110,7 +118,6 @@ public class SearchTextField extends JTextField {
 
     @Override
     public void paintComponent(Graphics g) {
-
         final int number90 = 90;
         final int number2 = 2;
         super.paintComponent(g);
