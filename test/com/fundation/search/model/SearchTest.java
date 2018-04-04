@@ -57,13 +57,13 @@ public class SearchTest {
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        filesList.add(new File("src\\com\\fundation\\search\\filesTest\\test1"));
-        filesList.add(new File("src\\com\\fundation\\search\\filesTest\\test1\\test1.1.txt"));
-        filesList.add(new File("src\\com\\fundation\\search\\filesTest\\test1\\test1.2.txt"));
-        filesList.add(new File("src\\com\\fundation\\search\\filesTest\\test2"));
-        filesList.add(new File("src\\com\\fundation\\search\\filesTest\\test2\\test2.1.txt"));
-        filesList.add(new File("src\\com\\fundation\\search\\filesTest\\test3"));
-        filesList.add(new File("src\\com\\fundation\\search\\filesTest\\test3\\test3.1.txt"));
+        filesList.add(new File("test\\com\\fundation\\search\\model\\filesTest\\test1"));
+        filesList.add(new File("test\\com\\fundation\\search\\model\\filesTest\\test1\\test1.1.txt"));
+        filesList.add(new File("test\\com\\fundation\\search\\model\\filesTest\\test1\\test1.2.txt"));
+        filesList.add(new File("test\\com\\fundation\\search\\model\\filesTest\\test2"));
+        filesList.add(new File("test\\com\\fundation\\search\\model\\filesTest\\test2\\test2.1.txt"));
+        filesList.add(new File("test\\com\\fundation\\search\\model\\filesTest\\test3"));
+        filesList.add(new File("test\\com\\fundation\\search\\model\\filesTest\\test3\\test3.1.txt"));
     }
 
     /**
@@ -72,7 +72,7 @@ public class SearchTest {
     @Test
     public void testToVerifyThePathContent() {
         try {
-            List<File> result = (List) methodSearchByPath.invoke(file, new Object[]{"src\\com\\fundation\\search\\filesTest"});
+            List<File> result = (List) methodSearchByPath.invoke(file, new Object[]{"test\\com\\fundation\\search\\model\\filesTest"});
             assertEquals(filesList, result);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
@@ -87,8 +87,8 @@ public class SearchTest {
     @Test
     public void testToSearchFilesByName() {
         final List<File> case1 = new ArrayList<>();
-        case1.add(new File("src\\com\\fundation\\search\\filesTest\\test2"));
-        case1.add(new File("src\\com\\fundation\\search\\filesTest\\test2\\test2.1.txt"));
+        case1.add(new File("test\\com\\fundation\\search\\model\\filesTest\\test2"));
+        case1.add(new File("test\\com\\fundation\\search\\model\\filesTest\\test2\\test2.1.txt"));
         try {
             List<File> result = (List) methodSearchByName.invoke(file, new Object[]{filesList, "test2"});
             assertEquals(case1, result);
@@ -105,12 +105,12 @@ public class SearchTest {
     @Test
     public void testToSearchHiddenFilesFalse() {
         final List<File> case1 = new ArrayList<>();
-        case1.add(new File("src\\com\\fundation\\search\\filesTest\\test1"));
-        case1.add(new File("src\\com\\fundation\\search\\filesTest\\test1\\test1.1.txt"));
-        case1.add(new File("src\\com\\fundation\\search\\filesTest\\test1\\test1.2.txt"));
-        case1.add(new File("src\\com\\fundation\\search\\filesTest\\test2"));
-        case1.add(new File("src\\com\\fundation\\search\\filesTest\\test2\\test2.1.txt"));
-        case1.add(new File("src\\com\\fundation\\search\\filesTest\\test3\\test3.1.txt"));
+        case1.add(new File("test\\com\\fundation\\search\\model\\filesTest\\test1"));
+        case1.add(new File("test\\com\\fundation\\search\\model\\filesTest\\test1\\test1.1.txt"));
+        case1.add(new File("test\\com\\fundation\\search\\model\\filesTest\\test1\\test1.2.txt"));
+        case1.add(new File("test\\com\\fundation\\search\\model\\filesTest\\test2"));
+        case1.add(new File("test\\com\\fundation\\search\\model\\filesTest\\test2\\test2.1.txt"));
+        case1.add(new File("test\\com\\fundation\\search\\model\\filesTest\\test3\\test3.1.txt"));
         try {
             List<File> result = (List) methodSearchByHidden.invoke(file, new Object[]{filesList, false});
             assertEquals(case1, result);
@@ -142,7 +142,7 @@ public class SearchTest {
     @Test
     public void testToSearchFilesBySizeEqual() {
         final List<File> case1 = new ArrayList<>();
-        case1.add(new File("src\\com\\fundation\\search\\filesTest\\test1\\test1.1.txt"));
+        case1.add(new File("test\\com\\fundation\\search\\model\\filesTest\\test1\\test1.1.txt"));
         try {
             List<File> result = (List) methodSearchBySize.invoke(file, new Object[]{filesList, 6, '='});
             assertEquals(case1, result);
@@ -159,8 +159,8 @@ public class SearchTest {
     @Test
     public void testToSearchFilesBySizeMajor() {
         final List<File> case1 = new ArrayList<>();
-        case1.add(new File("src\\com\\fundation\\search\\filesTest\\test1\\test1.1.txt"));
-        case1.add(new File("src\\com\\fundation\\search\\filesTest\\test1\\test1.2.txt"));
+        case1.add(new File("test\\com\\fundation\\search\\model\\filesTest\\test1\\test1.1.txt"));
+        case1.add(new File("test\\com\\fundation\\search\\model\\filesTest\\test1\\test1.2.txt"));
         try {
             List<File> result = (List) methodSearchBySize.invoke(file, new Object[]{filesList, 5, '>'});
             assertEquals(case1, result);
@@ -177,11 +177,11 @@ public class SearchTest {
     @Test
     public void testToSearchFilesBySizeMinor() {
         final List<File> case1 = new ArrayList<>();
-        case1.add(new File("src\\com\\fundation\\search\\filesTest\\test1"));
-        case1.add(new File("src\\com\\fundation\\search\\filesTest\\test2"));
-        case1.add(new File("src\\com\\fundation\\search\\filesTest\\test2\\test2.1.txt"));
-        case1.add(new File("src\\com\\fundation\\search\\filesTest\\test3"));
-        case1.add(new File("src\\com\\fundation\\search\\filesTest\\test3\\test3.1.txt"));
+        case1.add(new File("test\\com\\fundation\\search\\model\\filesTest\\test1"));
+        case1.add(new File("test\\com\\fundation\\search\\model\\filesTest\\test2"));
+        case1.add(new File("test\\com\\fundation\\search\\model\\filesTest\\test2\\test2.1.txt"));
+        case1.add(new File("test\\com\\fundation\\search\\model\\filesTest\\test3"));
+        case1.add(new File("test\\com\\fundation\\search\\model\\filesTest\\test3\\test3.1.txt"));
         try {
             List<File> result = (List) methodSearchBySize.invoke(file, new Object[]{filesList, 3, '<'});
             assertEquals(case1, result);
