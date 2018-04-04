@@ -15,7 +15,8 @@
 
 package com.fundation.search.controller;
 
-import com.fundation.search.model.FileClass;
+import com.fundation.search.common.Validator;
+import com.fundation.search.model.FileResult;
 import com.fundation.search.model.Search;
 import com.fundation.search.view.MainSearchWindows;
 
@@ -28,8 +29,17 @@ import java.util.List;
  * @version 1.0.
  */
 public class ControlCriteria {
+    /**
+     * searchWindows is the view.
+     */
     private MainSearchWindows searchWindows;
 
+    /**
+     * Init the constructor.
+     * To init the ControlCriteria we need to use the MainSearchWindows class.
+     *
+     * @param searchWindows is the main window of the app.
+     */
     public ControlCriteria(MainSearchWindows searchWindows) {
         this.searchWindows = searchWindows;
         searchWindows.initWindows();
@@ -57,13 +67,19 @@ public class ControlCriteria {
      * @param nameFile validate the input of the FieldName on GUI..
      */
     private void validInputs(String namePath, String nameFile) {
-
+        // Init a Validator object.
         Validator validateInputs = new Validator();
+        // The path name.
         String validNamePath = null;
+        //The file name.
         String validNameFile = null;
+        //The file extension.
         String extension = null;
+        //The file's size.
         long validFormatSize = -1;
-        char operatorForSize = '.';
+        //the instruccion for the operator.
+        char operatorForSize = '=';
+        //The instruccion of search a Hidden files.
         boolean isHidden = false;
 
         if (validateInputs.validatorPath(namePath) && validateInputs.isValidPath(namePath)) {
@@ -72,9 +88,9 @@ public class ControlCriteria {
                 validNameFile = nameFile;
             }
         }
+        //Init a SearchCriteria object with the validated information.
         SearchCriteria searchCriteria = new SearchCriteria(validNamePath, validNameFile, extension, validFormatSize, operatorForSize, isHidden);
         getResults(searchCriteria);
-
     }
 
     /**
@@ -84,12 +100,13 @@ public class ControlCriteria {
      * @param sc An object that contain all the Inputs from GUI.
      */
     private void getResults(SearchCriteria sc) {
+        //Init an Search object.
         Search search = new Search();
         search.setSearchCriteria(sc);
         search.initSearch();
-        List<FileClass> fileClasses = search.getResultList();
-        for (FileClass fileClass : fileClasses) {
-            searchWindows.insertDataOfJTableResult(new Object[]{fileClass.getName(), fileClass.getPathFile()});
+        List<FileResult> fileResults = search.getResultList();
+        for (FileResult file : fileResults) {
+            searchWindows.insertDataOfJTableResult(new Object[]{fileResults.getName(), fileResults.getPathFile()});
         }
     }
 }

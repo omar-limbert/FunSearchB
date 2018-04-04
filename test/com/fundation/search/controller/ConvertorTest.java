@@ -15,6 +15,7 @@
 
 package com.fundation.search.controller;
 
+import com.fundation.search.common.Convertor;
 import org.junit.Before;
 import org.junit.Test;
 
