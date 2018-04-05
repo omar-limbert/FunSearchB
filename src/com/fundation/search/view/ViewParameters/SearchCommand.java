@@ -11,7 +11,7 @@
  * accordance with the terms of the license agreement you entered into
  * with Jala Foundation.
  */
-package fundation.search.view.ViewParameters;
+package com.fundation.search.view.ViewParameters;
 
 /**
  *
