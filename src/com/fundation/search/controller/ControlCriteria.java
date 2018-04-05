@@ -106,7 +106,7 @@ public class ControlCriteria {
         search.initSearch();
         List<FileResult> fileResults = search.getResultList();
         for (FileResult file : fileResults) {
-            searchWindows.insertDataOfJTableResult(new Object[]{fileResults.getName(), fileResults.getPathFile()});
+            searchWindows.insertDataOfJTableResult(new Object[]{file.getName(), file.getPathFile()});
 
         }
     }
