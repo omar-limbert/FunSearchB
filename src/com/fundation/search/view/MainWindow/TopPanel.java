@@ -147,10 +147,10 @@ public class TopPanel extends JPanel {
     /**
      * This method is for return Hidden criteria.
      *
-     * @return boolean
+     * @return String
      */
-    public boolean isShowHiddenFilesChecked() {
-        return toolbar.isShowHiddenFilesChecked();
+    public String getHiddenOfCriteria() {
+        return toolbar.getHiddenOfCriteria();
     }
 
     /**
