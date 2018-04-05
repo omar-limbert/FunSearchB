@@ -31,11 +31,29 @@ import static org.junit.Assert.assertEquals;
  * @version 1.0.
  */
 public class SearchTest {
+    /**
+     * file is an Search object.
+     */
     private Search file;
+    /**
+     * filesList is the content of path.
+     */
     private static List<File> filesList;
+    /**
+     * access the content of the  SearchByPath method.
+     */
     private Method methodSearchByPath;
+    /**
+     * access the content of the  SearchByName method.
+     */
     private Method methodSearchByName;
+    /**
+     * access the content of the  SearchBySize method.
+     */
     private Method methodSearchBySize;
+    /**
+     * access the content of the SearchByHidden method.
+     */
     private Method methodSearchByHidden;
 
     /**
