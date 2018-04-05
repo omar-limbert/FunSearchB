@@ -161,6 +161,7 @@ public class Search {
 
     /**
      * Is the list(FileResult) result of a search by criterias.
+     *@return File Result list with the files already searched
      */
     public List<FileResult> getResultList() {
         List<FileResult> result = new ArrayList<>();
