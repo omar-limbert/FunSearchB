@@ -25,7 +25,10 @@ import static org.junit.Assert.assertEquals;
  * This method check the class convertor.
  */
 public class ConvertorTest {
-
+     /**
+     * convertor is the object of the class Convertor.
+     * for check the tests
+     */
     private Convertor convertor;
 
     /**
