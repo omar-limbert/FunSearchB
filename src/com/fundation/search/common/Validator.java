@@ -13,7 +13,7 @@
  */
 
 
-package com.fundation.search.controller;
+package com.fundation.search.common;
 
 import java.io.File;
 import java.util.regex.Matcher;
@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 
 /**
  * This class validate all the fields that are recivied by the GUI.
+ * For this method  was implement using Expressions Regulars.
  *
  * @author Ariel Gonzales Vargas - AT-[06].
  * @version 1.0.
@@ -38,8 +39,9 @@ public class Validator {
     /**
      * It method checks if the input is a valid Path format.
      *
-     * @param path Path
-     * @return boolean
+     * @param path a String Path
+     * @return true if it is a valid format for a path.
+     * return false if is an invalid format for a path.
      */
     public boolean validatorPath(String path) {
         pattern = Pattern.compile("(^[A-Z]:(\\\\)*)?((\\\\)\\w+((\\s|\\.)\\w+)*)+");
@@ -51,7 +53,8 @@ public class Validator {
      * It method checks if the path exist.
      *
      * @param path Direction path.
-     * @return boolean.
+     * @return true if the path exist on the PC.
+     * false if the that does not exist on the PC.
      */
     public boolean isValidPath(String path) {
         File pathD = new File(path);
@@ -61,8 +64,9 @@ public class Validator {
     /**
      * It method checks if the input is a valid File format.
      *
-     * @param file string
-     * @return boolean
+     * @param file format file name.
+     * @return true if it is a valid format for a file name.
+     * false if it is an invalid format for a file name.
      */
     public boolean validatorFile(String file) {
         pattern = Pattern.compile("(\\w+(\\s|[^:*?\"<>|]\\w+)*)+");
@@ -71,10 +75,11 @@ public class Validator {
     }
 
     /**
-     * It method checks if the input is a valid Type format..
+     * It method checks if the input is a valid Type (extension of the file) format.
      *
-     * @param type
-     * @return
+     * @param type a format file extension name.
+     * @return true if it is a valid format for a extension.
+     * false if it is an invalid format for a extension.
      */
     public boolean validatorType(String type) {
         pattern = Pattern.compile("^\\.[a-z]{3,4}");
@@ -85,8 +90,9 @@ public class Validator {
     /**
      * It method checks if the input is a valid size format.
      *
-     * @param size number double.
-     * @return boolean
+     * @param size format file size.
+     * @return true if it is a valid format for a size format.
+     * false if it is an invalid format for a size format.
      */
     public boolean validatorSize(String size) {
         pattern = Pattern.compile("[0-9]+(\\.[0-9]+)?");

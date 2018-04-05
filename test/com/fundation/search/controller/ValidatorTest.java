@@ -14,6 +14,7 @@
 
 package com.fundation.search.controller;
 
+import com.fundation.search.common.Validator;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,6 +26,11 @@ import static org.junit.Assert.*;
  * an others that we add on the project.
  */
 public class ValidatorTest {
+    
+     /**
+     * validator is the object of the class Convertor.
+     * for check the tests
+     */
     private Validator validator;
 
     /**

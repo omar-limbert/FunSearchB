@@ -12,8 +12,7 @@
  * with Sun.
  */
 
-package com.fundation.search.controller;
-
+package com.fundation.search.common;
 
 /**
  * This class made the conversion from size to bytes.
@@ -25,12 +24,9 @@ public class Convertor {
 
     /**
      * This class convert.
-     * Gb to Mb.
-     * Mb to Kb.
-     * Kb to B.
-     *
-     * @author Ariel Gonzales Vargas - AT-[06]..
-     * @version 1.0.
+     * Gb (Gigabytes) to Mb(Megabytes).
+     * Mb (Megabytes) to Kb (Kilobytes).
+     * Kb (Kilobytes) to B (Bytes).
      */
     public Convertor() {
     }
@@ -38,8 +34,8 @@ public class Convertor {
     /**
      * This method convert Gb to Mb
      *
-     * @param tam a deciaml number (Gb).
-     * @return the number on Mb
+     * @param tam a decimal number (Gb).
+     * @return the a number(a conversion from Gb to Mb) on Mb
      */
     public double convertGbToMb(double tam) {
         return tam * 1024.0;
@@ -48,8 +44,8 @@ public class Convertor {
     /**
      * This method convert Mb to Kb
      *
-     * @param tam a deciaml number (Mb).
-     * @return the number on Kb
+     * @param tam a decimal number (Mb).
+     * @return the a number(a conversion from Mb to Kb) on Kb
      */
     public double convertMbToKb(double tam) {
         return tam * 1024.0;
@@ -58,8 +54,8 @@ public class Convertor {
     /**
      * This method convert Kb to B
      *
-     * @param tam a deciaml number (Kb).
-     * @return the number on B
+     * @param tam a decimal number (Kb).
+     * @return the a number (a conversion from Kb to B) on B
      */
     public double convertKbToB(double tam) {
         return tam * 1024.0;

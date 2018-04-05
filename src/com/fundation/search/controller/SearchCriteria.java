@@ -24,13 +24,30 @@ package com.fundation.search.controller;
 
 public class SearchCriteria {
 
+    /**
+     * path is the direcction Path.
+     */
     private String path;
+    /**
+     * name is the file name.
+     */
     private String name;
+    /**
+     * type is the file extension.
+     */
     private String type;
+    /**
+     * isHidden is a boolean instrucction.
+     */
     private boolean isHidden;
+    /**
+     * size is the file size.
+     */
     private long size;
+    /**
+     * operator is the instruccion (> ; < ; =).
+     */
     private char operator;
-
 
     /**
      * This method init the Search Criterial.
@@ -43,9 +60,9 @@ public class SearchCriteria {
      * @param isHidden the hidden.
      */
     public SearchCriteria(String path, String name, String type, long size, char operator, boolean isHidden) {
-        this.path = (path != "") ? path : "";
-        this.name = (name != "") ? name : "";
-        this.type = (type != "") ? type : "";
+        this.path = (path != "") ? path : null;
+        this.name = (name != "") ? name : null;
+        this.type = (type != "") ? type : null;
         this.size = size;
         this.operator = operator;
         this.isHidden = isHidden;
