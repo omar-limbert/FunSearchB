@@ -26,60 +26,20 @@ import java.util.List;
  * @version 1.0.
  */
 public class Search {
+    /**
+     * criteria  is a SearchCriteria object that receive criterias to find files
+     */
     private SearchCriteria criteria;
+    /**
+     * fileList is a file list that save files according to criterias
+     */
     private List<File> fileList;
-
 
     /**
      * Search Class constructor.
      */
     public Search() {
         fileList = new ArrayList<>();
-    }
-
-    /**
-     * This method receives a criteria.
-     */
-    public void setSearchCriteria(SearchCriteria criteria) {
-        this.criteria = criteria;
-    }
-
-    /**
-     * This method initialize the criteria filtering.
-     */
-    public void initSearch() {
-        filterByCriteria(criteria);
-    }
-
-    /**
-     * Is a method that filter a List according that receibe of SearchCriteria.
-     */
-    private void filterByCriteria(SearchCriteria criteria) {
-        if (criteria.getPath() != null) {
-            fileList = searchByPath(criteria.getPath());
-            if (criteria.getName() != null) {
-                fileList = searchByName(fileList, criteria.getName());
-            }
-            if (criteria.getSize() > -1) {
-                fileList = searchBySize(fileList, criteria.getSize(), criteria.getOperator());
-            }
-            if (criteria.getIsHidden()) {
-                fileList = searchHiddenFiles(fileList, criteria.getIsHidden());
-            }
-        }
-    }
-
-    /**
-     * Is the list(FileClass) result of a search by criterias.
-     */
-    public List<FileClass> getResultList() {
-        List<FileClass> result = new ArrayList<>();
-        if (!fileList.isEmpty()) {
-            for (File file : fileList) {
-                result.add(new FileClass(file.getPath(), file.getName(), file.length(), file.isHidden()));
-            }
-        }
-        return result;
     }
 
     /**
@@ -164,5 +124,52 @@ public class Search {
         }
         listFile.removeAll(listFilter);
         return listFile;
+    }
+
+    /**
+     * @param criteria receives Search Criteria object.
+     *                 Is a method that filter a List according that receive of SearchCriteria.
+     */
+    private void filterByCriteria(SearchCriteria criteria) {
+        if (criteria.getPath() != null) {
+            fileList = searchByPath(criteria.getPath());
+            if (criteria.getName() != null) {
+                fileList = searchByName(fileList, criteria.getName());
+            }
+            if (criteria.getSize() > -1) {
+                fileList = searchBySize(fileList, criteria.getSize(), criteria.getOperator());
+            }
+            if (criteria.getIsHidden()) {
+                fileList = searchHiddenFiles(fileList, criteria.getIsHidden());
+            }
+        }
+    }
+
+    /**
+     * @param criteria This method receives a criteria.
+     */
+    public void setSearchCriteria(SearchCriteria criteria) {
+        this.criteria = criteria;
+    }
+
+    /**
+     * This method initialize the criteria filtering.
+     */
+    public void initSearch() {
+        filterByCriteria(criteria);
+    }
+
+    /**
+     * Is the list(FileResult) result of a search by criterias.
+     *@return File Result list with the files already searched
+     */
+    public List<FileResult> getResultList() {
+        List<FileResult> result = new ArrayList<>();
+        if (!fileList.isEmpty()) {
+            for (File file : fileList) {
+                result.add(new FileResult(file.getPath(), file.getName(), file.length(), file.isHidden()));
+            }
+        }
+        return result;
     }
 }
