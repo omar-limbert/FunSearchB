@@ -26,10 +26,16 @@ public class SearchCommand {
      * @param args the command line arguments.
      */
 
-
+    /**
+     * init in the main
+     */
     public SearchCommand(){
 
     }
+
+    /**
+     * @param args the command line arguments.
+     */
     public void searchCommand2(String[] args) {
 
         for (int i = 0; i < args.length; i++){
