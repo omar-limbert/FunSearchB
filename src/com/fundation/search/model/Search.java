@@ -62,12 +62,24 @@ public class Search {
 
     /**
      * Modified by Omar, I improve performance for result search.
+     * NOTE: You need improve 'e.getName()' for get only file name without extension.
      * @param listFile .
      * @param nameFile .
      * @return list all the files that contains the name of a file.
      */
-    private List<File> searchByName(List<File> listFile, String nameFile) {
-        listFile.removeIf(e -> (!e.getName().contains(nameFile)));
+    private List<File> searchByName(List<File> listFile, String nameFile,String fileNameCriteria) {
+        if(fileNameCriteria.equalsIgnoreCase("all words")){
+        listFile.removeIf(e -> (! e.getName().contains(nameFile)));
+        }
+        if(fileNameCriteria.equalsIgnoreCase("start with")){
+            listFile.removeIf(e -> (!e.getName().startsWith(nameFile)));
+        }
+        if(fileNameCriteria.equalsIgnoreCase("end with")){
+            listFile.removeIf(e -> (!e.getName().endsWith(nameFile)));
+        }
+        if(fileNameCriteria.equalsIgnoreCase("equal to")){
+            listFile.removeIf(e -> (!e.getName().equals(nameFile)));
+        }
         return listFile;
     }
 
@@ -131,7 +143,7 @@ public class Search {
         if (criteria.getPath() != null) {
             fileList = searchByPath(criteria.getPath());
             if (criteria.getName() != null) {
-                fileList = searchByName(fileList, criteria.getName());
+                fileList = searchByName(fileList, criteria.getName(), criteria.getFileNameCriteria());
             }
             if (criteria.getSize() > -1) {
                 fileList = searchBySize(fileList, criteria.getSize(), criteria.getOperator());
@@ -141,9 +153,6 @@ public class Search {
             }
             if (criteria.getHiddenCriteria().equalsIgnoreCase("only hidden")) {
                 fileList = searchHiddenFiles(fileList, "only hidden");
-            }
-            if (criteria.getHiddenCriteria().equalsIgnoreCase("without hidden")) {
-                fileList = searchHiddenFiles(fileList, "without hidden");
             }
         }
     }
