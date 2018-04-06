@@ -46,13 +46,15 @@ public class ControlCriteria {
         searchWindows.getSearchButton().addActionListener(e -> listenSearchButton());
     }
 
+
+
     /**
      * This method check the event of the button "search".
      * then the inputs are insert for validate.
      */
     private void listenSearchButton() {
         searchWindows.resetDataOfJTableResult();
-        validInputs(searchWindows.getPathOfCriteria(), searchWindows.getSearchText());
+        validInputs(searchWindows.getPathOfCriteria(), searchWindows.getSearchText(), searchWindows.getHiddenCriteria());
     }
 
     /**
@@ -66,7 +68,7 @@ public class ControlCriteria {
      * @param namePath validate the inputs of the name path on GUI.
      * @param nameFile validate the input of the FieldName on GUI..
      */
-    private void validInputs(String namePath, String nameFile) {
+    private void validInputs(String namePath, String nameFile, String hCriteria) {
         // Init a Validator object.
         Validator validateInputs = new Validator();
         // The path name.
@@ -80,7 +82,7 @@ public class ControlCriteria {
         //the instruccion for the operator.
         char operatorForSize = '=';
         //The instruccion of search a Hidden files.
-        boolean isHidden = false;
+        String hiddenCriteria = hCriteria;
 
         if (validateInputs.validatorPath(namePath) && validateInputs.isValidPath(namePath)) {
             validNamePath = namePath;
@@ -89,7 +91,7 @@ public class ControlCriteria {
             }
         }
         //Init a SearchCriteria object with the validated information.
-        SearchCriteria searchCriteria = new SearchCriteria(validNamePath, validNameFile, extension, validFormatSize, operatorForSize, isHidden);
+        SearchCriteria searchCriteria = new SearchCriteria(validNamePath, validNameFile, extension, validFormatSize, operatorForSize, hiddenCriteria);
         getResults(searchCriteria);
     }
 
@@ -104,9 +106,9 @@ public class ControlCriteria {
         Search search = new Search();
         search.setSearchCriteria(sc);
         search.initSearch();
-        List<FileResult> fileResults = search.getResultList();
-        for (FileResult file : fileResults) {
-            searchWindows.insertDataOfJTableResult(new Object[]{file.getName(), file.getPathFile()});
+        List<FileResult> result = search.getResultList();
+        for (FileResult file : result) {
+            searchWindows.insertDataOfJTableResult(new Object[]{file.getName(), file.getPathFile(),file.getIsHidden()});
 
         }
     }
