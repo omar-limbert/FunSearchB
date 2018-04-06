@@ -17,7 +17,6 @@ package com.fundation.search.controller;
 /**
  * This class save the SearchCriterial..
  * Before to send the Search Class.
- *
  * @author Ariel Gonzales Vargas - AT-[06].
  * @version 1.0.
  */
@@ -39,7 +38,7 @@ public class SearchCriteria {
     /**
      * isHidden is a string instrucction.
      */
-    private String isHidden;
+    private String HiddenCriteria;
     /**
      * size is the file size.
      */
@@ -48,23 +47,32 @@ public class SearchCriteria {
      * operator is the instruccion (> ; < ; =).
      */
     private char operator;
+    /**
+     * modificated by Christian,I added String fileNameCriteria.
+     * name is the file name criteria.
+     */
+    private  String fileNameCriteria;
 
     /**
+     * modificated by Christian,I added String HiddenCriteria, String fileNameCriteria.
      * This method init the Search Criterial.
      *  @param path     a direction Path.
      * @param name     a file name.
      * @param type     a file extension.
      * @param size     a file size.
      * @param operator the instruction of the operator.
-     * @param isHidden the hidden.
+     * @param HiddenCriteria the hidden.
+     * @param fileNameCriteria the Name criteria.
      */
-    public SearchCriteria(String path, String name, String type, long size, char operator, String isHidden) {
+    public SearchCriteria(String path, String name, String type, long size, char operator, String HiddenCriteria, String fileNameCriteria) {
         this.path = (path != "") ? path : null;
         this.name = (name != "") ? name : null;
         this.type = (type != "") ? type : null;
         this.size = size;
         this.operator = operator;
-        this.isHidden = isHidden;
+        this.HiddenCriteria = HiddenCriteria;
+        this.fileNameCriteria = fileNameCriteria;
+
     }
 
     /**
@@ -105,8 +113,16 @@ public class SearchCriteria {
     /**
      * @return the name the file hidden.
      */
-    public String getIsHidden() {
-        return isHidden ;
+    public String getHiddenCriteria() {
+        return HiddenCriteria ;
+    }
+
+    /**
+     *modificated by Christian,I added getFileNameCriteria.
+     * @return the name the name criteria.
+     */
+    public  String getFileNameCriteria(){
+        return fileNameCriteria;
     }
 
 }
