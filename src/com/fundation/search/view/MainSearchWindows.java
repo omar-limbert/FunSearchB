@@ -20,7 +20,6 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 
-
 /**
  * This class main windows.
  *
@@ -137,6 +136,4 @@ public class MainSearchWindows extends JFrame {
     public void resetDataOfJTableResult() {
         centerPanel.resetAllDataOfTableResult();
     }
-
-
 }
