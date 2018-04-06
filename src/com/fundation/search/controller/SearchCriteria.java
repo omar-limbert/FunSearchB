@@ -17,7 +17,7 @@ package com.fundation.search.controller;
 /**
  * This class save the SearchCriterial..
  * Before to send the Search Class.
- *
+ *@modificated by Christian Galarza - AT-[06].
  * @author Ariel Gonzales Vargas - AT-[06].
  * @version 1.0.
  */

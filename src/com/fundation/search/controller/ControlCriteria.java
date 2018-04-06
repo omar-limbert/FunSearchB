@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * This class is made the control between View and Model.
- *
+ *@modificated by Christian Galarza - AT-[06].
  * @author Ariel Gonzales Vargas - AT-[06].
  * @version 1.0.
  */
