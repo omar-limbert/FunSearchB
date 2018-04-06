@@ -1,5 +1,5 @@
 /*
- * @(#)FileNamePanel.java
+ * @(#)HiddenPanel.java
  *
  * Copyright (c) 2018 Jala Foundation.
  * 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
@@ -19,41 +19,36 @@ import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 
 /**
- * This class is to create the configuration for File Name button.
+ * This class is to create the configuration for Hidden button.
  *
- * @author Omar Limbert Huanca Sanchez - AT-[06].
+ * @author Escarleth Ledezma Quiroga - AT-[06].
  * @version 1.0.
  */
-public class FileNamePanel extends JPanel {
+public class HiddenPanel extends JPanel {
 
     /**
-     * allWordsRadioButton, Type: JRadioButton, when file name contains all words.
+     * allFilesRadioButton, Type: JRadioButton, when show hidden file and no hidden file.
      */
-    private JRadioButton allWordsRadioButton;
+    private JRadioButton allFilesRadioButton;
     /**
-     * startWithRadioButton, Type: JRadioButton, when file name start with word.
+     * onlyHiddenRadioButton, Type: JRadioButton, when show only hidden files.
      */
-    private JRadioButton startWithRadioButton;
+    private JRadioButton onlyHiddenRadioButton;
     /**
-     * endWithRadioButton, Type: JRadioButton, when file name end with word.
+     * withoutHiddenRadioButton, Type: JRadioButton, when show files without hidden files.
      */
-    private JRadioButton endWithRadioButton;
-    /**
-     * equalsToRadioButton, Type: JRadioButton, when file name is equal to word.
-     */
-    private JRadioButton equalsToRadioButton;
+    private JRadioButton withoutHiddenRadioButton;
     /**
      * radioButtonGroup, Type: ButtonGroup, this radio button groups will contains all radioButtons.
      */
     private ButtonGroup radioButtonGroup;
 
-
     /**
-     * Constructor to FileNamePanel.
+     * Constructor to HiddenPanel.
      * This method is for set layout to FlowLayout, call to iniComponents(), call to addComponents(),
      * and repaint.
      */
-    public FileNamePanel() {
+    public HiddenPanel() {
         // Setting layout to FlowLayout.
         this.setLayout(new FlowLayout());
         // Calling to initComponents() method.
@@ -68,17 +63,16 @@ public class FileNamePanel extends JPanel {
      * This method is to initialize all components.
      */
     private void initComponents() {
+
         // Initialize RadioButtons.
         this.radioButtonGroup = new ButtonGroup();
-        this.allWordsRadioButton = new JRadioButton("all words");
-        this.startWithRadioButton = new JRadioButton("start with");
-        this.endWithRadioButton = new JRadioButton("end with");
-        this.equalsToRadioButton = new JRadioButton("equal to");
+        this.allFilesRadioButton = new JRadioButton("all files");
+        this.onlyHiddenRadioButton = new JRadioButton("only hidden");
+        this.withoutHiddenRadioButton = new JRadioButton("without hidden");
         // Setting Action Command.
-        this.allWordsRadioButton.setActionCommand("all words");
-        this.startWithRadioButton.setActionCommand("start with");
-        this.endWithRadioButton.setActionCommand("end with");
-        this.equalsToRadioButton.setActionCommand("equal to");
+        this.allFilesRadioButton.setActionCommand("all files");
+        this.onlyHiddenRadioButton.setActionCommand("only hidden");
+        this.withoutHiddenRadioButton.setActionCommand("without hidden");
     }
 
     /**
@@ -86,25 +80,23 @@ public class FileNamePanel extends JPanel {
      */
     private void addComponents() {
         // Adding radioButtons to one Group Radio Button.
-        this.radioButtonGroup.add(allWordsRadioButton);
-        this.radioButtonGroup.add(startWithRadioButton);
-        this.radioButtonGroup.add(endWithRadioButton);
-        this.radioButtonGroup.add(equalsToRadioButton);
+        this.radioButtonGroup.add(allFilesRadioButton);
+        this.radioButtonGroup.add(onlyHiddenRadioButton);
+        this.radioButtonGroup.add(withoutHiddenRadioButton);
         // Adding radioButtons to Panel
-        this.add(allWordsRadioButton);
-        this.add(startWithRadioButton);
-        this.add(endWithRadioButton);
-        this.add(equalsToRadioButton);
+        this.add(allFilesRadioButton);
+        this.add(onlyHiddenRadioButton);
+        this.add(withoutHiddenRadioButton);
         // Default radioButton selected.
-        this.allWordsRadioButton.setSelected(true);
+        this.withoutHiddenRadioButton.setSelected(true);
     }
 
     /**
      * This method return Hidden File criteria.
      *
-     * @return String, this is a action command can be "all words", "start with", "end with" and "equal to".
+     * @return String, this is a action command can be "all files", "only hidden","without hidden".
      */
-    public String getFileNameCriteria() {
+    public String getHiddenCriteria() {
         return radioButtonGroup.getSelection().getActionCommand();
     }
 

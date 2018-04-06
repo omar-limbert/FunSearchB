@@ -15,6 +15,7 @@ package com.fundation.search.view;
 
 import com.fundation.search.view.CriteriaPanels.CriteriaPanel;
 import com.fundation.search.view.CriteriaPanels.FileNamePanel;
+import com.fundation.search.view.CriteriaPanels.HiddenPanel;
 import com.fundation.search.view.CriteriaPanels.PathPanel;
 
 import javax.swing.JToolBar;
@@ -61,7 +62,10 @@ public class SearchToolBar extends JToolBar {
      * PATH_PANEL, Type: PathPanel, this Path criteria Panel.
      */
     private static final PathPanel PATH_PANEL = new PathPanel();
-    // Here you will add other panels.
+    /**
+     * HIDDEN_PANEL, Type: HiddenPanel, this Hidden criteria Panel.
+     */
+    private static final HiddenPanel HIDDEN_PANEL = new HiddenPanel();
 
     /**
      * Constructor for SearchToolBar.
@@ -88,6 +92,7 @@ public class SearchToolBar extends JToolBar {
         this.addButtonToToggleCollection("All Tags");
         this.addButtonToToggleCollection("File Name");
         this.addButtonToToggleCollection("Path");
+        this.addButtonToToggleCollection("Hidden");
         this.addButtonToToggleCollection("Type");
         this.addButtonToToggleCollection("Size");
         this.addButtonToToggleCollection("Owner");
@@ -142,6 +147,10 @@ public class SearchToolBar extends JToolBar {
         if (action.equalsIgnoreCase("Path")) {
             panelList.remove(action);
         }
+        // Removing "Hidden Panel Criteria"
+        if (action.equalsIgnoreCase("Hidden")) {
+            panelList.remove(action);
+        }
     }
 
     /**
@@ -152,6 +161,7 @@ public class SearchToolBar extends JToolBar {
         if (action.equalsIgnoreCase("All Tags")) {
             panelList.put("File Name", FILE_NAME_PANEL);
             panelList.put("Path", PATH_PANEL);
+            panelList.put("Hidden", HIDDEN_PANEL);
         }
         // Adding "File Name Panel Criteria"
         if (action.equalsIgnoreCase("File Name")) {
@@ -160,6 +170,10 @@ public class SearchToolBar extends JToolBar {
         // Adding "Path Panel Criteria"
         if (action.equalsIgnoreCase("Path")) {
             panelList.put(action, PATH_PANEL);
+        }
+        // Adding "Hidden Panel Criteria"
+        if (action.equalsIgnoreCase("Hidden")) {
+            panelList.put(action, HIDDEN_PANEL);
         }
     }
 
@@ -194,12 +208,10 @@ public class SearchToolBar extends JToolBar {
     }
 
     /**
-     * This method is to get state of hiddenFileJCheckBox.
+     * This method is to get state of hiddenFile.
+     * Controller nee ise this.
      *
-     * @return boolean, true for search with hidden files and false for search without hidden files.
+     * @return String, ""all files",""only hidden files",""without hidden files".
      */
-    public boolean isShowHiddenFilesChecked() {
-
-        return FILE_NAME_PANEL.isHiddenFilesChecked();
-    }
+    public String getHiddenOfCriteria() { return HIDDEN_PANEL.getHiddenCriteria(); }
 }

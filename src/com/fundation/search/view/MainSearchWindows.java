@@ -111,13 +111,13 @@ public class MainSearchWindows extends JFrame {
     }
 
     /**
-     * This method is to get state of hiddenFileJCheckBox.
+     * This method is to get state of hiddenFile.
      * Controller nee ise this.
      *
-     * @return boolean, true for search with hidden files and false for search without hidden files.
+     * @return String, ""all files",""only hidden files",""without hidden files".
      */
-    public boolean isHiddenFilesButtonChecked() {
-        return topPanel.isShowHiddenFilesChecked();
+    public String getHiddenOfCriteria() {
+        return topPanel.getHiddenOfCriteria();
     }
 
     /**
