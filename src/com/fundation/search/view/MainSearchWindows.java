@@ -18,8 +18,7 @@ import com.fundation.search.view.MainWindow.TopPanel;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
-import java.awt.BorderLayout;
-
+import java.awt.*;
 
 /**
  * This class main windows.
@@ -137,6 +136,4 @@ public class MainSearchWindows extends JFrame {
     public void resetDataOfJTableResult() {
         centerPanel.resetAllDataOfTableResult();
     }
-
-
 }

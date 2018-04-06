@@ -13,10 +13,12 @@
  */
 package com.fundation.search.view.MainWindow;
 
-import java.awt.GridLayout;
-import javax.swing.JPanel;
-import javax.swing.JTable;
+import java.awt.*;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 
 /**
  * This class is for create Center Panel.
@@ -34,13 +36,17 @@ public class CenterPanel extends JPanel {
      * modelOfJTableResult, Type: DefaultTableModel, this is a file chooser for get path of directory.
      */
     private DefaultTableModel modelOfJTableResult;
+    /**
+     * modelOfTableHeader, Type:JTableHeader, is the Header of the table.
+     */
+    private JTableHeader header;
 
     /**
      * Constructor for CentralPanel.
      * This method is for set Layout to GirdLayout, call initComponents() and call addComponents().
      */
     public CenterPanel() {
-        this.setLayout(new GridLayout(2, 1));
+        this.setLayout(new BorderLayout(2, 1));
         this.initComponents();
         this.addComponents();
     }
@@ -49,32 +55,24 @@ public class CenterPanel extends JPanel {
      * This method is for add all components.
      */
     private void addComponents() {
-        this.add(resultsOfCriteria);
-        //Adding columns. (you will fix this when extend class table is will create)
-        modelOfJTableResult.addColumn("File");
-        modelOfJTableResult.addColumn("Type");
-        modelOfJTableResult.addColumn("Size");
-        modelOfJTableResult.addColumn("Modification");
-        modelOfJTableResult.addColumn("Creation");
-        modelOfJTableResult.addColumn("Owner");
-        //Sample data please remove this when you will complete dynamic jtable class.
-        this.insertRowToJTableResult(new Object[]{"File1", "Parth1", "Type1",
-                "Size1", "Modification1", "Creation1", "Owner1"});
-        this.insertRowToJTableResult(new Object[]{"File2", "Parth2", "Type2",
-                "Size2", "Modification2", "Creation2", "Owner2"});
-        this.insertRowToJTableResult(new Object[]{"File3", "Parth3", "Type3",
-                "Size3", "Modification3", "Creation3", "Owner3"});
-        this.insertRowToJTableResult(new Object[]{"File4", "Parth4", "Type4",
-                "Size4", "Modification4", "Creation4", "Owner4"});
+        this.add(resultsOfCriteria, BorderLayout.CENTER);
+        this.add(header, BorderLayout.NORTH);
+        this.add(new JScrollPane(resultsOfCriteria));
+
     }
 
     /**
      * This method is for initialize all components.
      */
     private void initComponents() {
+        String columnNames[] = {"Name", "Path", "Hidden"};
+        String rowData[][] = {{}, {}, {}};
         resultsOfCriteria = new JTable();
-        modelOfJTableResult = new DefaultTableModel();
+        modelOfJTableResult = new DefaultTableModel(rowData, columnNames);
         resultsOfCriteria.setModel(modelOfJTableResult);
+        /* Accedemos al header de forma individual */
+        header = resultsOfCriteria.getTableHeader();
+
     }
 
     /**
