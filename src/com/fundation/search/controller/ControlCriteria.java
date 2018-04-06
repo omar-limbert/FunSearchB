@@ -24,7 +24,6 @@ import java.util.List;
 
 /**
  * This class is made the control between View and Model.
- *@modificated by Christian Galarza - AT-[06].
  * @author Ariel Gonzales Vargas - AT-[06].
  * @version 1.0.
  */
@@ -48,13 +47,14 @@ public class ControlCriteria {
 
 
 
-    /**
+    /***
+     * modificated by Christian,I added getHiddenOfCriteria and getFileNameOfCriteria.
      * This method check the event of the button "search".
      * then the inputs are insert for validate.
      */
     private void listenSearchButton() {
         searchWindows.resetDataOfJTableResult();
-        validInputs(searchWindows.getPathOfCriteria(), searchWindows.getSearchText(), searchWindows.getHiddenOfCriteria());
+        validInputs(searchWindows.getPathOfCriteria(), searchWindows.getSearchText(), searchWindows.getHiddenOfCriteria(), searchWindows.getFileNameOfCriteria());
     }
 
     /**
@@ -68,7 +68,7 @@ public class ControlCriteria {
      * @param namePath validate the inputs of the name path on GUI.
      * @param nameFile validate the input of the FieldName on GUI..
      */
-    private void validInputs(String namePath, String nameFile, String hCriteria) {
+    private void validInputs(String namePath, String nameFile, String hCriteria, String nCriteria) {
         // Init a Validator object.
         Validator validateInputs = new Validator();
         // The path name.
@@ -79,10 +79,11 @@ public class ControlCriteria {
         String extension = null;
         //The file's size.
         long validFormatSize = -1;
-        //the instruccion for the operator.
+        //the instruction for the operator.
         char operatorForSize = '=';
-        //The instruccion of search a Hidden files.
+        //The instruction of search a Hidden files.
         String hiddenCriteria = hCriteria;
+        String fileNameCriteria = nCriteria;
 
         if (validateInputs.validatorPath(namePath) && validateInputs.isValidPath(namePath)) {
             validNamePath = namePath;
@@ -91,7 +92,7 @@ public class ControlCriteria {
             }
         }
         //Init a SearchCriteria object with the validated information.
-        SearchCriteria searchCriteria = new SearchCriteria(validNamePath, validNameFile, extension, validFormatSize, operatorForSize, hiddenCriteria);
+        SearchCriteria searchCriteria = new SearchCriteria(validNamePath, validNameFile, extension, validFormatSize, operatorForSize, hiddenCriteria, fileNameCriteria);
         getResults(searchCriteria);
     }
 
