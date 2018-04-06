@@ -54,7 +54,7 @@ public class ControlCriteria {
      */
     private void listenSearchButton() {
         searchWindows.resetDataOfJTableResult();
-        validInputs(searchWindows.getPathOfCriteria(), searchWindows.getSearchText(), searchWindows.getHiddenCriteria());
+        validInputs(searchWindows.getPathOfCriteria(), searchWindows.getSearchText(), searchWindows.getHiddenOfCriteria());
     }
 
     /**

@@ -39,7 +39,7 @@ public class SearchCriteria {
     /**
      * isHidden is a string instrucction.
      */
-    private String isHidden;
+    private String HiddenCriteria;
     /**
      * size is the file size.
      */
@@ -56,15 +56,15 @@ public class SearchCriteria {
      * @param type     a file extension.
      * @param size     a file size.
      * @param operator the instruction of the operator.
-     * @param isHidden the hidden.
+     * @param HiddenCriteria the hidden.
      */
-    public SearchCriteria(String path, String name, String type, long size, char operator, String isHidden) {
+    public SearchCriteria(String path, String name, String type, long size, char operator, String HiddenCriteria) {
         this.path = (path != "") ? path : null;
         this.name = (name != "") ? name : null;
         this.type = (type != "") ? type : null;
         this.size = size;
         this.operator = operator;
-        this.isHidden = isHidden;
+        this.HiddenCriteria = HiddenCriteria;
     }
 
     /**
@@ -105,8 +105,8 @@ public class SearchCriteria {
     /**
      * @return the name the file hidden.
      */
-    public String getIsHidden() {
-        return isHidden ;
+    public String getHiddenCriteria() {
+        return HiddenCriteria ;
     }
 
 }
