@@ -18,7 +18,7 @@ import com.fundation.search.view.MainWindow.TopPanel;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
-import java.awt.*;
+import java.awt.BorderLayout;
 
 /**
  * This class main windows.

@@ -13,12 +13,12 @@
  */
 package com.fundation.search.view.MainWindow;
 
-import java.awt.*;
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
+import java.awt.BorderLayout;
 
 /**
  * This class is for create Center Panel.
