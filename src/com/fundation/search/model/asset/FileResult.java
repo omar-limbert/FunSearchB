@@ -1,48 +1,59 @@
 /*
- * @(#)FileResult.java
+ * @(#)FileNamePanel.java
  *
  * Copyright (c) 2018 Jala Foundation.
- * Address
+ * 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
  * All rights reserved.
  *
- * This software is the confidential and propietary information of
+ * This software is the confidential and proprietary information of
  * Jala Foundation, ("Confidential Information").  You shall not
  * disclose such Confidential Information and shall use it only in
  * accordance with the terms of the license agreement you entered into
  * with Sun.
  */
-package com.fundation.search.model;
+package com.fundation.search.model.asset;
+
+import java.util.Date;
 
 /**
- * This class is to return file attributes.
+ * This class Asset can be FileResult, MultimediaResult and maybe SearchFolder.
  *
- * @author Escarleth Ledezma Quiroga - AT-[06].
+ * @author Omar Limbert Huanca Sanchez - AT-[06].
  * @version 1.0.
  */
-public class FileResult {
+public class FileResult extends Asset {
+
     /**
      * pathFile is the file path
-     */
+     * */
     private String pathFile;
     /**
      * nameFile is the file name
-     */
+     * */
     private String nameFile;
     /**
-     * sizeFile is the file tam
-     */
+     * sizeFile is the file size
+     * */
     private long sizeFile;
     /**
      * isHiddenFile is the file state hidden/no hidden
-     */
+     * */
     private boolean isHiddenFile;
 
-    /**
-     * FileResult constructor.
-     *
+    private String type;
+    private boolean isReadOnly;
+    private boolean isFileSystem;
+    private Date creationDate;
+    private Date lastAccessDate;
+    private Date modifyDate;
+    private String ownerFile;
+
+
+
+    /**FileResult constructor.
      * @param pathFile     path .
      * @param nameFile     name file.
-     * @param sizeFile     lenght file.
+     * @param sizeFile     length file.
      * @param isHiddenFile state hidden file.
      */
 
@@ -52,7 +63,6 @@ public class FileResult {
         this.sizeFile = sizeFile;
         this.isHiddenFile = isHiddenFile;
     }
-
     /**
      * This method return a path.
      */
