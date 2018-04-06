@@ -16,22 +16,26 @@ package com.fundation.search.model;
 import com.fundation.search.controller.SearchCriteria;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.attribute.PosixFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is to search files by criterias.
+ * This class is to search files by criteria.
  *
  * @author Escarleth Ledezma Quiroga - AT-[06].
+ * @author Omar Limbert Huanca Sanchez - AT-[06].
  * @version 1.0.
  */
 public class Search {
     /**
-     * criteria  is a SearchCriteria object that receive criterias to find files
+     * criteria  is a SearchCriteria object that receive criteria to find files.
      */
     private SearchCriteria criteria;
     /**
-     * fileList is a file list that save files according to criterias
+     * fileList is a file list that save files according to criteria.
      */
     private List<File> fileList;
 
@@ -61,23 +65,24 @@ public class Search {
     }
 
     /**
-     * Modified by Omar, I improve performance for result search.
      * NOTE: You need improve 'e.getName()' for get only file name without extension.
+     *
      * @param listFile .
      * @param nameFile .
      * @return list all the files that contains the name of a file.
      */
-    private List<File> searchByName(List<File> listFile, String nameFile,String fileNameCriteria) {
-        if(fileNameCriteria.equalsIgnoreCase("all words")){
-        listFile.removeIf(e -> (! e.getName().contains(nameFile)));
+    private List<File> searchByName(List<File> listFile, String nameFile, String fileNameCriteria) {
+
+        if (fileNameCriteria.equalsIgnoreCase("all words")) {
+            listFile.removeIf(e -> (!e.getName().contains(nameFile)));
         }
-        if(fileNameCriteria.equalsIgnoreCase("start with")){
+        if (fileNameCriteria.equalsIgnoreCase("start with")) {
             listFile.removeIf(e -> (!e.getName().startsWith(nameFile)));
         }
-        if(fileNameCriteria.equalsIgnoreCase("end with")){
+        if (fileNameCriteria.equalsIgnoreCase("end with")) {
             listFile.removeIf(e -> (!e.getName().endsWith(nameFile)));
         }
-        if(fileNameCriteria.equalsIgnoreCase("equal to")){
+        if (fileNameCriteria.equalsIgnoreCase("equal to")) {
             listFile.removeIf(e -> (!e.getName().equals(nameFile)));
         }
         return listFile;
@@ -115,18 +120,19 @@ public class Search {
     }
 
     /**
-     * Modified by Omar, I improve performance for result search.
-     * @param listFile list file.
+     * This method is for search Hidden Files.
+     *
+     * @param listFile       list file.
      * @param hiddenCriteria this param has 3 values, all files, only hiddens, without hiddens.
      * @return list all the files minor or major or equal to given size.
      */
 
     private List<File> searchHiddenFiles(List<File> listFile, String hiddenCriteria) {
 
-        if(hiddenCriteria.equalsIgnoreCase("only hidden")){
+        if (hiddenCriteria.equalsIgnoreCase("only hidden")) {
             listFile.removeIf(e -> (!e.isHidden()));
         }
-        if(hiddenCriteria.equalsIgnoreCase("without hidden")){
+        if (hiddenCriteria.equalsIgnoreCase("without hidden")) {
             listFile.removeIf(e -> (e.isHidden()));
         }
 
@@ -135,7 +141,37 @@ public class Search {
     }
 
     /**
-     * Modified by Omar, I added IF's for hidden files.
+     * This method is for search files by Owner.
+     *
+     * @param owner this is name of owner for filter file list.
+     * @return list all the files minor or major or equal to given size.
+     */
+
+    private List<File> searchByOwner(String owner) {
+        fileList.removeIf(e -> !(this.isOwner(e, owner)));
+
+        return fileList;
+    }
+
+    /**
+     * This method is compare Owner.
+     *
+     * @param owner this is name of owner for filter file list.
+     * @param e     this is a file for compare.
+     * @return list all the files minor or major or equal to given size.
+     */
+    private boolean isOwner(File e, String owner) {
+        try {
+            return owner.equalsIgnoreCase(Files.readAttributes(e.toPath(), PosixFileAttributes.class).owner().getName());
+        } catch (IOException e1) {
+            e1.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * This method is for filter by criteria.
+     *
      * @param criteria receives Search Criteria object.
      *                 Is a method that filter a List according that receive of SearchCriteria.
      */
@@ -154,6 +190,13 @@ public class Search {
             if (criteria.getHiddenCriteria().equalsIgnoreCase("only hidden")) {
                 fileList = searchHiddenFiles(fileList, "only hidden");
             }
+            if (criteria.getHiddenCriteria().equalsIgnoreCase("without hidden")) {
+                fileList = searchHiddenFiles(fileList, "without hidden");
+            }
+            if (!criteria.getOwnerCriteria().isEmpty()) {
+                fileList = searchByOwner(criteria.getOwnerCriteria());
+            }
+
         }
     }
 
@@ -172,15 +215,20 @@ public class Search {
     }
 
     /**
-     * Is the list(FileResult) result of a search by criterias.
-     *@return File Result list with the files already searched
+     * Is the list(FileResult) result of a search by criteria.
+     *
+     * @return File Result list with the files already searched.
      */
     public List<FileResult> getResultList() {
         List<FileResult> result = new ArrayList<>();
         if (!fileList.isEmpty()) {
-            for (File file : fileList) {
-                result.add(new FileResult(file.getPath(), file.getName(), file.length(), file.isHidden()));
-            }
+
+            fileList.forEach(e -> result
+                    .add(new FileResult(e.getPath()
+                            , e.getName()
+                            , e.length()
+                            , e.isHidden())));
+
         }
         return result;
     }
