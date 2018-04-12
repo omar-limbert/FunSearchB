@@ -14,6 +14,12 @@
 
 package com.fundation.search.common;
 
+import java.nio.file.attribute.FileTime;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * This class made the conversion from size to bytes.
  *
@@ -59,5 +65,41 @@ public class Convertor {
      */
     public double convertKbToB(double tam) {
         return tam * 1024.0;
+    }
+    /**
+     * This method convert Date to FileDate.
+     *
+     * @return FileDate this is date converted.
+     */
+    public FileTime convertDateToFileDate(Date date){
+        long millis;
+        FileTime result;
+
+        millis = date.getTime();
+
+        result = FileTime.fromMillis(millis);
+        return result;
+    }
+    /**
+     * This method convert FileTime to Date.
+     *
+     * @return Date this is FileTime converted.
+     */
+    public Date convertFileDateToDate(FileTime fileTime){
+        Date result = new Date();
+        String cTime="";
+
+        // Format to Date
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        // Convert fileTime to SimpleDateFormat.
+        cTime = fileTime != null ? df.format(fileTime.toMillis()): "01/01/1999";
+
+        try {
+            result = df.parse(cTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 }
