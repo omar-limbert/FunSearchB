@@ -18,6 +18,8 @@ import com.fundation.search.controller.SearchCriteria;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
 import java.nio.file.attribute.PosixFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +40,9 @@ public class Search {
      * fileList is a file list that save files according to criteria.
      */
     private List<File> fileList;
+
+
+    private List<Files> filesList2;
 
     /**
      * Search Class constructor.
@@ -94,7 +99,7 @@ public class Search {
      * @param operator is "<" or ">" or "=".
      * @return list all the files minor or major or equal to given size.
      */
-    private List<File> searchBySize(List<File> listFile, double size, char operator) {
+   /* private List<File> searchBySize(List<File> listFile, double size, char operator) {
 
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
@@ -117,6 +122,32 @@ public class Search {
         }
         listFile.removeAll(listFilter);
         return listFile;
+    }*/
+
+    private List<File> searchBySize(List<File> listFile, long size, char operator) {
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+            try {
+                BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+
+                if (fileAttributes.size() == size && operator == '='){
+                    listFilter.add(file);
+                }
+                System.out.println(fileAttributes.size());
+                if(fileAttributes.size() >= size && operator == '>'){
+                    listFilter.add(file);
+                }
+
+                if(fileAttributes.size() <= size && operator == '<'){
+                    listFilter.add(file);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return listFilter;
     }
 
     /**
@@ -138,6 +169,89 @@ public class Search {
 
 
         return listFile;
+    }
+
+
+    /**
+     * @param listFile
+     * @param dateCondition
+     * @return
+     */
+    private List<File> lastModifiedTime(List<File> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+            try {
+                BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+                    if ((fileAttributes.lastModifiedTime().toMillis() >= dateConditionInt.toMillis() && fileAttributes.lastModifiedTime().toMillis() <= dateConditionEnd.toMillis())){
+                        listFilter.add(file);
+                    }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return listFilter;
+    }
+
+    /**
+     * @param listFile
+     * @param dateCondition
+     * @return
+     */
+    private List<File> creationTime(List<File> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+
+            try {
+                BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+                if ((fileAttributes.creationTime().toMillis() >= dateConditionInt.toMillis() && fileAttributes.creationTime().toMillis() <= dateConditionEnd.toMillis())){
+                    listFilter.add(file);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return listFilter;
+    }
+
+
+    /**
+     * @param listFile
+     * @param dateCondition
+     * @return
+     */
+    private List<File> lastAccessTime(List<File> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+            try {
+                BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+                if ((fileAttributes.creationTime().toMillis() >= dateConditionInt.toMillis() && fileAttributes.creationTime().toMillis() <= dateConditionEnd.toMillis())){
+                    listFilter.add(file);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return listFilter;
+    }
+
+
+    private List<File> isRead(List<File> listFile, boolean isRead) {
+
+        List<File> listFilter = new ArrayList<>();
+        if(isRead) {
+            for (File file : listFile) {
+                if (file.canRead()) {
+                    listFilter.add(file);
+                }
+            }
+        }
+
+        return listFilter;
     }
 
     /**
@@ -193,9 +307,27 @@ public class Search {
             if (criteria.getHiddenCriteria().equalsIgnoreCase("without hidden")) {
                 fileList = searchHiddenFiles(fileList, "without hidden");
             }
-            if (!criteria.getOwnerCriteria().isEmpty()) {
-                fileList = searchByOwner(criteria.getOwnerCriteria());
+
+            if(criteria.getIsRead()){
+                fileList = isRead(fileList,true);
             }
+
+            if (criteria.getDateConditionEnd() != null && criteria.getDateConditionInt() != null){
+                fileList = lastModifiedTime(fileList,,criteria.getDateConditionInt());
+            }
+
+            if (criteria.getDateConditionEnd() != null && criteria.getDateConditionInt() != null){
+                fileList = creationTime(fileList,criteria.getDateConditionEnd(),criteria.getDateConditionInt());
+            }
+
+           if (criteria.getDateConditionEnd() != null && criteria.getDateConditionInt() != null){
+                fileList = lastAccessTime(fileList,criteria.getDateConditionEnd(),criteria.getDateConditionInt());
+            }
+
+
+            /*if (!criteria.getOwnerCriteria().isEmpty()) {
+                fileList = searchByOwner(criteria.getOwnerCriteria());
+            }*/
 
         }
     }
@@ -214,21 +346,25 @@ public class Search {
         filterByCriteria(criteria);
     }
 
-    /**
-     * Is the list(FileResult) result of a search by criteria.
-     *
-     * @return File Result list with the files already searched.
-     */
     public List<FileResult> getResultList() {
         List<FileResult> result = new ArrayList<>();
+
         if (!fileList.isEmpty()) {
-
             fileList.forEach(e -> result
-                    .add(new FileResult(e.getPath()
-                            , e.getName()
-                            , e.length()
-                            , e.isHidden())));
+                    .add(createFileResult(e)));
 
+        }
+        return result;
+    }
+
+    private FileResult createFileResult(File e) {
+        FileResult result = null;
+        try {
+            BasicFileAttributes fileAttributes = Files.readAttributes(e.toPath(), BasicFileAttributes.class);
+            result = new FileResult(e.getPath(),e.getName(),e.length(),e.isHidden(),e.canRead(),fileAttributes.lastModifiedTime(), fileAttributes.creationTime(),fileAttributes.lastAccessTime());
+
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
         return result;
     }

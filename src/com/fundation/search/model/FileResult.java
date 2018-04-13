@@ -13,6 +13,8 @@
  */
 package com.fundation.search.model;
 
+import java.nio.file.attribute.FileTime;
+
 /**
  * This class is to return file attributes.
  *
@@ -37,6 +39,21 @@ public class FileResult {
      */
     private boolean isHiddenFile;
 
+    private FileTime lastModifiedTime;
+
+    private FileTime creationTime;
+
+    private FileTime lastAccessTime;
+
+
+    private boolean readFile;
+
+    /**
+     * lastModifiedTime
+     * creationTime
+     * lastAccessTime
+     */
+    /
     /**
      * FileResult constructor.
      *
@@ -45,12 +62,16 @@ public class FileResult {
      * @param sizeFile     lenght file.
      * @param isHiddenFile state hidden file.
      */
-
-    public FileResult(String pathFile, String nameFile, long sizeFile, boolean isHiddenFile) {
+//FileTime lastModifiedTimeInit, FileTime lastModifiedTimeEnd, FileTime creationTimeInit , FileTime creationTimeEnd, FileTime lastAccessTimeInit, FileTime lastAccessTimeEnd
+    public FileResult(String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, , boolean readFile, FileTime lastModifiedTime, FileTime creationTime, FileTime lastAccessTime ) {
         this.pathFile = pathFile;
         this.nameFile = nameFile;
         this.sizeFile = sizeFile;
         this.isHiddenFile = isHiddenFile;
+        this.lastModifiedTime = lastModifiedTime;
+        this.creationTime = creationTime;
+        this.lastAccessTime = lastAccessTime;
+        this.readFile = readFile;
     }
 
     /**
@@ -80,4 +101,21 @@ public class FileResult {
     public boolean getIsHidden() {
         return isHiddenFile;
     }
+
+    public FileTime getCreationTime() {
+        return creationTime;
+    }
+
+    public FileTime getLastAccessTime() {
+        return lastAccessTime;
+    }
+
+    public FileTime getLastModifiedTime() {
+        return lastModifiedTime;
+    }
+
+    public boolean getIsRead(){
+        return readFile;
+    }
+
 }
