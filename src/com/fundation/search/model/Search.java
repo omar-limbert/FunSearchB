@@ -255,7 +255,7 @@ public class Search {
     }
 
     /**
-     * This method is compare Owner.
+     * This method is compare Owner..
      *
      * @param owner this is name of owner for filter file list.
      * @param e     this is a file for compare.
@@ -334,19 +334,7 @@ public class Search {
      *
      * @return File Result list with the files already searched.
      */
-    /*public List<FileResult> getResultList() {
-        List<FileResult> result = new ArrayList<>();
-        if (!fileList.isEmpty()) {
-
-            fileList.forEach(e -> result
-                    .add(new FileResult(e.getPath()
-                            , e.getName()
-                            , e.length()
-                            , e.isHidden())));
-
-        }
-        return result;
-    }*/
+ 
 
     public List<FileResult> getResultList() {
         List<FileResult> result = new ArrayList<>();

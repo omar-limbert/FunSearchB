@@ -46,7 +46,7 @@ public class FileResult {
      * @param pathFile     path .
      * @param nameFile     name file.
      * @param sizeFile     lenght file.
-     * @param isHiddenFile state hidden file.
+     * @param isHiddenFile state hidden file..
      */
 
     public FileResult(String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, FileTime date) {
