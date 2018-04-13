@@ -99,12 +99,22 @@ public class MainSearchWindows extends JFrame {
     public String getPathOfCriteria() {
         return topPanel.getPathOfCriteria();
     }
-
+    /**
+     * This method is for return path.
+     * Controller nee ise this.
+     *
+     * @return Boolean, this contains a complete Read only for search files.
+     */
 
     public boolean getReadOnlyOfCriteria() {
         return  topPanel.getReadOnlyOfCriteria();
     }
-
+    /**
+     * This method is for return path.
+     * Controller nee ise this.
+     *
+     * @return Boolean, this contains a complete File System for search files.
+     */
     public  boolean getFileSystemOfCriteria() {
         return  topPanel.getFileSystemOfCriteria();
     }
