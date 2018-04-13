@@ -12,6 +12,8 @@ public class Main {
 
         MainSearchWindows searchWindow = new MainSearchWindows();
         ControlCriteria controlCriteria = new ControlCriteria(searchWindow);
+        //controlCriteria.validInputs("/Users/omar/Jala copy", "bug" , "all words", "all files");
+
 
     }
 }

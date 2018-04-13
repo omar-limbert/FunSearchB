@@ -20,6 +20,7 @@ import com.fundation.search.model.FileResult;
 import com.fundation.search.model.Search;
 import com.fundation.search.view.MainSearchWindows;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -68,7 +69,7 @@ public class ControlCriteria {
      * @param namePath validate the inputs of the name path on GUI.
      * @param nameFile validate the input of the FieldName on GUI..
      */
-    private void validInputs(String namePath, String nameFile, String hCriteria, String nCriteria) {
+    public void validInputs(String namePath, String nameFile, String hCriteria, String nCriteria) {
         // Init a Validator object.
         Validator validateInputs = new Validator();
         // The path name.
@@ -111,6 +112,9 @@ public class ControlCriteria {
         for (FileResult file : result) {
             searchWindows.insertDataOfJTableResult(new Object[]{file.getName(), file.getPathFile(),file.getIsHidden()});
 
+            Date d = new Date(file.getLastModifiedDate() * 1000);
+
+            System.out.println(d);
         }
     }
 }
