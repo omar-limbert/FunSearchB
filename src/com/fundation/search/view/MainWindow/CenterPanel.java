@@ -97,9 +97,9 @@ public class CenterPanel extends JPanel {
      * @param modelOfJTableResult, this is model from table result.
      */
     private void cleanModelOfJTable(DefaultTableModel modelOfJTableResult) {
-        int filas = modelOfJTableResult.getRowCount();
-        if (filas > 0) {
-            for (int i = 0; i < filas; i++) {
+        int rows = modelOfJTableResult.getRowCount();
+        if (rows > 0) {
+            for (int i = 0; i < rows; i++) {
                 modelOfJTableResult.removeRow(0);
             }
         }

@@ -63,8 +63,8 @@ public class MainSearchWindows extends JFrame {
         this.revalidate();
         this.repaint();
         // Setting main windows <= maybe you could be this dynamic.
-        final int width = 900;
-        final int height = 600;
+        final int width = 1300;
+        final int height = 900;
         this.setSize(width, height);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
@@ -100,6 +100,15 @@ public class MainSearchWindows extends JFrame {
         return topPanel.getPathOfCriteria();
     }
 
+
+    public boolean getReadOnlyOfCriteria() {
+        return  topPanel.getReadOnlyOfCriteria();
+    }
+
+    public  boolean getFileSystemOfCriteria() {
+        return  topPanel.getFileSystemOfCriteria();
+    }
+
     /**
      * This method is for return size.
      * Controller nee ise this.
@@ -124,22 +133,22 @@ public class MainSearchWindows extends JFrame {
      *
      * @return String, this contains a complete path for search files.
      */
-    public Date getDateOfCriteria() {
+    public Date getCreationDateOfCriteria() {
         return topPanel.getDateCreationCriteria();
     }
-    public Date getDatetoCreationCriteria() {
+    public Date getCreationDateToOfCriteria() {
         return topPanel.getDateToCreationCriteria();
     }
-    public Date getDateModificationCriteria() {
+    public Date getModificationDateOfCriteria() {
         return topPanel.getDateModificationCriteria();
     }
-    public Date getDateToModificationCriteria() {
+    public Date getModificationDateToOfCriteria() {
         return topPanel.getDateToModificationCriteria();
     }
-    public Date getDateLastOpenedCriteria() {
+    public Date getLastOpenedDateOfCriteria() {
         return topPanel.getDateLastOpenedCriteria();
     }
-    public Date getDateToLastOpenedCriteria() {
+    public Date getLastOpenedDateToOfCriteria() {
         return topPanel.getDateToLastOpenedCriteria();
     }
 

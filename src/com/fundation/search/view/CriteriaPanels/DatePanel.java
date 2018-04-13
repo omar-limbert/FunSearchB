@@ -108,13 +108,13 @@ public class DatePanel extends JPanel {
     /**
      * This method return Date criteria.
      *
-     * @return String, this is a action command can be "all files", "only hidden","without hidden".
+     * @return Date, this is a action command can be "Date Creation to Date Creation".
      */
     public Date getDateCreationCriteria() {
         return dateCreationDateChooser.getDate();
 
     }
-    public Date getDatetoCreationCriteria() {
+    public Date getDateToCreationCriteria() {
         return dateCreationDateChooser.getDate();
 
     }

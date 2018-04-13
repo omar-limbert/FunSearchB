@@ -135,17 +135,48 @@ public class TopPanel extends JPanel {
     public String getPathOfCriteria() {
         return toolbar.getPathOfCriteria();
     }
+    /**
+     * This method is return Read Only criteria.
+     *
+     * @return Boolean
+     */
+
+    public boolean getReadOnlyOfCriteria() {
+        return  toolbar.getReadOnlyOfCriteria();
+    }
+    /**
+     * This method is return File System criteria.
+     *
+     * @return Boolean
+     */
+    public  boolean getFileSystemOfCriteria() {
+        return  toolbar.getFileSystemOfCriteria();
+    }
 
 
+    /**
+     * This method is return Size criteria.
+     *
+     * @return String
+     */
     public String getSizeOfCriteria() {
         return toolbar.getSizeCriteria();
     }
-
+    /**
+     * This method is return Owner criteria.
+     *
+     * @return String
+     */
     public String getOwnerOfCriteria() {
         return  toolbar.getOwnerCriteria();
     }
 
 
+    /**
+     * This method is return Date criteria.
+     *
+     * @return Date
+     */
     public Date getDateCreationCriteria() {
         return toolbar.getDateCreationCriteria();
     }

@@ -125,4 +125,12 @@ public class PathPanel extends JPanel {
     }
 
 
+    public boolean getReadOnlyOfCriteria() {
+        return readOnlyCheckBox.isSelected();
+    }
+
+
+    public boolean getFileSystemOfCriteria(){
+        return  fileSystemCheckBox.isSelected();
+    }
 }

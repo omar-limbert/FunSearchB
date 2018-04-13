@@ -35,6 +35,7 @@ import  java.util.Date;
 
 
 
+
 /**
  * This class is for create buttons inside to JToolBar.
  *
@@ -68,6 +69,7 @@ public class SearchToolBar extends JToolBar {
      * PATH_PANEL, Type: PathPanel, this Path criteria Panel.
      */
     private static final PathPanel PATH_PANEL = new PathPanel();
+
     /**
      * HIDDEN_PANEL, Type: HiddenPanel, this Hidden criteria Panel.
      */
@@ -90,7 +92,6 @@ public class SearchToolBar extends JToolBar {
      * This method is for initialize toggleButtonCollection, action, criteriaPanel and panelList.
      */
     public SearchToolBar(CriteriaPanel criteriaPanel) {
-        System.out.println("SearchToolBAr ");
         // This is a collection of buttons.
         this.toggleButtonCollection = new Vector<>();
         // Action for define button.
@@ -107,7 +108,6 @@ public class SearchToolBar extends JToolBar {
      * Method for add al components.
      */
     private void addComponents() {
-        System.out.println("addComponents");
         // adding buttons
         this.addButtonToToggleCollection("All Tags");
         this.addButtonToToggleCollection("File Name");
@@ -139,7 +139,6 @@ public class SearchToolBar extends JToolBar {
      */
     private void actionListenerForAllButtons(ActionEvent actionEvent) {
         JToggleButton sourceButton = (JToggleButton) actionEvent.getSource();
-        System.out.println("ActionButton");
         // Action when a button is selected.
         String newAction = sourceButton.isSelected() ? actionEvent.getActionCommand() : "";
         firePropertyChange("action", action, newAction);
@@ -242,6 +241,15 @@ public class SearchToolBar extends JToolBar {
     public String getPathOfCriteria() {
         return PATH_PANEL.getPathCriteria();
     }
+
+    public boolean getReadOnlyOfCriteria(){
+        return PATH_PANEL.getReadOnlyOfCriteria();
+    }
+
+    public boolean getFileSystemOfCriteria() {
+        return  PATH_PANEL.getFileSystemOfCriteria();
+    }
+
     /**
      * This method is for return Size.
      *
@@ -267,17 +275,21 @@ public class SearchToolBar extends JToolBar {
         return  DATE_PANEL.getDateCreationCriteria();
     }
     public Date getDateToCreationCriteria() {
-        return  DATE_PANEL.getDatetoCreationCriteria();
+        return  DATE_PANEL.getDateToCreationCriteria();
     }
+
     public Date getDateModificationCriteria() {
         return  DATE_PANEL.getDateModificationCriteria();
     }
+
     public Date getDateToModificationCriteria() {
         return  DATE_PANEL.getDateToModificationCriteria();
     }
+
     public Date getDateLastOpenedCriteria() {
         return  DATE_PANEL.getDateLastOpenedCriteria();
     }
+
     public Date getDateToLastOpenedCriteria() {
         return  DATE_PANEL.getDateToLastOpenedCriteria();
     }
