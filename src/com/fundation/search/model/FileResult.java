@@ -16,7 +16,7 @@ package com.fundation.search.model;
 import java.nio.file.attribute.FileTime;
 
 /**
- * This class is to return file attributes.
+ * This class is to return file attributes..
  *
  * @author Escarleth Ledezma Quiroga - AT-[06].
  * @version 1.0.

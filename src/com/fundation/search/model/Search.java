@@ -307,7 +307,10 @@ public class Search {
             if (criteria.getHiddenCriteria().equalsIgnoreCase("without hidden")) {
                 fileList = searchHiddenFiles(fileList, "without hidden");
             }
-
+            /**
+             * Add the new searchs into COntrollCriteria.
+             */
+            /
             if(criteria.getIsRead()){
                 fileList = isRead(fileList,true);
             }
