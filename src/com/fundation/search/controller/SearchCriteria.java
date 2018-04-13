@@ -14,6 +14,8 @@
 
 package com.fundation.search.controller;
 
+import java.nio.file.attribute.FileTime;
+
 /**
  * This class save the SearchCriterial..
  * Before to send the Search Class.
@@ -53,6 +55,10 @@ public class SearchCriteria {
      */
     private  String fileNameCriteria;
 
+
+    private FileTime dateConditionInt;
+    private FileTime dateConditionEnd;
+
     /**
      * modificated by Christian,I added String HiddenCriteria, String fileNameCriteria.
      * This method init the Search Criterial.
@@ -64,7 +70,7 @@ public class SearchCriteria {
      * @param HiddenCriteria the hidden.
      * @param fileNameCriteria the Name criteria.
      */
-    public SearchCriteria(String path, String name, String type, long size, char operator, String HiddenCriteria, String fileNameCriteria) {
+    public SearchCriteria(String path, String name, String type, long size, char operator, String HiddenCriteria, String fileNameCriteria,FileTime dateConditionInt, FileTime dateConditionEnd) {
         this.path = (path != "") ? path : null;
         this.name = (name != "") ? name : null;
         this.type = (type != "") ? type : null;
@@ -72,6 +78,8 @@ public class SearchCriteria {
         this.operator = operator;
         this.HiddenCriteria = HiddenCriteria;
         this.fileNameCriteria = fileNameCriteria;
+        this.dateConditionEnd = dateConditionEnd;
+        this.dateConditionInt = dateConditionInt;
 
     }
 
@@ -125,4 +133,11 @@ public class SearchCriteria {
         return fileNameCriteria;
     }
 
+    public FileTime getDateConditionEnd() {
+        return dateConditionEnd;
+    }
+
+    public FileTime getDateConditionInt() {
+        return dateConditionInt;
+    }
 }

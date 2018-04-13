@@ -13,6 +13,8 @@
  */
 package com.fundation.search.model;
 
+import java.nio.file.attribute.FileTime;
+
 /**
  * This class is to return file attributes.
  *
@@ -37,6 +39,7 @@ public class FileResult {
      */
     private boolean isHiddenFile;
 
+    private FileTime date;
     /**
      * FileResult constructor.
      *
@@ -46,11 +49,12 @@ public class FileResult {
      * @param isHiddenFile state hidden file.
      */
 
-    public FileResult(String pathFile, String nameFile, long sizeFile, boolean isHiddenFile) {
+    public FileResult(String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, FileTime date) {
         this.pathFile = pathFile;
         this.nameFile = nameFile;
         this.sizeFile = sizeFile;
         this.isHiddenFile = isHiddenFile;
+        this.date = date;
     }
 
     /**
@@ -79,5 +83,9 @@ public class FileResult {
      */
     public boolean getIsHidden() {
         return isHiddenFile;
+    }
+
+    public FileTime getDate() {
+        return date;
     }
 }

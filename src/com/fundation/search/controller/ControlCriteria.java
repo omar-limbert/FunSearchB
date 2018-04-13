@@ -20,6 +20,8 @@ import com.fundation.search.model.FileResult;
 import com.fundation.search.model.Search;
 import com.fundation.search.view.MainSearchWindows;
 
+import java.nio.file.attribute.FileTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -54,7 +56,7 @@ public class ControlCriteria {
      */
     private void listenSearchButton() {
         searchWindows.resetDataOfJTableResult();
-        validInputs(searchWindows.getPathOfCriteria(), searchWindows.getSearchText(), searchWindows.getHiddenOfCriteria(), searchWindows.getFileNameOfCriteria());
+       //validInputs(searchWindows.getPathOfCriteria(), searchWindows.getSearchText(), searchWindows.getHiddenOfCriteria(), searchWindows.getFileNameOfCriteria(),FileTime.fromMillis(new Date().getTime()),FileTime.fromMillis(new Date().getTime()));
     }
 
     /**
@@ -68,7 +70,7 @@ public class ControlCriteria {
      * @param namePath validate the inputs of the name path on GUI.
      * @param nameFile validate the input of the FieldName on GUI..
      */
-    private void validInputs(String namePath, String nameFile, String hCriteria, String nCriteria) {
+    public void validInputs(String namePath, String nameFile, String hCriteria, String nCriteria,long size, char operator, FileTime dateConditionInt, FileTime dateConditionEnd) {
         // Init a Validator object.
         Validator validateInputs = new Validator();
         // The path name.
@@ -92,7 +94,7 @@ public class ControlCriteria {
             }
         }
         //Init a SearchCriteria object with the validated information.
-        SearchCriteria searchCriteria = new SearchCriteria(validNamePath, validNameFile, extension, validFormatSize, operatorForSize, hiddenCriteria, fileNameCriteria);
+        SearchCriteria searchCriteria = new SearchCriteria(validNamePath, validNameFile, extension, validFormatSize, operatorForSize, hiddenCriteria, fileNameCriteria, FileTime.fromMillis(new Date().getTime()), FileTime.fromMillis(new Date().getTime()));
         getResults(searchCriteria);
     }
 
@@ -110,6 +112,7 @@ public class ControlCriteria {
         List<FileResult> result = search.getResultList();
         for (FileResult file : result) {
             searchWindows.insertDataOfJTableResult(new Object[]{file.getName(), file.getPathFile(),file.getIsHidden()});
+            System.out.println(file.getDate());
 
         }
     }
