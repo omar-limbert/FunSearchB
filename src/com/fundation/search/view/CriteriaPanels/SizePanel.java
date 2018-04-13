@@ -55,7 +55,7 @@ public class SizePanel extends JPanel {
 
         // Iniatilize
         this.sizeTextField=new JTextField();
-        sizeTextField.setPreferredSize(new Dimension(100, 35));
+        sizeTextField.setPreferredSize(new Dimension(80, 25));
         this.sizeComboBox=new JComboBox();
         sizeComboBox.addItem("bit");
         sizeComboBox.addItem("Kb");
@@ -79,8 +79,8 @@ public class SizePanel extends JPanel {
 
     }
 
-    public String getSizeCriteria() {
-        return sizeTextField.getText();
+    public long getSizeCriteria() {
+        return Long.parseLong(sizeTextField.getText());
 
     }
 

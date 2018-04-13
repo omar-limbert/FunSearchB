@@ -255,7 +255,7 @@ public class SearchToolBar extends JToolBar {
      *
      * @return String, this contains a complete path for search files.
      */
-    public String getSizeCriteria() {
+    public long getSizeCriteria() {
         return  SIZE_PANEL.getSizeCriteria();
     }
     /**

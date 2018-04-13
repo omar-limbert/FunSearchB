@@ -50,7 +50,7 @@ public class OwnerPanel extends JPanel{
         //Initialize
         this.ownerLabelField = new JLabel("Owner: ");
         this.ownerTextField = new JTextField();
-        ownerTextField.setPreferredSize(new Dimension(100, 35));
+        ownerTextField.setPreferredSize(new Dimension(100, 25));
     }
     /**
      * This method is to add all components.

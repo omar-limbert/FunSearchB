@@ -115,7 +115,7 @@ public class MainSearchWindows extends JFrame {
      *
      * @return String, this contains a complete path for search files.
      */
-    public String getSizeOfCriteria() {
+    public long getSizeOfCriteria() {
         return topPanel.getSizeOfCriteria();
     }
     /**
@@ -133,22 +133,22 @@ public class MainSearchWindows extends JFrame {
      *
      * @return String, this contains a complete path for search files.
      */
-    public Date getCreationDateOfCriteria() {
+    public Date getCreationDateInit() {
         return topPanel.getDateCreationCriteria();
     }
-    public Date getCreationDateToOfCriteria() {
+    public Date getCreationDateEnd() {
         return topPanel.getDateToCreationCriteria();
     }
-    public Date getModificationDateOfCriteria() {
+    public Date getModifiedDateInit() {
         return topPanel.getDateModificationCriteria();
     }
-    public Date getModificationDateToOfCriteria() {
+    public Date getModifiedDateEnd() {
         return topPanel.getDateToModificationCriteria();
     }
-    public Date getLastOpenedDateOfCriteria() {
+    public Date getLastAccessDateInit() {
         return topPanel.getDateLastOpenedCriteria();
     }
-    public Date getLastOpenedDateToOfCriteria() {
+    public Date getLastAccessDateEnd() {
         return topPanel.getDateToLastOpenedCriteria();
     }
 

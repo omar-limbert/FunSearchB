@@ -159,7 +159,7 @@ public class TopPanel extends JPanel {
      *
      * @return String
      */
-    public String getSizeOfCriteria() {
+    public long getSizeOfCriteria() {
         return toolbar.getSizeCriteria();
     }
     /**
