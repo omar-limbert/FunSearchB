@@ -16,7 +16,7 @@ package com.fundation.search.model;
 import java.nio.file.attribute.FileTime;
 
 /**
- * This class is to return file attributes..
+ * This class is to return file attributes.
  *
  * @author Escarleth Ledezma Quiroga - AT-[06].
  * @version 1.0.
@@ -53,7 +53,7 @@ public class FileResult {
      * creationTime
      * lastAccessTime
      */
-    /
+
     /**
      * FileResult constructor.
      *
@@ -63,7 +63,7 @@ public class FileResult {
      * @param isHiddenFile state hidden file.
      */
 //FileTime lastModifiedTimeInit, FileTime lastModifiedTimeEnd, FileTime creationTimeInit , FileTime creationTimeEnd, FileTime lastAccessTimeInit, FileTime lastAccessTimeEnd
-    public FileResult(String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, , boolean readFile, FileTime lastModifiedTime, FileTime creationTime, FileTime lastAccessTime ) {
+    public FileResult(String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, boolean readFile, FileTime lastModifiedTime, FileTime creationTime, FileTime lastAccessTime ) {
         this.pathFile = pathFile;
         this.nameFile = nameFile;
         this.sizeFile = sizeFile;
