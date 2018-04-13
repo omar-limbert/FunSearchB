@@ -19,6 +19,7 @@ import com.fundation.search.view.SearchToolBar;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.Date;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -133,6 +134,35 @@ public class TopPanel extends JPanel {
      */
     public String getPathOfCriteria() {
         return toolbar.getPathOfCriteria();
+    }
+
+
+    public String getSizeOfCriteria() {
+        return toolbar.getSizeCriteria();
+    }
+
+    public String getOwnerOfCriteria() {
+        return  toolbar.getOwnerCriteria();
+    }
+
+
+    public Date getDateCreationCriteria() {
+        return toolbar.getDateCreationCriteria();
+    }
+    public Date getDateToCreationCriteria() {
+        return toolbar.getDateToCreationCriteria();
+    }
+    public Date getDateModificationCriteria() {
+        return toolbar.getDateModificationCriteria();
+    }
+    public Date getDateToModificationCriteria() {
+        return toolbar.getDateToModificationCriteria();
+    }
+    public Date getDateLastOpenedCriteria() {
+        return toolbar.getDateLastOpenedCriteria();
+    }
+    public Date getDateToLastOpenedCriteria() {
+        return toolbar.getDateToLastOpenedCriteria();
     }
 
     /**

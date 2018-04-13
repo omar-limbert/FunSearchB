@@ -19,6 +19,7 @@ import com.fundation.search.view.MainWindow.TopPanel;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
+import java.util.Date;
 
 /**
  * This class main windows.
@@ -62,8 +63,8 @@ public class MainSearchWindows extends JFrame {
         this.revalidate();
         this.repaint();
         // Setting main windows <= maybe you could be this dynamic.
-        final int width = 600;
-        final int height = 400;
+        final int width = 900;
+        final int height = 600;
         this.setSize(width, height);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
@@ -97,6 +98,49 @@ public class MainSearchWindows extends JFrame {
      */
     public String getPathOfCriteria() {
         return topPanel.getPathOfCriteria();
+    }
+
+    /**
+     * This method is for return size.
+     * Controller nee ise this.
+     *
+     * @return String, this contains a complete path for search files.
+     */
+    public String getSizeOfCriteria() {
+        return topPanel.getSizeOfCriteria();
+    }
+    /**
+     * This method is for return owner.
+     * Controller nee ise this.
+     *
+     * @return String, this contains a complete path for search files.
+     */
+    public String getOwnerOfCriteria() {
+        return topPanel.getOwnerOfCriteria();
+    }
+    /**
+     * This method is for return date.
+     * Controller nee ise this.
+     *
+     * @return String, this contains a complete path for search files.
+     */
+    public Date getDateOfCriteria() {
+        return topPanel.getDateCreationCriteria();
+    }
+    public Date getDatetoCreationCriteria() {
+        return topPanel.getDateToCreationCriteria();
+    }
+    public Date getDateModificationCriteria() {
+        return topPanel.getDateModificationCriteria();
+    }
+    public Date getDateToModificationCriteria() {
+        return topPanel.getDateToModificationCriteria();
+    }
+    public Date getDateLastOpenedCriteria() {
+        return topPanel.getDateLastOpenedCriteria();
+    }
+    public Date getDateToLastOpenedCriteria() {
+        return topPanel.getDateToLastOpenedCriteria();
     }
 
     /**

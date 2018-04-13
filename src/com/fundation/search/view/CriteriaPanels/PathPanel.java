@@ -13,11 +13,12 @@
  */
 package com.fundation.search.view.CriteriaPanels;
 
-
 import javax.swing.JPanel;
 import javax.swing.JFileChooser;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -43,6 +44,11 @@ public class PathPanel extends JPanel {
      */
     private JTextField pathTextField;
 
+
+    private JCheckBox readOnlyCheckBox;
+    private JLabel readOnlyLabel;
+    private JCheckBox fileSystemCheckBox;
+    private JLabel fileSystemLabel;
     /**
      * Constructor for PathPanel.
      * This method is for set Layout, call initComponents(), call addComponents() and repaint() panel.
@@ -74,6 +80,12 @@ public class PathPanel extends JPanel {
         pathTextField = new JTextField();
         pathTextField.setPreferredSize(new Dimension(200, 35));
         pathTextField.setText(directoryChooser.getCurrentDirectory().getPath());
+
+        readOnlyCheckBox = new JCheckBox();
+        readOnlyLabel = new JLabel("Read Only");
+        fileSystemCheckBox = new JCheckBox();
+        fileSystemLabel = new JLabel("File System");
+
     }
 
     /**
@@ -96,6 +108,11 @@ public class PathPanel extends JPanel {
     private void addComponents() {
         this.add(pathTextField);
         this.add(pathButton);
+        this.add(readOnlyCheckBox);
+        this.add(readOnlyLabel);
+        this.add(fileSystemCheckBox);
+        this.add(fileSystemLabel);
+
     }
 
     /**
@@ -106,5 +123,6 @@ public class PathPanel extends JPanel {
     public String getPathCriteria() {
         return pathTextField.getText();
     }
+
 
 }
