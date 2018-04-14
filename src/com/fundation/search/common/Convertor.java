@@ -19,6 +19,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Logger;
 
 /**
  * This class made the conversion from size to bytes.
@@ -27,7 +28,10 @@ import java.util.Date;
  * @version 1.0.
  */
 public class Convertor {
-
+    /**
+     * LOOGER is the logger.
+     */
+    private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
     /**
      * This class convert.
      * Gb (Gigabytes) to Mb(Megabytes).
@@ -44,6 +48,8 @@ public class Convertor {
      * @return the a number(a conversion from Gb to Mb) on Mb
      */
     public double convertGbToMb(double tam) {
+        LOOGER.info("convertGbToMb Entry");
+        LOOGER.info("convertGbToMb Exit");
         return tam * 1024.0;
     }
 
@@ -54,6 +60,8 @@ public class Convertor {
      * @return the a number(a conversion from Mb to Kb) on Kb
      */
     public double convertMbToKb(double tam) {
+        LOOGER.info("convertMbToKb Entry");
+        LOOGER.info("convertMbToKb Exit");
         return tam * 1024.0;
     }
 
@@ -64,42 +72,39 @@ public class Convertor {
      * @return the a number (a conversion from Kb to B) on B
      */
     public double convertKbToB(double tam) {
+        LOOGER.info("convertKbToB Entry");
+        LOOGER.info("convertKbToB Exit");
         return tam * 1024.0;
     }
+
     /**
-     * This method convert Date to FileDate.
+     * This method convert a Date to FileTime.
      *
-     * @return FileDate this is date converted.
+     * @param date This is a Date.
+     * @return FileTime This is FileTime converted.
      */
-    public FileTime convertDateToFileDate(Date date){
-        long millis;
-        FileTime result;
-
-        millis = date.getTime();
-
-        result = FileTime.fromMillis(millis);
+    public FileTime convertDateToFileDate(Date date) {
+        LOOGER.info("convertDateToFileDate Entry");
+        FileTime result = null;
+        if (date != null) {
+            result = FileTime.fromMillis(date.getTime());
+            return result;
+        }
+        LOOGER.info("convertDateToFileDate Exit");
         return result;
     }
+
     /**
      * This method convert FileTime to Date.
      *
-     * @return Date this is FileTime converted.
+     * @param fileTime This is a Date.
+     * @return Date this is date converted.
      */
-    public Date convertFileDateToDate(FileTime fileTime){
-        Date result = new Date();
-        String cTime="";
-
+    public String convertFileDateToDate(FileTime fileTime) {
+        LOOGER.info("convertFileDateToDate Entry");
         // Format to Date
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        // Convert fileTime to SimpleDateFormat.
-        cTime = fileTime != null ? df.format(fileTime.toMillis()): "01/01/1999";
-
-        try {
-            result = df.parse(cTime);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return result;
+        LOOGER.info("convertFileDateToDate Exit");
+        return fileTime != null ? df.format(fileTime.toMillis()) : null;//"01/01/1999";
     }
 }
