@@ -14,13 +14,17 @@
 
 package com.fundation.search.controller;
 
+
+import java.nio.file.attribute.FileTime;
+import java.util.Map;
+
 /**
  * This class save the SearchCriterial..
  * Before to send the Search Class.
+ *
  * @author Ariel Gonzales Vargas - AT-[06].
  * @version 1.0.
  */
-
 public class SearchCriteria {
 
     /**
@@ -31,10 +35,6 @@ public class SearchCriteria {
      * name is the file name.
      */
     private String name;
-    /**
-     * type is the file extension.
-     */
-    private String type;
     /**
      * isHidden is a string instrucction.
      */
@@ -48,81 +48,167 @@ public class SearchCriteria {
      */
     private char operator;
     /**
-     * modificated by Christian,I added String fileNameCriteria.
      * name is the file name criteria.
      */
-    private  String fileNameCriteria;
+    private String fileNameCriteria;
+    /**
+     * ownerCriteria, is the owner name criteria.
+     */
+    private String ownerCriteria;
+    /**
+     * modifiedDateInit, FileTime init of last modified.
+     */
+    private FileTime modifiedDateInit;
+    /**
+     * modifiedDateEnd, FileTime end of last modified.
+     */
+    private FileTime modifiedDateEnd;
+    /**
+     * creationDateInit, FileTime init of creation.
+     */
+    private FileTime creationDateInit;
+    /**
+     * creationDateEnd, FileTime end of creation.
+     */
+    private FileTime creationDateEnd;
+    /**
+     * lastAccessDateInit, FileTime init of last access.
+     */
+    private FileTime lastAccessDateInit;
+    /**
+     * lastAccessDateEnd, FileTime end of last access.
+     */
+    private FileTime lastAccessDateEnd;
+    /**
+     * isRead, true if is readable file and false if isn't readable file
+     */
+    private boolean isRead;
 
     /**
-     * modificated by Christian,I added String HiddenCriteria, String fileNameCriteria.
-     * This method init the Search Criterial.
-     *  @param path     a direction Path.
-     * @param name     a file name.
-     * @param type     a file extension.
-     * @param size     a file size.
-     * @param operator the instruction of the operator.
-     * @param HiddenCriteria the hidden.
-     * @param fileNameCriteria the Name criteria.
+     * This method init the Search Criteria.
+     *
+     * @param data, This Map contains all data of User Interface validated.
      */
-    public SearchCriteria(String path, String name, String type, long size, char operator, String HiddenCriteria, String fileNameCriteria) {
-        this.path = (path != "") ? path : null;
-        this.name = (name != "") ? name : null;
-        this.type = (type != "") ? type : null;
-        this.size = size;
-        this.operator = operator;
-        this.HiddenCriteria = HiddenCriteria;
-        this.fileNameCriteria = fileNameCriteria;
+    public SearchCriteria(Map<String, Object> data) {
+        // FileData helper to extract data of Map
+        FileTime[] dateOfData;
+
+        // Extracting data of Map
+        this.path = (path != "") ? data.get("Path Criteria").toString() : null;
+        this.name = (name != "") ? data.get("Search Text").toString() : null;
+        this.HiddenCriteria = data.get("Hidden Criteria").toString();
+        this.fileNameCriteria = data.get("Name Criteria").toString();
+        this.ownerCriteria = data.get("Owner Criteria").toString();
+        this.isRead = (boolean) data.get("Read Only Criteria");
+        this.size = 1000L; //data.get("Size Criteria").toString(); // Problem converting to LONG
+        this.operator = '=';
+        dateOfData = (FileTime[]) data.get("Creation Date Criteria");
+        this.creationDateInit = dateOfData[0];
+        this.creationDateEnd = dateOfData[1];
+        dateOfData = (FileTime[]) data.get("Modified Date Criteria");
+        this.modifiedDateInit = dateOfData[0];
+        this.modifiedDateEnd = dateOfData[1];
+        dateOfData = (FileTime[]) data.get("Last Access Date Criteria");
+        this.lastAccessDateInit = dateOfData[0];
+        this.lastAccessDateEnd = dateOfData[1];
 
     }
 
     /**
-     * @return the name of the file name.
+     * @return String the file name.
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @return the name of the directory path.
+     * @return String the directory path.
      */
     public String getPath() {
         return path;
     }
 
     /**
-     * @return the name of the file size.
+     * @return long the file size.
      */
     public long getSize() {
         return size;
     }
 
     /**
-     * @return the instruction of the operator.
+     * @return char the instruction of the operator.
      */
     public char getOperator() {
         return operator;
     }
 
     /**
-     * @return the name of the file extension.
-     */
-    public String getType() {
-        return type;
-    }
-
-    /**
-     * @return the name the file hidden.
+     * @return String the file hidden.
      */
     public String getHiddenCriteria() {
-        return HiddenCriteria ;
+        return HiddenCriteria;
     }
 
     /**
-     *modificated by Christian,I added getFileNameCriteria.
-     * @return the name the name criteria.
+     * @return String the name criteria.
      */
-    public  String getFileNameCriteria(){
+    public String getFileNameCriteria() {
         return fileNameCriteria;
     }
 
+    /**
+     * @return String owner of criteria.
+     */
+    public String getOwnerCriteria() {
+        return ownerCriteria;
+    }
+
+    /**
+     * @return FileTime init of creation.
+     */
+    public FileTime getCreationDateInit() {
+        return creationDateInit;
+    }
+
+    /**
+     * @return FileTime end of creation.
+     */
+    public FileTime getCreationDateEnd() {
+        return creationDateEnd;
+    }
+
+    /**
+     * @return FileTime init of last modified.
+     */
+    public FileTime getModifiedDateInit() {
+        return modifiedDateInit;
+    }
+
+    /**
+     * @return FileTime end of last modified.
+     */
+    public FileTime getModifiedDateEnd() {
+        return modifiedDateEnd;
+    }
+
+    /**
+     * @return FileTime init of last access.
+     */
+    public FileTime getLastAccessDateInit() {
+        return lastAccessDateInit;
+    }
+
+    /**
+     * @return FileTime end of last access.
+     */
+    public FileTime getLastAccessDateEnd() {
+        return lastAccessDateEnd;
+    }
+
+    /**
+     * @return boolean, true if is readable file and false if isn't readable file.
+     */
+    public boolean getIsRead() {
+        return isRead;
+    }
 }
