@@ -46,7 +46,7 @@ public class SearchCriteria {
     /**
      * operator is the instruccion (> ; < ; =).
      */
-    private char operator;
+    private String operator;
     /**
      * name is the file name criteria.
      */
@@ -80,9 +80,29 @@ public class SearchCriteria {
      */
     private FileTime lastAccessDateEnd;
     /**
-     * isRead, true if is readable file and false if isn't readable file
+     * isReadOnly, true if is readable file and false if isn't readable file.
      */
-    private boolean isRead;
+
+    private boolean isReadOnly;
+    /**
+     * isFileSystem, a condition in order to search by Files of the system.
+     */
+    private boolean isFileSystem;
+    /**
+     * isDirectory, a condition in order to search Directories.
+     */
+
+    private boolean isDirectory;
+    /**
+     * intoFile, the text for search into a file.
+     */
+
+    private String intoFile;
+    /**
+     * extension, the extension text.
+     */
+
+    private String extension;
 
     /**
      * This method init the Search Criteria.
@@ -99,9 +119,9 @@ public class SearchCriteria {
         this.HiddenCriteria = data.get("Hidden Criteria").toString();
         this.fileNameCriteria = data.get("Name Criteria").toString();
         this.ownerCriteria = data.get("Owner Criteria").toString();
-        this.isRead = (boolean) data.get("Read Only Criteria");
+        this.isReadOnly = (boolean) data.get("Read Only Criteria");
         this.size = 1000L; //data.get("Size Criteria").toString(); // Problem converting to LONG
-        this.operator = '=';
+        this.operator = "upper";
         dateOfData = (FileTime[]) data.get("Creation Date Criteria");
         this.creationDateInit = dateOfData[0];
         this.creationDateEnd = dateOfData[1];
@@ -138,7 +158,7 @@ public class SearchCriteria {
     /**
      * @return char the instruction of the operator.
      */
-    public char getOperator() {
+    public String getOperator() {
         return operator;
     }
 
@@ -208,7 +228,35 @@ public class SearchCriteria {
     /**
      * @return boolean, true if is readable file and false if isn't readable file.
      */
-    public boolean getIsRead() {
-        return isRead;
+    public boolean getIsReadOnly() {
+        return isReadOnly;
+    }
+
+    /**
+     * @return boolean, true if is file of the system  and false if isn't file of the system.
+     */
+    public boolean getIsFileSystem() {
+        return isFileSystem;
+    }
+
+    /**
+     * @return boolean, true if is a directory  and false if isn't a directory.
+     */
+    public boolean getIsDirectory() {
+        return isDirectory;
+    }
+
+    /**
+     * @return the name of files that contain a word.
+     */
+    public String getIntoFile() {
+        return intoFile;
+    }
+
+    /**
+     * @return the file name that contain the extension.
+     */
+    public String getExtension() {
+        return extension;
     }
 }

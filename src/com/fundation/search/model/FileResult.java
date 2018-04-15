@@ -13,10 +13,13 @@
  */
 package com.fundation.search.model;
 
+import java.nio.file.attribute.FileTime;
+
 /**
  * This class is to return file attributes.
  *
  * @author Escarleth Ledezma Quiroga - AT-[06].
+ * @author Ariel Gonzales Vargas - AT-[06].
  * @version 1.0.
  */
 public class FileResult {
@@ -37,6 +40,24 @@ public class FileResult {
      */
     private boolean isHiddenFile;
 
+    private FileTime lastModifiedTime;
+
+    private FileTime creationTime;
+
+    private FileTime lastAccessTime;
+
+    private boolean isReadOnly;
+
+    private boolean isFileSystem;
+
+    private boolean isDirectory;
+
+    private String ownerFile;
+
+    private String intoFile;
+
+    private String extensionFile;
+
     /**
      * FileResult constructor.
      *
@@ -46,11 +67,73 @@ public class FileResult {
      * @param isHiddenFile state hidden file.
      */
 
-    public FileResult(String pathFile, String nameFile, long sizeFile, boolean isHiddenFile) {
+    public FileResult() {
+    }
+
+    public FileResult extensionFile(String extensionFile) {
+        this.extensionFile = extensionFile;
+        return this;
+    }
+
+    public FileResult owner(String owner) {
+        this.ownerFile = owner;
+        return this;
+    }
+
+    public FileResult intoFile(String intoFile) {
+        this.intoFile = intoFile;
+        return this;
+    }
+
+    public FileResult pathFile(String pathFile) {
         this.pathFile = pathFile;
+        return this;
+    }
+
+    public FileResult nameFile(String nameFile) {
         this.nameFile = nameFile;
+        return this;
+    }
+
+    public FileResult sizeFile(long sizeFile) {
         this.sizeFile = sizeFile;
+        return this;
+    }
+
+    public FileResult isHiddenFile(boolean isHiddenFile) {
         this.isHiddenFile = isHiddenFile;
+        return this;
+    }
+
+
+    public FileResult lastModifiedTime(FileTime lastModifiedTime) {
+        this.lastModifiedTime = lastModifiedTime;
+        return this;
+    }
+
+    public FileResult creationTime(FileTime creationTime) {
+        this.creationTime = creationTime;
+        return this;
+    }
+
+    public FileResult lastAccessTime(FileTime lastAccessTime) {
+        this.lastAccessTime = lastAccessTime;
+        return this;
+    }
+
+    public FileResult isReadOnlyFile(boolean isReadOnly) {
+        this.isReadOnly = isReadOnly;
+        return this;
+    }
+
+    public FileResult isFileSystemFile(boolean isFileSystem) {
+        this.isFileSystem = isFileSystem;
+        return this;
+    }
+
+    public FileResult isDirectory(boolean isDirectory) {
+        this.isDirectory = isDirectory;
+        return this;
     }
 
     /**
@@ -79,5 +162,41 @@ public class FileResult {
      */
     public boolean getIsHidden() {
         return isHiddenFile;
+    }
+
+    public FileTime getCreationTime() {
+        return creationTime;
+    }
+
+    public FileTime getLastAccessTime() {
+        return lastAccessTime;
+    }
+
+    public FileTime getLastModifiedTime() {
+        return lastModifiedTime;
+    }
+
+    public boolean getIsReadOnlyFile() {
+        return isReadOnly;
+    }
+
+    public boolean getIsFileSystemFile() {
+        return isFileSystem;
+    }
+
+    public boolean getIsDirectory() {
+        return isDirectory;
+    }
+
+    public String getIntoFile() {
+        return intoFile;
+    }
+
+    public String getOwnerFile() {
+        return ownerFile;
+    }
+
+    public String getExtensionFile() {
+        return extensionFile;
     }
 }

@@ -18,15 +18,19 @@ import com.fundation.search.controller.SearchCriteria;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.attribute.PosixFileAttributes;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.DosFileAttributes;
+import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * This class is to search files by criteria.
  *
  * @author Escarleth Ledezma Quiroga - AT-[06].
  * @author Omar Limbert Huanca Sanchez - AT-[06].
+ * @author Ariel Gonzales Vargas - AT-[06].
  * @version 1.0.
  */
 public class Search {
@@ -38,6 +42,7 @@ public class Search {
      * fileList is a file list that save files according to criteria.
      */
     private List<File> fileList;
+
 
     /**
      * Search Class constructor.
@@ -52,6 +57,7 @@ public class Search {
      */
     private List<File> searchByPath(String path) {
         try {
+
             File[] files = new File(path).listFiles();
             for (File file : files) {
                 fileList.add(file);
@@ -61,6 +67,7 @@ public class Search {
             }
         } catch (NullPointerException e) {
         }
+
         return fileList;
     }
 
@@ -94,29 +101,38 @@ public class Search {
      * @param operator is "<" or ">" or "=".
      * @return list all the files minor or major or equal to given size.
      */
-    private List<File> searchBySize(List<File> listFile, double size, char operator) {
+
+
+    private List<File> searchBySize(List<File> listFile, long size, String operator) {
 
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
-            if (operator == '=') {
-                if (file.length() != size) {
-                    listFilter.add(file);
+            try {
+                BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+                if (operator.equalsIgnoreCase("upper")) {
+                    if (fileAttributes.size() > size) {
+                        listFilter.add(file);
+                    }
                 }
-            }
-            if (operator == '>') {
-                if (file.length() < size) {
-                    listFilter.add(file);
-                }
-            }
-            if (operator == '<') {
-                if (file.length() > size) {
 
-                    listFilter.add(file);
+                if (operator.equalsIgnoreCase("lower")) {
+                    if (fileAttributes.size() < size) {
+                        listFilter.add(file);
+                    }
                 }
+
+                if (operator.equalsIgnoreCase("equal")) {
+                    if (fileAttributes.size() == size) {
+                        listFilter.add(file);
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+
         }
-        listFile.removeAll(listFilter);
-        return listFile;
+
+        return listFilter;
     }
 
     /**
@@ -136,7 +152,6 @@ public class Search {
             listFile.removeIf(e -> (e.isHidden()));
         }
 
-
         return listFile;
     }
 
@@ -147,11 +162,11 @@ public class Search {
      * @return list all the files minor or major or equal to given size.
      */
 
-    private List<File> searchByOwner(String owner) {
+   /* private List<File> searchByOwner(String owner) {
         fileList.removeIf(e -> !(this.isOwner(e, owner)));
 
         return fileList;
-    }
+    }*/
 
     /**
      * This method is compare Owner.
@@ -160,7 +175,7 @@ public class Search {
      * @param e     this is a file for compare.
      * @return list all the files minor or major or equal to given size.
      */
-    private boolean isOwner(File e, String owner) {
+  /*  private boolean isOwner(File e, String owner) {
         try {
             return owner.equalsIgnoreCase(Files.readAttributes(e.toPath(), PosixFileAttributes.class).owner().getName());
         } catch (IOException e1) {
@@ -168,6 +183,171 @@ public class Search {
             return false;
         }
     }
+*/
+
+   /* private List<File> searchByOwner(List<File> listFile, String owner) {
+
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+
+            PosixFileAttributes f = null;
+            try {
+                f = Files.readAttributes(file.toPath(), PosixFileAttributes.class);
+                if (f.owner().getName().equalsIgnoreCase(owner)) {
+                    listFilter.add(file);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            }
+        return listFilter;
+        }*/
+
+
+    /**
+     * @param listFile
+     * @return
+     */
+    private List<File> lastModifiedTime(List<File> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+            try {
+                BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+                if ((fileAttributes.lastModifiedTime().toMillis() >= dateConditionInt.toMillis() && fileAttributes.lastModifiedTime().toMillis() <= dateConditionEnd.toMillis())) {
+                    listFilter.add(file);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return listFilter;
+    }
+
+    /**
+     * @param listFile
+     * @return
+     */
+    private List<File> creationTime(List<File> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+            try {
+                BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+                if ((fileAttributes.creationTime().toMillis() >= dateConditionInt.toMillis() && fileAttributes.creationTime().toMillis() <= dateConditionEnd.toMillis())) {
+                    listFilter.add(file);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return listFilter;
+    }
+
+
+    /**
+     * @param listFile
+     * @return
+     */
+    private List<File> lastAccessTime(List<File> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+            try {
+                BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+                if ((fileAttributes.creationTime().toMillis() >= dateConditionInt.toMillis() && fileAttributes.creationTime().toMillis() <= dateConditionEnd.toMillis())) {
+                    listFilter.add(file);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return listFilter;
+    }
+
+
+    private List<File> isReadOnly(List<File> listFile) {
+
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+            try {
+                if (Files.readAttributes(file.toPath(), DosFileAttributes.class).isReadOnly()) {
+                    listFilter.add(file);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return listFilter;
+    }
+
+    private List<File> isFileSystem(List<File> listFile) {
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+            try {
+                if (Files.readAttributes(file.toPath(), DosFileAttributes.class).isSystem()) {
+                    listFilter.add(file);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return listFilter;
+    }
+
+    private List<File> searchByDirectory(List<File> listFile) {
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+            try {
+                if (Files.readAttributes(file.toPath(), BasicFileAttributes.class).isDirectory()) {
+                    listFilter.add(file);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return listFilter;
+    }
+
+    private List<File> searchByExtension(List<File> listFile, String extension) {
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+            if (file.getName().endsWith(extension)) {
+                listFilter.add(file);
+            }
+        }
+        return listFilter;
+    }
+
+    /*private List<File> searchIntoFile (List<File> listFile, String text) {
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+
+            try {
+                BufferedReader bf = new BufferedReader(new FileReader(file.getPath()));
+                while ( bf.readLine() != null){
+                    if (bf.readLine().equalsIgnoreCase(text)){
+                        listFilter.add(file);
+                    }
+                }
+                bf.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return listFilter;
+    }*/
+
 
     /**
      * This method is for filter by criteria.
@@ -181,7 +361,7 @@ public class Search {
             if (criteria.getName() != null) {
                 fileList = searchByName(fileList, criteria.getName(), criteria.getFileNameCriteria());
             }
-            if (criteria.getSize() > -1) {
+            if (criteria.getSize() > -1 && criteria.getSize() != 0L) {
                 fileList = searchBySize(fileList, criteria.getSize(), criteria.getOperator());
             }
             if (criteria.getHiddenCriteria().equalsIgnoreCase("all files")) {
@@ -193,10 +373,43 @@ public class Search {
             if (criteria.getHiddenCriteria().equalsIgnoreCase("without hidden")) {
                 fileList = searchHiddenFiles(fileList, "without hidden");
             }
-            if (!criteria.getOwnerCriteria().isEmpty()) {
-                fileList = searchByOwner(criteria.getOwnerCriteria());
+
+            if (criteria.getIsReadOnly()) {
+
+                fileList = isReadOnly(fileList);
             }
 
+            if (criteria.getIsDirectory()) {
+                fileList = searchByDirectory(fileList);
+            }
+
+            if (criteria.getIsFileSystem()) {
+                fileList = isFileSystem(fileList);
+            }
+
+            if (criteria.getExtension() != null) {
+                fileList = searchByExtension(fileList, criteria.getExtension());
+            }
+
+            if (criteria.getCreationDateInit() != null && criteria.getCreationDateEnd() != null) {
+                fileList = lastModifiedTime(fileList, criteria.getCreationDateInit(), criteria.getCreationDateEnd());
+            }
+
+            if (criteria.getModifiedDateInit() != null && criteria.getModifiedDateEnd() != null) {
+                fileList = creationTime(fileList, criteria.getModifiedDateInit(), criteria.getModifiedDateEnd());
+            }
+
+            if (criteria.getLastAccessDateInit() != null && criteria.getLastAccessDateEnd() != null) {
+                fileList = lastAccessTime(fileList, criteria.getLastAccessDateInit(), criteria.getLastAccessDateEnd());
+            }
+
+             /*if (criteria.getOwnerCriteria() != null) {
+                fileList = searchByOwner(fileList,criteria.getOwnerCriteria());
+            }*/
+
+             /*if(criteria.getIntoFile() != null){
+                fileList = searchIntoFile(fileList,criteria.getIntoFile());
+            }*/
         }
     }
 
@@ -222,13 +435,29 @@ public class Search {
     public List<FileResult> getResultList() {
         List<FileResult> result = new ArrayList<>();
         if (!fileList.isEmpty()) {
+            for (File file : fileList) {
+                try {
+                    BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+                    DosFileAttributes fileAttributes1 = Files.readAttributes(file.toPath(), DosFileAttributes.class);
+                    // PosixFileAttributes fileAttributes2 = Files.readAttributes(file.toPath(),PosixFileAttributes.class);
+                    result.add(new FileResult()
+                            .pathFile(file.getPath())
+                            .nameFile(file.getName())
+                            .sizeFile(file.length())
+                            .isHiddenFile(file.isHidden())
+                            .isDirectory(fileAttributes.isDirectory())
+                            .extensionFile(file.getName())
+                            .creationTime(fileAttributes.creationTime())
+                            .lastAccessTime(fileAttributes.lastAccessTime())
+                            .lastModifiedTime(fileAttributes.lastModifiedTime())
+                            .isReadOnlyFile(fileAttributes1.isReadOnly())
+                            .isFileSystemFile(fileAttributes1.isSystem()));
 
-            fileList.forEach(e -> result
-                    .add(new FileResult(e.getPath()
-                            , e.getName()
-                            , e.length()
-                            , e.isHidden())));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
+            }
         }
         return result;
     }
