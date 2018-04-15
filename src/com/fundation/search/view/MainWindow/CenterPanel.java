@@ -65,8 +65,8 @@ public class CenterPanel extends JPanel {
      * This method is for initialize all components.
      */
     private void initComponents() {
-        String columnNames[] = {"Name", "Path", "Hidden", "Size", "Owner", "Date"};
-        String rowData[][] = {{}, {}, {}, {}, {}, {}};
+        String columnNames[] = {"Name", "Path", "Hidden", "Size", "Owner", "Date Created", "Last Modified", "Last Access", "Type"};
+        String rowData[][] = {{}, {}, {}, {}, {}, {}, {}, {}, {}};
         resultsOfCriteria = new JTable();
         modelOfJTableResult = new DefaultTableModel(rowData, columnNames);
         resultsOfCriteria.setModel(modelOfJTableResult);

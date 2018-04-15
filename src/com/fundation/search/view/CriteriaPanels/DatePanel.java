@@ -17,8 +17,12 @@ package com.fundation.search.view.CriteriaPanels;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Logger;
 
+import com.fundation.search.common.SearchLogger;
 import com.toedter.calendar.JDateChooser;
 
 
@@ -30,6 +34,8 @@ import com.toedter.calendar.JDateChooser;
  */
 
 public class DatePanel extends JPanel {
+
+    private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
     //change JTextField to JCalendar
     private JDateChooser dateCreationDateChooser;
     private JDateChooser dateModificationDateChooser;
@@ -49,12 +55,12 @@ public class DatePanel extends JPanel {
      * Constructor for DatePanel.
      */
     public DatePanel() {
-
+        LOOGER.info("Get Result Entry");
         this.setLayout(new FlowLayout());
         this.initComponents();
         this.addComponents();
         this.repaint();
-
+        LOOGER.info("Constructor exit");
     }
 
     /**
@@ -62,26 +68,31 @@ public class DatePanel extends JPanel {
      */
 
     private void initComponents() {
-
+        LOOGER.info("Get init");
         // Iniatilize
-        this.dateCreationLabel =new JLabel("Creation Date");
-        this.dateCreationDateChooser=new JDateChooser(new Date());
-        this.to1 =new JLabel("to ");
-        this.dateToCreationDateChooser=new JDateChooser(new Date());
+        try {
+            this.dateCreationLabel =new JLabel("Creation Date");
+            this.dateCreationDateChooser=new JDateChooser(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1999"));
+            this.to1 =new JLabel("to ");
+            this.dateToCreationDateChooser=new JDateChooser(new Date());
 
-        this.dateModificationLabel =new JLabel("Modification Date");
-        this.dateModificationDateChooser=new JDateChooser(new Date());
+            this.dateModificationLabel =new JLabel("Modification Date");
+            this.dateModificationDateChooser=new JDateChooser(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1999"));
 
-        this.to2 =new JLabel("to ");
-        this.dateToModificationDateChooser=new JDateChooser(new Date());
+            this.to2 =new JLabel("to ");
+            this.dateToModificationDateChooser=new JDateChooser(new Date());
 
 
-        this.dateLastOpenedLabel =new JLabel("Last Opened Date");
-        this.dateLastOpenedDateChooser=new JDateChooser(new Date());
+            this.dateLastOpenedLabel =new JLabel("Last Opened Date");
+
+            this.dateLastOpenedDateChooser=new JDateChooser(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1999"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         this.to3 =new JLabel("to ");
         this.dateToLastOpenedDateChooser=new JDateChooser(new Date());
-
+        LOOGER.info("init exit");
 
     }
     /**
@@ -115,23 +126,23 @@ public class DatePanel extends JPanel {
 
     }
     public Date getDateToCreationCriteria() {
-        return dateCreationDateChooser.getDate();
+        return dateToCreationDateChooser.getDate();
 
     }
     public Date getDateModificationCriteria() {
-        return dateCreationDateChooser.getDate();
+        return dateModificationDateChooser.getDate();
 
     }
     public Date getDateToModificationCriteria() {
-        return dateCreationDateChooser.getDate();
+        return dateToModificationDateChooser.getDate();
 
     }
     public Date getDateLastOpenedCriteria() {
-        return dateCreationDateChooser.getDate();
+        return dateLastOpenedDateChooser.getDate();
 
     }
     public Date getDateToLastOpenedCriteria() {
-        return dateCreationDateChooser.getDate();
+        return dateToLastOpenedDateChooser.getDate();
 
     }
 

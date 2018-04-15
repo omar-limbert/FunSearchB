@@ -13,7 +13,10 @@
  */
 package com.fundation.search.view.CriteriaPanels;
 
+import com.fundation.search.common.SearchLogger;
+
 import java.awt.FlowLayout;
+import java.util.logging.Logger;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
@@ -25,7 +28,7 @@ import javax.swing.JPanel;
  * @version 1.0.
  */
 public class HiddenPanel extends JPanel {
-
+    private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
     /**
      * allFilesRadioButton, Type: JRadioButton, when show hidden file and no hidden file.
      */
@@ -49,6 +52,7 @@ public class HiddenPanel extends JPanel {
      * and repaint.
      */
     public HiddenPanel() {
+        LOOGER.info("Get Result Entry");
         // Setting layout to FlowLayout.
         this.setLayout(new FlowLayout());
         // Calling to initComponents() method.
@@ -57,13 +61,14 @@ public class HiddenPanel extends JPanel {
         this.addComponents();
         // repaint.
         this.repaint();
+        LOOGER.info("Constructor exit");
     }
 
     /**
      * This method is to initialize all components.
      */
     private void initComponents() {
-
+        LOOGER.info("Get init");
         // Initialize RadioButtons.
         this.radioButtonGroup = new ButtonGroup();
         this.allFilesRadioButton = new JRadioButton("all files");
@@ -73,6 +78,7 @@ public class HiddenPanel extends JPanel {
         this.allFilesRadioButton.setActionCommand("all files");
         this.onlyHiddenRadioButton.setActionCommand("only hidden");
         this.withoutHiddenRadioButton.setActionCommand("without hidden");
+        LOOGER.info("init exit");
     }
 
     /**

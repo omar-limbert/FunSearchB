@@ -14,11 +14,14 @@
 
 package com.fundation.search.view.CriteriaPanels;
 
+import com.fundation.search.common.SearchLogger;
+
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
+import java.util.logging.Logger;
 
 
 /**
@@ -29,6 +32,7 @@ import java.awt.Dimension;
  */
 
 public class SizePanel extends JPanel {
+    private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     private JTextField sizeTextField;
     private JComboBox sizeComboBox;
@@ -39,12 +43,12 @@ public class SizePanel extends JPanel {
      */
 
     public SizePanel() {
-
+        LOOGER.info("Get Result Entry");
         this.setLayout(new FlowLayout());
         this.initComponents();
         this.addComponents();
         this.repaint();
-
+        LOOGER.info("Constructor exit");
     }
 
     /**
@@ -52,7 +56,7 @@ public class SizePanel extends JPanel {
      */
 
     private void initComponents() {
-
+        LOOGER.info("Get init");
         // Iniatilize
         this.sizeTextField=new JTextField();
         sizeTextField.setPreferredSize(new Dimension(80, 25));
@@ -66,6 +70,7 @@ public class SizePanel extends JPanel {
         majorMinorComboBox.addItem("Equals:");
         majorMinorComboBox.addItem("major to:");
         majorMinorComboBox.addItem("Minor to:");
+        LOOGER.info("init exit");
 
     }
     /**
@@ -79,8 +84,8 @@ public class SizePanel extends JPanel {
 
     }
 
-    public long getSizeCriteria() {
-        return Long.parseLong(sizeTextField.getText());
+    public String getSizeCriteria() {
+        return sizeTextField.getText();
 
     }
 

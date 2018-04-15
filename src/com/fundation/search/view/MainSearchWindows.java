@@ -13,6 +13,7 @@
  */
 package com.fundation.search.view;
 
+import com.fundation.search.common.SearchLogger;
 import com.fundation.search.view.MainWindow.CenterPanel;
 import com.fundation.search.view.MainWindow.TopPanel;
 
@@ -20,6 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import java.util.Date;
+import java.util.logging.Logger;
 
 /**
  * This class main windows.
@@ -28,7 +30,7 @@ import java.util.Date;
  * @version 1.0.
  */
 public class MainSearchWindows extends JFrame {
-
+    private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
     /**
      * topPanel, Type: TopPanel, this is top panel of main windows.
      */
@@ -50,6 +52,7 @@ public class MainSearchWindows extends JFrame {
      * This method is for initialize all components on main windows.
      */
     public void initWindows() {
+        LOOGER.info("Get init");
         // Setting tittle of application.
         this.setTitle("Search Application");
         // Initialize Top and Center Panel, you need add new Bottom panel for new functionalities.
@@ -68,6 +71,7 @@ public class MainSearchWindows extends JFrame {
         this.setSize(width, height);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+        LOOGER.info("init exit");
     }
 
     /**
@@ -125,7 +129,7 @@ public class MainSearchWindows extends JFrame {
      *
      * @return String, this contains a complete path for search files.
      */
-    public long getSizeOfCriteria() {
+    public String getSizeOfCriteria() {
         return topPanel.getSizeOfCriteria();
     }
     /**

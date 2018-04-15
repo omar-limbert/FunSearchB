@@ -13,6 +13,8 @@
  */
 package com.fundation.search.view.CriteriaPanels;
 
+import com.fundation.search.common.SearchLogger;
+
 import javax.swing.JPanel;
 import javax.swing.JFileChooser;
 import javax.swing.JButton;
@@ -22,6 +24,7 @@ import javax.swing.JLabel;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.util.logging.Logger;
 
 /**
  * This class is to create the configuration for Path button.
@@ -30,7 +33,7 @@ import java.awt.event.ActionEvent;
  * @version 1.0.
  */
 public class PathPanel extends JPanel {
-
+    private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
     /**
      * directoryChooser, Type: JFileChooser, this is a file chooser for get path of directory.
      */
@@ -54,17 +57,19 @@ public class PathPanel extends JPanel {
      * This method is for set Layout, call initComponents(), call addComponents() and repaint() panel.
      */
     public PathPanel() {
+        LOOGER.info("Get Result Entry");
         this.setLayout(new FlowLayout());
         this.initComponents();
         this.addComponents();
         this.repaint();
+        LOOGER.info("Constructor exit");
     }
 
     /**
      * This method is for initialize all components.
      */
     private void initComponents() {
-
+        LOOGER.info("Get init");
         // Initialize and config Folder Chooser.
         directoryChooser = new JFileChooser();
         directoryChooser.setCurrentDirectory(new java.io.File("/"));
@@ -85,6 +90,7 @@ public class PathPanel extends JPanel {
         readOnlyLabel = new JLabel("Read Only");
         fileSystemCheckBox = new JCheckBox();
         fileSystemLabel = new JLabel("File System");
+        LOOGER.info("init exit");
 
     }
 
@@ -94,12 +100,14 @@ public class PathPanel extends JPanel {
      * @param event, this is event from Action Listener.
      */
     private void folderChooser(ActionEvent event) {
+        LOOGER.info("Get folder chooser init");
         if (directoryChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 
             pathTextField.setText(directoryChooser.getSelectedFile().getAbsolutePath());
         } else {
             System.out.println("No Selection "); // maybe you will replace this for logger.
         }
+        LOOGER.info("folder chooser exit");
     }
 
     /**

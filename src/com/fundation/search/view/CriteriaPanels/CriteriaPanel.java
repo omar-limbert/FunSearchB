@@ -13,9 +13,12 @@
  */
 package com.fundation.search.view.CriteriaPanels;
 
+import com.fundation.search.common.SearchLogger;
+
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * This class is to create Criteria Panel with all sub-panels.
@@ -25,15 +28,19 @@ import java.util.Map;
  */
 public class CriteriaPanel extends JPanel {
 
+    private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
+
     /**
      * Constructor for TopPanel.
      * This constructor call initComponents() after this
      * revalidate and repaint all panel.
      */
     public CriteriaPanel() {
+        LOOGER.info("Get Result Entry");
         this.initComponents();
         this.revalidate();
         this.repaint();
+        LOOGER.info("Constructor exit");
     }
 
     /**
@@ -41,7 +48,9 @@ public class CriteriaPanel extends JPanel {
      * This is for set Layout to BoxLayout on vertical position.
      */
     private void initComponents() {
+        LOOGER.info("Get init");
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        LOOGER.info("init exit");
     }
 
     /**

@@ -14,11 +14,14 @@
 package com.fundation.search.view.CriteriaPanels;
 
 
+import com.fundation.search.common.SearchLogger;
+
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
+import java.util.logging.Logger;
 
 
 /**
@@ -29,6 +32,8 @@ import java.awt.Dimension;
  */
 
 public class OwnerPanel extends JPanel{
+
+    private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
     private  JTextField ownerTextField;
     private JLabel ownerLabelField;
 
@@ -37,20 +42,23 @@ public class OwnerPanel extends JPanel{
     * */
 
     public  OwnerPanel(){
+        LOOGER.info("Get Result Entry");
         this.setLayout(new FlowLayout());
         this.initComponents();
         this.addComponents();
         this.repaint();
-
+        LOOGER.info("Constructor exit");
     }
     /**
      * This method is for initialize all components.
      */
     private void initComponents() {
+        LOOGER.info("Get init");
         //Initialize
         this.ownerLabelField = new JLabel("Owner: ");
         this.ownerTextField = new JTextField();
         ownerTextField.setPreferredSize(new Dimension(100, 25));
+        LOOGER.info("init exit");
     }
     /**
      * This method is to add all components.

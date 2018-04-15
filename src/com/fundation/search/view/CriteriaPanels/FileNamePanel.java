@@ -13,7 +13,10 @@
  */
 package com.fundation.search.view.CriteriaPanels;
 
+import com.fundation.search.common.SearchLogger;
+
 import java.awt.FlowLayout;
+import java.util.logging.Logger;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
@@ -25,6 +28,7 @@ import javax.swing.JPanel;
  * @version 1.0.
  */
 public class FileNamePanel extends JPanel {
+    private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
      * allWordsRadioButton, Type: JRadioButton, when file name contains all words.
@@ -54,6 +58,7 @@ public class FileNamePanel extends JPanel {
      * and repaint.
      */
     public FileNamePanel() {
+        LOOGER.info("Get Result Entry");
         // Setting layout to FlowLayout.
         this.setLayout(new FlowLayout());
         // Calling to initComponents() method.
@@ -62,12 +67,14 @@ public class FileNamePanel extends JPanel {
         this.addComponents();
         // repaint.
         this.repaint();
+        LOOGER.info("Constructor exit");
     }
 
     /**
      * This method is to initialize all components.
      */
     private void initComponents() {
+        LOOGER.info("Get init");
         // Initialize RadioButtons.
         this.radioButtonGroup = new ButtonGroup();
         this.allWordsRadioButton = new JRadioButton("all words");
@@ -79,6 +86,7 @@ public class FileNamePanel extends JPanel {
         this.startWithRadioButton.setActionCommand("start with");
         this.endWithRadioButton.setActionCommand("end with");
         this.equalsToRadioButton.setActionCommand("equal to");
+        LOOGER.info("init exit");
     }
 
     /**
