@@ -65,8 +65,8 @@ public class CenterPanel extends JPanel {
      * This method is for initialize all components.
      */
     private void initComponents() {
-        String columnNames[] = {"Name", "Path", "Hidden"};
-        String rowData[][] = {{}, {}, {}};
+        String columnNames[] = {"Name", "Path", "Hidden", "Size", "Owner", "Date Created", "Last Modified", "Last Access", "Type"};
+        String rowData[][] = {{}, {}, {}, {}, {}, {}, {}, {}, {}};
         resultsOfCriteria = new JTable();
         modelOfJTableResult = new DefaultTableModel(rowData, columnNames);
         resultsOfCriteria.setModel(modelOfJTableResult);
@@ -97,9 +97,9 @@ public class CenterPanel extends JPanel {
      * @param modelOfJTableResult, this is model from table result.
      */
     private void cleanModelOfJTable(DefaultTableModel modelOfJTableResult) {
-        int filas = modelOfJTableResult.getRowCount();
-        if (filas > 0) {
-            for (int i = 0; i < filas; i++) {
+        int rows = modelOfJTableResult.getRowCount();
+        if (rows > 0) {
+            for (int i = 0; i < rows; i++) {
                 modelOfJTableResult.removeRow(0);
             }
         }

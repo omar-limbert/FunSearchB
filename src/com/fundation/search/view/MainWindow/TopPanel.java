@@ -19,6 +19,7 @@ import com.fundation.search.view.SearchToolBar;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.Date;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -133,6 +134,66 @@ public class TopPanel extends JPanel {
      */
     public String getPathOfCriteria() {
         return toolbar.getPathOfCriteria();
+    }
+    /**
+     * This method is return Read Only criteria.
+     *
+     * @return Boolean
+     */
+
+    public boolean getReadOnlyOfCriteria() {
+        return  toolbar.getReadOnlyOfCriteria();
+    }
+    /**
+     * This method is return File System criteria.
+     *
+     * @return Boolean
+     */
+    public  boolean getFileSystemOfCriteria() {
+        return  toolbar.getFileSystemOfCriteria();
+    }
+
+
+    /**
+     * This method is return Size criteria.
+     *
+     * @return long
+     */
+    public String getSizeOfCriteria() {
+        return toolbar.getSizeCriteria();
+    }
+    /**
+     * This method is return Owner criteria.
+     *
+     * @return String
+     */
+    public String getOwnerOfCriteria() {
+        return  toolbar.getOwnerCriteria();
+    }
+
+
+    /**
+     * This method is return Date criteria.
+     *
+     * @return Date
+     */
+    public Date getDateCreationCriteria() {
+        return toolbar.getDateCreationCriteria();
+    }
+    public Date getDateToCreationCriteria() {
+        return toolbar.getDateToCreationCriteria();
+    }
+    public Date getDateModificationCriteria() {
+        return toolbar.getDateModificationCriteria();
+    }
+    public Date getDateToModificationCriteria() {
+        return toolbar.getDateToModificationCriteria();
+    }
+    public Date getDateLastOpenedCriteria() {
+        return toolbar.getDateLastOpenedCriteria();
+    }
+    public Date getDateToLastOpenedCriteria() {
+        return toolbar.getDateToLastOpenedCriteria();
     }
 
     /**

@@ -14,9 +14,12 @@
 package com.fundation.search.view;
 
 import com.fundation.search.view.CriteriaPanels.CriteriaPanel;
+import com.fundation.search.view.CriteriaPanels.DatePanel;
 import com.fundation.search.view.CriteriaPanels.FileNamePanel;
 import com.fundation.search.view.CriteriaPanels.HiddenPanel;
+import com.fundation.search.view.CriteriaPanels.OwnerPanel;
 import com.fundation.search.view.CriteriaPanels.PathPanel;
+import com.fundation.search.view.CriteriaPanels.SizePanel;
 
 import javax.swing.JToolBar;
 import javax.swing.JToggleButton;
@@ -28,6 +31,10 @@ import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Vector;
+import  java.util.Date;
+
+
+
 
 /**
  * This class is for create buttons inside to JToolBar.
@@ -62,10 +69,23 @@ public class SearchToolBar extends JToolBar {
      * PATH_PANEL, Type: PathPanel, this Path criteria Panel.
      */
     private static final PathPanel PATH_PANEL = new PathPanel();
+
     /**
      * HIDDEN_PANEL, Type: HiddenPanel, this Hidden criteria Panel.
      */
     private static final HiddenPanel HIDDEN_PANEL = new HiddenPanel();
+    /**
+     * SIZE_PANEL, Type: SizePanel, this Size criteria Panel.
+     */
+    private static final SizePanel SIZE_PANEL = new SizePanel();
+    /**
+     * OWNER_PANEL, Type: OwnerPanel, this Owner criteria Panel.
+     */
+    private static final OwnerPanel OWNER_PANEL = new OwnerPanel();
+    /**
+     * DATE_PANEL, Type: DatePanel, this Date criteria Panel.
+     */
+    private  static final  DatePanel DATE_PANEL = new DatePanel();
 
     /**
      * Constructor for SearchToolBar.
@@ -151,6 +171,15 @@ public class SearchToolBar extends JToolBar {
         if (action.equalsIgnoreCase("Hidden")) {
             panelList.remove(action);
         }
+        if (action.equalsIgnoreCase("Size")) {
+            panelList.remove(action);
+        }
+        if (action.equalsIgnoreCase("Owner")) {
+            panelList.remove(action);
+        }
+        if (action.equalsIgnoreCase("Date")) {
+            panelList.remove(action);
+        }
     }
 
     /**
@@ -162,6 +191,9 @@ public class SearchToolBar extends JToolBar {
             panelList.put("File Name", FILE_NAME_PANEL);
             panelList.put("Path", PATH_PANEL);
             panelList.put("Hidden", HIDDEN_PANEL);
+            panelList.put("Size", SIZE_PANEL);
+            panelList.put("Owner", OWNER_PANEL);
+            panelList.put("Date", DATE_PANEL);
         }
         // Adding "File Name Panel Criteria"
         if (action.equalsIgnoreCase("File Name")) {
@@ -174,6 +206,18 @@ public class SearchToolBar extends JToolBar {
         // Adding "Hidden Panel Criteria"
         if (action.equalsIgnoreCase("Hidden")) {
             panelList.put(action, HIDDEN_PANEL);
+        }
+        // Adding "Size Panel Criteria"
+        if (action.equalsIgnoreCase("Size")) {
+            panelList.put(action, SIZE_PANEL);
+        }
+        // Adding "Owner Panel Criteria"
+        if (action.equalsIgnoreCase("Owner")) {
+            panelList.put(action, OWNER_PANEL);
+        }
+        // Adding "Date Panel Criteria"
+        if (action.equalsIgnoreCase("Date")) {
+            panelList.put(action, DATE_PANEL);
         }
     }
 
@@ -197,6 +241,63 @@ public class SearchToolBar extends JToolBar {
     public String getPathOfCriteria() {
         return PATH_PANEL.getPathCriteria();
     }
+
+    public boolean getReadOnlyOfCriteria(){
+        return PATH_PANEL.getReadOnlyOfCriteria();
+    }
+
+    public boolean getFileSystemOfCriteria() {
+        return  PATH_PANEL.getFileSystemOfCriteria();
+    }
+
+    /**
+     * This method is for return Size.
+     *
+     * @return String, this contains a complete path for search files.
+     */
+    public String getSizeCriteria() {
+        return  SIZE_PANEL.getSizeCriteria();
+    }
+    /**
+     * This method is for return owner.
+     *
+     * @return String, this contains a complete path for search files.
+     */
+    public String getOwnerCriteria() {
+        return  OWNER_PANEL.getOwnerCriteria();
+    }
+    /**
+     * This method is for return Date.
+     *
+     * @return date, this contains a complete path for search files.
+     */
+    public Date getDateCreationCriteria() {
+        return  DATE_PANEL.getDateCreationCriteria();
+    }
+    public Date getDateToCreationCriteria() {
+        return  DATE_PANEL.getDateToCreationCriteria();
+    }
+
+    public Date getDateModificationCriteria() {
+        return  DATE_PANEL.getDateModificationCriteria();
+    }
+
+    public Date getDateToModificationCriteria() {
+        return  DATE_PANEL.getDateToModificationCriteria();
+    }
+
+    public Date getDateLastOpenedCriteria() {
+        return  DATE_PANEL.getDateLastOpenedCriteria();
+    }
+
+    public Date getDateToLastOpenedCriteria() {
+        return  DATE_PANEL.getDateToLastOpenedCriteria();
+    }
+
+
+
+
+
 
     /**
      * This method return Hidden File criteria.

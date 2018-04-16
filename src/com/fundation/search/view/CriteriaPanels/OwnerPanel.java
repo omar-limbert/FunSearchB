@@ -1,5 +1,5 @@
 /*
- * @(#)FileNamePanel.java
+ * @(#)OwnerPanel.java
  *
  * Copyright (c) 2018 Jala Foundation.
  * 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
@@ -13,58 +13,64 @@
  */
 package com.fundation.search.view.CriteriaPanels;
 
+
 import com.fundation.search.common.SearchLogger;
 
 import javax.swing.JPanel;
-import javax.swing.BoxLayout;
-import java.util.Map;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import java.awt.FlowLayout;
+import java.awt.Dimension;
 import java.util.logging.Logger;
 
+
 /**
- * This class is to create Criteria Panel with all sub-panels.
+ * This class is to create the configuration for Owner button.
  *
- * @author Omar Limbert Huanca Sanchez - AT-[06].
+ * @author Jose Christian Galarza - AT-[06].
  * @version 1.0.
  */
-public class CriteriaPanel extends JPanel {
+
+public class OwnerPanel extends JPanel{
 
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
+    private  JTextField ownerTextField;
+    private JLabel ownerLabelField;
 
     /**
-     * Constructor for TopPanel.
-     * This constructor call initComponents() after this
-     * revalidate and repaint all panel.
-     */
-    public CriteriaPanel() {
+    * Constructor for OwnerPanel.
+    * */
+
+    public  OwnerPanel(){
         LOOGER.info("Get Result Entry");
+        this.setLayout(new FlowLayout());
         this.initComponents();
-        this.revalidate();
+        this.addComponents();
         this.repaint();
         LOOGER.info("Constructor exit");
     }
-
     /**
      * This method is for initialize all components.
-     * This is for set Layout to BoxLayout on vertical position.
      */
     private void initComponents() {
         LOOGER.info("Get init");
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        //Initialize
+        this.ownerLabelField = new JLabel("Owner: ");
+        this.ownerTextField = new JTextField();
+        ownerTextField.setPreferredSize(new Dimension(100, 25));
         LOOGER.info("init exit");
     }
-
     /**
-     * This method is for add all components.
-     *
-     * @param panelList This is Map with all criteria panels.
+     * This method is to add all components.
      */
-    public void addComponent(Map<String, JPanel> panelList) {
-        this.removeAll();
-        //Adding Panel for each button
-        panelList.forEach((k, v) -> this.add(v));
-        // Revalidate and repaint.
-        this.revalidate();
-        this.repaint();
+    private void addComponents() {
+        this.add(ownerLabelField);
+        this.add(ownerTextField);
     }
+
+    public String getOwnerCriteria(){
+        return ownerTextField.getText();
+    }
+
 
 }

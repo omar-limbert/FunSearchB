@@ -13,12 +13,15 @@
  */
 package com.fundation.search.view;
 
+import com.fundation.search.common.SearchLogger;
 import com.fundation.search.view.MainWindow.CenterPanel;
 import com.fundation.search.view.MainWindow.TopPanel;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
+import java.util.Date;
+import java.util.logging.Logger;
 
 /**
  * This class main windows.
@@ -27,7 +30,7 @@ import java.awt.BorderLayout;
  * @version 1.0.
  */
 public class MainSearchWindows extends JFrame {
-
+    private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
     /**
      * topPanel, Type: TopPanel, this is top panel of main windows.
      */
@@ -49,6 +52,7 @@ public class MainSearchWindows extends JFrame {
      * This method is for initialize all components on main windows.
      */
     public void initWindows() {
+        LOOGER.info("Get init");
         // Setting tittle of application.
         this.setTitle("Search Application");
         // Initialize Top and Center Panel, you need add new Bottom panel for new functionalities.
@@ -62,11 +66,12 @@ public class MainSearchWindows extends JFrame {
         this.revalidate();
         this.repaint();
         // Setting main windows <= maybe you could be this dynamic.
-        final int width = 600;
-        final int height = 400;
+        final int width = 1300;
+        final int height = 900;
         this.setSize(width, height);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+        LOOGER.info("init exit");
     }
 
     /**
@@ -97,6 +102,68 @@ public class MainSearchWindows extends JFrame {
      */
     public String getPathOfCriteria() {
         return topPanel.getPathOfCriteria();
+    }
+    /**
+     * This method is for return path.
+     * Controller nee ise this.
+     *
+     * @return Boolean, this contains a complete Read only for search files.
+     */
+
+    public boolean getReadOnlyOfCriteria() {
+        return  topPanel.getReadOnlyOfCriteria();
+    }
+    /**
+     * This method is for return path.
+     * Controller nee ise this.
+     *
+     * @return Boolean, this contains a complete File System for search files.
+     */
+    public  boolean getFileSystemOfCriteria() {
+        return  topPanel.getFileSystemOfCriteria();
+    }
+
+    /**
+     * This method is for return size.
+     * Controller nee ise this.
+     *
+     * @return String, this contains a complete path for search files.
+     */
+    public String getSizeOfCriteria() {
+        return topPanel.getSizeOfCriteria();
+    }
+    /**
+     * This method is for return owner.
+     * Controller nee ise this.
+     *
+     * @return String, this contains a complete path for search files.
+     */
+    public String getOwnerOfCriteria() {
+        return topPanel.getOwnerOfCriteria();
+    }
+    /**
+     * This method is for return date.
+     * Controller nee ise this.
+     *
+     * @return String, this contains a complete path for search files.
+     */
+    public Date getCreationDateInit() {
+        return topPanel.getDateCreationCriteria();
+    }
+    public Date getCreationDateEnd() {
+        return topPanel.getDateToCreationCriteria();
+    }
+    public Date getModifiedDateInit() {
+        return topPanel.getDateModificationCriteria();
+    }
+    public Date getModifiedDateEnd() {
+        return topPanel.getDateToModificationCriteria();
+    }
+    public Date getLastAccessDateInit() {
+        return topPanel.getDateLastOpenedCriteria();
+    }
+    public Date getLastAccessDateEnd() {
+        return topPanel.getDateToLastOpenedCriteria();
     }
 
     /**
