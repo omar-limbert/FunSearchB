@@ -167,10 +167,8 @@ public class Search {
             listFile.removeIf(e -> (e.isHidden()));
         }
 
-
         return listFile;
     }
-
 
     /**
      * @param listFile
@@ -182,9 +180,9 @@ public class Search {
         for (File file : listFile) {
             try {
                 BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
-                    if ((fileAttributes.lastModifiedTime().toMillis() >= dateConditionInt.toMillis() && fileAttributes.lastModifiedTime().toMillis() <= dateConditionEnd.toMillis())){
-                        listFilter.add(file);
-                    }
+                if ((fileAttributes.lastModifiedTime().toMillis() >= dateConditionInt.toMillis() && fileAttributes.lastModifiedTime().toMillis() <= dateConditionEnd.toMillis())){
+                    listFilter.add(file);
+                }
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -247,6 +245,8 @@ public class Search {
             for (File file : listFile) {
                 if (file.canRead()) {
                     listFilter.add(file);
+
+                    // file.getName().endsWith()
                 }
             }
         }
@@ -298,6 +298,8 @@ public class Search {
             if (criteria.getSize() > -1) {
                 fileList = searchBySize(fileList, criteria.getSize(), criteria.getOperator());
             }
+
+
             if (criteria.getHiddenCriteria().equalsIgnoreCase("all files")) {
                 fileList = searchHiddenFiles(fileList, "all files");
             }
@@ -313,14 +315,14 @@ public class Search {
             }
 
             if (criteria.getDateConditionEnd() != null && criteria.getDateConditionInt() != null){
-                fileList = lastModifiedTime(fileList,,criteria.getDateConditionInt());
+                fileList = lastModifiedTime(fileList,criteria.getDateConditionInt(),criteria.getDateConditionInt());
             }
 
             if (criteria.getDateConditionEnd() != null && criteria.getDateConditionInt() != null){
                 fileList = creationTime(fileList,criteria.getDateConditionEnd(),criteria.getDateConditionInt());
             }
 
-           if (criteria.getDateConditionEnd() != null && criteria.getDateConditionInt() != null){
+            if (criteria.getDateConditionEnd() != null && criteria.getDateConditionInt() != null){
                 fileList = lastAccessTime(fileList,criteria.getDateConditionEnd(),criteria.getDateConditionInt());
             }
 

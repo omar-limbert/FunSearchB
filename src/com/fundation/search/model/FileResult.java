@@ -53,7 +53,7 @@ public class FileResult {
      * creationTime
      * lastAccessTime
      */
-    /
+
     /**
      * FileResult constructor.
      *
@@ -63,7 +63,7 @@ public class FileResult {
      * @param isHiddenFile state hidden file.
      */
 //FileTime lastModifiedTimeInit, FileTime lastModifiedTimeEnd, FileTime creationTimeInit , FileTime creationTimeEnd, FileTime lastAccessTimeInit, FileTime lastAccessTimeEnd
-    public FileResult(String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, , boolean readFile, FileTime lastModifiedTime, FileTime creationTime, FileTime lastAccessTime ) {
+    public FileResult(String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, boolean readFile, FileTime lastModifiedTime, FileTime creationTime, FileTime lastAccessTime ) {
         this.pathFile = pathFile;
         this.nameFile = nameFile;
         this.sizeFile = sizeFile;
