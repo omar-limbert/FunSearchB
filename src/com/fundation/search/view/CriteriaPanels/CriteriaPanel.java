@@ -13,9 +13,11 @@
  */
 package com.fundation.search.view.CriteriaPanels;
 
-import javax.swing.JPanel;
-import javax.swing.BoxLayout;
+import com.fundation.search.common.SearchLogger;
+
+import javax.swing.*;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * This class is to create Criteria Panel with all sub-panels.
@@ -24,6 +26,10 @@ import java.util.Map;
  * @version 1.0.
  */
 public class CriteriaPanel extends JPanel {
+    /**
+     * Init logger  in Criteria Panel
+     * */
+    private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
      * Constructor for TopPanel.
@@ -31,9 +37,11 @@ public class CriteriaPanel extends JPanel {
      * revalidate and repaint all panel.
      */
     public CriteriaPanel() {
+        LOOGER.info("Get Result Entry");
         this.initComponents();
         this.revalidate();
         this.repaint();
+        LOOGER.info("Constructor exit");
     }
 
     /**
@@ -41,7 +49,9 @@ public class CriteriaPanel extends JPanel {
      * This is for set Layout to BoxLayout on vertical position.
      */
     private void initComponents() {
+        LOOGER.info("Get init");
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        LOOGER.info("init component criteria exit");
     }
 
     /**
@@ -51,11 +61,13 @@ public class CriteriaPanel extends JPanel {
      */
     public void addComponent(Map<String, JPanel> panelList) {
         this.removeAll();
+        LOOGER.info("Get init");
         //Adding Panel for each button
         panelList.forEach((k, v) -> this.add(v));
         // Revalidate and repaint.
         this.revalidate();
         this.repaint();
+        LOOGER.info("add exit component Criteria");
     }
 
 }

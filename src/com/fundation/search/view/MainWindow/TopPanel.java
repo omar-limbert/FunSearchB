@@ -13,15 +13,15 @@
  */
 package com.fundation.search.view.MainWindow;
 
+import com.fundation.search.common.SearchLogger;
 import com.fundation.search.view.CriteriaPanels.CriteriaPanel;
 import com.fundation.search.view.SearchTextField;
 import com.fundation.search.view.SearchToolBar;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.*;
+import java.awt.*;
+import java.util.Date;
+import java.util.logging.Logger;
 
 /**
  * This class is for create Top Panel.
@@ -30,32 +30,40 @@ import javax.swing.JLabel;
  * @version 1.0.
  */
 public class TopPanel extends JPanel {
+    /**
+     * Init logger  in Top Panel
+     * */
+    private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
      * searchTextField, Type: SearchTextField, this is input for initialize search.
      */
     private SearchTextField searchTextField;
+
     /**
      * toolbar, Type: SearchToolBar, this toolbar contains all buttons for set search.
      */
     private SearchToolBar toolbar;
+
     /**
      * searchButton, Type: JButton, this button is for Controller and send all data.
      */
     private JButton searchButton;
+
     /**
      * criteriaPanel, Type: CriteriaPanel, this contains all criteria panels.
      */
     private CriteriaPanel criteriaPanel;
+
     /**
      * constraints, Type: GridBagConstraints, this is initialize GridBag Layout.
      */
     private GridBagConstraints constraints;
+
     /**
      * searchJLabel, Type: JLabel, this is a plane text with "Search: ".
      */
     private JLabel searchJLabel;
-
 
     /**
      * Constructor for TopPanel.
@@ -64,6 +72,7 @@ public class TopPanel extends JPanel {
      * @param placeHolderText This is text for place holder.
      */
     public TopPanel(String placeHolderText) {
+        LOOGER.info("Get top panel Entry");
         this.searchButton = new JButton();
         this.searchButton.setText("Search");
         //setup layout
@@ -72,6 +81,7 @@ public class TopPanel extends JPanel {
         this.initComponents(placeHolderText);
         this.addComponents();
         this.repaint();
+        LOOGER.info("top panel exit");
     }
 
     /**
@@ -80,6 +90,7 @@ public class TopPanel extends JPanel {
      * @param placeHolderText This is text for place holder.
      */
     private void initComponents(String placeHolderText) {
+        LOOGER.info("Get init components");
         // Dynamic criteria JPanel.
         this.criteriaPanel = new CriteriaPanel();
         // JLabel "Search".
@@ -88,12 +99,14 @@ public class TopPanel extends JPanel {
         this.searchTextField = new SearchTextField(placeHolderText);
         // JToolbar with all buttons
         this.toolbar = new SearchToolBar(criteriaPanel);
+        LOOGER.info("components exit");
     }
 
     /**
      * This method is for add all components.
      */
     private void addComponents() {
+        LOOGER.info("Get add Components Entry");
         // Adding Search JLabel to first row.
         constraints.gridx = 0;
         constraints.gridy = 0;
@@ -124,6 +137,7 @@ public class TopPanel extends JPanel {
         constraints.gridwidth = 3;
         constraints.gridheight = 3;
         this.add(criteriaPanel, constraints);
+        LOOGER.info("add Components exit");
     }
 
     /**
@@ -133,6 +147,107 @@ public class TopPanel extends JPanel {
      */
     public String getPathOfCriteria() {
         return toolbar.getPathOfCriteria();
+    }
+
+    /**
+     * This method is return Read Only criteria.
+     *
+     * @return Boolean
+     */
+
+    public boolean getReadOnlyOfCriteria() {
+        return  toolbar.getReadOnlyOfCriteria();
+    }
+
+    /**
+     * This method is return File System criteria.
+     *
+     * @return Boolean
+     */
+    public  boolean getFileSystemOfCriteria() {
+        return  toolbar.getFileSystemOfCriteria();
+    }
+
+    /**
+     * This method is return Directory criteria.
+     *
+     * @return Boolean
+     */
+    public  boolean getDirectoryOfCriteria() {
+        return  toolbar.getDirectoryOfCriteria();
+    }
+
+    /**
+     * This method is return Size criteria.
+     *
+     * @return Array String
+     */
+    public String[] getSizeOfCriteria() {
+        return toolbar.getSizeCriteria();
+    }
+
+    /**
+     * This method is return Owner criteria.
+     *
+     * @return String
+     */
+    public String getOwnerOfCriteria() {
+        return  toolbar.getOwnerCriteria();
+    }
+
+
+    /**
+     * This method is return Date Creation criteria.
+     *
+     * @return Date
+     */
+    public Date getDateCreationCriteria() {
+        return toolbar.getDateCreationCriteria();
+    }
+
+    /**
+     * This method is return Date to Creation criteria.
+     *
+     * @return Date
+     */
+    public Date getDateToCreationCriteria() {
+        return toolbar.getDateToCreationCriteria();
+    }
+
+    /**
+     * This method is return Date Modification criteria.
+     *
+     * @return Date
+     */
+    public Date getDateModificationCriteria() {
+        return toolbar.getDateModificationCriteria();
+    }
+
+    /**
+     * This method is return Date Modification to criteria.
+     *
+     * @return Date
+     */
+    public Date getDateToModificationCriteria() {
+        return toolbar.getDateToModificationCriteria();
+    }
+
+    /**
+     * This method is return Last Access criteria.
+     *
+     * @return Date
+     */
+    public Date getDateLastOpenedCriteria() {
+        return toolbar.getDateLastOpenedCriteria();
+    }
+
+    /**
+     * This method is return Last Access to Creation criteria.
+     *
+     * @return Date
+     */
+    public Date getDateToLastOpenedCriteria() {
+        return toolbar.getDateToLastOpenedCriteria();
     }
 
     /**
@@ -151,6 +266,15 @@ public class TopPanel extends JPanel {
      */
     public String getHiddenOfCriteria() {
         return toolbar.getHiddenOfCriteria();
+    }
+
+    /**
+     * This method is for return Type criteria.
+     *
+     * @return String
+     */
+    public String getTypeCriteria() {
+        return toolbar.getTypeCriteria();
     }
 
     /**

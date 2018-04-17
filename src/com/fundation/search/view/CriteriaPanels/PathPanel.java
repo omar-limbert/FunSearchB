@@ -13,14 +13,12 @@
  */
 package com.fundation.search.view.CriteriaPanels;
 
+import com.fundation.search.common.SearchLogger;
 
-import javax.swing.JPanel;
-import javax.swing.JFileChooser;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import java.awt.FlowLayout;
-import java.awt.Dimension;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.logging.Logger;
 
 /**
  * This class is to create the configuration for Path button.
@@ -29,36 +27,74 @@ import java.awt.event.ActionEvent;
  * @version 1.0.
  */
 public class PathPanel extends JPanel {
+    /**
+     * Init logger  in Path Panel
+     * */
+    private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
      * directoryChooser, Type: JFileChooser, this is a file chooser for get path of directory.
      */
     private JFileChooser directoryChooser;
+
     /**
      * pathButton, Type: JButton, this is a button for open JFileChooser.
      */
     private JButton pathButton;
+
     /**
      * pathTextField, Type: JTextField, this is a JTextField for contains final path result.
      */
     private JTextField pathTextField;
 
     /**
+     * readOnlyCheckBox, Type: JCheckBox, this is a JCheckBox for read only.
+     * */
+    private JCheckBox readOnlyCheckBox;
+
+    /**
+     * readOnlyLabel, Type: JLabel, this is a JLabel for read only.
+     * */
+    private JLabel readOnlyLabel;
+
+    /**
+     * fileSystemCheckBox, Type: JCheckBox, this is a JCheckBox for file System.
+     * */
+    private JCheckBox fileSystemCheckBox;
+
+    /**
+     * fileSystemLabel, Type: JLabel, this is a JLabel for file System.
+     * */
+    private JLabel fileSystemLabel;
+
+    /**
+     * directoryCheckBox, Type: JCheckBox, this is a JCheckBox for directory only.
+     * */
+    private JCheckBox directoryCheckBox;
+
+    /**
+     * directoryLabel, Type: JLabel, this is a JLabel for directory only.
+     * */
+    private JLabel directoryLabel;
+
+    /**
      * Constructor for PathPanel.
      * This method is for set Layout, call initComponents(), call addComponents() and repaint() panel.
      */
     public PathPanel() {
+        LOOGER.info("Get Result Entry");
         this.setLayout(new FlowLayout());
         this.initComponents();
         this.addComponents();
         this.repaint();
+        LOOGER.info("Constructor exit");
     }
 
     /**
      * This method is for initialize all components.
      */
     private void initComponents() {
-
+        LOOGER.info("Get init");
         // Initialize and config Folder Chooser.
         directoryChooser = new JFileChooser();
         directoryChooser.setCurrentDirectory(new java.io.File("/"));
@@ -74,6 +110,15 @@ public class PathPanel extends JPanel {
         pathTextField = new JTextField();
         pathTextField.setPreferredSize(new Dimension(200, 35));
         pathTextField.setText(directoryChooser.getCurrentDirectory().getPath());
+
+        readOnlyCheckBox = new JCheckBox();
+        readOnlyLabel = new JLabel("Read Only");
+        fileSystemCheckBox = new JCheckBox();
+        fileSystemLabel = new JLabel("File System");
+        directoryCheckBox = new JCheckBox();
+        directoryLabel = new JLabel("Directory");
+        LOOGER.info("init exit");
+
     }
 
     /**
@@ -82,20 +127,30 @@ public class PathPanel extends JPanel {
      * @param event, this is event from Action Listener.
      */
     private void folderChooser(ActionEvent event) {
+        LOOGER.info("Get folder chooser init");
         if (directoryChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 
             pathTextField.setText(directoryChooser.getSelectedFile().getAbsolutePath());
         } else {
             System.out.println("No Selection "); // maybe you will replace this for logger.
         }
+        LOOGER.info("folder chooser exit");
     }
 
     /**
      * This method is for add all components.
      */
     private void addComponents() {
+        LOOGER.info("add component");
         this.add(pathTextField);
         this.add(pathButton);
+        this.add(readOnlyCheckBox);
+        this.add(readOnlyLabel);
+        this.add(fileSystemCheckBox);
+        this.add(fileSystemLabel);
+        this.add(directoryCheckBox);
+        this.add(directoryLabel);
+        LOOGER.info("exit add");
     }
 
     /**
@@ -107,4 +162,30 @@ public class PathPanel extends JPanel {
         return pathTextField.getText();
     }
 
+    /**
+     * This method is for return path.
+     *
+     * @return boolean, this contains Read only selection files.
+     */
+    public boolean getReadOnlyOfCriteria() {
+        return readOnlyCheckBox.isSelected();
+    }
+
+    /**
+     * This method is for return path.
+     *
+     * @return boolean, this contains File System only selection files.
+     */
+    public boolean getFileSystemOfCriteria(){
+        return  fileSystemCheckBox.isSelected();
+    }
+
+    /**
+     * This method is for return path.
+     *
+     * @return boolean, this contains File System only selection files.
+     */
+    public boolean getDirectoryOfCriteria(){
+        return  directoryCheckBox.isSelected();
+    }
 }
