@@ -1,7 +1,6 @@
 package com.fundation.search;
 
 
-import com.fundation.search.controller.ControlCriteria;
 import com.fundation.search.view.MainSearchWindows;
 
 import javax.naming.ldap.Control;
