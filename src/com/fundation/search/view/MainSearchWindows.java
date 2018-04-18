@@ -113,6 +113,16 @@ public class MainSearchWindows extends JFrame {
      * This method is for return path.
      * Controller nee ise this.
      *
+     * @return Boolean, this contains a complete Key Sensitive for search files.
+     */
+    public  boolean getKeySensitiveOfCriteria() {
+        return  topPanel.getKeySensitiveOfCriteria();
+    }
+
+    /**
+     * This method is for return path.
+     * Controller nee ise this.
+     *
      * @return Boolean, this contains a complete Read only for search files.
      */
 

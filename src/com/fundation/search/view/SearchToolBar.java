@@ -285,6 +285,15 @@ public class SearchToolBar extends JToolBar {
     }
 
     /**
+     * This method is for return path.
+     *
+     * @return boolean, this contains a Key Sensitive files.
+     */
+    public boolean getKeySensitiveOfCriteria() {
+        return  PATH_PANEL.getKeySensitiveOfCriteria();
+    }
+
+    /**
      * This method is for return Size.
      *
      * @return Array String, this contains a complete path for search files.

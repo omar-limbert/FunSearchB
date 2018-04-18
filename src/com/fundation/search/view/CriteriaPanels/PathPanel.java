@@ -78,6 +78,16 @@ public class PathPanel extends JPanel {
     private JLabel directoryLabel;
 
     /**
+     * keySensitiveCheck, Type: JCheckBox, this is a JCheckBox for directory only.
+     * */
+    private JCheckBox keySensitiveCheck;
+
+    /**
+     * keySensitiveLabel, Type: JLabel, this is a JLabel for directory only.
+     * */
+    private  JLabel keySensitiveLabel;
+
+    /**
      * Constructor for PathPanel.
      * This method is for set Layout, call initComponents(), call addComponents() and repaint() panel.
      */
@@ -110,7 +120,9 @@ public class PathPanel extends JPanel {
         pathTextField = new JTextField();
         pathTextField.setPreferredSize(new Dimension(200, 35));
         pathTextField.setText(directoryChooser.getCurrentDirectory().getPath());
-
+        //Check box
+        keySensitiveLabel = new JLabel("Key Sensitive");
+        keySensitiveCheck = new JCheckBox();
         readOnlyCheckBox = new JCheckBox();
         readOnlyLabel = new JLabel("Read Only");
         fileSystemCheckBox = new JCheckBox();
@@ -144,6 +156,9 @@ public class PathPanel extends JPanel {
         LOOGER.info("add component");
         this.add(pathTextField);
         this.add(pathButton);
+        //Check box
+        this.add(keySensitiveCheck);
+        this.add(keySensitiveLabel);
         this.add(readOnlyCheckBox);
         this.add(readOnlyLabel);
         this.add(fileSystemCheckBox);
@@ -187,5 +202,14 @@ public class PathPanel extends JPanel {
      */
     public boolean getDirectoryOfCriteria(){
         return  directoryCheckBox.isSelected();
+    }
+
+    /**
+     * This method is for return path.
+     *
+     * @return boolean, this contains Key Sensitive only selection files.
+     */
+    public boolean getKeySensitiveOfCriteria(){
+        return  keySensitiveCheck.isSelected();
     }
 }

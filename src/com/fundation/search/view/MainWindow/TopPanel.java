@@ -150,11 +150,19 @@ public class TopPanel extends JPanel {
     }
 
     /**
+     * This method is return Key Sensitive criteria.
+     *
+     * @return Boolean
+     */
+    public boolean getKeySensitiveOfCriteria() {
+        return  toolbar.getKeySensitiveOfCriteria();
+    }
+
+    /**
      * This method is return Read Only criteria.
      *
      * @return Boolean
      */
-
     public boolean getReadOnlyOfCriteria() {
         return  toolbar.getReadOnlyOfCriteria();
     }
