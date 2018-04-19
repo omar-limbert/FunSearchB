@@ -13,10 +13,13 @@
  */
 package com.fundation.search.view.CriteriaPanels;
 
-import java.awt.FlowLayout;
+import com.fundation.search.common.SearchLogger;
+
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
-import javax.swing.JPanel;
+import java.awt.FlowLayout;
+import java.util.logging.Logger;
 
 /**
  * This class is to create the configuration for File Name button.
@@ -25,6 +28,10 @@ import javax.swing.JPanel;
  * @version 1.0.
  */
 public class FileNamePanel extends JPanel {
+    /**
+     * Init logger  in File Name Panel
+     * */
+    private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
      * allWordsRadioButton, Type: JRadioButton, when file name contains all words.
@@ -48,12 +55,14 @@ public class FileNamePanel extends JPanel {
     private ButtonGroup radioButtonGroup;
 
 
+
     /**
      * Constructor to FileNamePanel.
      * This method is for set layout to FlowLayout, call to iniComponents(), call to addComponents(),
      * and repaint.
      */
     public FileNamePanel() {
+        LOOGER.info("Get Result Entry");
         // Setting layout to FlowLayout.
         this.setLayout(new FlowLayout());
         // Calling to initComponents() method.
@@ -62,12 +71,14 @@ public class FileNamePanel extends JPanel {
         this.addComponents();
         // repaint.
         this.repaint();
+        LOOGER.info("Constructor exit");
     }
 
     /**
      * This method is to initialize all components.
      */
     private void initComponents() {
+        LOOGER.info("Get init");
         // Initialize RadioButtons.
         this.radioButtonGroup = new ButtonGroup();
         this.allWordsRadioButton = new JRadioButton("all words");
@@ -79,12 +90,15 @@ public class FileNamePanel extends JPanel {
         this.startWithRadioButton.setActionCommand("start with");
         this.endWithRadioButton.setActionCommand("end with");
         this.equalsToRadioButton.setActionCommand("equal to");
+
+        LOOGER.info("init exit");
     }
 
     /**
      * This method is to add all components.
      */
     private void addComponents() {
+        LOOGER.info("Get add");
         // Adding radioButtons to one Group Radio Button.
         this.radioButtonGroup.add(allWordsRadioButton);
         this.radioButtonGroup.add(startWithRadioButton);
@@ -97,6 +111,8 @@ public class FileNamePanel extends JPanel {
         this.add(equalsToRadioButton);
         // Default radioButton selected.
         this.allWordsRadioButton.setSelected(true);
+
+        LOOGER.info("add exit");
     }
 
     /**
@@ -105,6 +121,7 @@ public class FileNamePanel extends JPanel {
      * @return String, this is a action command can be "all words", "start with", "end with" and "equal to".
      */
     public String getFileNameCriteria() {
+        LOOGER.info("Get file name panel");
         return radioButtonGroup.getSelection().getActionCommand();
     }
 

@@ -13,10 +13,13 @@
  */
 package com.fundation.search.view.CriteriaPanels;
 
-import java.awt.FlowLayout;
+import com.fundation.search.common.SearchLogger;
+
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
-import javax.swing.JPanel;
+import java.awt.FlowLayout;
+import java.util.logging.Logger;
 
 /**
  * This class is to create the configuration for Hidden button.
@@ -25,7 +28,10 @@ import javax.swing.JPanel;
  * @version 1.0.
  */
 public class HiddenPanel extends JPanel {
-
+    /**
+     * Init logger  in Hidden Panel
+     * */
+    private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
     /**
      * allFilesRadioButton, Type: JRadioButton, when show hidden file and no hidden file.
      */
@@ -49,6 +55,7 @@ public class HiddenPanel extends JPanel {
      * and repaint.
      */
     public HiddenPanel() {
+        LOOGER.info("Get Result Entry");
         // Setting layout to FlowLayout.
         this.setLayout(new FlowLayout());
         // Calling to initComponents() method.
@@ -57,13 +64,14 @@ public class HiddenPanel extends JPanel {
         this.addComponents();
         // repaint.
         this.repaint();
+        LOOGER.info("Constructor exit");
     }
 
     /**
      * This method is to initialize all components.
      */
     private void initComponents() {
-
+        LOOGER.info("Get init");
         // Initialize RadioButtons.
         this.radioButtonGroup = new ButtonGroup();
         this.allFilesRadioButton = new JRadioButton("all files");
@@ -73,12 +81,14 @@ public class HiddenPanel extends JPanel {
         this.allFilesRadioButton.setActionCommand("all files");
         this.onlyHiddenRadioButton.setActionCommand("only hidden");
         this.withoutHiddenRadioButton.setActionCommand("without hidden");
+        LOOGER.info("init exit");
     }
 
     /**
      * This method is to add all components.
      */
     private void addComponents() {
+        LOOGER.info("init add");
         // Adding radioButtons to one Group Radio Button.
         this.radioButtonGroup.add(allFilesRadioButton);
         this.radioButtonGroup.add(onlyHiddenRadioButton);
@@ -89,6 +99,7 @@ public class HiddenPanel extends JPanel {
         this.add(withoutHiddenRadioButton);
         // Default radioButton selected.
         this.withoutHiddenRadioButton.setSelected(true);
+        LOOGER.info("add exit");
     }
 
     /**
@@ -97,6 +108,7 @@ public class HiddenPanel extends JPanel {
      * @return String, this is a action command can be "all files", "only hidden","without hidden".
      */
     public String getHiddenCriteria() {
+        LOOGER.info("Hidden panel");
         return radioButtonGroup.getSelection().getActionCommand();
     }
 
