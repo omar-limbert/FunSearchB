@@ -61,7 +61,7 @@ public class FileResult extends Asset {
     private String extensionFile;
 
     /**
-     * FileResult constructor.
+     * FileResult constructor..
      *
      * @param pathFile     path .
      * @param nameFile     name file.
