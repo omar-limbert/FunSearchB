@@ -38,22 +38,43 @@ public class FileResult {
      * isHiddenFile is the file state hidden/no hidden
      */
     private boolean isHiddenFile;
-
-    private FileTime lastModifiedTime;
-
-    private FileTime creationTime;
-
-    private FileTime lastAccessTime;
-
-
-    private boolean readFile;
-
     /**
-     * lastModifiedTime
-     * creationTime
-     * lastAccessTime
+     * lastModifiedTime the last access.
      */
-    /
+    private FileTime lastModifiedTime;
+    /**
+     * creationTime the last creatin.
+     */
+    private FileTime creationTime;
+    /**
+     * lastAccessTime the last access.
+     */
+    private FileTime lastAccessTime;
+    /**
+     * isReadOnly if the file state isReadOnly/no isReadOnly.
+     */
+    private boolean isReadOnly;
+    /**
+     * isFileSystem if the file state isFileSystem/no isFileSystem.
+     */
+    private boolean isFileSystem;
+    /**
+     * isDirectory if the file state isDirectory/no isDirectory.
+     */
+    private boolean isDirectory;
+    /**
+     * ownerFile the name of the owner.
+     */
+    private String ownerFile;
+    /**
+     * The text for made a search.
+     */
+    private String intoFile;
+    /**
+     * The Type of extension.
+     */
+    private String extensionFile;
+
     /**
      * FileResult constructor.
      *
@@ -63,7 +84,7 @@ public class FileResult {
      * @param isHiddenFile state hidden file.
      */
 //FileTime lastModifiedTimeInit, FileTime lastModifiedTimeEnd, FileTime creationTimeInit , FileTime creationTimeEnd, FileTime lastAccessTimeInit, FileTime lastAccessTimeEnd
-    public FileResult(String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, , boolean readFile, FileTime lastModifiedTime, FileTime creationTime, FileTime lastAccessTime ) {
+    public FileResult(String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, boolean readFile, FileTime lastModifiedTime, FileTime creationTime, FileTime lastAccessTime, String ownerFile, boolean isReadOnly, boolean isFileSystem, boolean isDirectory, String intoFile, String extensionFile) {
         this.pathFile = pathFile;
         this.nameFile = nameFile;
         this.sizeFile = sizeFile;
@@ -71,7 +92,12 @@ public class FileResult {
         this.lastModifiedTime = lastModifiedTime;
         this.creationTime = creationTime;
         this.lastAccessTime = lastAccessTime;
-        this.readFile = readFile;
+        this.ownerFile = ownerFile;
+        this.isReadOnly = isReadOnly;
+        this.isFileSystem = isFileSystem;
+        this.isDirectory = isDirectory;
+        this.intoFile = intoFile;
+        this.extensionFile = extensionFile;
     }
 
     /**
@@ -102,20 +128,67 @@ public class FileResult {
         return isHiddenFile;
     }
 
+    /**
+     * This method return creationTime on a File.
+     */
     public FileTime getCreationTime() {
         return creationTime;
     }
 
+    /**
+     * This method return lastAccessTime on a File.
+     */
     public FileTime getLastAccessTime() {
         return lastAccessTime;
     }
 
+    /**
+     * This method return lastModifiedTime on a File.
+     */
     public FileTime getLastModifiedTime() {
         return lastModifiedTime;
     }
 
-    public boolean getIsRead(){
-        return readFile;
+    /**
+     * This method return true if the a file isReadOnly.
+     */
+    public boolean getIsReadOnlyFile() {
+        return isReadOnly;
+    }
+
+    /**
+     * This method return true if the a file isFileSystem.
+     */
+    public boolean getIsFileSystemFile() {
+        return isFileSystem;
+    }
+
+    /**
+     * This method return true if the a file isDirectory.
+     */
+    public boolean getIsDirectory() {
+        return isDirectory;
+    }
+
+    /**
+     * This method return the text into the file.
+     */
+    public String getIntoFile() {
+        return intoFile;
+    }
+
+    /**
+     * This method return the name of the owner.
+     */
+    public String getOwnerFile() {
+        return ownerFile;
+    }
+
+    /**
+     * This method return the extension on a file.
+     */
+    public String getExtensionFile() {
+        return extensionFile;
     }
 
 }
