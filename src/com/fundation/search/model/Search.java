@@ -13,8 +13,6 @@
  */
 package com.fundation.search.model;
 
-import com.fundation.search.controller.SearchCriteria;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
