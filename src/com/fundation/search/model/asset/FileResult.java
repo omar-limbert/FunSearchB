@@ -38,7 +38,7 @@ public class FileResult extends Asset {
      */
     private long sizeFile;
     /**
-     * isHiddenFile is the file state hidden/no hidden
+     * isHiddenFile is the file state hidden/no hidden.
      */
     private boolean isHiddenFile;
 

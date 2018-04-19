@@ -30,7 +30,7 @@ import java.util.List;
 
 
 /**
- * This class is to search files by criteria..
+ * This class is to search files by criteria.
  *
  * @author Escarleth Ledezma Quiroga - AT-[06].
  * @author Omar Limbert Huanca Sanchez - AT-[06].

@@ -1,7 +1,7 @@
 package com.fundation.search.model.asset;
 
 import java.nio.file.attribute.FileTime;
-
+//
 public class FactoryAsset {
 
     public Asset buildAsset(String assetType, String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, FileTime lastModifiedTime, FileTime creationTime, FileTime lastAccessTime, boolean isReadOnly, boolean isFileSystem, String extensionFile) {

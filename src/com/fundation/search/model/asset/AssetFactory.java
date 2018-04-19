@@ -3,7 +3,7 @@ package com.fundation.search.model.asset;
 /**
  * This class Asset can be FileResult, MultimediaResult and maybe SearchFolder.
  *
- * @author Ariel Gonzales Vargas - AT-[06]..
+ * @author Ariel Gonzales Vargas - AT-[06].
  * @version 1.0.
  */
 import java.nio.file.attribute.FileTime;
