@@ -324,27 +324,20 @@ public class Search {
      * @param owner this is name of owner for filter file list.
      * @return list all the files minor or major or equal to given size.
      */
+    private List<File> searchByOwner(List<File> listFile, String owner) {
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+            try {
+                if (Files.getFileAttributeView(file.toPath(),FileOwnerAttributeView.class).getOwner().getName().equalsIgnoreCase(owner)) {
+                    listFilter.add(file);
+                }
 
-    private List<File> searchByOwner(String owner) {
-        fileList.removeIf(e -> !(this.isOwner(e, owner)));
-
-        return fileList;
-    }
-
-    /**
-     * This method is compare Owner.
-     *
-     * @param owner this is name of owner for filter file list.
-     * @param e     this is a file for compare.
-     * @return list all the files minor or major or equal to given size.
-     */
-    private boolean isOwner(File e, String owner) {
-        try {
-            return owner.equalsIgnoreCase(Files.readAttributes(e.toPath(), PosixFileAttributes.class).owner().getName());
-        } catch (IOException e1) {
-            e1.printStackTrace();
-            return false;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
+        return listFilter;
     }
 
     /**
@@ -415,7 +408,7 @@ public class Search {
             }
 
             if (!criteria.getOwnerCriteria().isEmpty()) {
-                fileList = searchByOwner(criteria.getOwnerCriteria());
+                fileList = searchByOwner(fileList,criteria.getOwnerCriteria());
             }
 
         }
@@ -452,7 +445,7 @@ public class Search {
     }
 
     /**
-     * @param e A list of files.
+     * @param e A list of files....
      *          .
      * @return a list of files it depend of the criteria.
      */
