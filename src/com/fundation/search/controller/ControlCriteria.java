@@ -16,8 +16,7 @@ package com.fundation.search.controller;
 import com.fundation.search.common.Convertor;
 import com.fundation.search.common.SearchLogger;
 import com.fundation.search.common.Validator;
-import com.fundation.search.controller.builder.SearchCriteria;
-import com.fundation.search.model.FileResult;
+
 import com.fundation.search.model.Search;
 import com.fundation.search.view.MainSearchWindows;
 

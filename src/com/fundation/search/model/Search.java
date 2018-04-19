@@ -13,20 +13,28 @@
  */
 package com.fundation.search.model;
 
+import com.fundation.search.common.SearchLogger;
+import com.fundation.search.controller.SearchCriteria;
+import com.fundation.search.model.asset.Asset;
+import com.fundation.search.model.asset.AssetFactory;
+
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.DosFileAttributes;
 import java.nio.file.attribute.FileTime;
-import java.nio.file.attribute.PosixFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * This class is to search files by criteria.
  *
  * @author Escarleth Ledezma Quiroga - AT-[06].
  * @author Omar Limbert Huanca Sanchez - AT-[06].
+ * @author Ariel Gonzales Vargas - AT-[06].
  * @version 1.0.
  */
 public class Search {
@@ -39,14 +47,20 @@ public class Search {
      */
     private List<File> fileList;
 
+    private List<Asset> assetList;
 
-    private List<Files> filesList2;
+    private  AssetFactory assetFactory;
 
+    private List<Asset> result;
     /**
      * Search Class constructor.
      */
     public Search() {
+
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Constructor Search");
         fileList = new ArrayList<>();
+        assetFactory = new AssetFactory();
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Constructor Search");
     }
 
     /**
@@ -54,7 +68,9 @@ public class Search {
      * @return list all the files contained within the path.
      */
     private List<File> searchByPath(String path) {
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method searchByPath");
         try {
+
             File[] files = new File(path).listFiles();
             for (File file : files) {
                 fileList.add(file);
@@ -64,6 +80,7 @@ public class Search {
             }
         } catch (NullPointerException e) {
         }
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method searchByPath");
         return fileList;
     }
 
@@ -74,21 +91,22 @@ public class Search {
      * @param nameFile .
      * @return list all the files that contains the name of a file.
      */
-    private List<File> searchByName(List<File> listFile, String nameFile, String fileNameCriteria) {
-
+    private List<Asset> searchByName(File listFile, String nameFile, String fileNameCriteria) {
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method searchByName");
         if (fileNameCriteria.equalsIgnoreCase("all words")) {
-            listFile.removeIf(e -> (!e.getName().contains(nameFile)));
+            assetList.removeIf(e -> (!listFile.getName().contains(nameFile)));
         }
         if (fileNameCriteria.equalsIgnoreCase("start with")) {
-            listFile.removeIf(e -> (!e.getName().startsWith(nameFile)));
+            assetList.removeIf(e -> (!listFile.getName().startsWith(nameFile)));
         }
         if (fileNameCriteria.equalsIgnoreCase("end with")) {
-            listFile.removeIf(e -> (!e.getName().endsWith(nameFile)));
+            assetList.removeIf(e -> (!listFile.getName().endsWith(nameFile)));
         }
         if (fileNameCriteria.equalsIgnoreCase("equal to")) {
-            listFile.removeIf(e -> (!e.getName().equals(nameFile)));
+            assetList.removeIf(e -> (!listFile.getName().equals(nameFile)));
         }
-        return listFile;
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method searchByName");
+        return assetList;
     }
 
     /**
@@ -97,54 +115,37 @@ public class Search {
      * @param operator is "<" or ">" or "=".
      * @return list all the files minor or major or equal to given size.
      */
-   /* private List<File> searchBySize(List<File> listFile, double size, char operator) {
 
-        List<File> listFilter = new ArrayList<>();
-        for (File file : listFile) {
-            if (operator == '=') {
-                if (file.length() != size) {
-                    listFilter.add(file);
-                }
-            }
-            if (operator == '>') {
-                if (file.length() < size) {
-                    listFilter.add(file);
-                }
-            }
-            if (operator == '<') {
-                if (file.length() > size) {
 
-                    listFilter.add(file);
-                }
-            }
-        }
-        listFile.removeAll(listFilter);
-        return listFile;
-    }*/
-
-    private List<File> searchBySize(List<File> listFile, long size, char operator) {
+    private List<File> searchBySize(List<File> listFile, long size, String operator) {
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method searchBySize");
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
             try {
                 BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
-
-                if (fileAttributes.size() == size && operator == '='){
-                    listFilter.add(file);
-                }
-                System.out.println(fileAttributes.size());
-                if(fileAttributes.size() >= size && operator == '>'){
-                    listFilter.add(file);
+                if (operator.equalsIgnoreCase("upper")) {
+                    if (fileAttributes.size() > size) {
+                        listFilter.add(file);
+                    }
                 }
 
-                if(fileAttributes.size() <= size && operator == '<'){
-                    listFilter.add(file);
+                if (operator.equalsIgnoreCase("lower")) {
+                    if (fileAttributes.size() < size) {
+                        listFilter.add(file);
+                    }
                 }
 
+                if (operator.equalsIgnoreCase("equal")) {
+                    if (fileAttributes.size() == size) {
+                        listFilter.add(file);
+                    }
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
 
+        }
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method searchBySize");
         return listFilter;
     }
 
@@ -157,99 +158,15 @@ public class Search {
      */
 
     private List<File> searchHiddenFiles(List<File> listFile, String hiddenCriteria) {
-
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method searchHiddenFiles");
         if (hiddenCriteria.equalsIgnoreCase("only hidden")) {
             listFile.removeIf(e -> (!e.isHidden()));
         }
         if (hiddenCriteria.equalsIgnoreCase("without hidden")) {
             listFile.removeIf(e -> (e.isHidden()));
         }
-
-
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method searchHiddenFiles");
         return listFile;
-    }
-
-
-    /**
-     * @param listFile
-     * @param dateCondition
-     * @return
-     */
-    private List<File> lastModifiedTime(List<File> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
-        List<File> listFilter = new ArrayList<>();
-        for (File file : listFile) {
-            try {
-                BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
-                    if ((fileAttributes.lastModifiedTime().toMillis() >= dateConditionInt.toMillis() && fileAttributes.lastModifiedTime().toMillis() <= dateConditionEnd.toMillis())){
-                        listFilter.add(file);
-                    }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return listFilter;
-    }
-
-    /**
-     * @param listFile
-     * @param dateCondition
-     * @return
-     */
-    private List<File> creationTime(List<File> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
-        List<File> listFilter = new ArrayList<>();
-        for (File file : listFile) {
-
-            try {
-                BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
-                if ((fileAttributes.creationTime().toMillis() >= dateConditionInt.toMillis() && fileAttributes.creationTime().toMillis() <= dateConditionEnd.toMillis())){
-                    listFilter.add(file);
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return listFilter;
-    }
-
-
-    /**
-     * @param listFile
-     * @param dateCondition
-     * @return
-     */
-    private List<File> lastAccessTime(List<File> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
-        List<File> listFilter = new ArrayList<>();
-        for (File file : listFile) {
-            try {
-                BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
-                if ((fileAttributes.creationTime().toMillis() >= dateConditionInt.toMillis() && fileAttributes.creationTime().toMillis() <= dateConditionEnd.toMillis())){
-                    listFilter.add(file);
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return listFilter;
-    }
-
-
-    private List<File> isRead(List<File> listFile, boolean isRead) {
-
-        List<File> listFilter = new ArrayList<>();
-        if(isRead) {
-            for (File file : listFile) {
-                if (file.canRead()) {
-                    listFilter.add(file);
-                }
-            }
-        }
-
-        return listFilter;
     }
 
     /**
@@ -259,11 +176,11 @@ public class Search {
      * @return list all the files minor or major or equal to given size.
      */
 
-    private List<File> searchByOwner(String owner) {
+   /* private List<File> searchByOwner(String owner) {
         fileList.removeIf(e -> !(this.isOwner(e, owner)));
 
         return fileList;
-    }
+    }*/
 
     /**
      * This method is compare Owner.
@@ -272,7 +189,7 @@ public class Search {
      * @param e     this is a file for compare.
      * @return list all the files minor or major or equal to given size.
      */
-    private boolean isOwner(File e, String owner) {
+  /*  private boolean isOwner(File e, String owner) {
         try {
             return owner.equalsIgnoreCase(Files.readAttributes(e.toPath(), PosixFileAttributes.class).owner().getName());
         } catch (IOException e1) {
@@ -280,6 +197,203 @@ public class Search {
             return false;
         }
     }
+*/
+
+   /* private List<File> searchByOwner(List<File> listFile, String owner) {
+
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+
+            PosixFileAttributes f = null;
+            try {
+                f = Files.readAttributes(file.toPath(), PosixFileAttributes.class);
+                if (f.owner().getName().equalsIgnoreCase(owner)) {
+                    listFilter.add(file);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            }
+        return listFilter;
+        }*/
+
+
+    private List<File> lastModifiedTime(List<File> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method lastModifiedTime");
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+            try {
+                BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+                if ((fileAttributes.lastModifiedTime().toMillis() >= dateConditionInt.toMillis() && fileAttributes.lastModifiedTime().toMillis() <= dateConditionEnd.toMillis())) {
+                    listFilter.add(file);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method lastModifiedTime");
+        return listFilter;
+    }
+
+
+    /**
+     * @param listFile It is the list of Files.
+     * @param dateConditionInt Is the init date for Creation time on a file.
+     * @param dateConditionEnd Is the end date for Creation time on a file.
+     * @return a list of files that are on range between init date and end date.
+     */
+    private List<File> creationTime(List<File> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method creationTime");
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+            try {
+                BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+                if ((fileAttributes.creationTime().toMillis() >= dateConditionInt.toMillis() && fileAttributes.creationTime().toMillis() <= dateConditionEnd.toMillis())) {
+                    listFilter.add(file);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method creationTime");
+        return listFilter;
+    }
+
+
+    /**
+     * @param listFile It is the list of Files.
+     * @param dateConditionInt Is the init date for Last Access time on a file.
+     * @param dateConditionEnd Is the end date for Last Access time on a file.
+     * @return a list of files that are on range between init date and end date.
+     */
+    private List<File> lastAccessTime(List<File> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method lastAccessTime");
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+            try {
+                BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+                if ((fileAttributes.creationTime().toMillis() >= dateConditionInt.toMillis() && fileAttributes.creationTime().toMillis() <= dateConditionEnd.toMillis())) {
+                    listFilter.add(file);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method lastAccessTime");
+        return listFilter;
+    }
+
+
+    /**
+     * @param listFile It is the list of Files.
+     * @return A list of files that are ReadOnly.
+     */
+    private List<File> isReadOnly(List<File> listFile) {
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method isReadOnly");
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+            try {
+                if (Files.readAttributes(file.toPath(), DosFileAttributes.class).isReadOnly()) {
+                    listFilter.add(file);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method isReadOnly");
+        return listFilter;
+    }
+
+    /**
+     * @param listFile It is the list of Files.
+     * @return A list of files that are on System.
+     */
+    private List<File> isFileSystem(List<File> listFile) {
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method isFileSystem");
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+            try {
+                if (Files.readAttributes(file.toPath(), DosFileAttributes.class).isSystem()) {
+                    listFilter.add(file);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method isFileSystem");
+        return listFilter;
+    }
+
+    /**
+     * @param listFile It is the list of Files.
+     * @return A list of files that are a Directories (Folders).
+     */
+    private List<File> searchByDirectory(List<File> listFile) {
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method searchByDirectory");
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+            try {
+                if (Files.readAttributes(file.toPath(), BasicFileAttributes.class).isDirectory()) {
+                    listFilter.add(file);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method searchByDirectory");
+        return listFilter;
+    }
+
+    /**
+     * @param listFile It is the list of Files.
+     * @param extension The name of extension (.png,.docx,etc).
+     * @return A list of files that are the criteria of the extension.
+     */
+    private List<File> searchByExtension(List<File> listFile, String extension) {
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method searchByExtension");
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+            if (file.getName().endsWith(extension)) {
+                listFilter.add(file);
+            }
+        }
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method searchByExtension");
+        return listFilter;
+    }
+
+    /**
+     * @param listFile It is the list of Files.
+     * @param text The text that it should be find.
+     * @return a list of files that contains the text into itselves.
+     */
+    private List<File> searchIntoFile (List<File> listFile, String text) {
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method searchIntoFile");
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+
+            try(FileInputStream fis=new FileInputStream(file)){
+
+                int valor=fis.read();
+                while(valor!=-1){
+                    System.out.print((char)valor);
+                    valor=fis.read();
+                }
+
+            }catch(IOException e){
+
+            }
+        }
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method searchIntoFile");
+        return listFilter;
+    }
+
 
     /**
      * This method is for filter by criteria.
@@ -287,83 +401,122 @@ public class Search {
      * @param criteria receives Search Criteria object.
      *                 Is a method that filter a List according that receive of SearchCriteria.
      */
-    private void filterByCriteria(SearchCriteria criteria) {
+    public void filterByCriteria(SearchCriteria criteria) {
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method filterByCriteria");
         if (criteria.getPath() != null) {
             fileList = searchByPath(criteria.getPath());
-            if (criteria.getName() != null) {
-                fileList = searchByName(fileList, criteria.getName(), criteria.getFileNameCriteria());
-            }
-            if (criteria.getSize() > -1) {
-                fileList = searchBySize(fileList, criteria.getSize(), criteria.getOperator());
-            }
-            if (criteria.getHiddenCriteria().equalsIgnoreCase("all files")) {
-                fileList = searchHiddenFiles(fileList, "all files");
-            }
-            if (criteria.getHiddenCriteria().equalsIgnoreCase("only hidden")) {
-                fileList = searchHiddenFiles(fileList, "only hidden");
-            }
-            if (criteria.getHiddenCriteria().equalsIgnoreCase("without hidden")) {
-                fileList = searchHiddenFiles(fileList, "without hidden");
-            }
+            for (File f : fileList){
 
-            if(criteria.getIsRead()){
-                fileList = isRead(fileList,true);
-            }
+                if (criteria.getName() != null) {
+                    assetList = searchByName(f, criteria.getName(), criteria.getFileNameCriteria());
+                }
+                if (criteria.getSize() > -1 && criteria.getSize() != 0L) {
+                    fileList = searchBySize(fileList, criteria.getSize(), criteria.getOperator());
+                }
+                if (criteria.getHiddenCriteria().equalsIgnoreCase("all files")) {
+                    fileList = searchHiddenFiles(fileList, "all files");
+                }
+                if (criteria.getHiddenCriteria().equalsIgnoreCase("only hidden")) {
+                    fileList = searchHiddenFiles(fileList, "only hidden");
+                }
+                if (criteria.getHiddenCriteria().equalsIgnoreCase("without hidden")) {
+                    fileList = searchHiddenFiles(fileList, "without hidden");
+                }
 
-            if (criteria.getDateConditionEnd() != null && criteria.getDateConditionInt() != null){
-                fileList = lastModifiedTime(fileList,,criteria.getDateConditionInt());
-            }
+                if (criteria.getIsReadOnly()) {
 
-            if (criteria.getDateConditionEnd() != null && criteria.getDateConditionInt() != null){
-                fileList = creationTime(fileList,criteria.getDateConditionEnd(),criteria.getDateConditionInt());
-            }
+                    fileList = isReadOnly(fileList);
+                }
 
-           if (criteria.getDateConditionEnd() != null && criteria.getDateConditionInt() != null){
-                fileList = lastAccessTime(fileList,criteria.getDateConditionEnd(),criteria.getDateConditionInt());
-            }
+                if (criteria.getIsDirectory()) {
+                    fileList = searchByDirectory(fileList);
+                }
 
+                if (criteria.getIsFileSystem()) {
+                    fileList = isFileSystem(fileList);
+                }
 
-            /*if (!criteria.getOwnerCriteria().isEmpty()) {
-                fileList = searchByOwner(criteria.getOwnerCriteria());
+                if (criteria.getExtension() != null) {
+                    fileList = searchByExtension(fileList, criteria.getExtension());
+                }
+
+                if (criteria.getCreationDateInit() != null && criteria.getCreationDateEnd() != null) {
+                    fileList = lastModifiedTime(fileList, criteria.getCreationDateInit(), criteria.getCreationDateEnd());
+                }
+
+                if (criteria.getModifiedDateInit() != null && criteria.getModifiedDateEnd() != null) {
+                    fileList = creationTime(fileList, criteria.getModifiedDateInit(), criteria.getModifiedDateEnd());
+                }
+
+                if (criteria.getLastAccessDateInit() != null && criteria.getLastAccessDateEnd() != null) {
+                    fileList = lastAccessTime(fileList, criteria.getLastAccessDateInit(), criteria.getLastAccessDateEnd());
+                }
+
+            /* if (criteria.getOwnerCriteria() != null) {
+                fileList = searchByOwner(fileList,criteria.getOwnerCriteria());
             }*/
 
+             /*if(criteria.getIntoFile() != null){
+                fileList = searchIntoFile(fileList,criteria.getIntoFile());
+            }*/
+
+            }
+
         }
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method filterByCriteria");
     }
 
     /**
      * @param criteria This method receives a criteria.
      */
     public void setSearchCriteria(SearchCriteria criteria) {
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method setSearchCriteria");
         this.criteria = criteria;
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method setSearchCriteria");
     }
 
     /**
      * This method initialize the criteria filtering.
      */
     public void initSearch() {
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method initSearch");
         filterByCriteria(criteria);
+        AssetFactory assetFactory = new AssetFactory();
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method initSearch");
     }
 
-    public List<FileResult> getResultList() {
-        List<FileResult> result = new ArrayList<>();
-
+    /**
+     * Is the list(FileResult) result of a search by criteria.
+     *
+     * @return File Result list with the files already searched.
+     */
+    private void fillResultList() {
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method fillResultList");
+        result = new ArrayList<>();
         if (!fileList.isEmpty()) {
-            fileList.forEach(e -> result
-                    .add(createFileResult(e)));
+            for (File file : fileList) {
+                try {
+                    BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+                    DosFileAttributes fileAttributes1 = Files.readAttributes(file.toPath(), DosFileAttributes.class);
+                    // PosixFileAttributes fileAttributes2 = Files.readAttributes(file.toPath(),PosixFileAttributes.class);
+                    result.add(new Asset(file.getPath(),file.getName(), file.length(), file.isHidden(), fileAttributes.creationTime()
+                            , fileAttributes.lastAccessTime(), fileAttributes.lastModifiedTime(), fileAttributes1.isReadOnly(), fileAttributes1.isSystem()
+                            ,file.getName()));
 
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
         }
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method fillResultList");
+    }
+
+    public List<Asset> getResultList() {
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method getResultList");
+        fillResultList();
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method getResultList");
         return result;
     }
 
-    private FileResult createFileResult(File e) {
-        FileResult result = null;
-        try {
-            BasicFileAttributes fileAttributes = Files.readAttributes(e.toPath(), BasicFileAttributes.class);
-            result = new FileResult(e.getPath(),e.getName(),e.length(),e.isHidden(),e.canRead(),fileAttributes.lastModifiedTime(), fileAttributes.creationTime(),fileAttributes.lastAccessTime());
-
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-        return result;
-    }
 }
