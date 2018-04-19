@@ -73,6 +73,8 @@ public class SearchLogger {
         }
         // Adding handler to logger.
         logger.addHandler(fileHandler);
+        // Set logger of on Console
+        logger.setUseParentHandlers(false);
         SimpleFormatter formatter = new SimpleFormatter();
         fileHandler.setFormatter(formatter);
     }
