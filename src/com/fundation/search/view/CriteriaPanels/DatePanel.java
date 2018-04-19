@@ -49,13 +49,18 @@ public class DatePanel extends JPanel {
      */
     private JDateChooser dateCreationDateChooser;
 
+    /**
+     * dateModificationDateCheck , Type: JDateChooser, this is a JDateChooser for contains date creation.
+     */
     private  JCheckBox dateModificationDateCheck;
 
     /**
      * dateModificationDateChooser , Type: JDateChooser, this is a JDateChooser for contains date modification.
      */
     private JDateChooser dateModificationDateChooser;
-
+    /**
+     * dateLastOpenedDateCheck , Type: JCheckBox, this is a JCheckBox for contains check date creation.
+     */
     private  JCheckBox dateLastOpenedDateCheck;
 
     /**
