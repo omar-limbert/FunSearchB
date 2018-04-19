@@ -23,7 +23,6 @@ import com.fundation.search.view.command.CommandCriteria;
 import com.fundation.search.view.command.CommandView;
 import com.fundation.search.view.command.SearchCommand;
 
-import javax.swing.*;
 import java.nio.file.attribute.FileTime;
 import java.util.Date;
 import java.util.logging.Logger;
@@ -172,7 +171,6 @@ public class ControlCommand {
         if (validateInputs.isValidPath(pathOfCriteria)) {
             return pathOfCriteria;
         }
-        JOptionPane.showMessageDialog(null, "Invalid Path", "Error", JOptionPane.ERROR_MESSAGE);
         LOOGER.info("pathValidation Exit");
         return null;
     }
