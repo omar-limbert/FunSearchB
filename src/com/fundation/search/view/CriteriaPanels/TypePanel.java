@@ -83,7 +83,9 @@ public class TypePanel extends JPanel{
      * @return String, this contains a type file.
      */
     public String getTypeCriteria(){
+        LOOGER.info("Get type");
         return typeTextField.getText();
+
     }
 
 }

@@ -86,6 +86,7 @@ public class MainSearchWindows extends JFrame {
      * @return String, this is a text on SearchJTextField.
      */
     public String getSearchText() {
+        LOOGER.info("Get SearchText");
         return topPanel.getSearchText();
     }
 
@@ -96,6 +97,7 @@ public class MainSearchWindows extends JFrame {
      * @return JButton, this is a JButton on Top pane.
      */
     public JButton getSearchButton() {
+        LOOGER.info("Get search button");
         return topPanel.getSearchButton();
     }
 
@@ -106,6 +108,7 @@ public class MainSearchWindows extends JFrame {
      * @return String, this contains a complete path for search files.
      */
     public String getPathOfCriteria() {
+        LOOGER.info("Get Path");
         return topPanel.getPathOfCriteria();
     }
 
@@ -116,6 +119,7 @@ public class MainSearchWindows extends JFrame {
      * @return Boolean, this contains a complete Key Sensitive for search files.
      */
     public  boolean getKeySensitiveOfCriteria() {
+        LOOGER.info("Get key Sensitive");
         return  topPanel.getKeySensitiveOfCriteria();
     }
 
@@ -127,6 +131,7 @@ public class MainSearchWindows extends JFrame {
      */
 
     public boolean getReadOnlyOfCriteria() {
+        LOOGER.info("Get Read only");
         return  topPanel.getReadOnlyOfCriteria();
     }
 
@@ -137,6 +142,7 @@ public class MainSearchWindows extends JFrame {
      * @return Boolean, this contains a complete File System for search files.
      */
     public  boolean getFileSystemOfCriteria() {
+        LOOGER.info("Get File System");
         return  topPanel.getFileSystemOfCriteria();
     }
 
@@ -147,6 +153,7 @@ public class MainSearchWindows extends JFrame {
      * @return Boolean, this contains a complete Directory for search files.
      */
     public  boolean getDirectoryOfCriteria() {
+        LOOGER.info("Get directory");
         return  topPanel.getDirectoryOfCriteria();
     }
 
@@ -157,6 +164,7 @@ public class MainSearchWindows extends JFrame {
      * @return array String, this contains a complete path for search files.
      */
     public String[] getSizeOfCriteria() {
+        LOOGER.info("Get size");
         return topPanel.getSizeOfCriteria();
     }
 
@@ -167,6 +175,7 @@ public class MainSearchWindows extends JFrame {
      * @return String, this contains a complete path for search files.
      */
     public String getTypeCriteria() {
+        LOOGER.info("Get type");
         return topPanel.getTypeCriteria();
     }
 
@@ -177,6 +186,7 @@ public class MainSearchWindows extends JFrame {
      * @return String, this contains a complete path for search files.
      */
     public String getOwnerOfCriteria() {
+        LOOGER.info("Get Owner");
         return topPanel.getOwnerOfCriteria();
     }
 
@@ -187,6 +197,7 @@ public class MainSearchWindows extends JFrame {
      * @return String, this contains a complete path for search files.
      */
     public Date getCreationDateInit() {
+        LOOGER.info("Get Date creation init");
         return topPanel.getDateCreationCriteria();
     }
 
@@ -197,6 +208,7 @@ public class MainSearchWindows extends JFrame {
      * @return String, this contains a complete path for search files.
      */
     public Date getCreationDateEnd() {
+        LOOGER.info("Get date creation end");
         return topPanel.getDateToCreationCriteria();
     }
 
@@ -207,6 +219,7 @@ public class MainSearchWindows extends JFrame {
      * @return String, this contains a complete path for search files.
      */
     public Date getModifiedDateInit() {
+        LOOGER.info("Get modified init");
         return topPanel.getDateModificationCriteria();
     }
 
@@ -217,6 +230,7 @@ public class MainSearchWindows extends JFrame {
      * @return String, this contains a complete path for search files.
      */
     public Date getModifiedDateEnd() {
+        LOOGER.info("Get modified end");
         return topPanel.getDateToModificationCriteria();
     }
 
@@ -227,6 +241,7 @@ public class MainSearchWindows extends JFrame {
      * @return String, this contains a complete path for search files.
      */
     public Date getLastAccessDateInit() {
+        LOOGER.info("Get last access init");
         return topPanel.getDateLastOpenedCriteria();
     }
 
@@ -237,6 +252,7 @@ public class MainSearchWindows extends JFrame {
      * @return String, this contains a complete path for search files.
      */
     public Date getLastAccessDateEnd() {
+        LOOGER.info("Get last access end");
         return topPanel.getDateToLastOpenedCriteria();
     }
 
@@ -247,6 +263,7 @@ public class MainSearchWindows extends JFrame {
      * @return String, this is a action command can be "all words", "start with", "end with" and "equal to".
      */
     public String getFileNameOfCriteria() {
+        LOOGER.info("Get file name");
         return topPanel.getFileNameOfCriteria();
     }
 
@@ -257,6 +274,7 @@ public class MainSearchWindows extends JFrame {
      * @return String, ""all files",""only hidden files",""without hidden files".
      */
     public String getHiddenOfCriteria() {
+        LOOGER.info("Get hidden ");
         return topPanel.getHiddenOfCriteria();
     }
 
@@ -267,6 +285,7 @@ public class MainSearchWindows extends JFrame {
      * @param row, this row contains all values for insert to table result.
      */
     public void insertDataOfJTableResult(Object[] row) {
+        LOOGER.info("Get data table result");
         centerPanel.insertRowToJTableResult(row);
     }
 
