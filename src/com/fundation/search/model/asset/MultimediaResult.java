@@ -19,12 +19,46 @@ package com.fundation.search.model.asset;
  * @author Omar Limbert Huanca Sanchez - AT-[06].
  * @version 1.0.
  */
-public class MultimediaResult extends Asset{
+import java.nio.file.attribute.FileTime;
+
+public class MultimediaResult extends Asset {
+
     /**
-     * Constructor for FileResult.
+     * pathFile is the file path
      */
-    public MultimediaResult(){
+    private String pathFile;
+    /**
+     * nameFile is the file name
+     */
+    private String nameFile;
+    /**
+     * sizeFile is the file tam
+     */
+    private long sizeFile;
+    /**
+     * isHiddenFile is the file state hidden/no hidden
+     */
+    private boolean isHiddenFile;
 
+    private FileTime lastModifiedTime;
 
+    private FileTime creationTime;
+
+    private FileTime lastAccessTime;
+
+    private boolean isReadOnly;
+
+    private boolean isFileSystem;
+
+    private boolean isDirectory;
+
+    private String ownerFile;
+
+    private String intoFile;
+
+    private String extensionFile;
+
+    public MultimediaResult (String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, FileTime lastModifiedTime, FileTime creationTime, FileTime lastAccessTime, boolean isReadOnly, boolean isFileSystem, String extensionFile){
+        super(pathFile,nameFile,sizeFile,isHiddenFile,lastModifiedTime,creationTime,lastAccessTime,isReadOnly,isFileSystem,extensionFile);
     }
 }

@@ -13,81 +13,64 @@
  */
 package com.fundation.search.model.asset;
 
-import java.util.Date;
+
+import java.nio.file.attribute.FileTime;
 
 /**
- * This class Asset can be FileResult, MultimediaResult and maybe SearchFolder.
+ * This class is to return file attributes.
  *
+ * @author Escarleth Ledezma Quiroga - AT-[06].
  * @author Omar Limbert Huanca Sanchez - AT-[06].
+ * @author Ariel Gonzales Vargas - AT-[06].
  * @version 1.0.
  */
 public class FileResult extends Asset {
-
     /**
      * pathFile is the file path
-     * */
+     */
     private String pathFile;
     /**
      * nameFile is the file name
-     * */
+     */
     private String nameFile;
     /**
-     * sizeFile is the file size
-     * */
+     * sizeFile is the file tam
+     */
     private long sizeFile;
     /**
      * isHiddenFile is the file state hidden/no hidden
-     * */
+     */
     private boolean isHiddenFile;
 
-    private String type;
+    private FileTime lastModifiedTime;
+
+    private FileTime creationTime;
+
+    private FileTime lastAccessTime;
+
     private boolean isReadOnly;
+
     private boolean isFileSystem;
-    private Date creationDate;
-    private Date lastAccessDate;
-    private Date modifyDate;
+
+    private boolean isDirectory;
+
     private String ownerFile;
 
+    private String intoFile;
 
+    private String extensionFile;
 
-    /**FileResult constructor.
+    /**
+     * FileResult constructor.
+     *
      * @param pathFile     path .
      * @param nameFile     name file.
-     * @param sizeFile     length file.
+     * @param sizeFile     lenght file.
      * @param isHiddenFile state hidden file.
      */
 
-    public FileResult(String pathFile, String nameFile, long sizeFile, boolean isHiddenFile) {
-        this.pathFile = pathFile;
-        this.nameFile = nameFile;
-        this.sizeFile = sizeFile;
-        this.isHiddenFile = isHiddenFile;
-    }
-    /**
-     * This method return a path.
-     */
-    public String getPathFile() {
-        return pathFile;
+    public FileResult (String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, FileTime lastModifiedTime, FileTime creationTime, FileTime lastAccessTime, boolean isReadOnly, boolean isFileSystem, String extensionFile){
+        super(pathFile,nameFile,sizeFile,isHiddenFile,lastModifiedTime,creationTime,lastAccessTime,isReadOnly,isFileSystem,extensionFile);
     }
 
-    /**
-     * This method return the file name.
-     */
-    public String getName() {
-        return nameFile;
-    }
-
-    /**
-     * This method return the size file.
-     */
-    public long getSizeFile() {
-        return sizeFile;
-    }
-
-    /**
-     * This method return true if the a file is hidden .
-     */
-    public boolean getIsHidden() {
-        return isHiddenFile;
-    }
 }
