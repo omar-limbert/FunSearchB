@@ -179,6 +179,7 @@ public class PathPanel extends JPanel {
      * @return String, this contains a complete path for search files.
      */
     public String getPathCriteria() {
+        LOOGER.info("Get path Panel");
         return pathTextField.getText();
     }
 
@@ -188,6 +189,7 @@ public class PathPanel extends JPanel {
      * @return boolean, this contains Read only selection files.
      */
     public boolean getReadOnlyOfCriteria() {
+        LOOGER.info("Get read only Panel");
         return readOnlyCheckBox.isSelected();
     }
 
@@ -197,6 +199,7 @@ public class PathPanel extends JPanel {
      * @return boolean, this contains File System only selection files.
      */
     public boolean getFileSystemOfCriteria(){
+        LOOGER.info("Get File system Panel");
         return  fileSystemCheckBox.isSelected();
     }
 
@@ -206,6 +209,7 @@ public class PathPanel extends JPanel {
      * @return boolean, this contains File System only selection files.
      */
     public boolean getDirectoryOfCriteria(){
+        LOOGER.info("Get directory Panel");
         return  directoryCheckBox.isSelected();
     }
 
@@ -215,6 +219,7 @@ public class PathPanel extends JPanel {
      * @return boolean, this contains Key Sensitive only selection files.
      */
     public boolean getKeySensitiveOfCriteria(){
+        LOOGER.info("Get key sensitive Panel");
         return  keySensitiveCheck.isSelected();
     }
 }

@@ -121,6 +121,7 @@ public class FileNamePanel extends JPanel {
      * @return String, this is a action command can be "all words", "start with", "end with" and "equal to".
      */
     public String getFileNameCriteria() {
+        LOOGER.info("Get file name panel");
         return radioButtonGroup.getSelection().getActionCommand();
     }
 

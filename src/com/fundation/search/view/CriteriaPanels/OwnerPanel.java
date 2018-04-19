@@ -82,6 +82,7 @@ public class OwnerPanel extends JPanel{
      * @return String, this contains Owner.
      */
     public String getOwnerCriteria(){
+        LOOGER.info("Get Owner Panel");
         return ownerTextField.getText();
     }
 

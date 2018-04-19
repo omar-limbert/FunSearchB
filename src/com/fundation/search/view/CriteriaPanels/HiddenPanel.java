@@ -108,6 +108,7 @@ public class HiddenPanel extends JPanel {
      * @return String, this is a action command can be "all files", "only hidden","without hidden".
      */
     public String getHiddenCriteria() {
+        LOOGER.info("Hidden panel");
         return radioButtonGroup.getSelection().getActionCommand();
     }
 

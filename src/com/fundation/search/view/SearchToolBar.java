@@ -258,6 +258,7 @@ public class SearchToolBar extends JToolBar {
      * @return String, this contains a complete path for search files.
      */
     public String getPathOfCriteria() {
+        LOOGER.info("get path");
         return PATH_PANEL.getPathCriteria();
     }
 
@@ -267,6 +268,7 @@ public class SearchToolBar extends JToolBar {
      * @return boolean, this contains a read only files.
      */
     public boolean getReadOnlyOfCriteria(){
+        LOOGER.info("get read only");
         return PATH_PANEL.getReadOnlyOfCriteria();
     }
 
@@ -276,6 +278,7 @@ public class SearchToolBar extends JToolBar {
      * @return boolean, this contains a File System files.
      */
     public boolean getFileSystemOfCriteria() {
+        LOOGER.info("get file system");
         return  PATH_PANEL.getFileSystemOfCriteria();
     }
 
@@ -285,6 +288,7 @@ public class SearchToolBar extends JToolBar {
      * @return boolean, this contains a Directory files.
      */
     public boolean getDirectoryOfCriteria() {
+        LOOGER.info("get directory");
         return  PATH_PANEL.getDirectoryOfCriteria();
     }
 
@@ -294,6 +298,7 @@ public class SearchToolBar extends JToolBar {
      * @return boolean, this contains a Key Sensitive files.
      */
     public boolean getKeySensitiveOfCriteria() {
+        LOOGER.info("get key sensitive");
         return  PATH_PANEL.getKeySensitiveOfCriteria();
     }
 
@@ -303,6 +308,7 @@ public class SearchToolBar extends JToolBar {
      * @return Array String, this contains a complete path for search files.
      */
     public String[] getSizeCriteria() {
+        LOOGER.info("get size");
         return  SIZE_PANEL.getSizeCriteria();
     }
 
@@ -312,6 +318,7 @@ public class SearchToolBar extends JToolBar {
      * @return String, this contains a complete path for search files.
      */
     public String getOwnerCriteria() {
+        LOOGER.info("get owner");
         return  OWNER_PANEL.getOwnerCriteria();
     }
 
@@ -321,6 +328,7 @@ public class SearchToolBar extends JToolBar {
      * @return date, this contains a complete path for search files.
      */
     public Date getDateCreationCriteria() {
+        LOOGER.info("get date creation");
         return  DATE_PANEL.getDateCreationCriteria();
     }
 
@@ -330,6 +338,7 @@ public class SearchToolBar extends JToolBar {
      * @return date, this contains a complete path for search files.
      */
     public Date getDateToCreationCriteria() {
+        LOOGER.info("get date creation to");
         return  DATE_PANEL.getDateToCreationCriteria();
     }
 
@@ -339,6 +348,7 @@ public class SearchToolBar extends JToolBar {
      * @return date, this contains a complete path for search files.
      */
     public Date getDateModificationCriteria() {
+        LOOGER.info("get modified init");
         return  DATE_PANEL.getDateModificationCriteria();
     }
 
@@ -348,6 +358,7 @@ public class SearchToolBar extends JToolBar {
      * @return date, this contains a complete path for search files.
      */
     public Date getDateToModificationCriteria() {
+        LOOGER.info("get modified end");
         return  DATE_PANEL.getDateToModificationCriteria();
     }
 
@@ -357,6 +368,7 @@ public class SearchToolBar extends JToolBar {
      * @return date, this contains a complete path for search files.
      */
     public Date getDateLastOpenedCriteria() {
+        LOOGER.info("get last access init");
         return  DATE_PANEL.getDateLastOpenedCriteria();
     }
 
@@ -366,6 +378,7 @@ public class SearchToolBar extends JToolBar {
      * @return date, this contains a complete path for search files.
      */
     public Date getDateToLastOpenedCriteria() {
+        LOOGER.info("get last access end");
         return  DATE_PANEL.getDateToLastOpenedCriteria();
     }
 
@@ -375,6 +388,7 @@ public class SearchToolBar extends JToolBar {
      * @return String, this is a action command can be "all words", "start with", "end with" and "equal to".
      */
     public String getFileNameOfCriteria() {
+        LOOGER.info("get file name");
         return FILE_NAME_PANEL.getFileNameCriteria();
     }
 
@@ -384,13 +398,19 @@ public class SearchToolBar extends JToolBar {
      *
      * @return String, ""all files",""only hidden files",""without hidden files".
      */
-    public String getHiddenOfCriteria() { return HIDDEN_PANEL.getHiddenCriteria(); }
+    public String getHiddenOfCriteria() {
+        LOOGER.info("get hidden");
+        return HIDDEN_PANEL.getHiddenCriteria();
+    }
 
     /**
      * This method return Type criteria.
      *
      * @return String, this contains a complete path for type files.
      */
-    public String getTypeCriteria() { return TYPE_PANEL.getTypeCriteria(); }
+    public String getTypeCriteria() {
+        LOOGER.info("get type");
+        return TYPE_PANEL.getTypeCriteria();
+    }
 
 }

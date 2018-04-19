@@ -148,6 +148,7 @@ public class TopPanel extends JPanel {
      * @return String
      */
     public String getPathOfCriteria() {
+        LOOGER.info("get path");
         return toolbar.getPathOfCriteria();
     }
 
@@ -157,6 +158,7 @@ public class TopPanel extends JPanel {
      * @return Boolean
      */
     public boolean getKeySensitiveOfCriteria() {
+        LOOGER.info("get key sensitive");
         return  toolbar.getKeySensitiveOfCriteria();
     }
 
@@ -166,6 +168,7 @@ public class TopPanel extends JPanel {
      * @return Boolean
      */
     public boolean getReadOnlyOfCriteria() {
+        LOOGER.info("get read only");
         return  toolbar.getReadOnlyOfCriteria();
     }
 
@@ -175,6 +178,7 @@ public class TopPanel extends JPanel {
      * @return Boolean
      */
     public  boolean getFileSystemOfCriteria() {
+        LOOGER.info("get file system");
         return  toolbar.getFileSystemOfCriteria();
     }
 
@@ -184,6 +188,7 @@ public class TopPanel extends JPanel {
      * @return Boolean
      */
     public  boolean getDirectoryOfCriteria() {
+        LOOGER.info("get Directory");
         return  toolbar.getDirectoryOfCriteria();
     }
 
@@ -193,6 +198,7 @@ public class TopPanel extends JPanel {
      * @return Array String
      */
     public String[] getSizeOfCriteria() {
+        LOOGER.info("get size");
         return toolbar.getSizeCriteria();
     }
 
@@ -202,6 +208,7 @@ public class TopPanel extends JPanel {
      * @return String
      */
     public String getOwnerOfCriteria() {
+        LOOGER.info("get owner");
         return  toolbar.getOwnerCriteria();
     }
 
@@ -212,6 +219,7 @@ public class TopPanel extends JPanel {
      * @return Date
      */
     public Date getDateCreationCriteria() {
+        LOOGER.info("get date creation init");
         return toolbar.getDateCreationCriteria();
     }
 
@@ -221,6 +229,7 @@ public class TopPanel extends JPanel {
      * @return Date
      */
     public Date getDateToCreationCriteria() {
+        LOOGER.info("get date creation end");
         return toolbar.getDateToCreationCriteria();
     }
 
@@ -230,6 +239,7 @@ public class TopPanel extends JPanel {
      * @return Date
      */
     public Date getDateModificationCriteria() {
+        LOOGER.info("get modified init");
         return toolbar.getDateModificationCriteria();
     }
 
@@ -239,6 +249,7 @@ public class TopPanel extends JPanel {
      * @return Date
      */
     public Date getDateToModificationCriteria() {
+        LOOGER.info("get modified end");
         return toolbar.getDateToModificationCriteria();
     }
 
@@ -248,6 +259,7 @@ public class TopPanel extends JPanel {
      * @return Date
      */
     public Date getDateLastOpenedCriteria() {
+        LOOGER.info("get last opened init");
         return toolbar.getDateLastOpenedCriteria();
     }
 
@@ -257,6 +269,7 @@ public class TopPanel extends JPanel {
      * @return Date
      */
     public Date getDateToLastOpenedCriteria() {
+        LOOGER.info("get last opened end");
         return toolbar.getDateToLastOpenedCriteria();
     }
 
@@ -266,6 +279,7 @@ public class TopPanel extends JPanel {
      * @return String
      */
     public String getFileNameOfCriteria() {
+        LOOGER.info("get file name");
         return toolbar.getFileNameOfCriteria();
     }
 
@@ -275,6 +289,7 @@ public class TopPanel extends JPanel {
      * @return String
      */
     public String getHiddenOfCriteria() {
+        LOOGER.info("get hidden");
         return toolbar.getHiddenOfCriteria();
     }
 
@@ -284,6 +299,7 @@ public class TopPanel extends JPanel {
      * @return String
      */
     public String getTypeCriteria() {
+        LOOGER.info("get type");
         return toolbar.getTypeCriteria();
     }
 
@@ -293,6 +309,7 @@ public class TopPanel extends JPanel {
      * @return JButton
      */
     public JButton getSearchButton() {
+        LOOGER.info("get search button");
         return searchButton;
     }
 
@@ -302,6 +319,7 @@ public class TopPanel extends JPanel {
      * @return String
      */
     public String getSearchText() {
+        LOOGER.info("get search text");
         return searchTextField.getText();
     }
 

@@ -94,10 +94,15 @@ public class SizePanel extends JPanel {
         LOOGER.info("Get init");
 
     }
-
+    /**
+     * This method is for return type.
+     *
+     * @return String, this contains type.
+     */
     public String[] getSizeCriteria() {
+        LOOGER.info("Get Size Panel");
         return new String[]{majorMinorComboBox.getModel().getSelectedItem().toString()
-        ,sizeTextField.getText(), sizeComboBox.getModel().getSelectedItem().toString()};
+                ,sizeTextField.getText(), sizeComboBox.getModel().getSelectedItem().toString()};
 
     }
 

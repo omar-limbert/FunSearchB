@@ -294,6 +294,7 @@ public class MainSearchWindows extends JFrame {
      * Controller can use this.
      */
     public void resetDataOfJTableResult() {
+        LOOGER.info("get reset table");
         centerPanel.resetAllDataOfTableResult();
     }
 }

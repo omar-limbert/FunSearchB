@@ -180,12 +180,14 @@ public class DatePanel extends JPanel {
         LOOGER.info("add exit");
     }
 
+
     /**
      * This method return Date criteria.
      *
      * @return Date, this is a action command can be "Date Creation".
      */
     public Date getDateCreationCriteria() {
+        LOOGER.info("Get date creation Panel");
         return dateCreationDateChooser.getDate();
 
     }
@@ -196,6 +198,7 @@ public class DatePanel extends JPanel {
      * @return Date, this is a action command can be "Date to Creation".
      */
     public Date getDateToCreationCriteria() {
+        LOOGER.info("Get date creation to Panel");
         return dateToCreationDateChooser.getDate();
 
     }
@@ -206,6 +209,7 @@ public class DatePanel extends JPanel {
      * @return Date, this is a action command can be "Date modification".
      */
     public Date getDateModificationCriteria() {
+        LOOGER.info("Get modified  Panel");
         return dateModificationDateChooser.getDate();
 
     }
@@ -216,6 +220,7 @@ public class DatePanel extends JPanel {
      * @return Date, this is a action command can be "Date to modification".
      */
     public Date getDateToModificationCriteria() {
+        LOOGER.info("Get modified to Panel");
         return dateToModificationDateChooser.getDate();
 
     }
@@ -226,6 +231,7 @@ public class DatePanel extends JPanel {
      * @return Date, this is a action command can be "Last Opened".
      */
     public Date getDateLastOpenedCriteria() {
+        LOOGER.info("Get last opened Panel");
         return dateLastOpenedDateChooser.getDate();
 
     }
@@ -236,6 +242,7 @@ public class DatePanel extends JPanel {
      * @return Date, this is a action command can be " To Last Opened".
      */
     public Date getDateToLastOpenedCriteria() {
+        LOOGER.info("Get last opened to Panel");
         return dateToLastOpenedDateChooser.getDate();
 
     }
