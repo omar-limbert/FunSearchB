@@ -15,11 +15,12 @@
 package com.fundation.search.view.CriteriaPanels;
 
 import com.fundation.search.common.SearchLogger;
-
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.logging.Logger;
-
 
 /**
  * This class is to create the configuration for Size button.

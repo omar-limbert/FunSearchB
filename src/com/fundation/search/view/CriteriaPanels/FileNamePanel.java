@@ -15,8 +15,10 @@ package com.fundation.search.view.CriteriaPanels;
 
 import com.fundation.search.common.SearchLogger;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
+import java.awt.FlowLayout;
 import java.util.logging.Logger;
 
 /**
@@ -53,6 +55,7 @@ public class FileNamePanel extends JPanel {
     private ButtonGroup radioButtonGroup;
 
 
+
     /**
      * Constructor to FileNamePanel.
      * This method is for set layout to FlowLayout, call to iniComponents(), call to addComponents(),
@@ -87,6 +90,7 @@ public class FileNamePanel extends JPanel {
         this.startWithRadioButton.setActionCommand("start with");
         this.endWithRadioButton.setActionCommand("end with");
         this.equalsToRadioButton.setActionCommand("equal to");
+
         LOOGER.info("init exit");
     }
 
@@ -107,6 +111,7 @@ public class FileNamePanel extends JPanel {
         this.add(equalsToRadioButton);
         // Default radioButton selected.
         this.allWordsRadioButton.setSelected(true);
+
         LOOGER.info("add exit");
     }
 

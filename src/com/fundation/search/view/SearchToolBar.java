@@ -15,12 +15,16 @@ package com.fundation.search.view;
 
 import com.fundation.search.common.SearchLogger;
 import com.fundation.search.view.CriteriaPanels.*;
-
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JToolBar;
+import javax.swing.JToggleButton;
 import java.awt.event.ActionEvent;
-import java.util.*;
+import java.util.Date;
+import java.util.Hashtable;
+import java.util.Collection;
+import java.util.Vector;
+import java.util.Map;
 import java.util.logging.Logger;
-
 
 /**
  * This class is for create buttons inside to JToolBar.
