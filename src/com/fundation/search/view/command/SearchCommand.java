@@ -45,7 +45,6 @@ public class SearchCommand {
 
     /**
      * Init the constructor.
-     *
      * @param args is a command line list.
      */
     public SearchCommand(String[] args) {
@@ -79,7 +78,6 @@ public class SearchCommand {
 
     /**
      * Validate if the command line has criterias(criteria-value)
-     *
      * @param args command line list
      */
     public boolean validateCommandFormat(String[] args) {
@@ -97,7 +95,6 @@ public class SearchCommand {
     /**
      * Validate if the command line doesn´t have duplicated criterias and fill the map
      * with citeria and values
-     *
      * @param args command line list
      */
     public boolean criteriaValidatorDuplicated(String[] args) {
@@ -121,7 +118,6 @@ public class SearchCommand {
 
     /**
      * Impress a message if the command is valid.
-     *
      * @param args command line list
      */
     public void assignCriteria(String[] args) {
@@ -139,4 +135,5 @@ public class SearchCommand {
         LOOGER.info("GetMapToSearch entry");
         return map;
     }
+
 }

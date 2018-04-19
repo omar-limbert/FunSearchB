@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 /**
- * This class allows get files attributes of commad line
+ * This class allows to get files attributes of commad line
  *
  * @author Escarleth Ledezma Q.
  * @version 1.0
@@ -170,4 +170,5 @@ public class CommandCriteria {
         LOOGER.info("GetSize CommandCriteria" + size);
         return size;
     }
+
 }

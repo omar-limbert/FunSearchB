@@ -47,7 +47,6 @@ public class CommandView {
 
     /**
      * Print file with attributes ("Name", "Path", "Hidden", "Owner", "ReadOnly", "CreationDate", "ModifiedDate", "LastAccessDate")
-     *
      * @param row files with attributes.
      */
     public void printRows(String[] row) {
@@ -58,4 +57,5 @@ public class CommandView {
         System.out.println();
         LOOGER.info("Constructor Command Criteria exit");
     }
+
 }
