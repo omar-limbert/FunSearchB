@@ -15,7 +15,12 @@
 
 package com.fundation.search.common;
 
-import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,11 +29,13 @@ import java.util.regex.Pattern;
  * For this method  was implement using Expressions Regulars.
  *
  * @author Ariel Gonzales Vargas - AT-[06].
+ * @author Omar Limbert Huanca Sanchez - AT-[06]
  * @version 1.0.
  */
 public class Validator {
     private Pattern pattern;
     private Matcher matcher;
+    private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
      * Init the Validator.
@@ -41,24 +48,24 @@ public class Validator {
      *
      * @param path a String Path
      * @return true if it is a valid format for a path.
-     * return false if is an invalid format for a path.
      */
-    public boolean validatorPath(String path) {
-        pattern = Pattern.compile("(^[A-Z]:(\\\\)*)?((\\\\)\\w+((\\s|\\.)\\w+)*)+");
-        matcher = pattern.matcher(path);
-        return matcher.matches();
+    public boolean isValidPath(String path) {
+        LOOGER.info("Validate Path: " + path);
+        LOOGER.info("Exit Validator");
+        return Files.exists(Paths.get(path));
     }
 
     /**
      * It method checks if the path exist.
      *
-     * @param path Direction path.
+     * @param directoryPath Direction path.
      * @return true if the path exist on the PC.
      * false if the that does not exist on the PC.
      */
-    public boolean isValidPath(String path) {
-        File pathD = new File(path);
-        return pathD.isDirectory();
+    public boolean isValidDirectory(String directoryPath) {
+        LOOGER.info("Validate Directory: " + directoryPath);
+        LOOGER.info("Exit Validator");
+        return Files.isDirectory(Paths.get(directoryPath));
     }
 
     /**
@@ -68,22 +75,28 @@ public class Validator {
      * @return true if it is a valid format for a file name.
      * false if it is an invalid format for a file name.
      */
-    public boolean validatorFile(String file) {
+    public boolean isValidFile(String file) {
+
+        LOOGER.info("Validate File: " + file);
         pattern = Pattern.compile("(\\w+(\\s|[^:*?\"<>|]\\w+)*)+");
         matcher = pattern.matcher(file);
+        LOOGER.info("Exit Validator");
         return matcher.matches();
     }
 
     /**
      * It method checks if the input is a valid Type (extension of the file) format.
+     * NOTE: this method need improve.
      *
      * @param type a format file extension name.
      * @return true if it is a valid format for a extension.
      * false if it is an invalid format for a extension.
      */
-    public boolean validatorType(String type) {
+    public boolean isValidFileExtension(String type) {
+        LOOGER.info("Validate Type: " + type);
         pattern = Pattern.compile("^\\.[a-z]{3,4}");
         matcher = pattern.matcher(type);
+        LOOGER.info("Exit Validator");
         return matcher.matches();
     }
 
@@ -94,23 +107,59 @@ public class Validator {
      * @return true if it is a valid format for a size format.
      * false if it is an invalid format for a size format.
      */
-    public boolean validatorSize(String size) {
-        pattern = Pattern.compile("[0-9]+(\\.[0-9]+)?");
-        matcher = pattern.matcher(size);
-        return matcher.matches();
-
+    public boolean isValidSize(String size) {
+        LOOGER.info("Validate Size: " + size);
+        try {
+            Double.parseDouble(size);
+        } catch (NumberFormatException nfe) {
+            LOOGER.warning("Invalid Size: " + size);
+            return false;
+        }
+        LOOGER.info("Exit Validator");
+        return true;
     }
 
     /**
-     * This method check the format in a date.
+     * This method check to date input is valid
      *
      * @param date format date.
      * @return
      */
-    public boolean validatorDate(String date) {
-        pattern = Pattern.compile("\\d{1,2}\\/\\d{2}\\/\\d{2,4}");
-        matcher = pattern.matcher(date);
-        return matcher.matches();
+    public boolean isValidDate(String date) {
+        LOOGER.info("Validate Date: " + date);
+        boolean result = false;
+
+        // Verify if date is null or empty
+        if (date == null || date.trim().length() == 0) {
+            result = false;
+            LOOGER.warning("Date input can't be null.");
+        }
+        // Date Formats supported
+        DateTimeFormatter formatter = null;
+        try {
+            formatter = new DateTimeFormatterBuilder()
+                    .parseCaseInsensitive()
+                    .appendPattern("[dd/MM/yyyy]")
+                    .appendPattern("[dd/MM/yy]")
+                    .appendPattern("[dd/M/yyyy]")
+                    .appendPattern("[dd/M/yy]")
+                    .appendPattern("[d/MM/yyyy]")
+                    .appendPattern("[d/MM/yy]")
+                    .appendPattern("[d/M/yyyy]")
+                    .appendPattern("[d/M/yy]")
+                    .appendPattern("[dd/MMM/yy]")
+                    .toFormatter();
+            LocalDate.parse(date.trim(), formatter);
+            result = true;
+
+        } catch (Exception e) {
+            LOOGER.warning("Date is invalid. "
+                    + "It could be out of bounds. Please correct the format. "
+                    + "Accepted formats are dd/MM/yyyy, dd/MM/yy, dd/M/yyyy, dd/M/yy "
+                    + "d/MM/yyyy, d/MM/yy, d/M/yyyy, d/M/yy, dd/MMM/yy. ");
+        }
+        LOOGER.info("Exit Validator");
+        return result;
     }
 
 }
