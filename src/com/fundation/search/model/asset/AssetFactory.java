@@ -16,7 +16,7 @@ public class AssetFactory {
             return new ResultMultimediaFile(path, fileName, hidden, duration, typeFile);
         }
         if (assetType.equalsIgnoreCase("directory")) {
-            return new ResultDirectory(path, fileName, hidden, readOnly, typeFile);
+            return new ResultDirectory(path, fileName, hidden, readOnly, typeFile);.
         }*/
         return null;
     }

@@ -447,7 +447,7 @@ public class Search {
     /**
      * @param e A list of files.
      *          .
-     * @return a list of files it depend of the criteria.
+     * @return a list of files it depend of the criteria..
      */
     private Asset createFileResult(File e) {
         FileResult result = null;
@@ -459,7 +459,6 @@ public class Search {
             FileOwnerAttributeView fileAttributes2 = Files.getFileAttributeView(e.toPath(), FileOwnerAttributeView.class);
 
             asset = assetFactory.buildAsset("file",e.getPath(), e.getName(), e.length(), e.isHidden(), e.canRead(), fileAttributes.lastModifiedTime(), fileAttributes.creationTime(), fileAttributes.lastAccessTime(), fileAttributes2.getOwner().getName(), fileAttributes1.isReadOnly(), fileAttributes1.isSystem(), fileAttributes.isDirectory(), "", e.getName());
-            //result = new FileResult(e.getPath(), e.getName(), e.length(), e.isHidden(), e.canRead(), fileAttributes.lastModifiedTime(), fileAttributes.creationTime(), fileAttributes.lastAccessTime(), fileAttributes2.getOwner().getName(), fileAttributes1.isReadOnly(), fileAttributes1.isSystem(), fileAttributes.isDirectory(), "", e.getName());
 
         } catch (IOException e1) {
             e1.printStackTrace();

@@ -18,7 +18,7 @@ import java.nio.file.attribute.FileTime;
 /**
  * This class Asset can be FileResult, MultimediaResult and maybe SearchFolder.
  *
- * @author Omar Limbert Huanca Sanchez - AT-[06].
+ * @author Omar Limbert Huanca Sanchez - AT-[06]..
  * @version 1.0.
  */
 public class Asset {
