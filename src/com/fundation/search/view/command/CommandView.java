@@ -14,6 +14,10 @@
 
 package com.fundation.search.view.command;
 
+import com.fundation.search.common.SearchLogger;
+
+import java.util.logging.Logger;
+
 /**
  * this class is to show the view in command after results.
  *
@@ -21,18 +25,24 @@ package com.fundation.search.view.command;
  * @version 1.0
  */
 public class CommandView {
+    /**
+     * Logger create a instance of logger.
+     */
+    private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
      * Print header results.
      */
     public void printColumn() {
-        System.out.println("-----------------------------------RESULTS-----------------------------------");
+        LOOGER.info("Print Colum entry");
+        System.out.println("----------------------------------------------------RESULTS----------------------------------------------------");
 
-        String[] tableTitles = {"Name", "Path", "Hidden", "Owner", "ReadOnly", "CreationDate", "ModifiedDate", "LastAccessDate"};
+        String[] tableTitles = {"Name    ", "            Path               ", " Hidden", "SizeKb", "      Owner      ", "CreationDate", "ModifiedDate", "LastAccessDate", "ReadOnly", "IsDirectory"};
         for (String titles : tableTitles) {
             System.out.print(String.format("%s%s", titles, "\t"));
         }
         System.out.println();
+        LOOGER.info("Print Colum exit");
     }
 
     /**
@@ -41,8 +51,11 @@ public class CommandView {
      * @param row files with attributes.
      */
     public void printRows(String[] row) {
-        System.out.print(String.format("%s%s%s%s%s%s", row[0], "\t", row[1], "\t", row[2], "\t", row[3], "\t"));
-        System.out.print(String.format("%s%s%s%s%s%s", row[4], "\t", row[5], "\t", row[6], "\t", row[7], "\t"));
+        LOOGER.info("Constructor Command Criteria entry");
+        System.out.print(String.format("%s%s%s%s%s%s%s%s", row[0], "\t", row[1], "\t", row[2], "\t", row[3], "\t"));
+        System.out.print(String.format("%s%s%s%s%s%s%s", row[4], "\t", row[5], "\t", row[6], "\t", row[7]));
+        System.out.print(String.format("%s%s%s%s", "\t", row[8], "\t", row[9]));
         System.out.println();
+        LOOGER.info("Constructor Command Criteria exit");
     }
 }

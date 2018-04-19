@@ -13,10 +13,13 @@
  */
 package com.fundation.search.view.command;
 
+import com.fundation.search.common.SearchLogger;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * This class is a class that validate the command
@@ -27,8 +30,18 @@ import java.util.Map;
  * @version 1.0
  */
 public class SearchCommand {
+    /**
+     * criteriaList contains a criterias list.
+     */
     private List<String> criteriaList;
+    /**
+     * map contains the criteria and value .
+     */
     private Map<String, String> map;
+    /**
+     * Logger create a instance of logger.
+     */
+    private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
      * Init the constructor.
@@ -36,10 +49,12 @@ public class SearchCommand {
      * @param args is a command line list.
      */
     public SearchCommand(String[] args) {
+        LOOGER.info("Init Constructor SearchCommand");
         criteriaList = new ArrayList<>();
         map = new HashMap<>();
         this.addCriterias();
         this.assignCriteria(args);
+        LOOGER.info("Exit Constructor SearchCommand");
     }
 
     /**
@@ -47,6 +62,7 @@ public class SearchCommand {
      */
 
     public void addCriterias() {
+        LOOGER.info("AddCriterias entry");
         criteriaList.add("-v");//version
         criteriaList.add("-p");//path
         criteriaList.add("-f");//file
@@ -58,6 +74,7 @@ public class SearchCommand {
         criteriaList.add("-dm");//modifiedDate
         criteriaList.add("-dl");//dateLastAccess
         criteriaList.add("-ro");//readOnly
+        LOOGER.info("AddCriterias exit");
     }
 
     /**
@@ -66,12 +83,14 @@ public class SearchCommand {
      * @param args command line list
      */
     public boolean validateCommandFormat(String[] args) {
-
+        LOOGER.info("ValidateCommandFormat entry");
         for (int i = 0; i < args.length; i += 2) {
             if (!criteriaList.contains(args[i])) {
+                LOOGER.info("ValidateCommandFormat with invalid criteria");
                 return false;
             }
         }
+        LOOGER.info("ValidateCommandFormat exit");
         return true;
     }
 
@@ -82,15 +101,18 @@ public class SearchCommand {
      * @param args command line list
      */
     public boolean criteriaValidatorDuplicated(String[] args) {
+        LOOGER.info("criteriaValidatorDuplicated entry");
         try {
             for (int i = 0; i < args.length; i += 2) {
                 if (map.containsKey(args[i])) {
                     map = new HashMap<>();
+                    LOOGER.info("criteriaValidatorDuplicated criteriaDuplicated");
                     return false;
                 } else {
                     map.put(args[i], args[i + 1]);
                 }
             }
+            LOOGER.info("criteriaValidatorDuplicated exit");
             return true;
         } catch (IndexOutOfBoundsException e) {
             return false;
@@ -103,15 +125,18 @@ public class SearchCommand {
      * @param args command line list
      */
     public void assignCriteria(String[] args) {
+        LOOGER.info("ValidateCommand entry");
         if (!validateCommandFormat(args) || !criteriaValidatorDuplicated(args)) {
             System.out.println("Invalid command");
         }
+        LOOGER.info("ValidateCommand exit");
     }
 
     /**
      * return the filled map if the command is valid
      */
     public Map<String, String> getMapToSearch() {
+        LOOGER.info("GetMapToSearch entry");
         return map;
     }
 }
