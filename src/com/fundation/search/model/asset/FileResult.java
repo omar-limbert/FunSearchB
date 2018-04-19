@@ -13,6 +13,7 @@
  */
 package com.fundation.search.model.asset;
 
+import java.nio.file.attribute.FileTime;
 import java.util.Date;
 
 /**
@@ -23,71 +24,15 @@ import java.util.Date;
  */
 public class FileResult extends Asset {
 
-    /**
-     * pathFile is the file path
-     * */
-    private String pathFile;
-    /**
-     * nameFile is the file name
-     * */
-    private String nameFile;
-    /**
-     * sizeFile is the file size
-     * */
-    private long sizeFile;
-    /**
-     * isHiddenFile is the file state hidden/no hidden
-     * */
-    private boolean isHiddenFile;
+    private String extensionFile;
 
-    private String type;
-    private boolean isReadOnly;
-    private boolean isFileSystem;
-    private Date creationDate;
-    private Date lastAccessDate;
-    private Date modifyDate;
-    private String ownerFile;
+    public FileResult (String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, boolean readFile, FileTime lastModifiedTime, FileTime creationTime, FileTime lastAccessTime, String ownerFile, boolean isReadOnly, boolean isFileSystem, boolean isDirectory, String intoFile, String extensionFile){
+        super( pathFile,  nameFile,  sizeFile,  isHiddenFile,  readFile,  lastModifiedTime,  creationTime,  lastAccessTime,  ownerFile,  isReadOnly,  isFileSystem,  isDirectory,  intoFile);
+       this.extensionFile = extensionFile;
 
-
-
-    /**FileResult constructor.
-     * @param pathFile     path .
-     * @param nameFile     name file.
-     * @param sizeFile     length file.
-     * @param isHiddenFile state hidden file.
-     */
-
-    public FileResult(String pathFile, String nameFile, long sizeFile, boolean isHiddenFile) {
-        this.pathFile = pathFile;
-        this.nameFile = nameFile;
-        this.sizeFile = sizeFile;
-        this.isHiddenFile = isHiddenFile;
-    }
-    /**
-     * This method return a path.
-     */
-    public String getPathFile() {
-        return pathFile;
     }
 
-    /**
-     * This method return the file name.
-     */
-    public String getName() {
-        return nameFile;
-    }
-
-    /**
-     * This method return the size file.
-     */
-    public long getSizeFile() {
-        return sizeFile;
-    }
-
-    /**
-     * This method return true if the a file is hidden .
-     */
-    public boolean getIsHidden() {
-        return isHiddenFile;
+    public String getExtensionFile() {
+        return extensionFile;
     }
 }

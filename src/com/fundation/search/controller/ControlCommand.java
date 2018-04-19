@@ -17,8 +17,8 @@ import com.fundation.search.common.Convertor;
 import com.fundation.search.common.SearchLogger;
 import com.fundation.search.common.Validator;
 import com.fundation.search.controller.builder.SearchCriteria;
-import com.fundation.search.model.FileResult;
 import com.fundation.search.model.Search;
+import com.fundation.search.model.asset.Asset;
 import com.fundation.search.view.command.CommandCriteria;
 import com.fundation.search.view.command.CommandView;
 import com.fundation.search.view.command.SearchCommand;
@@ -206,7 +206,7 @@ public class ControlCommand {
      *
      * @param file This is FileResult of Model.
      */
-    private String[] getDataFromAsset(FileResult file) {
+    private String[] getDataFromAsset(Asset file) {
         LOOGER.info("getDataFromAsset Entry");
         // Object[] for create row and sent this to table result on User Interface
         String[] dataFromAsset = new String[15]; // number of columns

@@ -15,6 +15,9 @@ package com.fundation.search.model;
 
 import com.fundation.search.common.Convertor;
 import com.fundation.search.controller.builder.SearchCriteria;
+import com.fundation.search.model.asset.Asset;
+import com.fundation.search.model.asset.AssetFactory;
+import com.fundation.search.model.asset.FileResult;
 
 
 import java.io.File;
@@ -324,29 +327,21 @@ public class Search {
      * @param owner this is name of owner for filter file list.
      * @return list all the files minor or major or equal to given size.
      */
+    private List<File> searchByOwner(List<File> listFile, String owner) {
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+            try {
+                if (Files.getFileAttributeView(file.toPath(),FileOwnerAttributeView.class).getOwner().getName().equalsIgnoreCase(owner)) {
+                    listFilter.add(file);
+                }
 
-    private List<File> searchByOwner(String owner) {
-        fileList.removeIf(e -> !(this.isOwner(e, owner)));
-
-        return fileList;
-    }
-
-    /**
-     * This method is compare Owner.
-     *
-     * @param owner this is name of owner for filter file list.
-     * @param e     this is a file for compare.
-     * @return list all the files minor or major or equal to given size.
-     */
-    private boolean isOwner(File e, String owner) {
-        try {
-            return owner.equalsIgnoreCase(Files.readAttributes(e.toPath(), PosixFileAttributes.class).owner().getName());
-        } catch (IOException e1) {
-            e1.printStackTrace();
-            return false;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-    }
 
+        return listFilter;
+    }
     /**
      * This method is for filter by criteria.
      *
@@ -415,9 +410,8 @@ public class Search {
             }
 
             if (!criteria.getOwnerCriteria().isEmpty()) {
-                fileList = searchByOwner(criteria.getOwnerCriteria());
+                fileList = searchByOwner(fileList,criteria.getOwnerCriteria());
             }
-
         }
     }
 
@@ -438,15 +432,14 @@ public class Search {
     /**
      * @return List of files.
      */
-    public List<FileResult> getResultList() {
-        List<FileResult> result = new ArrayList<>();
+    public List<Asset> getResultList() {
+        List<Asset> result = new ArrayList<>();
 
         if (!fileList.isEmpty()) {
             fileList.forEach(e -> result
                     .add(createFileResult(e)));
 
         }
-        System.out.println("sdfsdf");
         return result;
 
     }
@@ -456,18 +449,21 @@ public class Search {
      *          .
      * @return a list of files it depend of the criteria.
      */
-    private FileResult createFileResult(File e) {
+    private Asset createFileResult(File e) {
         FileResult result = null;
+        AssetFactory assetFactory = new AssetFactory();
+        Asset asset = null;
         try {
             BasicFileAttributes fileAttributes = Files.readAttributes(e.toPath(), BasicFileAttributes.class);
             DosFileAttributes fileAttributes1 = Files.readAttributes(e.toPath(), DosFileAttributes.class);
             FileOwnerAttributeView fileAttributes2 = Files.getFileAttributeView(e.toPath(), FileOwnerAttributeView.class);
 
-            result = new FileResult(e.getPath(), e.getName(), e.length(), e.isHidden(), e.canRead(), fileAttributes.lastModifiedTime(), fileAttributes.creationTime(), fileAttributes.lastAccessTime(), fileAttributes2.getOwner().getName(), fileAttributes1.isReadOnly(), fileAttributes1.isSystem(), fileAttributes.isDirectory(), "", e.getName());
+            asset = assetFactory.buildAsset("file",e.getPath(), e.getName(), e.length(), e.isHidden(), e.canRead(), fileAttributes.lastModifiedTime(), fileAttributes.creationTime(), fileAttributes.lastAccessTime(), fileAttributes2.getOwner().getName(), fileAttributes1.isReadOnly(), fileAttributes1.isSystem(), fileAttributes.isDirectory(), "", e.getName());
+            //result = new FileResult(e.getPath(), e.getName(), e.length(), e.isHidden(), e.canRead(), fileAttributes.lastModifiedTime(), fileAttributes.creationTime(), fileAttributes.lastAccessTime(), fileAttributes2.getOwner().getName(), fileAttributes1.isReadOnly(), fileAttributes1.isSystem(), fileAttributes.isDirectory(), "", e.getName());
 
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        return result;
+        return asset;
     }
 }
