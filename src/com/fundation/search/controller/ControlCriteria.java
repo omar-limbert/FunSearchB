@@ -21,7 +21,7 @@ import com.fundation.search.model.FileResult;
 import com.fundation.search.model.Search;
 import com.fundation.search.view.MainSearchWindows;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 import java.nio.file.attribute.FileTime;
 import java.util.Date;
 import java.util.logging.Logger;
@@ -80,7 +80,7 @@ public class ControlCriteria {
         LOOGER.info("Constructor exit");
     }
 
-    /***
+    /**
      * This method check the event button "search" and fill Data from User Interface.
      * then the inputs are insert for validate.
      */
@@ -111,6 +111,7 @@ public class ControlCriteria {
                 .fileNameCriteria(searchWindows.getFileNameOfCriteria())
                 .ownerCriteria(searchWindows.getOwnerOfCriteria())
                 .isReadCriteria(Boolean.valueOf(searchWindows.getReadOnlyOfCriteria()))
+                .isFileSystemCriteria(Boolean.valueOf(searchWindows.getFileSystemOfCriteria()))
                 .creationDateCriteria(this.dateValidation(searchWindows.getCreationDateInit())
                         , this.dateValidation(searchWindows.getCreationDateEnd()))
                 .modifiedDateCriteria(this.dateValidation(searchWindows.getModifiedDateInit())
@@ -197,12 +198,16 @@ public class ControlCriteria {
         search.getResultList().forEach(e -> searchWindows.insertDataOfJTableResult(this.getDataFromAsset(e)));
         LOOGER.info("Get Result Exit");
     }
-
-    public Object[] getDataFromAsset(FileResult file) {
+    /**
+     * This method is complement of GetResult.
+     *
+     * @param file This is FileResult of Model.
+     */
+    private Object[] getDataFromAsset(FileResult file) {
         LOOGER.info("getDataFromAsset Entry");
         // Object[] for create row and sent this to table result on User Interface
         Object[] dataFromAsset = new Object[15]; // number of columns
-
+        // Getting data for table result
         dataFromAsset[0] = file.getName();
         dataFromAsset[1] = file.getPathFile();
         dataFromAsset[2] = file.getIsHidden();
