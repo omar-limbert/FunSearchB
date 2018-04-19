@@ -57,10 +57,10 @@ public class Search {
      */
     public Search() {
 
-        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Constructor Search");
         fileList = new ArrayList<>();
         assetFactory = new AssetFactory();
-        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Constructor Search");
     }
 
     /**
@@ -68,7 +68,7 @@ public class Search {
      * @return list all the files contained within the path.
      */
     private List<File> searchByPath(String path) {
-        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method searchByPath");
         try {
 
             File[] files = new File(path).listFiles();
@@ -80,7 +80,7 @@ public class Search {
             }
         } catch (NullPointerException e) {
         }
-        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method searchByPath");
         return fileList;
     }
 
@@ -92,7 +92,7 @@ public class Search {
      * @return list all the files that contains the name of a file.
      */
     private List<Asset> searchByName(File listFile, String nameFile, String fileNameCriteria) {
-        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method searchByName");
         if (fileNameCriteria.equalsIgnoreCase("all words")) {
             assetList.removeIf(e -> (!listFile.getName().contains(nameFile)));
         }
@@ -105,7 +105,7 @@ public class Search {
         if (fileNameCriteria.equalsIgnoreCase("equal to")) {
             assetList.removeIf(e -> (!listFile.getName().equals(nameFile)));
         }
-        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method searchByName");
         return assetList;
     }
 
@@ -118,7 +118,7 @@ public class Search {
 
 
     private List<File> searchBySize(List<File> listFile, long size, String operator) {
-        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method searchBySize");
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
             try {
@@ -145,7 +145,7 @@ public class Search {
             }
 
         }
-        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method searchBySize");
         return listFilter;
     }
 
@@ -158,14 +158,14 @@ public class Search {
      */
 
     private List<File> searchHiddenFiles(List<File> listFile, String hiddenCriteria) {
-        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method searchHiddenFiles");
         if (hiddenCriteria.equalsIgnoreCase("only hidden")) {
             listFile.removeIf(e -> (!e.isHidden()));
         }
         if (hiddenCriteria.equalsIgnoreCase("without hidden")) {
             listFile.removeIf(e -> (e.isHidden()));
         }
-        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method searchHiddenFiles");
         return listFile;
     }
 
@@ -220,7 +220,7 @@ public class Search {
 
 
     private List<File> lastModifiedTime(List<File> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
-        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method lastModifiedTime");
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
             try {
@@ -233,7 +233,7 @@ public class Search {
                 e.printStackTrace();
             }
         }
-        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method lastModifiedTime");
         return listFilter;
     }
 
@@ -245,7 +245,7 @@ public class Search {
      * @return a list of files that are on range between init date and end date.
      */
     private List<File> creationTime(List<File> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
-        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method creationTime");
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
             try {
@@ -258,7 +258,7 @@ public class Search {
                 e.printStackTrace();
             }
         }
-        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method creationTime");
         return listFilter;
     }
 
@@ -270,7 +270,7 @@ public class Search {
      * @return a list of files that are on range between init date and end date.
      */
     private List<File> lastAccessTime(List<File> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
-        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method lastAccessTime");
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
             try {
@@ -283,7 +283,7 @@ public class Search {
                 e.printStackTrace();
             }
         }
-        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method lastAccessTime");
         return listFilter;
     }
 
@@ -293,7 +293,7 @@ public class Search {
      * @return A list of files that are ReadOnly.
      */
     private List<File> isReadOnly(List<File> listFile) {
-        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method isReadOnly");
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
             try {
@@ -305,7 +305,7 @@ public class Search {
                 e.printStackTrace();
             }
         }
-        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method isReadOnly");
         return listFilter;
     }
 
@@ -314,7 +314,7 @@ public class Search {
      * @return A list of files that are on System.
      */
     private List<File> isFileSystem(List<File> listFile) {
-        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method isFileSystem");
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
             try {
@@ -326,7 +326,7 @@ public class Search {
                 e.printStackTrace();
             }
         }
-        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method isFileSystem");
         return listFilter;
     }
 
@@ -335,7 +335,7 @@ public class Search {
      * @return A list of files that are a Directories (Folders).
      */
     private List<File> searchByDirectory(List<File> listFile) {
-        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method searchByDirectory");
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
             try {
@@ -347,7 +347,7 @@ public class Search {
                 e.printStackTrace();
             }
         }
-        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method searchByDirectory");
         return listFilter;
     }
 
@@ -357,14 +357,14 @@ public class Search {
      * @return A list of files that are the criteria of the extension.
      */
     private List<File> searchByExtension(List<File> listFile, String extension) {
-        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method searchByExtension");
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
             if (file.getName().endsWith(extension)) {
                 listFilter.add(file);
             }
         }
-        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method searchByExtension");
         return listFilter;
     }
 
@@ -374,7 +374,7 @@ public class Search {
      * @return a list of files that contains the text into itselves.
      */
     private List<File> searchIntoFile (List<File> listFile, String text) {
-        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method searchIntoFile");
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
 
@@ -390,7 +390,7 @@ public class Search {
 
             }
         }
-        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method searchIntoFile");
         return listFilter;
     }
 
@@ -402,7 +402,7 @@ public class Search {
      *                 Is a method that filter a List according that receive of SearchCriteria.
      */
     public void filterByCriteria(SearchCriteria criteria) {
-        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method filterByCriteria");
         if (criteria.getPath() != null) {
             fileList = searchByPath(criteria.getPath());
             for (File f : fileList){
@@ -463,26 +463,26 @@ public class Search {
             }
 
         }
-        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method filterByCriteria");
     }
 
     /**
      * @param criteria This method receives a criteria.
      */
     public void setSearchCriteria(SearchCriteria criteria) {
-        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method setSearchCriteria");
         this.criteria = criteria;
-        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method setSearchCriteria");
     }
 
     /**
      * This method initialize the criteria filtering.
      */
     public void initSearch() {
-        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method initSearch");
         filterByCriteria(criteria);
         AssetFactory assetFactory = new AssetFactory();
-        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method initSearch");
     }
 
     /**
@@ -491,7 +491,7 @@ public class Search {
      * @return File Result list with the files already searched.
      */
     private void fillResultList() {
-        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method fillResultList");
         result = new ArrayList<>();
         if (!fileList.isEmpty()) {
             for (File file : fileList) {
@@ -509,13 +509,13 @@ public class Search {
 
             }
         }
-        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method fillResultList");
     }
 
     public List<Asset> getResultList() {
-        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Entry to Method getResultList");
         fillResultList();
-        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method");
+        SearchLogger.getInstanceOfLogger().getLogger().info("Exit to Method getResultList");
         return result;
     }
 
