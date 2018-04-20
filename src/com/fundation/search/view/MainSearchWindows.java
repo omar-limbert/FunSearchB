@@ -572,4 +572,54 @@ public class MainSearchWindows extends JFrame {
     public void setCreationDateEnd(String creationDateEnd) {
         this.topPanel.setCreationDateEnd(creationDateEnd);
     }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param keySensitiveOfCriteria, this is key sensitive criteria.
+     */
+    public void setKeySensitiveOfCriteria(boolean keySensitiveOfCriteria) {
+        this.topPanel.setKeySensitiveOfCriteria(keySensitiveOfCriteria);
+    }
+
+    /**
+     * This method is to get contains criteria.
+     * Controller need use this.
+     *
+     * @return boolean, true when is selected, false when is unselected.
+     */
+    public boolean getIsContainsInsideFileCriteria() {
+        return topPanel.getIsContainsInsideFileCriteria();
+    }
+
+    /**
+     * This method is to get contains criteria.
+     * Controller need use this.
+     *
+     * @return boolean, true when is selected, false when is unselected.
+     */
+    public String getTextContainsInsideFileCriteria() {
+        return topPanel.getTextContainsInsideFileCriteria();
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param isContainsInsideFileCriteria, this is contains criteria.
+     */
+    public void setIsContainsInsideFileCriteria(boolean isContainsInsideFileCriteria) {
+        this.topPanel.setIsContainsInsideFileCriteria(isContainsInsideFileCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param textContainsInsideFileCriteria, this is contains criteria.
+     */
+    public void setTextContainsInsideFileCriteria(String textContainsInsideFileCriteria) {
+        this.topPanel.setTextContainsInsideFileCriteria(textContainsInsideFileCriteria);
+    }
 }

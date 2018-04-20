@@ -106,6 +106,20 @@ public class SearchCriteriaBuilder {
      * nameOnDataBase, name on data base.
      */
     private String nameOnDataBase;
+    /**
+     * keySensitiveOfCriteria, Key sensitive criteria.
+     */
+    private boolean keySensitiveOfCriteria;
+    /**
+     * isContainsInsideFileCriteria, is name on data base.
+     */
+    private boolean isContainsInsideFileCriteria;
+    /**
+     * textContainsInsideFileCriteria, is name on data base.
+     */
+    private String textContainsInsideFileCriteria;
+
+
 
     /**
      * This method is constructor of SearchCriteriaBuilder
@@ -200,6 +214,17 @@ public class SearchCriteriaBuilder {
      *
      * @return SearchCriteriaBuilder return Builder Class.
      */
+    public SearchCriteriaBuilder keySensitiveOfCriteria(boolean keySensitiveOfCriteria) {
+        LOOGER.info("keySensitiveOfCriteria Entry");
+        LOOGER.info("keySensitiveOfCriteria Exit");
+        this.keySensitiveOfCriteria = keySensitiveOfCriteria;
+        return this;
+    }
+    /**
+     * This method is for initialize fileNameCriteria.
+     *
+     * @return SearchCriteriaBuilder return Builder Class.
+     */
     public SearchCriteriaBuilder fileNameCriteria(String fileNameCriteria) {
         LOOGER.info("fileNameCriteria Entry");
         LOOGER.info("fileNameCriteria Exit");
@@ -275,13 +300,35 @@ public class SearchCriteriaBuilder {
      *
      * @return SearchCriteriaBuilder return Builder Class.
      */
+    public SearchCriteriaBuilder isContainsInsideFileCriteria(boolean isContainsInsideFileCriteria) {
+        LOOGER.info("isContainsInsideFileCriteria Entry");
+        LOOGER.info("isContainsInsideFileCriteria Exit");
+        this.isContainsInsideFileCriteria = isContainsInsideFileCriteria;
+        return this;
+    }
+
+    /**
+     * This method is for initialize isDirectory
+     *
+     * @return SearchCriteriaBuilder return Builder Class.
+     */
+    public SearchCriteriaBuilder textContainsInsideFileCriteria(String textContainsInsideFileCriteria) {
+        LOOGER.info("textContainsInsideFileCriteria Entry");
+        LOOGER.info("textContainsInsideFileCriteria Exit");
+        this.textContainsInsideFileCriteria = textContainsInsideFileCriteria;
+        return this;
+    }
+    /**
+     * This method is for initialize isDirectory
+     *
+     * @return SearchCriteriaBuilder return Builder Class.
+     */
     public SearchCriteriaBuilder isDirectoryCriteria(boolean isDirectory) {
         LOOGER.info("isDirectoryCriteria Entry");
         LOOGER.info("isDirectoryCriteria Exit");
         this.isDirectory = isDirectory;
         return this;
     }
-
     /**
      * This method is for initialize isFileSystem.
      *
@@ -525,4 +572,39 @@ public class SearchCriteriaBuilder {
         LOOGER.info("getNameOnDataBase Exit");
         return nameOnDataBase;
     }
+
+    /**
+     * This method is for get Name on data base.
+     *
+     * @return String return extension of file.
+     */
+    public boolean getKeySensitiveOfCriteria() {
+        LOOGER.info("getKeySensitiveOfCriteria Entry");
+        LOOGER.info("getKeySensitiveOfCriteria Exit");
+        return keySensitiveOfCriteria;
+    }
+
+    /**
+     * This method is to get contains inside file criteria.
+     *
+     * @return boolean return if this active.
+     */
+    public boolean getIsContainsInsideFileCriteria() {
+        LOOGER.info("getIsContainsInsideFileCriteria Entry");
+        LOOGER.info("getIsContainsInsideFileCriteria Exit");
+        return isContainsInsideFileCriteria;
+    }
+
+    /**
+     * This method is to get contains inside file criteria.
+     *
+     * @return String return text for inside criteria.
+     */
+    public String getTextContainsInsideFileCriteria() {
+        LOOGER.info("getTextContainsInsideFileCriteria Entry");
+        LOOGER.info("getTextContainsInsideFileCriteria Exit");
+        return textContainsInsideFileCriteria;
+    }
+
 }
+

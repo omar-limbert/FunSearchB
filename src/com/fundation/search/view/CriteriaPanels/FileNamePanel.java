@@ -14,11 +14,10 @@
 package com.fundation.search.view.CriteriaPanels;
 
 import com.fundation.search.common.SearchLogger;
+import com.fundation.search.view.SearchTextField;
 
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
-import java.awt.FlowLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.util.logging.Logger;
 
 /**
@@ -53,6 +52,14 @@ public class FileNamePanel extends JPanel {
      * radioButtonGroup, Type: ButtonGroup, this radio button groups will contains all radioButtons.
      */
     private ButtonGroup radioButtonGroup;
+    /**
+     * containsTextInside, Type: JCheckBox, this criteria is for check inside to file.
+     */
+    private JCheckBox containsTextInside;
+    /**
+     * containsJTextField, Type: JTextField, this JTextField for contains criteria.
+     */
+    private SearchTextField containsJTextField;
 
 
     /**
@@ -77,20 +84,26 @@ public class FileNamePanel extends JPanel {
      * This method is to initialize all components.
      */
     private void initComponents() {
-        LOOGER.info("Get init");
+        LOOGER.info("initComponents init");
+
+        this.containsJTextField = new SearchTextField("Insert word");
+        this.containsJTextField.setSizeOfSearchTextFienld(70,32);
+
+        this.containsTextInside = new JCheckBox();
         // Initialize RadioButtons.
         this.radioButtonGroup = new ButtonGroup();
         this.allWordsRadioButton = new JRadioButton("all words");
         this.startWithRadioButton = new JRadioButton("start with");
         this.endWithRadioButton = new JRadioButton("end with");
         this.equalsToRadioButton = new JRadioButton("equal to");
+
         // Setting Action Command.
         this.allWordsRadioButton.setActionCommand("all words");
         this.startWithRadioButton.setActionCommand("start with");
         this.endWithRadioButton.setActionCommand("end with");
         this.equalsToRadioButton.setActionCommand("equal to");
 
-        LOOGER.info("init exit");
+        LOOGER.info("initComponents exit");
     }
 
     /**
@@ -108,8 +121,11 @@ public class FileNamePanel extends JPanel {
         this.add(startWithRadioButton);
         this.add(endWithRadioButton);
         this.add(equalsToRadioButton);
+        this.add(containsTextInside);
+        this.add(containsJTextField);
         // Default radioButton selected.
         this.allWordsRadioButton.setSelected(true);
+        this.containsTextInside.setSelected(false);
 
         LOOGER.info("add exit");
     }
@@ -145,5 +161,39 @@ public class FileNamePanel extends JPanel {
         }
     }
 
+    /**
+     * This method is to update one criteria.
+     *
+     * @return boolean, true when is selected, false when is unselected.
+     */
+    public boolean getIsContainsInsideFileCriteria() {
+        return containsTextInside.isSelected();
+    }
 
+    /**
+     * This method is to get contains criteria.
+     *
+     * @return String, text of contains criteria.
+     */
+    public String getTextContainsInsideFileCriteria() {
+        return containsJTextField.getText();
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param isContainsInsideFileCriteria, this is contains criteria.
+     */
+    public void setIsContainsInsideFileCriteria(boolean isContainsInsideFileCriteria) {
+        this.containsTextInside.setSelected(isContainsInsideFileCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param textContainsInsideFileCriteria, this is contains criteria.
+     */
+    public void setTextContainsInsideFileCriteria(String textContainsInsideFileCriteria) {
+        this.containsJTextField.setText(textContainsInsideFileCriteria);
+    }
 }

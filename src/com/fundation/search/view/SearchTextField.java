@@ -88,7 +88,18 @@ public class SearchTextField extends JTextField {
         });
         LOOGER.info("Constructor exit");
     }
-
+    /**
+     * This method is for update size of TextField.
+     *
+     * @param width This is a width for place holder.
+     * @param height This is a height for place holder.
+     */
+    public void setSizeOfSearchTextFienld(int width, int height){
+        // Dimension for JTextField.
+        Dimension dimension = new Dimension(width, height);
+        this.setSize(dimension);
+        this.repaint();
+    }
     /**
      * This method is for initialize all variables.
      *

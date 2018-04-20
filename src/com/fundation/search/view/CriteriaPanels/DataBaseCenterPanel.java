@@ -69,6 +69,10 @@ public class DataBaseCenterPanel extends JPanel {
         this.add(dataBaseCriteriaTable, BorderLayout.CENTER);
         this.add(header, BorderLayout.NORTH);
         this.add(new JScrollPane(dataBaseCriteriaTable));
+
+        this.dataBaseCriteriaTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+
         LOOGER.info("addComponents exit");
 
     }
@@ -82,22 +86,21 @@ public class DataBaseCenterPanel extends JPanel {
         String rowData[][] = {{}, {}};
         dataBaseCriteriaTable = new JTable();
         modelOfJTableResult = new DefaultTableModel(rowData, columnNames);
+
+        // Single selection on table
         dataBaseCriteriaTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         dataBaseCriteriaTable.setModel(modelOfJTableResult);
+
+        // Delimit columns
+        dataBaseCriteriaTable.getColumnModel().getColumn(0).setPreferredWidth(47);
+        dataBaseCriteriaTable.getColumnModel().getColumn(1).setPreferredWidth(320);
+
+        // Fixing size of table
+        dataBaseCriteriaTable.setSize(372,172);
+        dataBaseCriteriaTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         header = dataBaseCriteriaTable.getTableHeader();
         LOOGER.info("initComponents exit");
 
-    }
-
-    /**
-     * This method is for add row to TableResult.
-     *
-     * @param rowForInsertToDBTable
-     */
-    public void insertRowToDBTable(Object[] rowForInsertToDBTable) {
-        LOOGER.info("insert row to table result init");
-        modelOfJTableResult.addRow(rowForInsertToDBTable);
-        LOOGER.info("insert row to table result exit");
     }
 
     /**

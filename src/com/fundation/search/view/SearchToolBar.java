@@ -569,4 +569,50 @@ public class SearchToolBar extends JToolBar {
     public void setCreationDateEnd(String creationDateEnd) {
         this.DATE_PANEL.setCreationDateEnd(creationDateEnd);
     }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param keySensitiveOfCriteria, this is key sensitive criteria.
+     */
+    public void setKeySensitiveOfCriteria(boolean keySensitiveOfCriteria) {
+        this.PATH_PANEL.setKeySensitiveOfCriteria(keySensitiveOfCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @return boolean, true when is selected, false when is unselected.
+     */
+    public boolean getIsContainsInsideFileCriteria() {
+        return FILE_NAME_PANEL.getIsContainsInsideFileCriteria();
+    }
+
+    /**
+     * This method is to get contains criteria.
+     *
+     * @return String, text of contains criteria.
+     */
+    public String getTextContainsInsideFileCriteria() {
+        return FILE_NAME_PANEL.getTextContainsInsideFileCriteria();
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param isContainsInsideFileCriteria, this is contains criteria.
+     */
+    public void setIsContainsInsideFileCriteria(boolean isContainsInsideFileCriteria) {
+        this.FILE_NAME_PANEL.setIsContainsInsideFileCriteria(isContainsInsideFileCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param textContainsInsideFileCriteria, this is contains criteria.
+     */
+    public void setTextContainsInsideFileCriteria(String textContainsInsideFileCriteria) {
+        this.FILE_NAME_PANEL.setTextContainsInsideFileCriteria(textContainsInsideFileCriteria);
+    }
 }

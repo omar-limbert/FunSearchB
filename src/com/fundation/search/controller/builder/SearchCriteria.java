@@ -106,7 +106,18 @@ public class SearchCriteria {
      * nameOnDataBase, is name on data base.
      */
     private String nameOnDataBase;
-
+    /**
+     * nameOnDataBase, is name on data base.
+     */
+    private boolean keySensitiveOfCriteria;
+    /**
+     * isContainsInsideFileCriteria, is name on data base.
+     */
+    private boolean isContainsInsideFileCriteria;
+    /**
+     * textContainsInsideFileCriteria, is name on data base.
+     */
+    private String textContainsInsideFileCriteria;
 
 
 
@@ -139,6 +150,9 @@ public class SearchCriteria {
         this.isFileSystem = builder.getIsFileSystemCriteria();
         this.extension = builder.getExtensionCriteria();
         this.nameOnDataBase = builder.getNameOnDataBase();
+        this.keySensitiveOfCriteria = builder.getKeySensitiveOfCriteria();
+        this.isContainsInsideFileCriteria = builder.getIsContainsInsideFileCriteria();
+        this.textContainsInsideFileCriteria = builder.getTextContainsInsideFileCriteria();
         LOOGER.info("Constructor Exit");
     }
 
@@ -285,7 +299,6 @@ public class SearchCriteria {
         LOOGER.info("getLastAccessDateInit Exit");
         return lastAccessDateInit;
     }
-
     /**
      * This method is for get End Date of Last Access.
      *
@@ -331,12 +344,41 @@ public class SearchCriteria {
     }
 
     /**
-     * This method is for get nameOnDataBase.
+     * This method is for get if is file system.
+     *
+     * @return boolean return true if is file System and false if is not file System.
+     */
+    public boolean getKeySensitiveOfCriteria() {
+        LOOGER.info("getIsFileSystem Entry");
+        LOOGER.info("getIsFileSystem Exit");
+        return keySensitiveOfCriteria;
+    }
+
+    /**
+     * This method is to get nameOnDataBase.
      *
      * @return String return extension of file.
      */
     public String getNameOnDataBase() {
         return nameOnDataBase;
+    }
+
+    /**
+     * This method is to get contains inside file criteria.
+     *
+     * @return boolean return if this active.
+     */
+    public boolean getIsContainsInsideFileCriteria() {
+        return isContainsInsideFileCriteria;
+    }
+
+    /**
+     * This method is to get contains inside file criteria.
+     *
+     * @return String return text for inside criteria.
+     */
+    public String getTextContainsInsideFileCriteria() {
+        return textContainsInsideFileCriteria;
     }
 
     /**
@@ -354,6 +396,7 @@ public class SearchCriteria {
      * @return String return extension of file.
      */
     public void updateNameOnDataBase(String nameOnDataBase) {
+
         this.nameOnDataBase = nameOnDataBase;
     }
 }
