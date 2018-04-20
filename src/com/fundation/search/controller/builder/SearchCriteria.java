@@ -108,6 +108,8 @@ public class SearchCriteria {
     private String nameOnDataBase;
 
 
+
+
     /**
      * This class is to create SearchCriteria with Builder Pattern.
      *

@@ -15,11 +15,16 @@ package com.fundation.search.model;
 
 import com.fundation.search.common.Convertor;
 import com.fundation.search.controller.builder.SearchCriteria;
+import com.fundation.search.model.asset.Asset;
+import com.fundation.search.model.asset.AssetFactory;
+import com.fundation.search.model.asset.FileResult;
 import com.fundation.search.model.database.SearchConnection;
 import com.fundation.search.model.database.SearchQuery;
 import com.google.gson.Gson;
 
+
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -33,7 +38,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Map;
+
 
 /**
  * This class is to search files by criteria.
@@ -306,25 +313,34 @@ public class Search {
         }
         return listFilter;
     }
-    /*private List<File> searchIntoFile (List<File> listFile, String text) {
-        List<File> listFilter = new ArrayList<>();
-        for (File file : listFile) {
 
-            try {
-                BufferedReader bf = new BufferedReader(new FileReader(file.getPath()));
-                while ( bf.readLine() != null){
-                    if (bf.readLine().equalsIgnoreCase(text)){
-                        listFilter.add(file);
+    /**
+     * @param listFile  a list of files.
+     * @param text      the test in order to search into a file.
+     * @param extension if is a valid file for search the text.
+     * @return a list of files that contains the text.
+     */
+    private List<File> searchIntoFile(List<File> listFile, String text, String extension) {
+        List<File> listFilter = new ArrayList<>();
+        Scanner sc = null;
+        for (File file : listFile) {
+            if (extension.equalsIgnoreCase(".txt")) {
+                try {
+                    sc = new Scanner(file);
+                    while (sc.hasNextLine()) {
+                        if (sc.nextLine().contains(text)) {
+                            listFilter.add(file);
+                        }
                     }
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
                 }
-                bf.close();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
 
         }
         return listFilter;
-    }*/
+    }
 
 
     /**
@@ -333,6 +349,14 @@ public class Search {
      * @param owner this is name of owner for filter file list.
      * @return list all the files minor or major or equal to given size.
      */
+  
+    private List<File> searchByOwner(List<File> listFile, String owner) {
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+            try {
+                if (Files.getFileAttributeView(file.toPath(), FileOwnerAttributeView.class).getOwner().getName().equalsIgnoreCase(owner)) {
+                    listFilter.add(file);
+                }
 
     private List<File> searchByOwner(String owner) {
         fileList.removeIf(e -> !(this.isOwner(e, owner)));
@@ -424,7 +448,7 @@ public class Search {
             }
 
             if (!criteria.getOwnerCriteria().isEmpty()) {
-                fileList = searchByOwner(criteria.getOwnerCriteria());
+                fileList = searchByOwner(fileList, criteria.getOwnerCriteria());
             }
 
         }
@@ -447,15 +471,14 @@ public class Search {
     /**
      * @return List of files.
      */
-    public List<FileResult> getResultList() {
-        List<FileResult> result = new ArrayList<>();
+    public List<Asset> getResultList() {
+        List<Asset> result = new ArrayList<>();
 
         if (!fileList.isEmpty()) {
             fileList.forEach(e -> result
                     .add(createFileResult(e)));
 
         }
-        System.out.println("sdfsdf");
         return result;
 
     }
@@ -463,21 +486,23 @@ public class Search {
     /**
      * @param e A list of files.
      *          .
-     * @return a list of files it depend of the criteria.
+     * @return a list of files it depend of the criteria..
      */
-    private FileResult createFileResult(File e) {
-        FileResult result = null;
+    private Asset createFileResult(File e) {
+
+        AssetFactory assetFactory = new AssetFactory();
+        Asset asset = null;
         try {
             BasicFileAttributes fileAttributes = Files.readAttributes(e.toPath(), BasicFileAttributes.class);
             DosFileAttributes fileAttributes1 = Files.readAttributes(e.toPath(), DosFileAttributes.class);
             FileOwnerAttributeView fileAttributes2 = Files.getFileAttributeView(e.toPath(), FileOwnerAttributeView.class);
 
-            result = new FileResult(e.getPath(), e.getName(), e.length(), e.isHidden(), e.canRead(), fileAttributes.lastModifiedTime(), fileAttributes.creationTime(), fileAttributes.lastAccessTime(), fileAttributes2.getOwner().getName(), fileAttributes1.isReadOnly(), fileAttributes1.isSystem(), fileAttributes.isDirectory(), "", e.getName());
+            asset = assetFactory.buildAsset("file", e.getPath(), e.getName(), e.length(), e.isHidden(), e.canRead(), fileAttributes.lastModifiedTime(), fileAttributes.creationTime(), fileAttributes.lastAccessTime(), fileAttributes2.getOwner().getName(), fileAttributes1.isReadOnly(), fileAttributes1.isSystem(), fileAttributes.isDirectory(), "", e.getName());
 
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        return result;
+        return asset;
     }
 
     /**
