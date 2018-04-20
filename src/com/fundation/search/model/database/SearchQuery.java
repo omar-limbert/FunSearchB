@@ -16,7 +16,11 @@ package com.fundation.search.model.database;
 
 import com.fundation.search.common.SearchLogger;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Logger;
 
 /**
@@ -99,7 +103,7 @@ public class SearchQuery {
     public String deleteCriteria(int index) {
         LOOGER.info("Delete Criteria Entry");
         try {
-            String insertQuery = "delete from criteria where id = '"+index+"';";
+            String insertQuery = "delete from criteria where id = '" + index + "';";
 
             PreparedStatement preparedStatement;
 

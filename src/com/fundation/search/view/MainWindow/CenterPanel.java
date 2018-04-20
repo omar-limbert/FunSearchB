@@ -15,10 +15,12 @@ package com.fundation.search.view.MainWindow;
 
 import com.fundation.search.common.SearchLogger;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import java.awt.BorderLayout;
+import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import java.awt.*;
 import java.util.logging.Logger;
 
 /**

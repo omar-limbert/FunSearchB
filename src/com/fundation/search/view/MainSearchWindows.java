@@ -18,8 +18,12 @@ import com.fundation.search.view.MainWindow.BottomPanel;
 import com.fundation.search.view.MainWindow.CenterPanel;
 import com.fundation.search.view.MainWindow.TopPanel;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ListSelectionModel;
+import javax.swing.JTable;
+import javax.swing.JButton;
+import java.awt.BorderLayout;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
 import java.util.Date;
 import java.util.logging.Logger;
 

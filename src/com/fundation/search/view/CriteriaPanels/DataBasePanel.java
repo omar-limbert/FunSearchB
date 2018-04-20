@@ -15,8 +15,11 @@ package com.fundation.search.view.CriteriaPanels;
 
 import com.fundation.search.common.SearchLogger;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
+import javax.swing.JTable;
+import javax.swing.JButton;
+import java.awt.BorderLayout;
 import java.util.logging.Logger;
 
 

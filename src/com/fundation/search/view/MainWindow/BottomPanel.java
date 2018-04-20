@@ -16,7 +16,10 @@ package com.fundation.search.view.MainWindow;
 import com.fundation.search.common.SearchLogger;
 import com.fundation.search.view.CriteriaPanels.DataBasePanel;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
+import javax.swing.JTable;
+import javax.swing.JButton;
 import java.util.logging.Logger;
 
 /**

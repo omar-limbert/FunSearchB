@@ -15,8 +15,9 @@ package com.fundation.search.view.CriteriaPanels;
 
 import com.fundation.search.common.SearchLogger;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.FlowLayout;
+import javax.swing.JPanel;
+import javax.swing.JButton;
 import java.util.logging.Logger;
 
 /**
@@ -45,11 +46,6 @@ public class DataBaseSouthPanel extends JPanel {
      * fillButton, Type: JButton, this button is for delete dara from Data base.
      */
     private JButton deleteButton;
-
-    /**
-     * constraints, Type: GridBagConstraints, this is initialize GridBag Layout.
-     */
-    private GridBagConstraints constraints;
 
     /**
      * Constructor for DataBaseNorthPanel.
