@@ -486,4 +486,51 @@ public class TopPanel extends JPanel {
     public void setCreationDateEnd(String creationDateEnd) {
         this.toolbar.setCreationDateEnd(creationDateEnd);
     }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param keySensitiveOfCriteria, this is key sensitive criteria.
+     */
+    public void setKeySensitiveOfCriteria(boolean keySensitiveOfCriteria) {
+        this.toolbar.setKeySensitiveOfCriteria(keySensitiveOfCriteria);
+    }
+
+    /**
+     * This method is to get contains criteria.
+     *
+     * @return boolean, true when is selected, false when is unselected.
+     */
+    public boolean getIsContainsInsideFileCriteria() {
+        return toolbar.getIsContainsInsideFileCriteria();
+    }
+
+    /**
+     * This method is to get contains criteria.
+     *
+     * @return String, text of contains criteria.
+     */
+    public String getTextContainsInsideFileCriteria() {
+        return toolbar.getTextContainsInsideFileCriteria();
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param isContainsInsideFileCriteria, this is contains criteria.
+     */
+    public void setIsContainsInsideFileCriteria(boolean isContainsInsideFileCriteria) {
+        this.toolbar.setIsContainsInsideFileCriteria(isContainsInsideFileCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param textContainsInsideFileCriteria, this is contains criteria.
+     */
+    public void setTextContainsInsideFileCriteria(String textContainsInsideFileCriteria) {
+        this.toolbar.setTextContainsInsideFileCriteria(textContainsInsideFileCriteria);
+    }
 }

@@ -208,6 +208,9 @@ public class ControlCriteria {
                 searchWindows.setOperatorCriteria(searchCriteriaDB.getOperator());
                 searchWindows.setTypeCriteria(searchCriteriaDB.getType());
                 searchWindows.setIsHiddenCriteria(searchCriteriaDB.getHiddenCriteria());
+                searchWindows.setKeySensitiveOfCriteria(searchCriteriaDB.getKeySensitiveOfCriteria());
+                searchWindows.setIsContainsInsideFileCriteria(searchCriteriaDB.getIsContainsInsideFileCriteria());
+                searchWindows.setTextContainsInsideFileCriteria(searchCriteriaDB.getTextContainsInsideFileCriteria());
 
             }
 
@@ -289,6 +292,9 @@ public class ControlCriteria {
                 .isDirectoryCriteria(searchWindows.getDirectoryOfCriteria())
                 .extensionCriteria(searchWindows.getTypeCriteria())
                 .nameOnDataBase("")
+                .keySensitiveOfCriteria(Boolean.valueOf(searchWindows.getKeySensitiveOfCriteria()))
+                .isContainsInsideFileCriteria(Boolean.valueOf(searchWindows.getIsContainsInsideFileCriteria()))
+                .textContainsInsideFileCriteria(searchWindows.getTextContainsInsideFileCriteria())
                 .build();
 
         // Shown results

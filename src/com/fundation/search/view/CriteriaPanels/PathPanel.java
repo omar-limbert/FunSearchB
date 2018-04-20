@@ -262,4 +262,8 @@ public class PathPanel extends JPanel {
     public void setPathCriteria(String pathCriteria) {
         this.pathTextField.setText(pathCriteria);
     }
+
+    public void setKeySensitiveOfCriteria(boolean keySensitiveOfCriteria) {
+        this.keySensitiveCheck.setSelected(keySensitiveOfCriteria);
+    }
 }
