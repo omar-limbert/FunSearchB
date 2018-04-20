@@ -19,12 +19,12 @@ package com.fundation.search.model.asset;
  * @author Omar Limbert Huanca Sanchez - AT-[06].
  * @version 1.0.
  */
-public class MultimediaResult extends Asset{
+/*public class MultimediaResult extends Asset{
     /**
      * Constructor for FileResult.
      */
-    public MultimediaResult(){
+    /*public MultimediaResult(){
 
 
-    }
-}
+    }*/
+//}

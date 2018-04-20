@@ -17,8 +17,8 @@ import com.fundation.search.common.Convertor;
 import com.fundation.search.common.SearchLogger;
 import com.fundation.search.common.Validator;
 import com.fundation.search.controller.builder.SearchCriteria;
-import com.fundation.search.model.FileResult;
 import com.fundation.search.model.Search;
+import com.fundation.search.model.asset.Asset;
 import com.fundation.search.view.MainSearchWindows;
 
 import javax.swing.JOptionPane;
@@ -203,7 +203,7 @@ public class ControlCriteria {
      *
      * @param file This is FileResult of Model.
      */
-    private Object[] getDataFromAsset(FileResult file) {
+    private Object[] getDataFromAsset(Asset file) {
         LOOGER.info("getDataFromAsset Entry");
         // Object[] for create row and sent this to table result on User Interface
         Object[] dataFromAsset = new Object[15]; // number of columns

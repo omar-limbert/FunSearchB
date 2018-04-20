@@ -103,6 +103,8 @@ public class SearchCriteria {
      */
     private String extension;
 
+
+
     /**
      * This class is to create SearchCriteria with Builder Pattern.
      *
