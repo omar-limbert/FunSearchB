@@ -18,11 +18,8 @@ import com.fundation.search.view.CriteriaPanels.CriteriaPanel;
 import com.fundation.search.view.SearchTextField;
 import com.fundation.search.view.SearchToolBar;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.*;
+import java.awt.*;
 import java.util.Date;
 import java.util.logging.Logger;
 

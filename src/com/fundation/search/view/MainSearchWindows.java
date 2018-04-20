@@ -18,13 +18,10 @@ import com.fundation.search.view.MainWindow.BottomPanel;
 import com.fundation.search.view.MainWindow.CenterPanel;
 import com.fundation.search.view.MainWindow.TopPanel;
 
-import javax.swing.ListSelectionModel;
-import javax.swing.JTable;
-import javax.swing.JButton;
-import java.awt.BorderLayout;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
+import javax.swing.*;
+import java.awt.*;
 import java.util.Date;
+import java.util.logging.Logger;
 
 /**
  * This class main windows.
@@ -621,5 +618,15 @@ public class MainSearchWindows extends JFrame {
      */
     public void setTextContainsInsideFileCriteria(String textContainsInsideFileCriteria) {
         this.topPanel.setTextContainsInsideFileCriteria(textContainsInsideFileCriteria);
+    }
+
+    /**
+     * This method is for return Delete JButton.
+     * Controller need use this.
+     *
+     * @return JButton, this is Delete button of Data Base
+     */
+    public JButton getDeleteButtonOnDataBasePanel() {
+        return this.bottomPanel.getDeleteButtonOnDataBasePanel();
     }
 }

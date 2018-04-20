@@ -21,7 +21,7 @@ import com.fundation.search.model.Search;
 import com.fundation.search.model.asset.Asset;
 import com.fundation.search.view.MainSearchWindows;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import java.nio.file.attribute.FileTime;
 import java.util.Date;
@@ -99,6 +99,9 @@ public class ControlCriteria {
 
         // Action for Fill Button
         this.searchWindows.getFillButtonOnDataBasePanel().addActionListener(e -> this.listenFillButton());
+
+        // Action for Delete Button
+        this.searchWindows.getDeleteButtonOnDataBasePanel().addActionListener(e -> this.listenDeleteButton());
 
         // Action for Load Button
         this.searchWindows.getLoadButtonOnDataBasePanel().addActionListener(e -> this.listenLoadButton());
@@ -211,11 +214,30 @@ public class ControlCriteria {
                 searchWindows.setKeySensitiveOfCriteria(searchCriteriaDB.getKeySensitiveOfCriteria());
                 searchWindows.setIsContainsInsideFileCriteria(searchCriteriaDB.getIsContainsInsideFileCriteria());
                 searchWindows.setTextContainsInsideFileCriteria(searchCriteriaDB.getTextContainsInsideFileCriteria());
-
             }
-
         }
+        LOOGER.info("Action Search Button exit");
+    }
 
+    /**
+     * This method check the event button "Delete" and fill Data from User Interface.
+     * then the inputs are insert for validate.
+     */
+    private void listenDeleteButton() {
+        LOOGER.info("Action Search Button entry");
+        SearchCriteria searchCriteriaDB;
+        if (!searchWindows.getSelectionModelOfDataBaseTableResult().isSelectionEmpty()) {
+
+            // Recover search criteria and update User Interface
+            searchCriteriaDB = searchCriteriaMapOfDataBase.get(indexSelectedOnDataTableResult);
+
+            // Confirm show results
+            int confirmDialog = JOptionPane.showConfirmDialog(null, "Are you sure to Delete: " + searchCriteriaDB.getNameOnDataBase(), "Recover <- DB", JOptionPane.YES_NO_OPTION);
+            if (confirmDialog == JOptionPane.YES_OPTION) {
+                search.deleteCriteriaFromDataBase(indexSelectedOnDataTableResult);
+                this.listenLoadButton();
+            }
+        }
         LOOGER.info("Action Search Button exit");
     }
 
@@ -366,6 +388,8 @@ public class ControlCriteria {
         search.initSearch();
 
         // Adding row to Table of Result
+        search.getResultList().forEach(e-> System.out.println(e.getName()));
+
         search.getResultList().forEach(e -> searchWindows.insertDataOfJTableResult(this.getDataFromAsset(e)));
         LOOGER.info("Get Result Exit");
     }

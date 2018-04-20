@@ -15,8 +15,7 @@ package com.fundation.search.view.CriteriaPanels;
 
 import com.fundation.search.common.SearchLogger;
 
-import javax.swing.JPanel;
-import javax.swing.BoxLayout;
+import javax.swing.*;
 import java.util.Map;
 import java.util.logging.Logger;
 

@@ -15,13 +15,10 @@ package com.fundation.search.view;
 
 import com.fundation.search.common.SearchLogger;
 
-import javax.swing.JTextField;
-import java.awt.Dimension;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Insets;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import java.awt.*;
 import java.util.logging.Logger;
 
 /**

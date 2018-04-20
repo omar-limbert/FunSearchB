@@ -16,15 +16,9 @@ package com.fundation.search.view;
 import com.fundation.search.common.SearchLogger;
 import com.fundation.search.view.CriteriaPanels.*;
 
-import javax.swing.JPanel;
-import javax.swing.JToolBar;
-import javax.swing.JToggleButton;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.Collection;
-import java.util.Vector;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -37,18 +31,22 @@ public class SearchToolBar extends JToolBar {
     /**
      * Init logger  in SearchToolBar
      */
+
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
     /**
      * toggleButtonCollection, Type: Collection<JToggleButton>, this is a collection of buttons.
      */
+
     private Collection<JToggleButton> toggleButtonCollection;
     /**
      * action, Type: String, this is action of one button.
      */
+
     private String action;
     /**
      * criteriaPanel, Type: CriteriaPanel, this criteria panel.
      */
+
     private CriteriaPanel criteriaPanel;
     /**
      * panelList, Type: Map<String, JPanel>, this is a Map of panels.
