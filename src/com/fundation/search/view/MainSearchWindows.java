@@ -14,6 +14,7 @@
 package com.fundation.search.view;
 
 import com.fundation.search.common.SearchLogger;
+import com.fundation.search.view.MainWindow.BottomPanel;
 import com.fundation.search.view.MainWindow.CenterPanel;
 import com.fundation.search.view.MainWindow.TopPanel;
 import javax.swing.JButton;
@@ -40,9 +41,14 @@ public class MainSearchWindows extends JFrame {
     private TopPanel topPanel;
 
     /**
-     * topPanel, Type: CenterPanel, this is center panel of main windows.
+     * centerPanel, Type: CenterPanel, this is center panel of main windows.
      */
     private CenterPanel centerPanel;
+
+    /**
+     * bottomPanel, Type: CenterPanel, this is center panel of main windows.
+     */
+    private BottomPanel bottomPanel;
 
     /**
      * Constructor for MainSearchWindows.
@@ -62,11 +68,13 @@ public class MainSearchWindows extends JFrame {
         // Initialize Top and Center Panel, you need add new Bottom panel for new functionalities.
         this.topPanel = new TopPanel("Searching...");
         this.centerPanel = new CenterPanel();
+        this.bottomPanel = new BottomPanel();
         // this.bottom = new BottomPanel(); <= you need implement this for next features.
         // Setting Border Layout and repaint.
         this.getContentPane().setLayout(new BorderLayout());
         this.getContentPane().add(topPanel, BorderLayout.NORTH);
         this.getContentPane().add(centerPanel, BorderLayout.CENTER);
+        this.getContentPane().add(bottomPanel, BorderLayout.SOUTH);
         this.revalidate();
         this.repaint();
         // Setting main windows <= maybe you could be this dynamic.
@@ -285,7 +293,7 @@ public class MainSearchWindows extends JFrame {
      * @param row, this row contains all values for insert to table result.
      */
     public void insertDataOfJTableResult(Object[] row) {
-        LOOGER.info("Get data table result");
+        LOOGER.info("Insert data to table result");
         centerPanel.insertRowToJTableResult(row);
     }
 
@@ -296,5 +304,68 @@ public class MainSearchWindows extends JFrame {
     public void resetDataOfJTableResult() {
         LOOGER.info("get reset table");
         centerPanel.resetAllDataOfTableResult();
+    }
+
+    /**
+     * This method is for reset all values of Data Base Table Result.
+     * Controller can use this.
+     */
+    public void resetDataOfDataBaseTableResult() {
+        LOOGER.info("get reset table");
+        bottomPanel.resetAllDataOfDataDBTable();
+    }
+
+    /**
+     * This method is for insert one row to Data Base Table Result.
+     * Controller need use this.
+     *
+     * @param row, this row contains all values for insert to table result.
+     */
+    public void insertDataToDataBaseTableResult(Object[] row) {
+        LOOGER.info("Insert data to Data Base table result");
+        bottomPanel.insertRowToDataBaseTableResult(row);
+    }
+    /**
+     * This method return name of criteria to save on data base.
+     * Controller need use this.
+     *
+     * @return String, this is a text.
+     */
+    public String getNameOfCriteriaToSaveOnDataBase() {
+        LOOGER.info("Get name of criteria");
+        return bottomPanel.getNameOfCriteriaToSaveOnDataBase();
+    }
+
+    /**
+     * This method return Save JButton on Data Base Panel.
+     * Controller need use this.
+     *
+     * @return JButton, this is a JButton on Data Base pane.
+     */
+    public JButton getLoadSaveButtonOnDataBasePanel() {
+        LOOGER.info("Get Save button of Data Base Panel");
+        return bottomPanel.getLoadSaveButtonOnDataBasePanel();
+    }
+
+    /**
+     * This method return Load JButton on Data Base Panel.
+     * Controller need use this.
+     *
+     * @return JButton, this is a JButton on Data Base pane.
+     */
+    public JButton getLoadButtonOnDataBasePanel() {
+        LOOGER.info("Get Load button of Data Base Panel");
+        return bottomPanel.getLoadButtonOnDataBasePanel();
+    }
+
+    /**
+     * This method return Fill JButton on Data Base Panel.
+     * Controller need use this.
+     *
+     * @return JButton, this is a JButton on Data Base pane.
+     */
+    public JButton getLoadFillButtonOnDataBasePanel() {
+        LOOGER.info("Get Fill button of Data Base Panel");
+        return bottomPanel.getLoadFillButtonOnDataBasePanel();
     }
 }
