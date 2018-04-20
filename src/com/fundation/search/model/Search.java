@@ -105,7 +105,7 @@ public class Search {
         for (File file : listFile) {
             try {
                 BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
-                System.out.println(operator);
+
                 if (operator.equalsIgnoreCase("upper")) {
                     if (fileAttributes.size() > size) {
                         listFilter.add(file);
@@ -182,15 +182,12 @@ public class Search {
      */
     private List<File> creationTime(List<File> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
 
-        System.out.println("ESTO TE LLEGA INI: " + new Convertor().convertFileDateToDate(dateConditionInt) + " FIN: " + new Convertor().convertFileDateToDate(dateConditionEnd));
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
-            System.out.println(new Convertor().convertFileDateToDate(dateConditionInt) + " IF FILES ");
             try {
                 BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
                 if ((fileAttributes.creationTime().toMillis() >= dateConditionInt.toMillis() && fileAttributes.creationTime().toMillis() <= dateConditionEnd.toMillis())) {
                     listFilter.add(file);
-                    System.out.println(new Convertor().convertFileDateToDate(dateConditionInt) + " ATRIBUTES FILE");
                 }
 
             } catch (IOException e) {
