@@ -45,6 +45,7 @@ public class SearchCommand {
 
     /**
      * Init the constructor.
+     *
      * @param args is a command line list.
      */
     public SearchCommand(String[] args) {
@@ -52,7 +53,7 @@ public class SearchCommand {
         criteriaList = new ArrayList<>();
         map = new HashMap<>();
         this.addCriterias();
-        this.assignCriteria(args);
+        this.validateCommand(args);
         LOOGER.info("Exit Constructor SearchCommand");
     }
 
@@ -69,6 +70,7 @@ public class SearchCommand {
         criteriaList.add("-h");//hidden
         criteriaList.add("-o");//owner
         criteriaList.add("-s");//size
+        criteriaList.add("-d");//directory
         criteriaList.add("-dc");//dateCreation
         criteriaList.add("-dm");//modifiedDate
         criteriaList.add("-dl");//dateLastAccess
@@ -77,14 +79,19 @@ public class SearchCommand {
     }
 
     /**
-     * Validate if the command line has criterias(criteria-value)
+     * Validate if the command line has criterias(criteria-value) and create helper.
+     *
      * @param args command line list
      */
     public boolean validateCommandFormat(String[] args) {
-        LOOGER.info("ValidateCommandFormat entry");
+         LOOGER.info("ValidateCommandFormat entry");
         for (int i = 0; i < args.length; i += 2) {
             if (!criteriaList.contains(args[i])) {
-                LOOGER.info("ValidateCommandFormat with invalid criteria");
+                 LOOGER.info("ValidateCommandFormat with invalid criteria");
+                if (args[i].equals("-helper")) {
+                    CommandHelper helper = new CommandHelper();
+                    helper.printHelper();
+                }
                 return false;
             }
         }
@@ -95,6 +102,7 @@ public class SearchCommand {
     /**
      * Validate if the command line doesn´t have duplicated criterias and fill the map
      * with citeria and values
+     *
      * @param args command line list
      */
     public boolean criteriaValidatorDuplicated(String[] args) {
@@ -102,7 +110,6 @@ public class SearchCommand {
         try {
             for (int i = 0; i < args.length; i += 2) {
                 if (map.containsKey(args[i])) {
-                    map = new HashMap<>();
                     LOOGER.info("criteriaValidatorDuplicated criteriaDuplicated");
                     return false;
                 } else {
@@ -118,12 +125,14 @@ public class SearchCommand {
 
     /**
      * Impress a message if the command is valid.
+     *
      * @param args command line list
      */
-    public void assignCriteria(String[] args) {
+    public void validateCommand(String[] args) {
         LOOGER.info("ValidateCommand entry");
         if (!validateCommandFormat(args) || !criteriaValidatorDuplicated(args)) {
-            System.out.println("Invalid command");
+            map = new HashMap<>();
+            System.out.println("Please,Write -helper for help");
         }
         LOOGER.info("ValidateCommand exit");
     }
