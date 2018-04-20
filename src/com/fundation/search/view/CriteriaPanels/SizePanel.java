@@ -15,6 +15,7 @@
 package com.fundation.search.view.CriteriaPanels;
 
 import com.fundation.search.common.SearchLogger;
+
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -32,7 +33,7 @@ import java.util.logging.Logger;
 public class SizePanel extends JPanel {
     /**
      * Init logger  in Size Panel
-     * */
+     */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
@@ -68,16 +69,16 @@ public class SizePanel extends JPanel {
     private void initComponents() {
         LOOGER.info("Get init");
         // Iniatilize
-        this.sizeTextField=new JTextField();
+        this.sizeTextField = new JTextField();
         sizeTextField.setPreferredSize(new Dimension(80, 25));
-        this.sizeComboBox=new JComboBox();
+        this.sizeComboBox = new JComboBox();
         sizeComboBox.addItem("bit");
         sizeComboBox.addItem("Kb");
         sizeComboBox.addItem("Mb");
         sizeComboBox.addItem("Gb");
-        this.majorMinorComboBox=new JComboBox();
+        this.majorMinorComboBox = new JComboBox();
         majorMinorComboBox.addItem("Equals:");
-        majorMinorComboBox.addItem("major to:");
+        majorMinorComboBox.addItem("Major to:");
         majorMinorComboBox.addItem("Minor to:");
         LOOGER.info("init exit");
 
@@ -94,6 +95,7 @@ public class SizePanel extends JPanel {
         LOOGER.info("Get init");
 
     }
+
     /**
      * This method is for return type.
      *
@@ -102,8 +104,34 @@ public class SizePanel extends JPanel {
     public String[] getSizeCriteria() {
         LOOGER.info("Get Size Panel");
         return new String[]{majorMinorComboBox.getModel().getSelectedItem().toString()
-                ,sizeTextField.getText(), sizeComboBox.getModel().getSelectedItem().toString()};
+                , sizeTextField.getText(), sizeComboBox.getModel().getSelectedItem().toString()};
 
     }
 
+    /**
+     * This method is to update one criteria.
+     *
+     * @param typeCriteria, this is type of size criteria.
+     */
+    public void setTypeCriteria(String typeCriteria) {
+        majorMinorComboBox.getModel().setSelectedItem(typeCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param operatorCriteria, this is operator of size criteria.
+     */
+    public void setOperatorCriteria(String operatorCriteria) {
+        sizeComboBox.getModel().setSelectedItem(operatorCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param sizeCriteria, this is size criteria.
+     */
+    public void setSizeCriteria(long sizeCriteria) {
+        this.sizeTextField.setText(String.valueOf(sizeCriteria));
+    }
 }

@@ -15,6 +15,7 @@ package com.fundation.search.view;
 
 import com.fundation.search.common.SearchLogger;
 import com.fundation.search.view.CriteriaPanels.*;
+
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 import javax.swing.JToggleButton;
@@ -35,7 +36,7 @@ import java.util.logging.Logger;
 public class SearchToolBar extends JToolBar {
     /**
      * Init logger  in SearchToolBar
-     * */
+     */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
     /**
      * toggleButtonCollection, Type: Collection<JToggleButton>, this is a collection of buttons.
@@ -77,7 +78,7 @@ public class SearchToolBar extends JToolBar {
     /**
      * DATE_PANEL, Type: DatePanel, this Date criteria Panel.
      */
-    private  static final DatePanel DATE_PANEL = new DatePanel();
+    private static final DatePanel DATE_PANEL = new DatePanel();
 
     /**
      * TYPE_PANEL, Type: DatePanel, this Type criteria Panel.
@@ -267,7 +268,7 @@ public class SearchToolBar extends JToolBar {
      *
      * @return boolean, this contains a read only files.
      */
-    public boolean getReadOnlyOfCriteria(){
+    public boolean getReadOnlyOfCriteria() {
         LOOGER.info("get read only");
         return PATH_PANEL.getReadOnlyOfCriteria();
     }
@@ -279,7 +280,7 @@ public class SearchToolBar extends JToolBar {
      */
     public boolean getFileSystemOfCriteria() {
         LOOGER.info("get file system");
-        return  PATH_PANEL.getFileSystemOfCriteria();
+        return PATH_PANEL.getFileSystemOfCriteria();
     }
 
     /**
@@ -289,7 +290,7 @@ public class SearchToolBar extends JToolBar {
      */
     public boolean getDirectoryOfCriteria() {
         LOOGER.info("get directory");
-        return  PATH_PANEL.getDirectoryOfCriteria();
+        return PATH_PANEL.getDirectoryOfCriteria();
     }
 
     /**
@@ -299,7 +300,7 @@ public class SearchToolBar extends JToolBar {
      */
     public boolean getKeySensitiveOfCriteria() {
         LOOGER.info("get key sensitive");
-        return  PATH_PANEL.getKeySensitiveOfCriteria();
+        return PATH_PANEL.getKeySensitiveOfCriteria();
     }
 
     /**
@@ -309,7 +310,7 @@ public class SearchToolBar extends JToolBar {
      */
     public String[] getSizeCriteria() {
         LOOGER.info("get size");
-        return  SIZE_PANEL.getSizeCriteria();
+        return SIZE_PANEL.getSizeCriteria();
     }
 
     /**
@@ -319,7 +320,7 @@ public class SearchToolBar extends JToolBar {
      */
     public String getOwnerCriteria() {
         LOOGER.info("get owner");
-        return  OWNER_PANEL.getOwnerCriteria();
+        return OWNER_PANEL.getOwnerCriteria();
     }
 
     /**
@@ -329,7 +330,7 @@ public class SearchToolBar extends JToolBar {
      */
     public Date getDateCreationCriteria() {
         LOOGER.info("get date creation");
-        return  DATE_PANEL.getDateCreationCriteria();
+        return DATE_PANEL.getDateCreationCriteria();
     }
 
     /**
@@ -339,7 +340,7 @@ public class SearchToolBar extends JToolBar {
      */
     public Date getDateToCreationCriteria() {
         LOOGER.info("get date creation to");
-        return  DATE_PANEL.getDateToCreationCriteria();
+        return DATE_PANEL.getDateToCreationCriteria();
     }
 
     /**
@@ -349,7 +350,7 @@ public class SearchToolBar extends JToolBar {
      */
     public Date getDateModificationCriteria() {
         LOOGER.info("get modified init");
-        return  DATE_PANEL.getDateModificationCriteria();
+        return DATE_PANEL.getDateModificationCriteria();
     }
 
     /**
@@ -359,7 +360,7 @@ public class SearchToolBar extends JToolBar {
      */
     public Date getDateToModificationCriteria() {
         LOOGER.info("get modified end");
-        return  DATE_PANEL.getDateToModificationCriteria();
+        return DATE_PANEL.getDateToModificationCriteria();
     }
 
     /**
@@ -369,7 +370,7 @@ public class SearchToolBar extends JToolBar {
      */
     public Date getDateLastOpenedCriteria() {
         LOOGER.info("get last access init");
-        return  DATE_PANEL.getDateLastOpenedCriteria();
+        return DATE_PANEL.getDateLastOpenedCriteria();
     }
 
     /**
@@ -379,7 +380,7 @@ public class SearchToolBar extends JToolBar {
      */
     public Date getDateToLastOpenedCriteria() {
         LOOGER.info("get last access end");
-        return  DATE_PANEL.getDateToLastOpenedCriteria();
+        return DATE_PANEL.getDateToLastOpenedCriteria();
     }
 
     /**
@@ -413,4 +414,159 @@ public class SearchToolBar extends JToolBar {
         return TYPE_PANEL.getTypeCriteria();
     }
 
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param isHiddenCriteria, this is hidden criteria.
+     */
+    public void setIsHiddenCriteria(String isHiddenCriteria) {
+        this.HIDDEN_PANEL.setIsHiddenCriteria(isHiddenCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param typeCriteria, this is type of size criteria.
+     */
+    public void setTypeCriteria(String typeCriteria) {
+        this.SIZE_PANEL.setTypeCriteria(typeCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param operatorCriteria, this is operator of size criteria.
+     */
+    public void setOperatorCriteria(String operatorCriteria) {
+        this.SIZE_PANEL.setOperatorCriteria(operatorCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param sizeCriteria, this is size criteria.
+     */
+    public void setSizeCriteria(long sizeCriteria) {
+        this.SIZE_PANEL.setSizeCriteria(sizeCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param isReadOnlyCriteria, this is Read Only criteria.
+     */
+    public void setIsReadOnlyCriteria(boolean isReadOnlyCriteria) {
+        this.PATH_PANEL.setIsReadOnlyCriteria(isReadOnlyCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param isFileSystemCriteria, true is File System and false is not file system.
+     */
+    public void setIsFileSystemCriteria(boolean isFileSystemCriteria) {
+        this.PATH_PANEL.setIsFileSystemCriteria(isFileSystemCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param isDirectoryCriteria, true is directory and false is not directory.
+     */
+    public void setIsDirectoryCriteria(boolean isDirectoryCriteria) {
+        this.PATH_PANEL.setIsDirectoryCriteria(isDirectoryCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param fileNameCriteria, this is file name criteria.
+     */
+    public void setFileNameCriteria(String fileNameCriteria) {
+        this.FILE_NAME_PANEL.setFileNameCriteria(fileNameCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param pathCriteria, this is path criteria.
+     */
+    public void setPathCriteria(String pathCriteria) {
+        this.PATH_PANEL.setPathCriteria(pathCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param ownerCriteria, this is owner criteria.
+     */
+    public void setOwnerCriteria(String ownerCriteria) {
+        this.OWNER_PANEL.setOwnerCriteria(ownerCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param extensionCriteria, this is file extension criteria.
+     */
+    public void setExtensionCriteria(String extensionCriteria) {
+        this.TYPE_PANEL.setExtensionCriteria(extensionCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param modifiedDateInit, this is modified date init.
+     */
+    public void setModifiedDateInit(String modifiedDateInit) {
+        this.DATE_PANEL.setModifiedDateInit(modifiedDateInit);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param modifiedDateEnd, this is modified date end.
+     */
+    public void setModifiedDateEnd(String modifiedDateEnd) {
+        this.DATE_PANEL.setModifiedDateEnd(modifiedDateEnd);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param lastAccessInit, this is last access date end.
+     */
+    public void setLastAccessInit(String lastAccessInit) {
+        this.DATE_PANEL.setLastAccessInit(lastAccessInit);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param lastAccessEnd, this is last access date end.
+     */
+    public void setLastAccessEnd(String lastAccessEnd) {
+        this.DATE_PANEL.setLastAccessEnd(lastAccessEnd);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param creationDateInit, this is creation date init.
+     */
+    public void setCreationDateInit(String creationDateInit) {
+        this.DATE_PANEL.setCreationDateInit(creationDateInit);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param creationDateEnd, this is creation date end.
+     */
+    public void setCreationDateEnd(String creationDateEnd) {
+        this.DATE_PANEL.setCreationDateEnd(creationDateEnd);
+    }
 }

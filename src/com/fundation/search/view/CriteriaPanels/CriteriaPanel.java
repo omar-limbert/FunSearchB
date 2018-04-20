@@ -16,7 +16,7 @@ package com.fundation.search.view.CriteriaPanels;
 import com.fundation.search.common.SearchLogger;
 
 import javax.swing.JPanel;
-import  javax.swing.BoxLayout;
+import javax.swing.BoxLayout;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -30,7 +30,7 @@ import java.util.logging.Logger;
 public class CriteriaPanel extends JPanel {
     /**
      * Init logger  in Criteria Panel
-     * */
+     */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
@@ -71,5 +71,4 @@ public class CriteriaPanel extends JPanel {
         this.repaint();
         LOOGER.info("add exit component Criteria");
     }
-
 }

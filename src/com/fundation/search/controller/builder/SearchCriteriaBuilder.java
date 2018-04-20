@@ -102,6 +102,10 @@ public class SearchCriteriaBuilder {
      * extension, is file extension.
      */
     private String extension;
+    /**
+     * nameOnDataBase, name on data base.
+     */
+    private String nameOnDataBase;
 
     /**
      * This method is constructor of SearchCriteriaBuilder
@@ -166,6 +170,7 @@ public class SearchCriteriaBuilder {
      */
     public SearchCriteriaBuilder sizeCriteria(String operator, Long size, String type) {
         LOOGER.info("sizeCriteria Entry");
+        System.out.println(operator+" "+size+" "+type );
         if (operator != null || size != null) {
 
             // Converting operator to valid format for Model
@@ -180,11 +185,12 @@ public class SearchCriteriaBuilder {
             }
             this.type = type;
             this.size = size;
-        } else {
-            this.operator = "upper";
-            this.type = type;
-            this.size = 0;
+            return this;
         }
+
+        this.operator = "upper";
+        this.type = type;
+        this.size = 0;
         LOOGER.info("sizeCriteria Exit");
         return this;
     }
@@ -300,6 +306,17 @@ public class SearchCriteriaBuilder {
         return this;
     }
 
+    /**
+     * This method is for initialize name on data base .
+     *
+     * @return SearchCriteriaBuilder return Builder Class.
+     */
+    public SearchCriteriaBuilder nameOnDataBase(String nameOnDataBase) {
+        LOOGER.info("extensionCriteria Entry");
+        LOOGER.info("extensionCriteria Exit");
+        this.nameOnDataBase = nameOnDataBase;
+        return this;
+    }
     /**
      * This method is for get Path.
      *
@@ -496,5 +513,16 @@ public class SearchCriteriaBuilder {
         LOOGER.info("getExtensionCriteria Entry");
         LOOGER.info("getExtensionCriteria Exit");
         return extension;
+    }
+
+    /**
+     * This method is for get Name on data base.
+     *
+     * @return String return extension of file.
+     */
+    public String getNameOnDataBase() {
+        LOOGER.info("getNameOnDataBase Entry");
+        LOOGER.info("getNameOnDataBase Exit");
+        return nameOnDataBase;
     }
 }

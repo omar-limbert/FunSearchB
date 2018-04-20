@@ -17,11 +17,14 @@ import com.fundation.search.common.SearchLogger;
 import com.fundation.search.view.MainWindow.BottomPanel;
 import com.fundation.search.view.MainWindow.CenterPanel;
 import com.fundation.search.view.MainWindow.TopPanel;
+
+import javax.swing.ListSelectionModel;
+import javax.swing.JTable;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import java.awt.BorderLayout;
-import java.util.Date;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import java.util.Date;
 
 /**
  * This class main windows.
@@ -32,7 +35,7 @@ import java.util.logging.Logger;
 public class MainSearchWindows extends JFrame {
     /**
      * Init logger  in Main Search Panel
-     * */
+     */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
@@ -126,9 +129,9 @@ public class MainSearchWindows extends JFrame {
      *
      * @return Boolean, this contains a complete Key Sensitive for search files.
      */
-    public  boolean getKeySensitiveOfCriteria() {
+    public boolean getKeySensitiveOfCriteria() {
         LOOGER.info("Get key Sensitive");
-        return  topPanel.getKeySensitiveOfCriteria();
+        return topPanel.getKeySensitiveOfCriteria();
     }
 
     /**
@@ -140,7 +143,7 @@ public class MainSearchWindows extends JFrame {
 
     public boolean getReadOnlyOfCriteria() {
         LOOGER.info("Get Read only");
-        return  topPanel.getReadOnlyOfCriteria();
+        return topPanel.getReadOnlyOfCriteria();
     }
 
     /**
@@ -149,9 +152,9 @@ public class MainSearchWindows extends JFrame {
      *
      * @return Boolean, this contains a complete File System for search files.
      */
-    public  boolean getFileSystemOfCriteria() {
+    public boolean getFileSystemOfCriteria() {
         LOOGER.info("Get File System");
-        return  topPanel.getFileSystemOfCriteria();
+        return topPanel.getFileSystemOfCriteria();
     }
 
     /**
@@ -160,9 +163,9 @@ public class MainSearchWindows extends JFrame {
      *
      * @return Boolean, this contains a complete Directory for search files.
      */
-    public  boolean getDirectoryOfCriteria() {
+    public boolean getDirectoryOfCriteria() {
         LOOGER.info("Get directory");
-        return  topPanel.getDirectoryOfCriteria();
+        return topPanel.getDirectoryOfCriteria();
     }
 
     /**
@@ -325,6 +328,7 @@ public class MainSearchWindows extends JFrame {
         LOOGER.info("Insert data to Data Base table result");
         bottomPanel.insertRowToDataBaseTableResult(row);
     }
+
     /**
      * This method return name of criteria to save on data base.
      * Controller need use this.
@@ -342,9 +346,9 @@ public class MainSearchWindows extends JFrame {
      *
      * @return JButton, this is a JButton on Data Base pane.
      */
-    public JButton getLoadSaveButtonOnDataBasePanel() {
+    public JButton getSaveButtonOnDataBasePanel() {
         LOOGER.info("Get Save button of Data Base Panel");
-        return bottomPanel.getLoadSaveButtonOnDataBasePanel();
+        return bottomPanel.getSaveButtonOnDataBasePanel();
     }
 
     /**
@@ -364,8 +368,208 @@ public class MainSearchWindows extends JFrame {
      *
      * @return JButton, this is a JButton on Data Base pane.
      */
-    public JButton getLoadFillButtonOnDataBasePanel() {
+    public JButton getFillButtonOnDataBasePanel() {
         LOOGER.info("Get Fill button of Data Base Panel");
-        return bottomPanel.getLoadFillButtonOnDataBasePanel();
+        return bottomPanel.getFillButtonOnDataBasePanel();
+    }
+
+    /**
+     * This method return selection model of Data Base Table Result.
+     * Controller need use this.
+     *
+     * @return ListSelectionModel, ListSelectionmodel from Data Base Table Result.
+     */
+    public ListSelectionModel getSelectionModelOfDataBaseTableResult() {
+        return bottomPanel.getSelectionModel();
+    }
+
+    /**
+     * This method return Data Base Table result.
+     * Controller need use this.
+     *
+     * @return JTable, this is a Data Base JTable.
+     */
+    public JTable getDataBaseTableResult() {
+        return bottomPanel.getDataBaseTableResult();
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param isHiddenCriteria, this is hidden criteria.
+     */
+    public void setIsHiddenCriteria(String isHiddenCriteria) {
+        this.topPanel.setIsHiddenCriteria(isHiddenCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param typeCriteria, this is type of size criteria.
+     */
+    public void setTypeCriteria(String typeCriteria) {
+        this.topPanel.setTypeCriteria(typeCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param operatorCriteria, this is operator of size criteria.
+     */
+    public void setOperatorCriteria(String operatorCriteria) {
+        this.topPanel.setOperatorCriteria(operatorCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param sizeCriteria, this is size criteria.
+     */
+    public void setSizeCriteria(long sizeCriteria) {
+        this.topPanel.setSizeCriteria(sizeCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param isReadOnlyCriteria, this is Read Only criteria.
+     */
+    public void setIsReadOnlyCriteria(boolean isReadOnlyCriteria) {
+        this.topPanel.setIsReadOnlyCriteria(isReadOnlyCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param isFileSystemCriteria, true is File System and false is not file system.
+     */
+    public void setIsFileSystemCriteria(boolean isFileSystemCriteria) {
+        this.topPanel.setIsFileSystemCriteria(isFileSystemCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param isDirectoryCriteria, true is directory and false is not directory.
+     */
+    public void setIsDirectoryCriteria(boolean isDirectoryCriteria) {
+        this.topPanel.setIsDirectoryCriteria(isDirectoryCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param fileNameCriteria, this is file name criteria.
+     */
+    public void setFileNameCriteria(String fileNameCriteria) {
+        this.topPanel.setFileNameCriteria(fileNameCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param pathCriteria, this is path criteria.
+     */
+    public void setPathCriteria(String pathCriteria) {
+        this.topPanel.setPathCriteria(pathCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param ownerCriteria, this is owner criteria.
+     */
+    public void setOwnerCriteria(String ownerCriteria) {
+        this.topPanel.setOwnerCriteria(ownerCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param extensionCriteria, this is file extension criteria.
+     */
+    public void setExtensionCriteria(String extensionCriteria) {
+        this.topPanel.setExtensionCriteria(extensionCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param nameCriteria, this is search words.
+     */
+    public void setNameCriteria(String nameCriteria) {
+        this.topPanel.setNameCriteria(nameCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param modifiedDateInit, this is modified date init.
+     */
+    public void setModifiedDateInit(String modifiedDateInit) {
+        this.topPanel.setModifiedDateInit(modifiedDateInit);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param modifiedDateEnd, this is modified date end.
+     */
+    public void setModifiedDateEnd(String modifiedDateEnd) {
+        this.topPanel.setModifiedDateEnd(modifiedDateEnd);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param lastAccessInit, this is last access date end.
+     */
+    public void setLastAccessInit(String lastAccessInit) {
+        this.topPanel.setLastAccessInit(lastAccessInit);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param lastAccessEnd, this is last access date end.
+     */
+    public void setLastAccessEnd(String lastAccessEnd) {
+        this.topPanel.setLastAccessEnd(lastAccessEnd);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param creationDateInit, this is creation date init.
+     */
+    public void setCreationDateInit(String creationDateInit) {
+        this.topPanel.setCreationDateInit(creationDateInit);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param creationDateEnd, this is creation date end.
+     */
+    public void setCreationDateEnd(String creationDateEnd) {
+        this.topPanel.setCreationDateEnd(creationDateEnd);
     }
 }

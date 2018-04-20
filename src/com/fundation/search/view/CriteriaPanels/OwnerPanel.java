@@ -14,6 +14,7 @@
 package com.fundation.search.view.CriteriaPanels;
 
 import com.fundation.search.common.SearchLogger;
+
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -28,16 +29,16 @@ import java.util.logging.Logger;
  * @version 1.0.
  */
 
-public class OwnerPanel extends JPanel{
+public class OwnerPanel extends JPanel {
     /**
      * Init logger  in Owner Panel
-     * */
+     */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
      * ownerTextField, Type: JTextField, this is a JTextField for contains final owner result.
      */
-    private  JTextField ownerTextField;
+    private JTextField ownerTextField;
 
     /**
      * ownerLabelField, Type: JLabel, this is a JLabel for contains label.
@@ -45,9 +46,9 @@ public class OwnerPanel extends JPanel{
     private JLabel ownerLabelField;
 
     /**
-    * Constructor for OwnerPanel.
-    * */
-    public  OwnerPanel(){
+     * Constructor for OwnerPanel.
+     */
+    public OwnerPanel() {
         LOOGER.info("Get Result Entry");
         this.setLayout(new FlowLayout());
         this.initComponents();
@@ -55,6 +56,7 @@ public class OwnerPanel extends JPanel{
         this.repaint();
         LOOGER.info("Constructor exit");
     }
+
     /**
      * This method is for initialize all components.
      */
@@ -66,6 +68,7 @@ public class OwnerPanel extends JPanel{
         ownerTextField.setPreferredSize(new Dimension(100, 25));
         LOOGER.info("init exit");
     }
+
     /**
      * This method is to add all components.
      */
@@ -81,10 +84,18 @@ public class OwnerPanel extends JPanel{
      *
      * @return String, this contains Owner.
      */
-    public String getOwnerCriteria(){
+    public String getOwnerCriteria() {
         LOOGER.info("Get Owner Panel");
         return ownerTextField.getText();
     }
 
-
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param ownerCriteria, this is owner criteria.
+     */
+    public void setOwnerCriteria(String ownerCriteria) {
+        this.ownerTextField.setText(ownerCriteria);
+    }
 }
