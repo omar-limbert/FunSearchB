@@ -191,15 +191,12 @@ public class Search {
      */
     private List<File> creationTime(List<File> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
 
-        System.out.println("Here arrive an INIT" + new Convertor().convertFileDateToDate(dateConditionInt) + " end: " + new Convertor().convertFileDateToDate(dateConditionEnd));
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
-            System.out.println(new Convertor().convertFileDateToDate(dateConditionInt) + " IF FILES ");
             try {
                 BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
                 if ((fileAttributes.creationTime().toMillis() >= dateConditionInt.toMillis() && fileAttributes.creationTime().toMillis() <= dateConditionEnd.toMillis())) {
                     listFilter.add(file);
-                    System.out.println(new Convertor().convertFileDateToDate(dateConditionInt) + " ATTRIBUTES FILE");
                 }
 
             } catch (IOException e) {
