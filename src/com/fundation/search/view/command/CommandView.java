@@ -15,6 +15,7 @@
 package com.fundation.search.view.command;
 
 import com.fundation.search.common.SearchLogger;
+import com.fundation.search.common.table.SimpleConsoleTable;
 
 import java.util.logging.Logger;
 

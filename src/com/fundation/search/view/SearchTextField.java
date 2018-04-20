@@ -14,6 +14,7 @@
 package com.fundation.search.view;
 
 import com.fundation.search.common.SearchLogger;
+
 import javax.swing.JTextField;
 import java.awt.Dimension;
 import java.awt.Color;
@@ -32,7 +33,7 @@ import java.util.logging.Logger;
 public class SearchTextField extends JTextField {
     /**
      * Init logger  in Search Text field
-     * */
+     */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**

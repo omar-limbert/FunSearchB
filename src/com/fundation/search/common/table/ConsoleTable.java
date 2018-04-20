@@ -21,7 +21,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static com.fundation.search.common.console.table.Utils.*;
+import static com.fundation.search.common.table.Utils.padCenter;
+import static com.fundation.search.common.table.Utils.padLeft;
+import static com.fundation.search.common.table.Utils.padRight;
 
 /**
  * This class is make SearchCriteria with Builder Pattern.

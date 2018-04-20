@@ -5,3 +5,9 @@
 *.iml
 *.xml
 .DS_Store
+*.iml
+*.xml
+.DS_Store
+*.log
+*.class
+*.lck

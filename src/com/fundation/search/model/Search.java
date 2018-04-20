@@ -15,6 +15,9 @@ package com.fundation.search.model;
 
 import com.fundation.search.common.Convertor;
 import com.fundation.search.controller.builder.SearchCriteria;
+import com.fundation.search.model.asset.Asset;
+import com.fundation.search.model.asset.AssetFactory;
+import com.fundation.search.model.asset.FileResult;
 
 
 import java.io.File;
@@ -102,7 +105,7 @@ public class Search {
         for (File file : listFile) {
             try {
                 BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
-                System.out.println(operator);
+
                 if (operator.equalsIgnoreCase("upper")) {
                     if (fileAttributes.size() > size) {
                         listFilter.add(file);
@@ -179,15 +182,12 @@ public class Search {
      */
     private List<File> creationTime(List<File> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
 
-        System.out.println("ESTO TE LLEGA INI: " + new Convertor().convertFileDateToDate(dateConditionInt) + " FIN: " + new Convertor().convertFileDateToDate(dateConditionEnd));
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
-            System.out.println(new Convertor().convertFileDateToDate(dateConditionInt) + " IF FILES ");
             try {
                 BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
                 if ((fileAttributes.creationTime().toMillis() >= dateConditionInt.toMillis() && fileAttributes.creationTime().toMillis() <= dateConditionEnd.toMillis())) {
                     listFilter.add(file);
-                    System.out.println(new Convertor().convertFileDateToDate(dateConditionInt) + " ATRIBUTES FILE");
                 }
 
             } catch (IOException e) {
@@ -339,7 +339,6 @@ public class Search {
 
         return listFilter;
     }
-
     /**
      * This method is for filter by criteria.
      *
@@ -410,7 +409,6 @@ public class Search {
             if (!criteria.getOwnerCriteria().isEmpty()) {
                 fileList = searchByOwner(fileList,criteria.getOwnerCriteria());
             }
-
         }
     }
 
@@ -431,36 +429,94 @@ public class Search {
     /**
      * @return List of files.
      */
-    public List<FileResult> getResultList() {
-        List<FileResult> result = new ArrayList<>();
+    public List<Asset> getResultList() {
+        List<Asset> result = new ArrayList<>();
 
         if (!fileList.isEmpty()) {
             fileList.forEach(e -> result
                     .add(createFileResult(e)));
 
         }
-        System.out.println("sdfsdf");
         return result;
 
     }
 
     /**
-     * @param e A list of files....
+     * @param e A list of files.
      *          .
      * @return a list of files it depend of the criteria.
      */
-    private FileResult createFileResult(File e) {
+    private Asset createFileResult(File e) {
         FileResult result = null;
+        AssetFactory assetFactory = new AssetFactory();
+        Asset asset = null;
         try {
             BasicFileAttributes fileAttributes = Files.readAttributes(e.toPath(), BasicFileAttributes.class);
             DosFileAttributes fileAttributes1 = Files.readAttributes(e.toPath(), DosFileAttributes.class);
             FileOwnerAttributeView fileAttributes2 = Files.getFileAttributeView(e.toPath(), FileOwnerAttributeView.class);
 
-            result = new FileResult(e.getPath(), e.getName(), e.length(), e.isHidden(), e.canRead(), fileAttributes.lastModifiedTime(), fileAttributes.creationTime(), fileAttributes.lastAccessTime(), fileAttributes2.getOwner().getName(), fileAttributes1.isReadOnly(), fileAttributes1.isSystem(), fileAttributes.isDirectory(), "", e.getName());
+            asset = assetFactory.buildAsset("file",e.getPath(), e.getName(), e.length(), e.isHidden(), e.canRead(), fileAttributes.lastModifiedTime(), fileAttributes.creationTime(), fileAttributes.lastAccessTime(), fileAttributes2.getOwner().getName(), fileAttributes1.isReadOnly(), fileAttributes1.isSystem(), fileAttributes.isDirectory(), "", e.getName());
 
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        return result;
+        return asset;
     }
+
+
+    /**
+     * This method is for filter by criteria.
+     *
+     * @param searchCriteria receives SearchCriteria object.
+     *                 Is a method that filter a List according that insert to DB.
+     */
+    public void saveCriteriaToDataBase(SearchCriteria searchCriteria){
+        try {
+            //Insert to DB
+            SearchQuery queryToInsertOnDataBase = new SearchQuery();
+            Gson gSonCriteria = new Gson();
+            String jSonCriteriaToSave = gSonCriteria.toJson(searchCriteria);
+
+            queryToInsertOnDataBase.addCriteria(jSonCriteriaToSave);
+            //Exceptions
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Return data from DB to Search Criteria.
+     * @return Criteria list of files.
+     */
+    public Map<Integer,SearchCriteria> getAllDataFromDataBase(){
+
+        ResultSet resultSet = null;
+        SearchCriteria searchCriteria;
+        int index;
+        Map<Integer,SearchCriteria>  criteriaList = new HashMap<>();
+        Gson gSonCriteria = new Gson();
+        try {
+            //Return from DB
+            SearchQuery queryToInsertOnDataBase = new SearchQuery();
+            resultSet= queryToInsertOnDataBase.getAllCriteria();
+            while(resultSet.next()){
+
+                index = resultSet.getInt("ID");
+                searchCriteria = gSonCriteria.fromJson(resultSet.getString("CRITERIAJSON"),SearchCriteria.class);
+                criteriaList.put(index,searchCriteria);
+
+            }
+            //Exceptions
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return criteriaList;
+
+    }
+
 }

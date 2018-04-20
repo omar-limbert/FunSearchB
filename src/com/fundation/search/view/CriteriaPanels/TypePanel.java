@@ -29,16 +29,16 @@ import java.util.logging.Logger;
  * @version 1.0.
  */
 
-public class TypePanel extends JPanel{
+public class TypePanel extends JPanel {
     /**
      * Init logger  in Type Panel
-     * */
+     */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
      * typeTextField, Type: JTextField, this is a JTextField for contains final type result.
      */
-    private  JTextField typeTextField;
+    private JTextField typeTextField;
 
     /**
      * TypeLabelField, Type: JLabel, this is a JLabel for contains type label.
@@ -47,8 +47,8 @@ public class TypePanel extends JPanel{
 
     /**
      * Constructor for TypePanel.
-     * */
-    public  TypePanel(){
+     */
+    public TypePanel() {
         LOOGER.info("Get Result Entry");
         this.setLayout(new FlowLayout());
         this.initComponents();
@@ -68,6 +68,7 @@ public class TypePanel extends JPanel{
         typeTextField.setPreferredSize(new Dimension(40, 25));
         LOOGER.info("init exit");
     }
+
     /**
      * This method is to add all components.
      */
@@ -77,15 +78,24 @@ public class TypePanel extends JPanel{
         this.add(typeTextField);
         LOOGER.info("add exit");
     }
+
     /**
      * This method is for return type.
      *
      * @return String, this contains a type file.
      */
-    public String getTypeCriteria(){
+    public String getTypeCriteria() {
         LOOGER.info("Get type");
         return typeTextField.getText();
 
     }
 
+    /**
+     * This method is to update one criteria.
+     *
+     * @param extensionCriteria, this is file extension criteria.
+     */
+    public void setExtensionCriteria(String extensionCriteria) {
+        this.typeTextField.setText(extensionCriteria);
+    }
 }
