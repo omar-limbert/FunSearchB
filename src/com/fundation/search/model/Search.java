@@ -26,12 +26,23 @@ import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.attribute.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.DosFileAttributes;
+import java.nio.file.attribute.FileOwnerAttributeView;
+import java.nio.file.attribute.FileTime;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Map;
+import java.util.HashMap;
+
 
 /**
  * This class is to search files by criteria.
@@ -534,7 +545,7 @@ public class Search {
         Map<Integer, SearchCriteria> criteriaList = new HashMap<>();
         Gson gSonCriteria = new Gson();
         try {
-            //Return from DB
+            //Return from DB..
             SearchQuery queryToInsertOnDataBase = new SearchQuery();
             resultSet = queryToInsertOnDataBase.getAllCriteria();
             while (resultSet.next()) {
