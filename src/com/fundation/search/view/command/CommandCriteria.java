@@ -67,6 +67,10 @@ public class CommandCriteria {
      */
     public String readOnly;//ro
     /**
+     * isDirectory is true or false a directory .
+     */
+    public String isDirectory; //d
+    /**
      * Logger create a instance of logger.
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
@@ -88,6 +92,7 @@ public class CommandCriteria {
         dateModified = map.containsKey("-dm") ? map.get("-dm") : "";
         dateLastAccess = map.containsKey("-dl") ? map.get("-dl") : "";
         readOnly = map.containsKey("-ro") ? map.get("-ro") : "";
+        isDirectory = map.containsKey("-d") ? map.get("-d") : "";
         LOOGER.info("Constructor Command Criteria exit");
     }
 
@@ -171,4 +176,11 @@ public class CommandCriteria {
         return size;
     }
 
+    /**
+     * This method return if is a directory.
+     */
+    public String getIsDirectory() {
+        LOOGER.info("GetIsDirectory CommandCriteria" + isDirectory);
+        return isDirectory;
+    }
 }

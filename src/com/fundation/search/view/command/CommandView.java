@@ -35,25 +35,27 @@ public class CommandView {
      */
     public void printColumn() {
         LOOGER.info("Print Colum entry");
-        System.out.println("----------------------------------------------------RESULTS----------------------------------------------------");
-
-        String[] tableTitles = {"Name    ", "            Path               ", " Hidden", "SizeKb", "      Owner      ", "CreationDate", "ModifiedDate", "LastAccessDate", "ReadOnly", "IsDirectory"};
-        for (String titles : tableTitles) {
-            System.out.print(String.format("%s%s", titles, "\t"));
-        }
+        System.out.print("----------------------------------------------------------------------------------");
+        System.out.print("RESULTS----------------------------------------------------------------------------------");
+        System.out.println();
+        System.out.print(String.format("%s %-70s %2s %-80s %2s %-6s %2s %-15s %2s", " ", "NAME", "|", "PATH", "|", "HIDDEN", "|", "SIZE", "|"));
+        System.out.print(String.format("%-30s %2s %-13s %2s %-13s %2s %-16s", "OWNER", "|", "CREATION DATE", "|", "MODIFIED DATE", "|", "LAST ACCESS DATE"));
+        System.out.print(String.format("%2s %-9s %2s %-6s", "|", "READ ONLY", "|", "IS DIRECTORY"));
         System.out.println();
         LOOGER.info("Print Colum exit");
     }
 
     /**
-     * Print file with attributes ("Name", "Path", "Hidden", "Owner", "ReadOnly", "CreationDate", "ModifiedDate", "LastAccessDate")
+     * Print file with attributes ("Name", "Path", "Hidden", "Size", "Owner", "CreationDate",
+     * "ModifiedDate", "LastAccessDate","Read Only","IsDirectory")
+     *
      * @param row files with attributes.
      */
     public void printRows(String[] row) {
         LOOGER.info("Constructor Command Criteria entry");
-        System.out.print(String.format("%s%s%s%s%s%s%s%s", row[0], "\t", row[1], "\t", row[2], "\t", row[3], "\t"));
-        System.out.print(String.format("%s%s%s%s%s%s%s", row[4], "\t", row[5], "\t", row[6], "\t", row[7]));
-        System.out.print(String.format("%s%s%s%s", "\t", row[8], "\t", row[9]));
+        System.out.print(String.format("%s %-70s %2s %-80s %2s %-6s %2s %-15s %2s", " ", row[0], "|", row[1], "|", row[2], "|", row[3], "|"));
+        System.out.print(String.format("%-30s %2s %-13s %2s %-13s %2s %-16s", row[4], "|", row[5], "|", row[6], "|", row[7]));
+        System.out.print(String.format("%2s %-9s %2s %-6s", "|", row[8], "|", row[9]));
         System.out.println();
         LOOGER.info("Constructor Command Criteria exit");
     }
