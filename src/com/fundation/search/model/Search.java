@@ -20,18 +20,18 @@ import com.fundation.search.model.asset.AssetFactory;
 import com.fundation.search.model.asset.FileResult;
 import com.fundation.search.model.database.SearchQuery;
 import com.google.gson.Gson;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.attribute.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This class is to search files by criteria.
@@ -303,26 +303,46 @@ public class Search {
         }
         return listFilter;
     }
-    /*private List<File> searchIntoFile (List<File> listFile, String text) {
+
+    /**
+     * @param listFile  It is the list of Files.
+     * @param extension The name of extension (.png,.docx,etc).
+     * @return A list of files that are the criteria of the extension.
+     */
+    private List<File> searchKeySensitive(List<File> listFile, String name) {
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
+            if (!(file.getName().equals(name))) {
+                listFilter.remove(file);
+            }
+        }
+        return listFilter;
+    }
 
-            try {
-                BufferedReader bf = new BufferedReader(new FileReader(file.getPath()));
-                while ( bf.readLine() != null){
-                    if (bf.readLine().equalsIgnoreCase(text)){
-                        listFilter.add(file);
+    //if (file.getName().endsWith(".txt")) {
+    private List<File> searchIntoFile(List<File> listFile, String text) {
+        List<File> listFilter = new ArrayList<>();
+        Scanner sc = null;
+        for (File file : listFile) {
+            if (file.getName().endsWith(".txt")) {
+
+                try {
+                    sc = new Scanner(new FileReader(file));
+
+                    while (sc.hasNextLine()) {
+                        if (sc.nextLine().contains(text)) {
+                            listFilter.add(file);
+                        }
                     }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
                 }
-                bf.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+
             }
 
         }
         return listFilter;
-    }*/
-
+    }
 
     /**
      * This method is for search files by Owner.
@@ -334,7 +354,7 @@ public class Search {
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
             try {
-                if (Files.getFileAttributeView(file.toPath(),FileOwnerAttributeView.class).getOwner().getName().equalsIgnoreCase(owner)) {
+                if (Files.getFileAttributeView(file.toPath(), FileOwnerAttributeView.class).getOwner().getName().equalsIgnoreCase(owner)) {
                     listFilter.add(file);
                 }
 
@@ -345,6 +365,7 @@ public class Search {
 
         return listFilter;
     }
+
     /**
      * This method is for filter by criteria.
      *
@@ -392,6 +413,9 @@ public class Search {
             if (criteria.getIsFileSystem()) {
                 fileList = isFileSystem(fileList);
             }
+            if (criteria.getKeySensitiveOfCriteria()) {
+                fileList = searchKeySensitive(fileList, criteria.getName());
+            }
 
             if (criteria.getExtension() != null) {
                 fileList = searchByExtension(fileList, criteria.getExtension());
@@ -413,8 +437,12 @@ public class Search {
             }
 
             if (!criteria.getOwnerCriteria().isEmpty()) {
-                fileList = searchByOwner(fileList,criteria.getOwnerCriteria());
+                fileList = searchByOwner(fileList, criteria.getOwnerCriteria());
             }
+            if (criteria.getIsContainsInsideFileCriteria()) {
+                fileList = searchIntoFile(fileList, criteria.getTextContainsInsideFileCriteria());
+            }
+
         }
     }
 
@@ -461,7 +489,7 @@ public class Search {
             DosFileAttributes fileAttributes1 = Files.readAttributes(e.toPath(), DosFileAttributes.class);
             FileOwnerAttributeView fileAttributes2 = Files.getFileAttributeView(e.toPath(), FileOwnerAttributeView.class);
 
-            asset = assetFactory.buildAsset("file",e.getPath(), e.getName(), e.length(), e.isHidden(), e.canRead(), fileAttributes.lastModifiedTime(), fileAttributes.creationTime(), fileAttributes.lastAccessTime(), fileAttributes2.getOwner().getName(), fileAttributes1.isReadOnly(), fileAttributes1.isSystem(), fileAttributes.isDirectory(), "", e.getName());
+            asset = assetFactory.buildAsset("file", e.getPath(), e.getName(), e.length(), e.isHidden(), e.canRead(), fileAttributes.lastModifiedTime(), fileAttributes.creationTime(), fileAttributes.lastAccessTime(), fileAttributes2.getOwner().getName(), fileAttributes1.isReadOnly(), fileAttributes1.isSystem(), fileAttributes.isDirectory(), "", e.getName());
 
         } catch (IOException e1) {
             e1.printStackTrace();
@@ -474,9 +502,9 @@ public class Search {
      * This method is for filter by criteria.
      *
      * @param searchCriteria receives SearchCriteria object.
-     *                 Is a method that filter a List according that insert to DB.
+     *                       Is a method that filter a List according that insert to DB.
      */
-    public void saveCriteriaToDataBase(SearchCriteria searchCriteria){
+    public void saveCriteriaToDataBase(SearchCriteria searchCriteria) {
         try {
             //Insert to DB
             SearchQuery queryToInsertOnDataBase = new SearchQuery();
@@ -495,24 +523,25 @@ public class Search {
 
     /**
      * Return data from DB to Search Criteria.
+     *
      * @return Criteria list of files.
      */
-    public Map<Integer,SearchCriteria> getAllDataFromDataBase(){
+    public Map<Integer, SearchCriteria> getAllDataFromDataBase() {
 
         ResultSet resultSet = null;
         SearchCriteria searchCriteria;
         int index;
-        Map<Integer,SearchCriteria> criteriaList = new HashMap<>();
+        Map<Integer, SearchCriteria> criteriaList = new HashMap<>();
         Gson gSonCriteria = new Gson();
         try {
             //Return from DB
             SearchQuery queryToInsertOnDataBase = new SearchQuery();
-            resultSet= queryToInsertOnDataBase.getAllCriteria();
-            while(resultSet.next()){
+            resultSet = queryToInsertOnDataBase.getAllCriteria();
+            while (resultSet.next()) {
 
                 index = resultSet.getInt("ID");
-                searchCriteria = gSonCriteria.fromJson(resultSet.getString("CRITERIAJSON"),SearchCriteria.class);
-                criteriaList.put(index,searchCriteria);
+                searchCriteria = gSonCriteria.fromJson(resultSet.getString("CRITERIAJSON"), SearchCriteria.class);
+                criteriaList.put(index, searchCriteria);
 
             }
             //Exceptions
