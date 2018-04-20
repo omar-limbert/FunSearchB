@@ -114,7 +114,7 @@ public class SizePanel extends JPanel {
      * @param typeCriteria, this is type of size criteria.
      */
     public void setTypeCriteria(String typeCriteria) {
-        majorMinorComboBox.getModel().setSelectedItem(typeCriteria);
+        sizeComboBox.getModel().setSelectedItem(typeCriteria);
     }
 
     /**
@@ -123,7 +123,7 @@ public class SizePanel extends JPanel {
      * @param operatorCriteria, this is operator of size criteria.
      */
     public void setOperatorCriteria(String operatorCriteria) {
-        sizeComboBox.getModel().setSelectedItem(operatorCriteria);
+        majorMinorComboBox.getModel().setSelectedItem(operatorCriteria);
     }
 
     /**
