@@ -94,4 +94,28 @@ public class SearchQuery {
         LOOGER.info("getAllCriteria Exit");
         return resultSet;
     }
+
+    /**
+     * This method is for return all Criteria's from database with query.
+     *
+     * @return ResultSet, this contains all rows of criteria on database.
+     */
+    public String deleteCriteria(int index) {
+        LOOGER.info("Delete Criteria Entry");
+        try {
+            String insertQuery = "delete from criteria where id = '"+index+"';";
+
+            PreparedStatement preparedStatement;
+
+            preparedStatement = connection.prepareStatement(insertQuery);
+
+            preparedStatement.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "Error Connection";
+        }
+        LOOGER.info("Delete Criteria Exit");
+        return "Success Delete";
+    }
 }
