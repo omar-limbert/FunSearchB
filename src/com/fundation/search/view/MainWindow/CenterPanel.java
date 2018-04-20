@@ -14,6 +14,7 @@
 package com.fundation.search.view.MainWindow;
 
 import com.fundation.search.common.SearchLogger;
+
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import java.awt.BorderLayout;
@@ -31,7 +32,7 @@ import java.util.logging.Logger;
 public class CenterPanel extends JPanel {
     /**
      * Init logger  in Center Panel
-     * */
+     */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
     /**
      * resultsOfCriteria, Type: JTable, this table is for show results.

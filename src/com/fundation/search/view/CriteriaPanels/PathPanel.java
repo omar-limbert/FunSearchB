@@ -14,6 +14,7 @@
 package com.fundation.search.view.CriteriaPanels;
 
 import com.fundation.search.common.SearchLogger;
+
 import javax.swing.JPanel;
 import javax.swing.JFileChooser;
 import javax.swing.JButton;
@@ -34,7 +35,7 @@ import java.util.logging.Logger;
 public class PathPanel extends JPanel {
     /**
      * Init logger  in Path Panel
-     * */
+     */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
@@ -54,43 +55,43 @@ public class PathPanel extends JPanel {
 
     /**
      * readOnlyCheckBox, Type: JCheckBox, this is a JCheckBox for read only.
-     * */
+     */
     private JCheckBox readOnlyCheckBox;
 
     /**
      * readOnlyLabel, Type: JLabel, this is a JLabel for read only.
-     * */
+     */
     private JLabel readOnlyLabel;
 
     /**
      * fileSystemCheckBox, Type: JCheckBox, this is a JCheckBox for file System.
-     * */
+     */
     private JCheckBox fileSystemCheckBox;
 
     /**
      * fileSystemLabel, Type: JLabel, this is a JLabel for file System.
-     * */
+     */
     private JLabel fileSystemLabel;
 
     /**
      * directoryCheckBox, Type: JCheckBox, this is a JCheckBox for directory only.
-     * */
+     */
     private JCheckBox directoryCheckBox;
 
     /**
      * directoryLabel, Type: JLabel, this is a JLabel for directory only.
-     * */
+     */
     private JLabel directoryLabel;
 
     /**
      * keySensitiveCheck, Type: JCheckBox, this is a JCheckBox for directory only.
-     * */
+     */
     private JCheckBox keySensitiveCheck;
 
     /**
      * keySensitiveLabel, Type: JLabel, this is a JLabel for directory only.
-     * */
-    private  JLabel keySensitiveLabel;
+     */
+    private JLabel keySensitiveLabel;
 
     /**
      * Constructor for PathPanel.
@@ -198,9 +199,9 @@ public class PathPanel extends JPanel {
      *
      * @return boolean, this contains File System only selection files.
      */
-    public boolean getFileSystemOfCriteria(){
+    public boolean getFileSystemOfCriteria() {
         LOOGER.info("Get File system Panel");
-        return  fileSystemCheckBox.isSelected();
+        return fileSystemCheckBox.isSelected();
     }
 
     /**
@@ -208,9 +209,9 @@ public class PathPanel extends JPanel {
      *
      * @return boolean, this contains File System only selection files.
      */
-    public boolean getDirectoryOfCriteria(){
+    public boolean getDirectoryOfCriteria() {
         LOOGER.info("Get directory Panel");
-        return  directoryCheckBox.isSelected();
+        return directoryCheckBox.isSelected();
     }
 
     /**
@@ -218,8 +219,47 @@ public class PathPanel extends JPanel {
      *
      * @return boolean, this contains Key Sensitive only selection files.
      */
-    public boolean getKeySensitiveOfCriteria(){
+    public boolean getKeySensitiveOfCriteria() {
         LOOGER.info("Get key sensitive Panel");
-        return  keySensitiveCheck.isSelected();
+        return keySensitiveCheck.isSelected();
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param isReadOnlyCriteria, this is Read Only criteria.
+     */
+    public void setIsReadOnlyCriteria(boolean isReadOnlyCriteria) {
+        this.readOnlyCheckBox.setSelected(isReadOnlyCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param isFileSystemCriteria, true is File System and false is not file system.
+     */
+    public void setIsFileSystemCriteria(boolean isFileSystemCriteria) {
+        this.fileSystemCheckBox.setSelected(isFileSystemCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param isDirectoryCriteria, true is directory and false is not directory.
+     */
+    public void setIsDirectoryCriteria(boolean isDirectoryCriteria) {
+        this.directoryCheckBox.setSelected(isDirectoryCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param pathCriteria, this is path criteria.
+     */
+    public void setPathCriteria(String pathCriteria) {
+        this.pathTextField.setText(pathCriteria);
     }
 }

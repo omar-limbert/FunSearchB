@@ -14,14 +14,11 @@
 package com.fundation.search.view.CriteriaPanels;
 
 import com.fundation.search.common.SearchLogger;
-import com.fundation.search.view.SearchTextField;
-import com.fundation.search.view.SearchToolBar;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 import javax.swing.JButton;
-import javax.swing.JLabel;
-import java.util.Date;
 import java.util.logging.Logger;
 
 /**
@@ -33,7 +30,7 @@ import java.util.logging.Logger;
 public class DataBaseSouthPanel extends JPanel {
     /**
      * Init logger  in Top Panel
-     * */
+     */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
@@ -54,7 +51,6 @@ public class DataBaseSouthPanel extends JPanel {
     /**
      * Constructor for DataBaseNorthPanel.
      * This method is for initialize saveToDBButton, setting layout and repaint panel.
-     *
      */
     public DataBaseSouthPanel() {
         LOOGER.info("Get top panel Entry");
@@ -67,7 +63,6 @@ public class DataBaseSouthPanel extends JPanel {
 
     /**
      * This method is for initialize all components.
-     *
      */
     private void initComponents() {
         LOOGER.info("Get init components");
@@ -113,7 +108,7 @@ public class DataBaseSouthPanel extends JPanel {
      *
      * @return JButton, this is a JButton on Data Base pane.
      */
-    public JButton getLoadFillButtonOnDataBasePanel() {
+    public JButton getFillButtonOnDataBasePanel() {
         LOOGER.info("Get Fill button of Data Base Panel");
         return fillButton;
     }

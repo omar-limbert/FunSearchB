@@ -16,6 +16,7 @@ package com.fundation.search.view.CriteriaPanels;
 
 import com.fundation.search.common.SearchLogger;
 import com.toedter.calendar.JDateChooser;
+
 import javax.swing.JPanel;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -36,13 +37,14 @@ import java.util.logging.Logger;
 public class DatePanel extends JPanel {
     /**
      * Init logger  in Date Panel
-     * */
+     */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
     /**
      * dateCreationCheck , Type: JCheckBox, this is a JCheckBox for contains check date creation.
      */
-    private  JCheckBox dateCreationCheck;
+    private JCheckBox dateCreationCheck;
 
     /**
      * dateCreationDateChooser , Type: JDateChooser, this is a JDateChooser for contains date creation.
@@ -52,7 +54,7 @@ public class DatePanel extends JPanel {
     /**
      * dateModificationDateCheck , Type: JDateChooser, this is a JDateChooser for contains date creation.
      */
-    private  JCheckBox dateModificationDateCheck;
+    private JCheckBox dateModificationDateCheck;
 
     /**
      * dateModificationDateChooser , Type: JDateChooser, this is a JDateChooser for contains date modification.
@@ -61,7 +63,7 @@ public class DatePanel extends JPanel {
     /**
      * dateLastOpenedDateCheck , Type: JCheckBox, this is a JCheckBox for contains check date creation.
      */
-    private  JCheckBox dateLastOpenedDateCheck;
+    private JCheckBox dateLastOpenedDateCheck;
 
     /**
      * dateLastOpenedDateChooser , Type: JDateChooser, this is a JDateChooser for contains last modification.
@@ -133,30 +135,31 @@ public class DatePanel extends JPanel {
         LOOGER.info("Get init");
         // Iniatilize
         try {
-            this.dateCreationLabel =new JLabel("Creation Date");
-            this.dateCreationDateChooser=new JDateChooser(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1999"));
-            this.to1 =new JLabel("to ");
-            this.dateToCreationDateChooser=new JDateChooser(new Date());
+            this.dateCreationLabel = new JLabel("Creation Date");
+            this.dateCreationDateChooser = new JDateChooser(DATE_FORMAT.parse("01/01/1999"));
+            this.to1 = new JLabel("to ");
+            this.dateToCreationDateChooser = new JDateChooser(new Date());
 
-            this.dateModificationLabel =new JLabel("Modification Date");
-            this.dateModificationDateChooser=new JDateChooser(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1999"));
+            this.dateModificationLabel = new JLabel("Modification Date");
+            this.dateModificationDateChooser = new JDateChooser(DATE_FORMAT.parse("01/01/1999"));
 
-            this.to2 =new JLabel("to ");
-            this.dateToModificationDateChooser=new JDateChooser(new Date());
+            this.to2 = new JLabel("to ");
+            this.dateToModificationDateChooser = new JDateChooser(new Date());
 
 
-            this.dateLastOpenedLabel =new JLabel("Last Opened Date");
+            this.dateLastOpenedLabel = new JLabel("Last Opened Date");
 
-            this.dateLastOpenedDateChooser=new JDateChooser(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1999"));
+            this.dateLastOpenedDateChooser = new JDateChooser(DATE_FORMAT.parse("01/01/1999"));
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        this.to3 =new JLabel("to ");
-        this.dateToLastOpenedDateChooser=new JDateChooser(new Date());
+        this.to3 = new JLabel("to ");
+        this.dateToLastOpenedDateChooser = new JDateChooser(new Date());
         LOOGER.info("init exit");
 
     }
+
     /**
      * This method is to add all components.
      */
@@ -247,4 +250,83 @@ public class DatePanel extends JPanel {
 
     }
 
+    /**
+     * This method is to update one criteria.
+     *
+     * @param modifiedDateInit, this is modified data init.
+     */
+    public void setModifiedDateInit(String modifiedDateInit) {
+        try {
+            this.dateModificationDateChooser.setDate(DATE_FORMAT.parse(modifiedDateInit));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param modifiedDateEnd, this is modified data end.
+     */
+    public void setModifiedDateEnd(String modifiedDateEnd) {
+        try {
+            this.dateToModificationDateChooser.setDate(DATE_FORMAT.parse(modifiedDateEnd));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param lastAccessInit, this is last access data end.
+     */
+    public void setLastAccessInit(String lastAccessInit) {
+        try {
+            this.dateLastOpenedDateChooser.setDate(DATE_FORMAT.parse(lastAccessInit));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param lastAccessEnd, this is last access data end.
+     */
+    public void setLastAccessEnd(String lastAccessEnd) {
+        try {
+            this.dateToLastOpenedDateChooser.setDate(DATE_FORMAT.parse(lastAccessEnd));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param creationDateInit, this is creation date init.
+     */
+    public void setCreationDateInit(String creationDateInit) {
+        try {
+            this.dateCreationDateChooser.setDate(DATE_FORMAT.parse(creationDateInit));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param creationDateEnd, this is creation date end.
+     */
+    public void setCreationDateEnd(String creationDateEnd) {
+        try {
+            this.dateToCreationDateChooser.setDate(DATE_FORMAT.parse(creationDateEnd));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 }

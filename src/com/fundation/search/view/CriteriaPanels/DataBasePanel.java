@@ -15,9 +15,12 @@ package com.fundation.search.view.CriteriaPanels;
 
 import com.fundation.search.common.SearchLogger;
 
-import javax.swing.*;
 
-import java.awt.*;
+import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
+import javax.swing.JTable;
+import javax.swing.JButton;
+import java.awt.BorderLayout;
 import java.util.logging.Logger;
 
 
@@ -30,11 +33,12 @@ import java.util.logging.Logger;
 public class DataBasePanel extends JPanel {
     /**
      * Init logger  on DataBase Panel
-     * */
+     */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
     private DataBaseNorthPanel dataBaseNorthPanel;
     private DataBaseCenterPanel dataBaseCenterPanel;
     private DataBaseSouthPanel dataBaseSouthPanel;
+
     /**
      * Constructor for DataBasePanel.
      * This constructor call initComponents() after this
@@ -64,14 +68,13 @@ public class DataBasePanel extends JPanel {
 
     /**
      * This method is for add all components.
-     *
      */
     public void addComponents() {
         this.removeAll();
         LOOGER.info("Get init");
-        this.add(dataBaseNorthPanel,BorderLayout.NORTH);
-        this.add(dataBaseCenterPanel,BorderLayout.CENTER);
-        this.add(dataBaseSouthPanel,BorderLayout.SOUTH);
+        this.add(dataBaseNorthPanel, BorderLayout.NORTH);
+        this.add(dataBaseCenterPanel, BorderLayout.CENTER);
+        this.add(dataBaseSouthPanel, BorderLayout.SOUTH);
         // Revalidate and repaint.
         this.revalidate();
         this.repaint();
@@ -99,9 +102,9 @@ public class DataBasePanel extends JPanel {
      *
      * @return JButton, this is a JButton on Data Base pane.
      */
-    public JButton getLoadSaveButtonOnDataBasePanel() {
+    public JButton getSaveButtonOnDataBasePanel() {
         LOOGER.info("Get Save button of Data Base Panel");
-        return dataBaseNorthPanel.getLoadSaveButtonOnDataBasePanel();
+        return dataBaseNorthPanel.getSaveButtonOnDataBasePanel();
     }
 
     /**
@@ -119,8 +122,28 @@ public class DataBasePanel extends JPanel {
      *
      * @return JButton, this is a JButton on Data Base pane.
      */
-    public JButton getLoadFillButtonOnDataBasePanel() {
+    public JButton getFillButtonOnDataBasePanel() {
         LOOGER.info("Get Fill button of Data Base Panel");
-        return dataBaseSouthPanel.getLoadFillButtonOnDataBasePanel();
+        return dataBaseSouthPanel.getFillButtonOnDataBasePanel();
+    }
+
+    /**
+     * This method return selection model of Data Base Table result.
+     * Controller need use this.
+     *
+     * @return JButton, this is a JButton on Data Base pane.
+     */
+    public ListSelectionModel getSelectionModel() {
+        return dataBaseCenterPanel.getSelectionModel();
+    }
+
+    /**
+     * This method return Data Base Table result.
+     * Controller need use this.
+     *
+     * @return JTable, this is a Data Base JTable.
+     */
+    public JTable getDataBaseTableResult() {
+        return dataBaseCenterPanel.getDataBaseTableResult();
     }
 }

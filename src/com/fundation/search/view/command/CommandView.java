@@ -15,6 +15,7 @@
 package com.fundation.search.view.command;
 
 import com.fundation.search.common.SearchLogger;
+import com.fundation.search.common.table.SimpleConsoleTable;
 
 import java.util.logging.Logger;
 
@@ -51,10 +52,12 @@ public class CommandView {
      */
     public void printRows(String[] row) {
         LOOGER.info("Constructor Command Criteria entry");
-        System.out.print(String.format("%s%s%s%s%s%s%s%s", row[0], "\t", row[1], "\t", row[2], "\t", row[3], "\t"));
-        System.out.print(String.format("%s%s%s%s%s%s%s", row[4], "\t", row[5], "\t", row[6], "\t", row[7]));
-        System.out.print(String.format("%s%s%s%s", "\t", row[8], "\t", row[9]));
-        System.out.println();
+
+        System.out.println(new SimpleConsoleTable<>(row));
+      //  System.out.print(String.format("%s%s%s%s%s%s%s%s", row[0], "\t", row[1], "\t", row[2], "\t", row[3], "\t"));
+    //    System.out.print(String.format("%s%s%s%s%s%s%s", row[4], "\t", row[5], "\t", row[6], "\t", row[7]));
+     //   System.out.print(String.format("%s%s%s%s", "\t", row[8], "\t", row[9]));
+     //   System.out.println();
         LOOGER.info("Constructor Command Criteria exit");
     }
 
