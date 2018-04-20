@@ -18,14 +18,20 @@ import com.fundation.search.controller.builder.SearchCriteria;
 import com.fundation.search.model.asset.Asset;
 import com.fundation.search.model.asset.AssetFactory;
 import com.fundation.search.model.asset.FileResult;
+import com.fundation.search.model.database.SearchQuery;
+import com.google.gson.Gson;
 
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.attribute.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class is to search files by criteria.
@@ -496,7 +502,7 @@ public class Search {
         ResultSet resultSet = null;
         SearchCriteria searchCriteria;
         int index;
-        Map<Integer,SearchCriteria>  criteriaList = new HashMap<>();
+        Map<Integer,SearchCriteria> criteriaList = new HashMap<>();
         Gson gSonCriteria = new Gson();
         try {
             //Return from DB
