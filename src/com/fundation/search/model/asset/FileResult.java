@@ -23,14 +23,12 @@ import java.util.Date;
  * @version 1.0.
  */
 public class FileResult extends Asset {
-    /**
-     * The extensionFile on a file.
-     */
+
     private String extensionFile;
 
-    public FileResult(String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, boolean readFile, FileTime lastModifiedTime, FileTime creationTime, FileTime lastAccessTime, String ownerFile, boolean isReadOnly, boolean isFileSystem, boolean isDirectory, String intoFile, String extensionFile) {
-        super(pathFile, nameFile, sizeFile, isHiddenFile, readFile, lastModifiedTime, creationTime, lastAccessTime, ownerFile, isReadOnly, isFileSystem, isDirectory, intoFile);
-        this.extensionFile = extensionFile;
+    public FileResult (String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, boolean readFile, FileTime lastModifiedTime, FileTime creationTime, FileTime lastAccessTime, String ownerFile, boolean isReadOnly, boolean isFileSystem, boolean isDirectory, String intoFile, String extensionFile){
+        super( pathFile,  nameFile,  sizeFile,  isHiddenFile,  readFile,  lastModifiedTime,  creationTime,  lastAccessTime,  ownerFile,  isReadOnly,  isFileSystem,  isDirectory,  intoFile);
+       this.extensionFile = extensionFile;
 
     }
 

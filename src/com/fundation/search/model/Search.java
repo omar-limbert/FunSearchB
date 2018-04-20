@@ -18,29 +18,14 @@ import com.fundation.search.controller.builder.SearchCriteria;
 import com.fundation.search.model.asset.Asset;
 import com.fundation.search.model.asset.AssetFactory;
 import com.fundation.search.model.asset.FileResult;
-import com.fundation.search.model.database.SearchConnection;
-import com.fundation.search.model.database.SearchQuery;
-import com.google.gson.Gson;
 
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.nio.file.attribute.FileTime;
-import java.nio.file.attribute.DosFileAttributes;
-import java.nio.file.attribute.PosixFileAttributes;
-import java.nio.file.attribute.FileOwnerAttributeView;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.nio.file.attribute.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
-import java.util.Map;
-
 
 /**
  * This class is to search files by criteria.
@@ -59,13 +44,11 @@ public class Search {
      */
     private List<File> fileList;
 
-
     /**
      * Search Class constructor.
      */
     public Search() {
         fileList = new ArrayList<>();
-
     }
 
     /**
@@ -122,7 +105,7 @@ public class Search {
         for (File file : listFile) {
             try {
                 BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
-                System.out.println(operator);
+
                 if (operator.equalsIgnoreCase("upper")) {
                     if (fileAttributes.size() > size) {
                         listFilter.add(file);
@@ -151,6 +134,7 @@ public class Search {
 
     /**
      * This method is for search Hidden Files.
+     *
      * @param listFile       list file.
      * @param hiddenCriteria this param has 3 values, all files, only hiddens, without hiddens.
      * @return list all the files minor or major or equal to given size.
@@ -313,34 +297,25 @@ public class Search {
         }
         return listFilter;
     }
-
-    /**
-     * @param listFile  a list of files.
-     * @param text      the test in order to search into a file.
-     * @param extension if is a valid file for search the text.
-     * @return a list of files that contains the text.
-     */
-    private List<File> searchIntoFile(List<File> listFile, String text, String extension) {
+    /*private List<File> searchIntoFile (List<File> listFile, String text) {
         List<File> listFilter = new ArrayList<>();
-        Scanner sc = null;
         for (File file : listFile) {
-            if (extension.equalsIgnoreCase(".txt")) {
-                try {
-                    sc = new Scanner(file);
-                    while (sc.hasNextLine()) {
-                        if (sc.nextLine().contains(text)) {
-                            listFilter.add(file);
-                        }
-                    }
 
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+            try {
+                BufferedReader bf = new BufferedReader(new FileReader(file.getPath()));
+                while ( bf.readLine() != null){
+                    if (bf.readLine().equalsIgnoreCase(text)){
+                        listFilter.add(file);
+                    }
                 }
+                bf.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
         }
         return listFilter;
-    }
+    }*/
 
 
     /**
@@ -349,37 +324,21 @@ public class Search {
      * @param owner this is name of owner for filter file list.
      * @return list all the files minor or major or equal to given size.
      */
-  
     private List<File> searchByOwner(List<File> listFile, String owner) {
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
             try {
-                if (Files.getFileAttributeView(file.toPath(), FileOwnerAttributeView.class).getOwner().getName().equalsIgnoreCase(owner)) {
+                if (Files.getFileAttributeView(file.toPath(),FileOwnerAttributeView.class).getOwner().getName().equalsIgnoreCase(owner)) {
                     listFilter.add(file);
                 }
 
-    private List<File> searchByOwner(String owner) {
-        fileList.removeIf(e -> !(this.isOwner(e, owner)));
-
-        return fileList;
-    }
-
-    /**
-     * This method is compare Owner.
-     *
-     * @param owner this is name of owner for filter file list.
-     * @param e     this is a file for compare.
-     * @return list all the files minor or major or equal to given size.
-     */
-    private boolean isOwner(File e, String owner) {
-        try {
-            return owner.equalsIgnoreCase(Files.readAttributes(e.toPath(), PosixFileAttributes.class).owner().getName());
-        } catch (IOException e1) {
-            e1.printStackTrace();
-            return false;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-    }
 
+        return listFilter;
+    }
     /**
      * This method is for filter by criteria.
      *
@@ -448,9 +407,8 @@ public class Search {
             }
 
             if (!criteria.getOwnerCriteria().isEmpty()) {
-                fileList = searchByOwner(fileList, criteria.getOwnerCriteria());
+                fileList = searchByOwner(fileList,criteria.getOwnerCriteria());
             }
-
         }
     }
 
@@ -486,10 +444,10 @@ public class Search {
     /**
      * @param e A list of files.
      *          .
-     * @return a list of files it depend of the criteria..
+     * @return a list of files it depend of the criteria.
      */
     private Asset createFileResult(File e) {
-
+        FileResult result = null;
         AssetFactory assetFactory = new AssetFactory();
         Asset asset = null;
         try {
@@ -497,13 +455,14 @@ public class Search {
             DosFileAttributes fileAttributes1 = Files.readAttributes(e.toPath(), DosFileAttributes.class);
             FileOwnerAttributeView fileAttributes2 = Files.getFileAttributeView(e.toPath(), FileOwnerAttributeView.class);
 
-            asset = assetFactory.buildAsset("file", e.getPath(), e.getName(), e.length(), e.isHidden(), e.canRead(), fileAttributes.lastModifiedTime(), fileAttributes.creationTime(), fileAttributes.lastAccessTime(), fileAttributes2.getOwner().getName(), fileAttributes1.isReadOnly(), fileAttributes1.isSystem(), fileAttributes.isDirectory(), "", e.getName());
+            asset = assetFactory.buildAsset("file",e.getPath(), e.getName(), e.length(), e.isHidden(), e.canRead(), fileAttributes.lastModifiedTime(), fileAttributes.creationTime(), fileAttributes.lastAccessTime(), fileAttributes2.getOwner().getName(), fileAttributes1.isReadOnly(), fileAttributes1.isSystem(), fileAttributes.isDirectory(), "", e.getName());
 
         } catch (IOException e1) {
             e1.printStackTrace();
         }
         return asset;
     }
+
 
     /**
      * This method is for filter by criteria.
