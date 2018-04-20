@@ -18,16 +18,29 @@ import com.fundation.search.controller.builder.SearchCriteria;
 import com.fundation.search.model.asset.Asset;
 import com.fundation.search.model.asset.AssetFactory;
 import com.fundation.search.model.asset.FileResult;
+import com.fundation.search.model.database.SearchConnection;
+import com.fundation.search.model.database.SearchQuery;
+import com.google.gson.Gson;
 
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.attribute.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
+import java.nio.file.attribute.DosFileAttributes;
+import java.nio.file.attribute.PosixFileAttributes;
+import java.nio.file.attribute.FileOwnerAttributeView;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Map;
+
 
 /**
  * This class is to search files by criteria.
@@ -46,11 +59,13 @@ public class Search {
      */
     private List<File> fileList;
 
+
     /**
      * Search Class constructor.
      */
     public Search() {
         fileList = new ArrayList<>();
+
     }
 
     /**
@@ -136,7 +151,6 @@ public class Search {
 
     /**
      * This method is for search Hidden Files.
-     *
      * @param listFile       list file.
      * @param hiddenCriteria this param has 3 values, all files, only hiddens, without hiddens.
      * @return list all the files minor or major or equal to given size.
@@ -184,15 +198,12 @@ public class Search {
      */
     private List<File> creationTime(List<File> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
 
-        System.out.println("ESTO TE LLEGA INI: " + new Convertor().convertFileDateToDate(dateConditionInt) + " FIN: " + new Convertor().convertFileDateToDate(dateConditionEnd));
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
-            System.out.println(new Convertor().convertFileDateToDate(dateConditionInt) + " IF FILES ");
             try {
                 BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
                 if ((fileAttributes.creationTime().toMillis() >= dateConditionInt.toMillis() && fileAttributes.creationTime().toMillis() <= dateConditionEnd.toMillis())) {
                     listFilter.add(file);
-                    System.out.println(new Convertor().convertFileDateToDate(dateConditionInt) + " ATRIBUTES FILE");
                 }
 
             } catch (IOException e) {
@@ -338,6 +349,7 @@ public class Search {
      * @param owner this is name of owner for filter file list.
      * @return list all the files minor or major or equal to given size.
      */
+  
     private List<File> searchByOwner(List<File> listFile, String owner) {
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
@@ -346,12 +358,26 @@ public class Search {
                     listFilter.add(file);
                 }
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    private List<File> searchByOwner(String owner) {
+        fileList.removeIf(e -> !(this.isOwner(e, owner)));
 
-        return listFilter;
+        return fileList;
+    }
+
+    /**
+     * This method is compare Owner.
+     *
+     * @param owner this is name of owner for filter file list.
+     * @param e     this is a file for compare.
+     * @return list all the files minor or major or equal to given size.
+     */
+    private boolean isOwner(File e, String owner) {
+        try {
+            return owner.equalsIgnoreCase(Files.readAttributes(e.toPath(), PosixFileAttributes.class).owner().getName());
+        } catch (IOException e1) {
+            e1.printStackTrace();
+            return false;
+        }
     }
 
     /**
@@ -478,4 +504,60 @@ public class Search {
         }
         return asset;
     }
+
+    /**
+     * This method is for filter by criteria.
+     *
+     * @param searchCriteria receives SearchCriteria object.
+     *                 Is a method that filter a List according that insert to DB.
+     */
+    public void saveCriteriaToDataBase(SearchCriteria searchCriteria){
+        try {
+            //Insert to DB
+            SearchQuery queryToInsertOnDataBase = new SearchQuery();
+            Gson gSonCriteria = new Gson();
+            String jSonCriteriaToSave = gSonCriteria.toJson(searchCriteria);
+
+            queryToInsertOnDataBase.addCriteria(jSonCriteriaToSave);
+            //Exceptions
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Return data from DB to Search Criteria.
+     * @return Criteria list of files.
+     */
+    public Map<Integer,SearchCriteria> getAllDataFromDataBase(){
+
+        ResultSet resultSet = null;
+        SearchCriteria searchCriteria;
+        int index;
+        Map<Integer,SearchCriteria>  criteriaList = new HashMap<>();
+        Gson gSonCriteria = new Gson();
+        try {
+            //Return from DB
+            SearchQuery queryToInsertOnDataBase = new SearchQuery();
+            resultSet= queryToInsertOnDataBase.getAllCriteria();
+            while(resultSet.next()){
+
+                index = resultSet.getInt("ID");
+                searchCriteria = gSonCriteria.fromJson(resultSet.getString("CRITERIAJSON"),SearchCriteria.class);
+                criteriaList.put(index,searchCriteria);
+
+            }
+            //Exceptions
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return criteriaList;
+
+    }
+
 }
