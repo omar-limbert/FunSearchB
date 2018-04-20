@@ -71,23 +71,20 @@ public class Asset {
      * The text for made a search.
      */
     private String intoFile;
+    /**
+     * The Type of extension.
+     */
 
 
     /**
-     * @param pathFile         the path of the file.
-     * @param nameFile         the name of the file.
-     * @param sizeFile         the size of the file.
-     * @param isHiddenFile     the condition if it is hidden.
-     * @param readFile         the condition if it is read.
-     * @param lastModifiedTime the date of modified file.
-     * @param creationTime     the date of creationTime file.
-     * @param lastAccessTime   the date of lastAccessTime file.
-     * @param ownerFile        the name of the owner on a file.
-     * @param isReadOnly       the condition if a file is readOnly.
-     * @param isFileSystem     the condition if a file is proper of the system.
-     * @param isDirectory      the condition if is a directory.
-     * @param intoFile         the text for search into a file.
+     * FileResult constructor.
+     *
+     * @param pathFile     path .
+     * @param nameFile     name file.
+     * @param sizeFile     lenght file.
+     * @param isHiddenFile state hidden file.
      */
+//FileTime lastModifiedTimeInit, FileTime lastModifiedTimeEnd, FileTime creationTimeInit , FileTime creationTimeEnd, FileTime lastAccessTimeInit, FileTime lastAccessTimeEnd
     public Asset(String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, boolean readFile, FileTime lastModifiedTime, FileTime creationTime, FileTime lastAccessTime, String ownerFile, boolean isReadOnly, boolean isFileSystem, boolean isDirectory, String intoFile) {
         this.pathFile = pathFile;
         this.nameFile = nameFile;
@@ -195,10 +192,12 @@ public class Asset {
         return this.getExtensionFile();
     }
 
-    /**
-     * This method return the number of files on a folder.
-     */
-    public int getCantFiles() {
-        return this.getCantFiles();
+    public int getCantFiles(){
+        return  this.getCantFiles();
+    }
+
+    public double getDuration (){
+        return this.getDuration();
+
     }
 }
