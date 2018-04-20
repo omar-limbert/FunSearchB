@@ -14,10 +14,13 @@
 package com.fundation.search.view.CriteriaPanels;
 
 import com.fundation.search.common.SearchLogger;
+
+
+import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JTable;
-import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.util.logging.Logger;
@@ -31,7 +34,7 @@ import java.util.logging.Logger;
 public class DataBaseCenterPanel extends JPanel {
     /**
      * Init logger  in Center Panel
-     * */
+     */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
     /**
      * dataBaseCriteriaTable, Type: JTable, this table is for show results.
@@ -79,6 +82,7 @@ public class DataBaseCenterPanel extends JPanel {
         String rowData[][] = {{}, {}};
         dataBaseCriteriaTable = new JTable();
         modelOfJTableResult = new DefaultTableModel(rowData, columnNames);
+        dataBaseCriteriaTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         dataBaseCriteriaTable.setModel(modelOfJTableResult);
         header = dataBaseCriteriaTable.getTableHeader();
         LOOGER.info("initComponents exit");
@@ -125,5 +129,19 @@ public class DataBaseCenterPanel extends JPanel {
     public void insertRowToDataBaseTableResult(Object[] row) {
         LOOGER.info("Insert data to Data Base table result");
         this.modelOfJTableResult.addRow(row);
+    }
+
+    public ListSelectionModel getSelectionModel() {
+        return dataBaseCriteriaTable.getSelectionModel();
+    }
+
+    /**
+     * This method return Data Base Table result.
+     * Controller need use this.
+     *
+     * @return JTable, this is a Data Base JTable.
+     */
+    public JTable getDataBaseTableResult() {
+        return dataBaseCriteriaTable;
     }
 }

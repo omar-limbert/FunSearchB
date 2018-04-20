@@ -17,6 +17,7 @@ import com.fundation.search.common.SearchLogger;
 import com.fundation.search.view.CriteriaPanels.CriteriaPanel;
 import com.fundation.search.view.SearchTextField;
 import com.fundation.search.view.SearchToolBar;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JPanel;
@@ -34,7 +35,7 @@ import java.util.logging.Logger;
 public class TopPanel extends JPanel {
     /**
      * Init logger  in Top Panel
-     * */
+     */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
@@ -159,7 +160,7 @@ public class TopPanel extends JPanel {
      */
     public boolean getKeySensitiveOfCriteria() {
         LOOGER.info("get key sensitive");
-        return  toolbar.getKeySensitiveOfCriteria();
+        return toolbar.getKeySensitiveOfCriteria();
     }
 
     /**
@@ -169,7 +170,7 @@ public class TopPanel extends JPanel {
      */
     public boolean getReadOnlyOfCriteria() {
         LOOGER.info("get read only");
-        return  toolbar.getReadOnlyOfCriteria();
+        return toolbar.getReadOnlyOfCriteria();
     }
 
     /**
@@ -177,9 +178,9 @@ public class TopPanel extends JPanel {
      *
      * @return Boolean
      */
-    public  boolean getFileSystemOfCriteria() {
+    public boolean getFileSystemOfCriteria() {
         LOOGER.info("get file system");
-        return  toolbar.getFileSystemOfCriteria();
+        return toolbar.getFileSystemOfCriteria();
     }
 
     /**
@@ -187,9 +188,9 @@ public class TopPanel extends JPanel {
      *
      * @return Boolean
      */
-    public  boolean getDirectoryOfCriteria() {
+    public boolean getDirectoryOfCriteria() {
         LOOGER.info("get Directory");
-        return  toolbar.getDirectoryOfCriteria();
+        return toolbar.getDirectoryOfCriteria();
     }
 
     /**
@@ -209,7 +210,7 @@ public class TopPanel extends JPanel {
      */
     public String getOwnerOfCriteria() {
         LOOGER.info("get owner");
-        return  toolbar.getOwnerCriteria();
+        return toolbar.getOwnerCriteria();
     }
 
 
@@ -323,5 +324,166 @@ public class TopPanel extends JPanel {
         return searchTextField.getText();
     }
 
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param isHiddenCriteria, this is hidden criteria.
+     */
+    public void setIsHiddenCriteria(String isHiddenCriteria) {
+        this.toolbar.setIsHiddenCriteria(isHiddenCriteria);
+    }
 
+    /**
+     * This method is to update one criteria.
+     *
+     * @param typeCriteria, this is type of size criteria.
+     */
+    public void setTypeCriteria(String typeCriteria) {
+        this.toolbar.setTypeCriteria(typeCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param operatorCriteria, this is operator of size criteria.
+     */
+    public void setOperatorCriteria(String operatorCriteria) {
+        this.toolbar.setOperatorCriteria(operatorCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param sizeCriteria, this is size criteria.
+     */
+    public void setSizeCriteria(long sizeCriteria) {
+        this.toolbar.setSizeCriteria(sizeCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param isReadOnlyCriteria, this is Read Only criteria.
+     */
+    public void setIsReadOnlyCriteria(boolean isReadOnlyCriteria) {
+        this.toolbar.setIsReadOnlyCriteria(isReadOnlyCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param isFileSystemCriteria, true is File System and false is not file system.
+     */
+    public void setIsFileSystemCriteria(boolean isFileSystemCriteria) {
+        this.toolbar.setIsFileSystemCriteria(isFileSystemCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param isDirectoryCriteria, true is directory and false is not directory.
+     */
+    public void setIsDirectoryCriteria(boolean isDirectoryCriteria) {
+        this.toolbar.setIsDirectoryCriteria(isDirectoryCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param fileNameCriteria, this is file name criteria.
+     */
+    public void setFileNameCriteria(String fileNameCriteria) {
+        this.toolbar.setFileNameCriteria(fileNameCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param pathCriteria, this is path criteria.
+     */
+    public void setPathCriteria(String pathCriteria) {
+        this.toolbar.setPathCriteria(pathCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param ownerCriteria, this is owner criteria.
+     */
+    public void setOwnerCriteria(String ownerCriteria) {
+        this.toolbar.setOwnerCriteria(ownerCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param extensionCriteria, this is file extension criteria.
+     */
+    public void setExtensionCriteria(String extensionCriteria) {
+        this.toolbar.setExtensionCriteria(extensionCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param nameCriteria, this is search words.
+     */
+    public void setNameCriteria(String nameCriteria) {
+        this.searchTextField.setText(nameCriteria);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param modifiedDateInit, this is modified date init.
+     */
+    public void setModifiedDateInit(String modifiedDateInit) {
+        this.toolbar.setModifiedDateInit(modifiedDateInit);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param modifiedDateEnd, this is modified date end.
+     */
+    public void setModifiedDateEnd(String modifiedDateEnd) {
+        this.toolbar.setModifiedDateEnd(modifiedDateEnd);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param lastAccessInit, this is last access date end.
+     */
+    public void setLastAccessInit(String lastAccessInit) {
+        this.toolbar.setLastAccessInit(lastAccessInit);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param lastAccessEnd, this is last access date end.
+     */
+    public void setLastAccessEnd(String lastAccessEnd) {
+        this.toolbar.setLastAccessEnd(lastAccessEnd);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param creationDateInit, this is creation date init.
+     */
+    public void setCreationDateInit(String creationDateInit) {
+        this.toolbar.setCreationDateInit(creationDateInit);
+    }
+
+    /**
+     * This method is to update one criteria.
+     *
+     * @param creationDateEnd, this is creation date end.
+     */
+    public void setCreationDateEnd(String creationDateEnd) {
+        this.toolbar.setCreationDateEnd(creationDateEnd);
+    }
 }

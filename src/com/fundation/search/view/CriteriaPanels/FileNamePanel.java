@@ -30,7 +30,7 @@ import java.util.logging.Logger;
 public class FileNamePanel extends JPanel {
     /**
      * Init logger  in File Name Panel
-     * */
+     */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
@@ -53,7 +53,6 @@ public class FileNamePanel extends JPanel {
      * radioButtonGroup, Type: ButtonGroup, this radio button groups will contains all radioButtons.
      */
     private ButtonGroup radioButtonGroup;
-
 
 
     /**
@@ -124,5 +123,27 @@ public class FileNamePanel extends JPanel {
         LOOGER.info("Get file name panel");
         return radioButtonGroup.getSelection().getActionCommand();
     }
+
+    /**
+     * This method is to update one criteria.
+     * Controller need use this.
+     *
+     * @param fileNameCriteria, this is file name criteria.
+     */
+    public void setFileNameCriteria(String fileNameCriteria) {
+        if ("all words".equalsIgnoreCase(fileNameCriteria)) {
+            this.allWordsRadioButton.setSelected(true);
+        }
+        if ("start with".equalsIgnoreCase(fileNameCriteria)) {
+            this.startWithRadioButton.setSelected(true);
+        }
+        if ("end with".equalsIgnoreCase(fileNameCriteria)) {
+            this.endWithRadioButton.setSelected(true);
+        }
+        if ("equal to".equalsIgnoreCase(fileNameCriteria)) {
+            this.equalsToRadioButton.setSelected(true);
+        }
+    }
+
 
 }

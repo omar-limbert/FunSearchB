@@ -31,7 +31,7 @@ public class SearchCriteria {
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
     /**
-     * path is the direcction Path.
+     * path is the direction Path.
      */
     private String path;
     /**
@@ -47,7 +47,7 @@ public class SearchCriteria {
      */
     private long size;
     /**
-     * operator is the instruccion (upper, lower and equal.
+     * operator is the instruction (upper, lower and equal).
      */
     private String operator;
     /**
@@ -102,6 +102,11 @@ public class SearchCriteria {
      * extension, is file extension.
      */
     private String extension;
+    /**
+     * nameOnDataBase, is name on data base.
+     */
+    private String nameOnDataBase;
+
 
     /**
      * This class is to create SearchCriteria with Builder Pattern.
@@ -131,6 +136,7 @@ public class SearchCriteria {
         this.isDirectory = builder.getIsDirectoryCriteria();
         this.isFileSystem = builder.getIsFileSystemCriteria();
         this.extension = builder.getExtensionCriteria();
+        this.nameOnDataBase = builder.getNameOnDataBase();
         LOOGER.info("Constructor Exit");
     }
 
@@ -186,7 +192,7 @@ public class SearchCriteria {
     public String getOperator() {
         LOOGER.info("getOperator Entry");
         LOOGER.info("getOperator Exit");
-        return operator;
+        return operator == null ? "upper" : operator;
     }
 
     /**
@@ -323,11 +329,29 @@ public class SearchCriteria {
     }
 
     /**
+     * This method is for get nameOnDataBase.
+     *
+     * @return String return extension of file.
+     */
+    public String getNameOnDataBase() {
+        return nameOnDataBase;
+    }
+
+    /**
      * This method is for get extension.
      *
      * @return String return extension of file.
      */
     public String getExtension() {
         return extension;
+    }
+
+    /**
+     * This method is for update name on data base.
+     *
+     * @return String return extension of file.
+     */
+    public void updateNameOnDataBase(String nameOnDataBase) {
+        this.nameOnDataBase = nameOnDataBase;
     }
 }

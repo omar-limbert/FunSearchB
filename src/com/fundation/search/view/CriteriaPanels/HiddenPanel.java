@@ -30,7 +30,7 @@ import java.util.logging.Logger;
 public class HiddenPanel extends JPanel {
     /**
      * Init logger  in Hidden Panel
-     * */
+     */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
     /**
      * allFilesRadioButton, Type: JRadioButton, when show hidden file and no hidden file.
@@ -112,4 +112,17 @@ public class HiddenPanel extends JPanel {
         return radioButtonGroup.getSelection().getActionCommand();
     }
 
+    public void setIsHiddenCriteria(String isHiddenCriteria) {
+
+        if ("all files".equalsIgnoreCase(isHiddenCriteria)) {
+            this.allFilesRadioButton.setSelected(true);
+        }
+        if ("only hidden".equalsIgnoreCase(isHiddenCriteria)) {
+            this.onlyHiddenRadioButton.setSelected(true);
+        }
+        if ("without hidden".equalsIgnoreCase(isHiddenCriteria)) {
+            this.withoutHiddenRadioButton.setSelected(true);
+        }
+
+    }
 }
