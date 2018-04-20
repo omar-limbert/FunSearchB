@@ -26,10 +26,7 @@ import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.DosFileAttributes;
@@ -94,8 +91,7 @@ public class Search {
      * @return list all the files that contains the name of a file.
      */
     private List<File> searchByName(List<File> listFile, String nameFile, String fileNameCriteria) {
-
-        if (fileNameCriteria.equalsIgnoreCase("all words")) {
+        if (fileNameCriteria.equalsIgnoreCase("all words" )|| fileNameCriteria.isEmpty() ) {
             listFile.removeIf(e -> (!e.getName().contains(nameFile)));
         }
         if (fileNameCriteria.equalsIgnoreCase("start with")) {
@@ -339,7 +335,6 @@ public class Search {
 
                 try {
                     sc = new Scanner(new FileReader(file));
-
                     while (sc.hasNextLine()) {
                         if (sc.nextLine().contains(text)) {
                             listFilter.add(file);
@@ -347,6 +342,24 @@ public class Search {
                     }
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
+                }
+
+            }
+
+            if (file.getName().endsWith(".docx")) {
+
+                try {
+
+                    FileInputStream fis = new FileInputStream(file.getPath());
+                    XWPFDocument xdoc = new XWPFDocument(OPCPackage.open(fis));
+                    XWPFWordExtractor extractor = new XWPFWordExtractor(xdoc);
+                    if(extractor.getText().contains(text)){
+                        listFilter.add(file);
+                    }
+
+                } catch (Exception ex) {
+                    return null;
+
                 }
 
             }
@@ -424,9 +437,9 @@ public class Search {
             if (criteria.getIsFileSystem()) {
                 fileList = isFileSystem(fileList);
             }
-            if (criteria.getKeySensitiveOfCriteria()) {
+            /*if (criteria.getKeySensitiveOfCriteria()) {
                 fileList = searchKeySensitive(fileList, criteria.getName());
-            }
+            }*/
 
             if (criteria.getExtension() != null) {
                 fileList = searchByExtension(fileList, criteria.getExtension());
@@ -450,10 +463,10 @@ public class Search {
             if (!criteria.getOwnerCriteria().isEmpty()) {
                 fileList = searchByOwner(fileList, criteria.getOwnerCriteria());
             }
-            if (criteria.getIsContainsInsideFileCriteria()) {
+           /* if (criteria.getIsContainsInsideFileCriteria()) {
                 fileList = searchIntoFile(fileList, criteria.getTextContainsInsideFileCriteria());
-            }
-
+            }*/
+            fileList = searchIntoFile(fileList, "arbol");
         }
     }
 
