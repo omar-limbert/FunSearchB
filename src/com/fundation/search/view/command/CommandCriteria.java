@@ -71,6 +71,10 @@ public class CommandCriteria {
      */
     public String isDirectory; //d
     /**
+     * extension is the file extension  .
+     */
+    public String extension; //ex
+    /**
      * Logger create a instance of logger.
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
@@ -93,6 +97,7 @@ public class CommandCriteria {
         dateLastAccess = map.containsKey("-dl") ? map.get("-dl") : "";
         readOnly = map.containsKey("-ro") ? map.get("-ro") : "";
         isDirectory = map.containsKey("-d") ? map.get("-d") : "";
+        extension = map.containsKey("-ex") ? map.get("-ex") : "";
         LOOGER.info("Constructor Command Criteria exit");
     }
 
@@ -182,5 +187,13 @@ public class CommandCriteria {
     public String getIsDirectory() {
         LOOGER.info("GetIsDirectory CommandCriteria" + isDirectory);
         return isDirectory;
+    }
+
+    /**
+     * This method return if is a directory.
+     */
+    public String getExtension() {
+        LOOGER.info("getExtension CommandCriteria" + extension);
+        return extension;
     }
 }
