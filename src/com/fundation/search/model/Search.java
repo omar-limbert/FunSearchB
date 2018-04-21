@@ -13,6 +13,7 @@
  */
 package com.fundation.search.model;
 
+import com.fundation.search.common.Convertor;
 import com.fundation.search.controller.builder.SearchCriteria;
 import com.fundation.search.model.asset.Asset;
 import com.fundation.search.model.asset.AssetFactory;
@@ -24,24 +25,12 @@ import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.nio.file.attribute.DosFileAttributes;
-import java.nio.file.attribute.FileOwnerAttributeView;
-import java.nio.file.attribute.FileTime;
+import java.nio.file.attribute.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Map;
-import java.util.HashMap;
-
+import java.util.*;
 
 /**
  * This class is to search files by criteria.
@@ -93,7 +82,8 @@ public class Search {
      * @return list all the files that contains the name of a file.
      */
     private List<File> searchByName(List<File> listFile, String nameFile, String fileNameCriteria) {
-        if (fileNameCriteria.equalsIgnoreCase("all words") || fileNameCriteria.isEmpty()) {
+
+        if (fileNameCriteria.equalsIgnoreCase("all words")) {
             listFile.removeIf(e -> (!e.getName().contains(nameFile)));
         }
         if (fileNameCriteria.equalsIgnoreCase("start with")) {
@@ -312,63 +302,26 @@ public class Search {
         }
         return listFilter;
     }
-
-    /**
-     * @param listFile  It is the list of Files.
-     * @param extension The name of extension (.png,.docx,etc).
-     * @return A list of files that are the criteria of the extension.
-     */
-    private List<File> searchKeySensitive(List<File> listFile, String name) {
+    /*private List<File> searchIntoFile (List<File> listFile, String text) {
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
-            if (!(file.getName().equals(name))) {
-                listFilter.remove(file);
-            }
-        }
-        return listFilter;
-    }
 
-    //if (file.getName().endsWith(".txt")) {
-    private List<File> searchIntoFile(List<File> listFile, String text) {
-        List<File> listFilter = new ArrayList<>();
-        Scanner sc = null;
-        for (File file : listFile) {
-            if (file.getName().endsWith(".txt")) {
-
-                try {
-                    sc = new Scanner(new FileReader(file));
-                    while (sc.hasNextLine()) {
-                        if (sc.nextLine().contains(text)) {
-                            listFilter.add(file);
-                        }
-                    }
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            if (file.getName().endsWith(".docx")) {
-
-                try {
-
-                    FileInputStream fis = new FileInputStream(file.getPath());
-                    XWPFDocument xdoc = new XWPFDocument(OPCPackage.open(fis));
-                    XWPFWordExtractor extractor = new XWPFWordExtractor(xdoc);
-                    if (extractor.getText().contains(text)) {
+            try {
+                BufferedReader bf = new BufferedReader(new FileReader(file.getPath()));
+                while ( bf.readLine() != null){
+                    if (bf.readLine().equalsIgnoreCase(text)){
                         listFilter.add(file);
                     }
-
-                } catch (Exception ex) {
-                    return null;
-
                 }
-
+                bf.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
         }
         return listFilter;
-    }
+    }*/
+
 
     /**
      * This method is for search files by Owner.
@@ -380,7 +333,7 @@ public class Search {
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
             try {
-                if (Files.getFileAttributeView(file.toPath(), FileOwnerAttributeView.class).getOwner().getName().equalsIgnoreCase(owner)) {
+                if (Files.getFileAttributeView(file.toPath(),FileOwnerAttributeView.class).getOwner().getName().equalsIgnoreCase(owner)) {
                     listFilter.add(file);
                 }
 
@@ -391,7 +344,6 @@ public class Search {
 
         return listFilter;
     }
-
     /**
      * This method is for filter by criteria.
      *
@@ -440,7 +392,6 @@ public class Search {
                 fileList = isFileSystem(fileList);
             }
 
-
             if (criteria.getExtension() != null) {
                 fileList = searchByExtension(fileList, criteria.getExtension());
             }
@@ -461,14 +412,14 @@ public class Search {
             }
 
             if (!criteria.getOwnerCriteria().isEmpty()) {
-                fileList = searchByOwner(fileList, criteria.getOwnerCriteria());
+                fileList = searchByOwner(fileList,criteria.getOwnerCriteria());
             }
-            if (criteria.getKeySensitiveOfCriteria()) {
+            if(criteria.getKeySensitiveOfCriteria()){
                 fileList = searchKeySensitive(fileList, criteria.getName());
 
             }
-            if (criteria.getIsContainsInsideFileCriteria()) {
-                fileList = searchIntoFile(fileList, criteria.getTextContainsInsideFileCriteria());
+            if(criteria.getIsContainsInsideFileCriteria() ){
+                fileList =  searchIntoFile(fileList,criteria.getTextContainsInsideFileCriteria());
             }
         }
     }
@@ -516,13 +467,7 @@ public class Search {
             DosFileAttributes fileAttributes1 = Files.readAttributes(e.toPath(), DosFileAttributes.class);
             FileOwnerAttributeView fileAttributes2 = Files.getFileAttributeView(e.toPath(), FileOwnerAttributeView.class);
 
-
-            if (e.isDirectory()) {
-                asset = assetFactory.buildAsset("folder", e.getPath(), e.getName(), e.length(), e.isHidden(), e.canRead(), fileAttributes.lastModifiedTime(), fileAttributes.creationTime(), fileAttributes.lastAccessTime(), fileAttributes2.getOwner().getName(), fileAttributes1.isReadOnly(), fileAttributes1.isSystem(), fileAttributes.isDirectory(), "", e.getName(), 25, 25.2);
-            } else {
-                asset = assetFactory.buildAsset("file", e.getPath(), e.getName(), e.length(), e.isHidden(), e.canRead(), fileAttributes.lastModifiedTime(), fileAttributes.creationTime(), fileAttributes.lastAccessTime(), fileAttributes2.getOwner().getName(), fileAttributes1.isReadOnly(), fileAttributes1.isSystem(), fileAttributes.isDirectory(), "", e.getName(), 25, 25.2);
-            }
-
+            asset = assetFactory.buildAsset("file",e.getPath(), e.getName(), e.length(), e.isHidden(), e.canRead(), fileAttributes.lastModifiedTime(), fileAttributes.creationTime(), fileAttributes.lastAccessTime(), fileAttributes2.getOwner().getName(), fileAttributes1.isReadOnly(), fileAttributes1.isSystem(), fileAttributes.isDirectory(), "", e.getName(),25,25.2);
 
         } catch (IOException e1) {
             e1.printStackTrace();
@@ -535,9 +480,9 @@ public class Search {
      * This method is for filter by criteria.
      *
      * @param searchCriteria receives SearchCriteria object.
-     *                       Is a method that filter a List according that insert to DB.
+     *                 Is a method that filter a List according that insert to DB.
      */
-    public void saveCriteriaToDataBase(SearchCriteria searchCriteria) {
+    public void saveCriteriaToDataBase(SearchCriteria searchCriteria){
         try {
             //Insert to DB
             SearchQuery queryToInsertOnDataBase = new SearchQuery();
@@ -553,28 +498,40 @@ public class Search {
         }
 
     }
+    //PLUS
+    public void deleteCriteriaFromDataBase(int index){
+        try {
+            //Delete from DB
+            SearchQuery searchQuery = new SearchQuery();
+            searchQuery.deleteCriteria(index);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Return data from DB to Search Criteria.
-     *
      * @return Criteria list of files.
      */
-    public Map<Integer, SearchCriteria> getAllDataFromDataBase() {
+    public Map<Integer,SearchCriteria> getAllDataFromDataBase(){
 
         ResultSet resultSet = null;
         SearchCriteria searchCriteria;
         int index;
-        Map<Integer, SearchCriteria> criteriaList = new HashMap<>();
+        Map<Integer,SearchCriteria> criteriaList = new HashMap<>();
         Gson gSonCriteria = new Gson();
         try {
-            //Return from DB..
+            //Return from DB
             SearchQuery queryToInsertOnDataBase = new SearchQuery();
-            resultSet = queryToInsertOnDataBase.getAllCriteria();
-            while (resultSet.next()) {
+            resultSet= queryToInsertOnDataBase.getAllCriteria();
+            while(resultSet.next()){
 
                 index = resultSet.getInt("ID");
-                searchCriteria = gSonCriteria.fromJson(resultSet.getString("CRITERIAJSON"), SearchCriteria.class);
-                criteriaList.put(index, searchCriteria);
+                searchCriteria = gSonCriteria.fromJson(resultSet.getString("CRITERIAJSON"),SearchCriteria.class);
+                criteriaList.put(index,searchCriteria);
 
             }
             //Exceptions
@@ -585,6 +542,56 @@ public class Search {
         }
         return criteriaList;
 
+    }
+
+    private List<File> searchKeySensitive (List<File> listFile, String name) {
+        List<File> listFilter = new ArrayList<>();
+        for (File file : listFile) {
+            if (file.getName().equals(name)) {
+                listFilter.add(file);
+            }
+        }
+        return listFilter;
+    }
+    private List<File> searchIntoFile(List<File> listFile, String text) {
+        List<File> listFilter = new ArrayList<>();
+        Scanner sc = null;
+        for (File file : listFile) {
+            if (file.getName().endsWith(".txt")) {
+                try {
+                    sc = new Scanner(new FileReader(file));
+
+                    while (sc.hasNextLine()) {
+                        if (sc.nextLine().contains(text)) {
+                            listFilter.add(file);
+                        }
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            if (file.getName().endsWith(".docx")) {
+
+                try {
+
+                    FileInputStream fis = new FileInputStream(file.getPath());
+                    XWPFDocument xdoc = new XWPFDocument(OPCPackage.open(fis));
+                    XWPFWordExtractor extractor = new XWPFWordExtractor(xdoc);
+                    if(extractor.getText().contains(text)){
+                        listFilter.add(file);
+                    }
+
+                } catch (Exception ex) {
+                    return null;
+
+                }
+
+            }
+
+        }
+
+        return listFilter;
     }
 
 }
