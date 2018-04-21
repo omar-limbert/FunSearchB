@@ -92,42 +92,80 @@ public class ControlCommand {
     private void listenCommands() {
         LOOGER.info("Action Search Button entry");
 
-        // For Size getting Criteria[0], Size[1] and Type[2] from UI
-        String criteriaOfSize = "major to:";
-        String sizeOfSize = commandCriteria.getSize();
-        String typeOfSize = "bit";
-        Long size = 0L;
-
         // Converting Size to bytes for Model
-        if (typeOfSize.equalsIgnoreCase("bit") && !sizeOfSize.isEmpty()) {
-            size = Long.parseLong(sizeOfSize);
-        }
+        Long size = 0L;
+        /** if (tam!=null) {
+         size = Long.parseLong(tam);
+         }**/
 
         // YOU NEED IMPLEMENT FOR KB, MB and GB HERE
-
+        Date[] dateCreation = convertDate(dateValidation(commandCriteria.getDateCreation()));
+        Date[] dateModified = convertDate(dateValidation(commandCriteria.getDateModified()));
+        Date[] dateLastAccess = convertDate(dateValidation(commandCriteria.getDateLastAccess()));
         // Adding to SearchCriteria and Validating some data
-       this.searchCriteria = new com.fundation.search.controller.builder.SearchCriteriaBuilder()
+        this.searchCriteria = new com.fundation.search.controller.builder.SearchCriteriaBuilder()
                 .pathCriteria(this.pathValidation(commandCriteria.getPath()))
                 .fileName(this.nameValidation(commandCriteria.getFileName()))
                 .hiddenCriteria(commandCriteria.getIsHidden())
                 .fileNameCriteria(commandCriteria.getCriteriaName())
                 .ownerCriteria(commandCriteria.getOwner())
                 .isReadCriteria(Boolean.valueOf(commandCriteria.getReadOnly()))
-                .creationDateCriteria(this.dateValidation(new Date("01/01/1999"))
-                        , this.dateValidation(new Date()))
-                .modifiedDateCriteria(this.dateValidation(new Date("01/01/1999"))
-                        , this.dateValidation(new Date()))
-                .lastAccessDateCriteria(this.dateValidation(new Date("01/01/1999"))
-                        , this.dateValidation(new Date()))
-                .sizeCriteria(criteriaOfSize, size, typeOfSize)
-                .isDirectoryCriteria(false)
-                .extensionCriteria("")
+                .creationDateCriteria(contentDate(dateCreation[0]), contentDate(dateCreation[1]))
+                .modifiedDateCriteria(contentDate(dateModified[0]), contentDate(dateModified[1]))
+                .lastAccessDateCriteria(contentDate(dateLastAccess[0]), contentDate(dateLastAccess[1]))
+                .sizeCriteria("", size, "")
+                .isDirectoryCriteria(Boolean.valueOf(commandCriteria.getIsDirectory()))
+                .extensionCriteria(commandCriteria.getExtension())
                 .build();
 
         // Shown results
         this.getResults(searchCriteria);
 
         LOOGER.info("Action Search Button exit");
+    }
+
+    /**
+     * This method convertDate to FileDate.
+     *
+     * @param date Date of File.
+     * @return FileTime, return validated date on FileTime format.
+     */
+    private FileTime contentDate(Date date) {
+        LOOGER.info("ConvertDate to FileDate");
+        return converter.convertDateToFileDate(date);
+    }
+
+    /**
+     * This method convertString to String[].
+     *
+     * @param date dates.
+     * @return String []dates.
+     */
+    private String[] dateValidation(String date) {
+        LOOGER.info("dateValidation entry");
+        String[] listDate = date.split(" ");
+        if (listDate.length == 3) {
+            if (validateInputs.isValidDate(listDate[0]) &&
+                    validateInputs.isValidDate(listDate[2])) {
+                return listDate;
+            }
+        }
+        LOOGER.info("dateValidation exit");
+        return new String[3];
+    }
+
+    /**
+     * This method convertDate to FileDate.
+     *
+     * @param dates String dates.
+     */
+    private Date[] convertDate(String[] dates) {
+        LOOGER.info("dates ConvertDate entry");
+        Date[] dateList = new Date[2];
+        dateList[0] = converter.convertStringToDate(dates[0]);
+        dateList[1] = converter.convertStringToDate(dates[2]);
+        LOOGER.info("dates ConvertDate exit");
+        return dateList;
     }
 
     /**
@@ -220,7 +258,7 @@ public class ControlCommand {
         dataFromAsset[6] = converter.convertFileDateToDate(file.getLastModifiedTime());
         dataFromAsset[7] = converter.convertFileDateToDate(file.getLastAccessTime());
         dataFromAsset[8] = String.valueOf(file.getIsReadOnlyFile());
-        dataFromAsset[9]=String.valueOf(file.getIsDirectory());
+        dataFromAsset[9] = String.valueOf(file.getIsDirectory());
 
         LOOGER.info("getDataFromAsset Exit");
         return dataFromAsset;

@@ -75,6 +75,7 @@ public class SearchCommand {
         criteriaList.add("-dm");//modifiedDate
         criteriaList.add("-dl");//dateLastAccess
         criteriaList.add("-ro");//readOnly
+        criteriaList.add("-ex");//readOnly
         LOOGER.info("AddCriterias exit");
     }
 
@@ -84,10 +85,10 @@ public class SearchCommand {
      * @param args command line list
      */
     public boolean validateCommandFormat(String[] args) {
-         LOOGER.info("ValidateCommandFormat entry");
+        LOOGER.info("ValidateCommandFormat entry");
         for (int i = 0; i < args.length; i += 2) {
             if (!criteriaList.contains(args[i])) {
-                 LOOGER.info("ValidateCommandFormat with invalid criteria");
+                LOOGER.info("ValidateCommandFormat with invalid criteria");
                 if (args[i].equals("-helper")) {
                     CommandHelper helper = new CommandHelper();
                     helper.printHelper();

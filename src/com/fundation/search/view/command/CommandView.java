@@ -39,7 +39,7 @@ public class CommandView {
         System.out.print("----------------------------------------------------------------------------------");
         System.out.print("RESULTS----------------------------------------------------------------------------------");
         System.out.println();
-        System.out.print(String.format("%s %-70s %2s %-80s %2s %-6s %2s %-15s %2s", " ", "NAME", "|", "PATH", "|", "HIDDEN", "|", "SIZE", "|"));
+        System.out.print(String.format("%s %-70s %2s %-100s %2s %-6s %2s %-15s %2s", " ", "NAME", "|", "PATH", "|", "HIDDEN", "|", "SIZE", "|"));
         System.out.print(String.format("%-30s %2s %-13s %2s %-13s %2s %-16s", "OWNER", "|", "CREATION DATE", "|", "MODIFIED DATE", "|", "LAST ACCESS DATE"));
         System.out.print(String.format("%2s %-9s %2s %-6s", "|", "READ ONLY", "|", "IS DIRECTORY"));
         System.out.println();
@@ -54,7 +54,7 @@ public class CommandView {
      */
     public void printRows(String[] row) {
         LOOGER.info("Constructor Command Criteria entry");
-        System.out.print(String.format("%s %-70s %2s %-80s %2s %-6s %2s %-15s %2s", " ", row[0], "|", row[1], "|", row[2], "|", row[3], "|"));
+        System.out.print(String.format("%s %-70s %2s %-100s %2s %-6s %2s %-15s %2s", " ", row[0], "|", row[1], "|", row[2], "|", row[3], "|"));
         System.out.print(String.format("%-30s %2s %-13s %2s %-13s %2s %-16s", row[4], "|", row[5], "|", row[6], "|", row[7]));
         System.out.print(String.format("%2s %-9s %2s %-6s", "|", row[8], "|", row[9]));
         System.out.println();

@@ -107,4 +107,24 @@ public class Convertor {
         LOOGER.info("convertFileDateToDate Exit");
         return fileTime != null ? df.format(fileTime.toMillis()) : null;//"01/01/1999";
     }
+    /**
+     * This method convert String to Date.
+     *
+     * @param date This is a String.
+     * @return Date this is date converted.
+     */
+    public Date convertStringToDate(String date) {
+        LOOGER.info("convertStringToDate Entry");
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        Date fechaDate = null;
+        try {
+            if (date != null) {
+                fechaDate = formato.parse(date);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        LOOGER.info("convertStringToDate Exit");
+        return fechaDate;
+    }
 }

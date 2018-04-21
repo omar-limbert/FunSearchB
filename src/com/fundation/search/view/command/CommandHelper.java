@@ -40,6 +40,7 @@ public class CommandHelper {
         System.out.println(String.format("%10s %5s %-25s %-20s", "-f", " ", "[\"file name\"]", "List files with \"file name\""));
         System.out.println(String.format("%10s %5s %-25s %-20s", "-o", " ", "[\"owner name\"]", "List files with \"owner name\""));
         System.out.println(String.format("%10s", "[criteria][options]"));
+        System.out.println(String.format("%10s %5s %-25s %-20s", "-cf", " ", "", "List files with a criteria file name "));
         System.out.println(String.format("%10s %5s %-25s %-20s", " ", " ", "[\"start with\"]", "List files with \"Star with file name\""));
         System.out.println(String.format("%10s %5s %-25s %-20s", " ", " ", "[\"end with\"]", "List files with \"End with file name\""));
         System.out.println(String.format("%10s %5s %-25s %-20s", " ", " ", "[\"equal to\"]", "List files with \"Equal to file name\""));
