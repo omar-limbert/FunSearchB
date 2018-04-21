@@ -24,15 +24,20 @@ import java.util.Date;
  */
 public class FileResult extends Asset {
 
+    private String textSample;
     private String extensionFile;
 
-    public FileResult (String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, boolean readFile, FileTime lastModifiedTime, FileTime creationTime, FileTime lastAccessTime, String ownerFile, boolean isReadOnly, boolean isFileSystem, boolean isDirectory, String intoFile, String extensionFile){
-        super( pathFile,  nameFile,  sizeFile,  isHiddenFile,  readFile,  lastModifiedTime,  creationTime,  lastAccessTime,  ownerFile,  isReadOnly,  isFileSystem,  isDirectory,  intoFile);
+    public FileResult (String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, FileTime lastModifiedTime, FileTime creationTime, FileTime lastAccessTime, String ownerFile, boolean isReadOnly, boolean isFileSystem, boolean isDirectory, String extensionFile,String textSample){
+        super( pathFile,  nameFile,  sizeFile,  isHiddenFile,  lastModifiedTime,  creationTime,  lastAccessTime,  ownerFile,  isReadOnly,  isFileSystem,  isDirectory);
+        this.textSample = textSample;
         this.extensionFile = extensionFile;
-
     }
 
+    public String getTextSample() {
+        return textSample;
+    }
     public String getExtensionFile() {
         return extensionFile;
     }
+
 }

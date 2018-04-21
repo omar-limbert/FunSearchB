@@ -26,12 +26,17 @@ public class MultimediaResult extends Asset{
      * Constructor for FileResult.
      */
     private double duration;
-    public MultimediaResult (String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, boolean readFile, FileTime lastModifiedTime, FileTime creationTime, FileTime lastAccessTime, String ownerFile, boolean isReadOnly, double duration){
-        super( pathFile,  nameFile,  sizeFile,  isHiddenFile,  readFile,  lastModifiedTime,  creationTime,  lastAccessTime,  ownerFile,  isReadOnly, false,false,"");
+    private String extensionFile;
+    public MultimediaResult (String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, FileTime lastModifiedTime, FileTime creationTime, FileTime lastAccessTime, String ownerFile, boolean isReadOnly, boolean isFileSystem, boolean isDirectory, double duration, String extensionFile){
+        super( pathFile,  nameFile,  sizeFile,  isHiddenFile,  lastModifiedTime,  creationTime,  lastAccessTime,  ownerFile,  isReadOnly,  isFileSystem,  isDirectory);
         this.duration = duration;
+        this.extensionFile = extensionFile;
     }
 
     public double getDuration() {
         return this.duration;
+    }
+    public String getExtensionFile() {
+        return extensionFile;
     }
 }
