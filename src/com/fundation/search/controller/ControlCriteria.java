@@ -19,10 +19,13 @@ import com.fundation.search.common.Validator;
 import com.fundation.search.controller.builder.SearchCriteria;
 import com.fundation.search.model.Search;
 import com.fundation.search.model.asset.Asset;
+import com.fundation.search.model.asset.FileResult;
+import com.fundation.search.model.asset.MultimediaResult;
 import com.fundation.search.view.MainSearchWindows;
 
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
+import java.io.File;
 import java.nio.file.attribute.FileTime;
 import java.util.Date;
 import java.util.HashMap;
@@ -388,8 +391,6 @@ public class ControlCriteria {
         search.initSearch();
 
         // Adding row to Table of Result
-        search.getResultList().forEach(e-> System.out.println(e.getName()));
-
         search.getResultList().forEach(e -> searchWindows.insertDataOfJTableResult(this.getDataFromAsset(e)));
         LOOGER.info("Get Result Exit");
     }
@@ -402,6 +403,7 @@ public class ControlCriteria {
 
     private Object[] getDataFromAsset(Asset file) {
         //LOOGER.info("getDataFromAsset Entry");
+
         // Object[] for create row and sent this to table result on User Interface
         Object[] dataFromAsset = new Object[15]; // number of columns
         // Getting data for table result
@@ -411,7 +413,10 @@ public class ControlCriteria {
         dataFromAsset[3] = file.getIsReadOnlyFile();
         dataFromAsset[4] = file.getIsFileSystemFile();
         dataFromAsset[5] = file.getIsDirectory();
-        dataFromAsset[6] = file.getExtensionFile();
+        if(file instanceof FileResult){
+            dataFromAsset[6] = ((FileResult) file).getExtensionFile();
+        }
+
         dataFromAsset[7] = file.getSizeFile();
         dataFromAsset[8] = file.getOwnerFile();
         dataFromAsset[9] = converter.convertFileDateToDate(file.getCreationTime());

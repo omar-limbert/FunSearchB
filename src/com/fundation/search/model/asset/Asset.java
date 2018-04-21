@@ -27,54 +27,56 @@ public class Asset {
      * pathFile is the file path
      */
     private String pathFile;
+
     /**
      * nameFile is the file name
      */
     private String nameFile;
+
     /**
      * sizeFile is the file tam
      */
     private long sizeFile;
+
     /**
      * isHiddenFile is the file state hidden/no hidden
      */
     private boolean isHiddenFile;
+
     /**
      * lastModifiedTime the last access.
      */
     private FileTime lastModifiedTime;
+
     /**
      * creationTime the last creatin.
      */
     private FileTime creationTime;
+
     /**
      * lastAccessTime the last access.
      */
     private FileTime lastAccessTime;
+
     /**
      * isReadOnly if the file state isReadOnly/no isReadOnly.
      */
     private boolean isReadOnly;
+
     /**
      * isFileSystem if the file state isFileSystem/no isFileSystem.
      */
     private boolean isFileSystem;
+
     /**
      * isDirectory if the file state isDirectory/no isDirectory.
      */
     private boolean isDirectory;
+
     /**
      * ownerFile the name of the owner.
      */
     private String ownerFile;
-    /**
-     * The text for made a search.
-     */
-    private String intoFile;
-    /**
-     * The Type of extension.
-     */
-
 
     /**
      * FileResult constructor.
@@ -84,8 +86,7 @@ public class Asset {
      * @param sizeFile     lenght file.
      * @param isHiddenFile state hidden file.
      */
-//FileTime lastModifiedTimeInit, FileTime lastModifiedTimeEnd, FileTime creationTimeInit , FileTime creationTimeEnd, FileTime lastAccessTimeInit, FileTime lastAccessTimeEnd
-    public Asset(String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, boolean readFile, FileTime lastModifiedTime, FileTime creationTime, FileTime lastAccessTime, String ownerFile, boolean isReadOnly, boolean isFileSystem, boolean isDirectory, String intoFile) {
+    public Asset(String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, FileTime lastModifiedTime, FileTime creationTime, FileTime lastAccessTime, String ownerFile, boolean isReadOnly, boolean isFileSystem, boolean isDirectory) {
         this.pathFile = pathFile;
         this.nameFile = nameFile;
         this.sizeFile = sizeFile;
@@ -97,8 +98,6 @@ public class Asset {
         this.isReadOnly = isReadOnly;
         this.isFileSystem = isFileSystem;
         this.isDirectory = isDirectory;
-        this.intoFile = intoFile;
-
     }
 
     /**
@@ -172,32 +171,11 @@ public class Asset {
     }
 
     /**
-     * This method return the text into the file.
-     */
-    public String getIntoFile() {
-        return intoFile;
-    }
-
-    /**
      * This method return the name of the owner.
      */
     public String getOwnerFile() {
         return ownerFile;
     }
 
-    /**
-     * This method return the extension on a file.
-     */
-    public String getExtensionFile() {
-        return this.getExtensionFile();
-    }
 
-    public int getCantFiles(){
-        return  this.getCantFiles();
-    }
-
-    public double getDuration (){
-        return this.getDuration();
-
-    }
 }
