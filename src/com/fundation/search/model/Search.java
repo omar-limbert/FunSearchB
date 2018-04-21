@@ -465,8 +465,8 @@ public class Search {
 
     /**
      * @param e A list of files.
-     *          
-     * @return a list of files it depend of the criteria.
+     *
+     * @return a list of files it depend of the criteria..
      */
     private Asset createFileResult(File e) {
         FileResult result = null;
