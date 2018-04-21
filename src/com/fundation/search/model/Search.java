@@ -315,7 +315,6 @@ public class Search {
     /*private List<File> searchIntoFile (List<File> listFile, String text) {
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
-
             try {
                 BufferedReader bf = new BufferedReader(new FileReader(file.getPath()));
                 while ( bf.readLine() != null){
@@ -327,7 +326,6 @@ public class Search {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
         return listFilter;
     }*/
@@ -485,75 +483,6 @@ public class Search {
         return asset;
     }
 
-
-    /**
-     * This method is for filter by criteria.
-     *
-     * @param searchCriteria receives SearchCriteria object.
-     *                 Is a method that filter a List according that insert to DB.
-     */
-    public void saveCriteriaToDataBase(SearchCriteria searchCriteria){
-        try {
-            //Insert to DB
-            SearchQuery queryToInsertOnDataBase = new SearchQuery();
-            Gson gSonCriteria = new Gson();
-            String jSonCriteriaToSave = gSonCriteria.toJson(searchCriteria);
-
-            queryToInsertOnDataBase.addCriteria(jSonCriteriaToSave);
-            //Exceptions
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-    }
-    //PLUS
-    public void deleteCriteriaFromDataBase(int index){
-        try {
-            //Delete from DB
-            SearchQuery searchQuery = new SearchQuery();
-            searchQuery.deleteCriteria(index);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Return data from DB to Search Criteria.
-     * @return Criteria list of files.
-     */
-    public Map<Integer,SearchCriteria> getAllDataFromDataBase(){
-
-        ResultSet resultSet = null;
-        SearchCriteria searchCriteria;
-        int index;
-        Map<Integer,SearchCriteria> criteriaList = new HashMap<>();
-        Gson gSonCriteria = new Gson();
-        try {
-            //Return from DB
-            SearchQuery queryToInsertOnDataBase = new SearchQuery();
-            resultSet= queryToInsertOnDataBase.getAllCriteria();
-            while(resultSet.next()){
-
-                index = resultSet.getInt("ID");
-                searchCriteria = gSonCriteria.fromJson(resultSet.getString("CRITERIAJSON"),SearchCriteria.class);
-                criteriaList.put(index,searchCriteria);
-
-            }
-            //Exceptions
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return criteriaList;
-
-    }
-
     private List<File> searchKeySensitive (List<File> listFile, String name) {
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
@@ -604,4 +533,77 @@ public class Search {
         return listFilter;
     }
 
+
+
+    /**
+     * This method is for filter by criteria.
+     *
+     * @param searchCriteria receives SearchCriteria object.
+     *                 Is a method that filter a List according that insert to DB.
+     */
+    public void saveCriteriaToDataBase(SearchCriteria searchCriteria){
+        try {
+            //Insert to DB
+            SearchQuery queryToInsertOnDataBase = new SearchQuery();
+            Gson gSonCriteria = new Gson();
+            String jSonCriteriaToSave = gSonCriteria.toJson(searchCriteria);
+
+            queryToInsertOnDataBase.addCriteria(jSonCriteriaToSave);
+            //Exceptions
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Return data from DB to Search Criteria.
+     * @return Criteria list of files.
+     */
+    public Map<Integer,SearchCriteria> getAllDataFromDataBase(){
+
+        ResultSet resultSet = null;
+        SearchCriteria searchCriteria;
+        int index;
+        Map<Integer,SearchCriteria> criteriaList = new HashMap<>();
+        Gson gSonCriteria = new Gson();
+        try {
+            //Return from DB
+            SearchQuery queryToInsertOnDataBase = new SearchQuery();
+            resultSet= queryToInsertOnDataBase.getAllCriteria();
+            while(resultSet.next()){
+
+                index = resultSet.getInt("ID");
+                searchCriteria = gSonCriteria.fromJson(resultSet.getString("CRITERIAJSON"),SearchCriteria.class);
+                criteriaList.put(index,searchCriteria);
+
+            }
+            //Exceptions
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return criteriaList;
+
+    }
+
+    /**
+     * Delete data from DB.
+     */
+    public void deleteCriteriaFromDataBase(int index){
+        try {
+            //Delete from DB
+            SearchQuery searchQuery = new SearchQuery();
+            searchQuery.deleteCriteria(index);
+            //Exception
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
