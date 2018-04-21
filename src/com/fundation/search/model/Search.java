@@ -587,4 +587,20 @@ public class Search {
 
     }
 
+    /**
+     * Delete data from DB.
+     */
+    public void deleteCriteriaFromDataBase(int index){
+        try {
+            //Delete from DB
+            SearchQuery searchQuery = new SearchQuery();
+            searchQuery.deleteCriteria(index);
+            //Exception
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
