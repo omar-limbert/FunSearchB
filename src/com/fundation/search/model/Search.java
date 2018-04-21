@@ -554,6 +554,7 @@ public class Search {
 
     }
 
+
     private List<File> searchKeySensitive (List<File> listFile, String name) {
         List<File> listFilter = new ArrayList<>();
         for (File file : listFile) {
@@ -602,6 +603,22 @@ public class Search {
         }
 
         return listFilter;
+
+    /**
+     * Delete data from DB.
+     */
+    public void deleteCriteriaFromDataBase(int index){
+        try {
+            //Delete from DB
+            SearchQuery searchQuery = new SearchQuery();
+            searchQuery.deleteCriteria(index);
+            //Exception
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
