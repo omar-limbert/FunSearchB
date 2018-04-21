@@ -13,20 +13,22 @@
  */
 package com.fundation.search.model;
 
-import com.fundation.search.common.Convertor;
 import com.fundation.search.controller.builder.SearchCriteria;
 import com.fundation.search.model.asset.Asset;
 import com.fundation.search.model.asset.AssetFactory;
 import com.fundation.search.model.asset.FileResult;
 import com.fundation.search.model.database.SearchQuery;
 import com.google.gson.Gson;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.DosFileAttributes;
@@ -91,7 +93,7 @@ public class Search {
      * @return list all the files that contains the name of a file.
      */
     private List<File> searchByName(List<File> listFile, String nameFile, String fileNameCriteria) {
-        if (fileNameCriteria.equalsIgnoreCase("all words" )|| fileNameCriteria.isEmpty() ) {
+        if (fileNameCriteria.equalsIgnoreCase("all words") || fileNameCriteria.isEmpty()) {
             listFile.removeIf(e -> (!e.getName().contains(nameFile)));
         }
         if (fileNameCriteria.equalsIgnoreCase("start with")) {
@@ -353,7 +355,7 @@ public class Search {
                     FileInputStream fis = new FileInputStream(file.getPath());
                     XWPFDocument xdoc = new XWPFDocument(OPCPackage.open(fis));
                     XWPFWordExtractor extractor = new XWPFWordExtractor(xdoc);
-                    if(extractor.getText().contains(text)){
+                    if (extractor.getText().contains(text)) {
                         listFilter.add(file);
                     }
 
@@ -437,9 +439,7 @@ public class Search {
             if (criteria.getIsFileSystem()) {
                 fileList = isFileSystem(fileList);
             }
-            /*if (criteria.getKeySensitiveOfCriteria()) {
-                fileList = searchKeySensitive(fileList, criteria.getName());
-            }*/
+
 
             if (criteria.getExtension() != null) {
                 fileList = searchByExtension(fileList, criteria.getExtension());
@@ -463,10 +463,13 @@ public class Search {
             if (!criteria.getOwnerCriteria().isEmpty()) {
                 fileList = searchByOwner(fileList, criteria.getOwnerCriteria());
             }
-           /* if (criteria.getIsContainsInsideFileCriteria()) {
+            if (criteria.getKeySensitiveOfCriteria()) {
+                fileList = searchKeySensitive(fileList, criteria.getName());
+
+            }
+            if (criteria.getIsContainsInsideFileCriteria()) {
                 fileList = searchIntoFile(fileList, criteria.getTextContainsInsideFileCriteria());
-            }*/
-            fileList = searchIntoFile(fileList, "arbol");
+            }
         }
     }
 
@@ -513,7 +516,13 @@ public class Search {
             DosFileAttributes fileAttributes1 = Files.readAttributes(e.toPath(), DosFileAttributes.class);
             FileOwnerAttributeView fileAttributes2 = Files.getFileAttributeView(e.toPath(), FileOwnerAttributeView.class);
 
-            asset = assetFactory.buildAsset("file", e.getPath(), e.getName(), e.length(), e.isHidden(), e.canRead(), fileAttributes.lastModifiedTime(), fileAttributes.creationTime(), fileAttributes.lastAccessTime(), fileAttributes2.getOwner().getName(), fileAttributes1.isReadOnly(), fileAttributes1.isSystem(), fileAttributes.isDirectory(), "", e.getName());
+
+            if (e.isDirectory()) {
+                asset = assetFactory.buildAsset("folder", e.getPath(), e.getName(), e.length(), e.isHidden(), e.canRead(), fileAttributes.lastModifiedTime(), fileAttributes.creationTime(), fileAttributes.lastAccessTime(), fileAttributes2.getOwner().getName(), fileAttributes1.isReadOnly(), fileAttributes1.isSystem(), fileAttributes.isDirectory(), "", e.getName(), 25, 25.2);
+            } else {
+                asset = assetFactory.buildAsset("file", e.getPath(), e.getName(), e.length(), e.isHidden(), e.canRead(), fileAttributes.lastModifiedTime(), fileAttributes.creationTime(), fileAttributes.lastAccessTime(), fileAttributes2.getOwner().getName(), fileAttributes1.isReadOnly(), fileAttributes1.isSystem(), fileAttributes.isDirectory(), "", e.getName(), 25, 25.2);
+            }
+
 
         } catch (IOException e1) {
             e1.printStackTrace();
@@ -576,22 +585,6 @@ public class Search {
         }
         return criteriaList;
 
-    }
-
-    /**
-     * Delete data from DB.
-     */
-    public void deleteCriteriaFromDataBase(int index){
-        try {
-            //Delete from DB
-            SearchQuery searchQuery = new SearchQuery();
-            searchQuery.deleteCriteria(index);
-            //Exception
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
 }
