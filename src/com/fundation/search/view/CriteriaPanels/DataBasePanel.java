@@ -15,7 +15,6 @@ package com.fundation.search.view.CriteriaPanels;
 
 import com.fundation.search.common.SearchLogger;
 
-
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 import javax.swing.JTable;
@@ -145,5 +144,14 @@ public class DataBasePanel extends JPanel {
      */
     public JTable getDataBaseTableResult() {
         return dataBaseCenterPanel.getDataBaseTableResult();
+    }
+
+    /**
+     * This method is for return Delete JButton.
+     *
+     * @return JButton, this is Delete button of Data Base
+     */
+    public JButton getDeleteButtonOnDataBasePanel() {
+        return this.dataBaseSouthPanel.getDeleteButtonOnDataBasePanel();
     }
 }

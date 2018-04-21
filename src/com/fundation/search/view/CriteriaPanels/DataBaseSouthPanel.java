@@ -15,8 +15,7 @@ package com.fundation.search.view.CriteriaPanels;
 
 import com.fundation.search.common.SearchLogger;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.FlowLayout;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.util.logging.Logger;
@@ -44,9 +43,9 @@ public class DataBaseSouthPanel extends JPanel {
     private JButton fillButton;
 
     /**
-     * constraints, Type: GridBagConstraints, this is initialize GridBag Layout.
+     * fillButton, Type: JButton, this button is for delete dara from Data base.
      */
-    private GridBagConstraints constraints;
+    private JButton deleteButton;
 
     /**
      * Constructor for DataBaseNorthPanel.
@@ -68,8 +67,8 @@ public class DataBaseSouthPanel extends JPanel {
         LOOGER.info("Get init components");
         this.loadButton = new JButton("Load");
         this.fillButton = new JButton("Fill");
-        this.constraints = new GridBagConstraints();
-        this.setLayout(new GridBagLayout());
+        this.deleteButton = new JButton("Delete");
+        this.setLayout(new FlowLayout());
         LOOGER.info("components exit");
     }
 
@@ -79,17 +78,13 @@ public class DataBaseSouthPanel extends JPanel {
     private void addComponents() {
         LOOGER.info("Get add Components Entry");
         // Adding loadButton to first row.
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        constraints.gridwidth = 1;
-        constraints.gridheight = 1;
-        this.add(loadButton, constraints);
+        this.add(loadButton);
+
         // Adding fillButton to first row.
-        constraints.gridx = 1;
-        constraints.gridy = 0;
-        constraints.gridwidth = 1;
-        constraints.gridheight = 1;
-        this.add(fillButton, constraints);
+        this.add(fillButton);
+
+        // Adding deleteButton to first row.
+        this.add(deleteButton);
         LOOGER.info("add Components exit");
     }
 
@@ -111,5 +106,14 @@ public class DataBaseSouthPanel extends JPanel {
     public JButton getFillButtonOnDataBasePanel() {
         LOOGER.info("Get Fill button of Data Base Panel");
         return fillButton;
+    }
+
+    /**
+     * This method is for return Delete JButton.
+     *
+     * @return JButton, this is Delete button of Data Base
+     */
+    public JButton getDeleteButtonOnDataBasePanel() {
+        return deleteButton;
     }
 }

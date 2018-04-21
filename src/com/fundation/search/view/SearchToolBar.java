@@ -37,18 +37,22 @@ public class SearchToolBar extends JToolBar {
     /**
      * Init logger  in SearchToolBar
      */
+
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
     /**
      * toggleButtonCollection, Type: Collection<JToggleButton>, this is a collection of buttons.
      */
+
     private Collection<JToggleButton> toggleButtonCollection;
     /**
      * action, Type: String, this is action of one button.
      */
+
     private String action;
     /**
      * criteriaPanel, Type: CriteriaPanel, this criteria panel.
      */
+
     private CriteriaPanel criteriaPanel;
     /**
      * panelList, Type: Map<String, JPanel>, this is a Map of panels.

@@ -137,4 +137,13 @@ public class BottomPanel extends JPanel {
     public JTable getDataBaseTableResult() {
         return dataBasePanel.getDataBaseTableResult();
     }
+
+    /**
+     * This method is for return Delete JButton.
+     *
+     * @return JButton, this is Delete button of Data Base
+     */
+    public JButton getDeleteButtonOnDataBasePanel() {
+        return this.dataBasePanel.getDeleteButtonOnDataBasePanel();
+    }
 }
