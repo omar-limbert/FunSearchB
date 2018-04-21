@@ -560,7 +560,7 @@ public class Search {
 
     /**
      * Return data from DB to Search Criteria.
-     * @return Criteria list of files.
+     * @return Criteria list of files..
      */
     public Map<Integer,SearchCriteria> getAllDataFromDataBase(){
 
