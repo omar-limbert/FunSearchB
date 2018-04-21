@@ -11,3 +11,5 @@
 *.log
 *.class
 *.lck
+*.md
+*.txt
