@@ -15,10 +15,9 @@
 package com.fundation.search.view.CriteriaPanels;
 
 import com.fundation.search.common.SearchLogger;
+import com.fundation.search.view.SearchTextField;
 
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
+import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.logging.Logger;
@@ -37,9 +36,9 @@ public class SizePanel extends JPanel {
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
-     * sizeTextField, Type: JTextField, this is a JTextField for contains final size result.
+     * sizeTextField, Type: SearchTextField, this is a JTextField for contains final size result.
      */
-    private JTextField sizeTextField;
+    private SearchTextField sizeTextField;
 
     /**
      * sizeComboBox, Type: JComboBox, this is a JComboBox for contains final size.
@@ -50,6 +49,11 @@ public class SizePanel extends JPanel {
      * majorMinorComboBox, Type: JComboBox, this is a JComboBox for contains major.
      */
     private JComboBox majorMinorComboBox;
+
+    /**
+     * sizeLabel, Type: JLabel, this is Label for size
+     */
+    private JLabel sizeLabel;
 
     /**
      * Constructor for SizePanel.
@@ -69,17 +73,18 @@ public class SizePanel extends JPanel {
     private void initComponents() {
         LOOGER.info("Get init");
         // Iniatilize
-        this.sizeTextField = new JTextField();
-        sizeTextField.setPreferredSize(new Dimension(80, 25));
+        this.sizeTextField = new SearchTextField("Size");
+        this.sizeLabel = new JLabel("Size :");
+        this.sizeTextField.setPreferredSize(new Dimension(100, 32));
         this.sizeComboBox = new JComboBox();
-        sizeComboBox.addItem("bit");
-        sizeComboBox.addItem("Kb");
-        sizeComboBox.addItem("Mb");
-        sizeComboBox.addItem("Gb");
+        this.sizeComboBox.addItem("bit");
+        this.sizeComboBox.addItem("Kb");
+        this.sizeComboBox.addItem("Mb");
+        this.sizeComboBox.addItem("Gb");
         this.majorMinorComboBox = new JComboBox();
-        majorMinorComboBox.addItem("Equals:");
-        majorMinorComboBox.addItem("Major to:");
-        majorMinorComboBox.addItem("Minor to:");
+        this.majorMinorComboBox.addItem("Equals:");
+        this.majorMinorComboBox.addItem("Major to:");
+        this.majorMinorComboBox.addItem("Minor to:");
         LOOGER.info("init exit");
 
     }
@@ -89,6 +94,7 @@ public class SizePanel extends JPanel {
      */
     private void addComponents() {
         LOOGER.info("Get init");
+        this.add(sizeLabel);
         this.add(majorMinorComboBox);
         this.add(sizeTextField);
         this.add(sizeComboBox);

@@ -17,12 +17,12 @@ import com.fundation.search.common.SearchLogger;
 import com.fundation.search.view.CriteriaPanels.CriteriaPanel;
 import com.fundation.search.view.SearchTextField;
 import com.fundation.search.view.SearchToolBar;
+import com.sun.xml.internal.ws.client.sei.ResponseBuilder;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -37,6 +37,11 @@ public class TopPanel extends JPanel {
      * Init logger  in Top Panel
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
+
+    /**
+     * Separator of System
+     */
+    private static final String SEPARATOR = System.getProperty("file.separator");
 
     /**
      * searchTextField, Type: SearchTextField, this is input for initialize search.
@@ -72,16 +77,15 @@ public class TopPanel extends JPanel {
      * Constructor for TopPanel.
      * This method is for initialize searchButton, setting layout and repaint panel.
      *
-     * @param placeHolderText This is text for place holder.
      */
-    public TopPanel(String placeHolderText) {
+    public TopPanel() {
         LOOGER.info("Get top panel Entry");
-        this.searchButton = new JButton();
-        this.searchButton.setText("Search");
+        this.searchButton = new JButton(new ImageIcon(System.getProperty("user.dir")+SEPARATOR+"resources"+SEPARATOR+"icons"+SEPARATOR+"search.png"));
+        this.searchButton.setOpaque(true);
         //setup layout
         this.constraints = new GridBagConstraints();
         this.setLayout(new GridBagLayout());
-        this.initComponents(placeHolderText);
+        this.initComponents();
         this.addComponents();
         this.repaint();
         LOOGER.info("top panel exit");
@@ -90,16 +94,15 @@ public class TopPanel extends JPanel {
     /**
      * This method is for initialize all components.
      *
-     * @param placeHolderText This is text for place holder.
      */
-    private void initComponents(String placeHolderText) {
+    private void initComponents() {
         LOOGER.info("Get init components");
         // Dynamic criteria JPanel.
         this.criteriaPanel = new CriteriaPanel();
         // JLabel "Search".
         this.searchJLabel = new JLabel("Search: ");
         // JTextField with place holder.
-        this.searchTextField = new SearchTextField(placeHolderText);
+        this.searchTextField = new SearchTextField("Searching...");
         // JToolbar with all buttons
         this.toolbar = new SearchToolBar(criteriaPanel);
         LOOGER.info("components exit");
@@ -110,35 +113,28 @@ public class TopPanel extends JPanel {
      */
     private void addComponents() {
         LOOGER.info("Get add Components Entry");
-        // Adding Search JLabel to first row.
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        constraints.gridwidth = 1;
-        constraints.gridheight = 1;
-        this.add(searchJLabel, constraints);
-        // Adding Search SearchJTextField to first row.
+
+        JPanel searchComponents = new JPanel(new FlowLayout());
+        searchComponents.add(searchJLabel);
+        searchComponents.add(searchTextField);
+        searchComponents.add(searchButton);
+
         constraints.gridx = 1;
         constraints.gridy = 0;
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
-        this.add(searchTextField, constraints);
-        // Adding Search JButton to first row.
-        constraints.gridx = 2;
-        constraints.gridy = 0;
-        constraints.gridwidth = 1;
-        constraints.gridheight = 1;
-        this.add(searchButton, constraints);
+        this.add(searchComponents, constraints);
         // Second Row only for add toolbar buttons.
         constraints.gridx = 0;
         constraints.gridy = 1;
-        constraints.gridwidth = 3;
+        constraints.gridwidth = 2;
         constraints.gridheight = 1;
         this.add(toolbar, constraints);
         // Third Row only for add criteria dynamic JPanel.
         constraints.gridx = 0;
         constraints.gridy = 2;
-        constraints.gridwidth = 3;
-        constraints.gridheight = 3;
+        constraints.gridwidth = 2;
+        constraints.gridheight = 1;
         this.add(criteriaPanel, constraints);
         LOOGER.info("add Components exit");
     }
@@ -532,5 +528,80 @@ public class TopPanel extends JPanel {
      */
     public void setTextContainsInsideFileCriteria(String textContainsInsideFileCriteria) {
         this.toolbar.setTextContainsInsideFileCriteria(textContainsInsideFileCriteria);
+    }
+
+    public void resetAllDataOfDataDBTable() {
+        LOOGER.info("reset all data of table data base result");
+        this.toolbar.resetAllDataOfDataDBTable();
+        LOOGER.info("reset all data of table result exit");
+    }
+
+    public void insertRowToDataBaseTableResult(Object[] row) {
+        LOOGER.info("Insert data to Data Base table result");
+        this.toolbar.insertRowToDataBaseTableResult(row);
+    }
+
+    public String getNameOfCriteriaToSaveOnDataBase() {
+        LOOGER.info("Get name of criteria");
+        return toolbar.getNameOfCriteriaToSaveOnDataBase();
+    }
+
+    /**
+     * This method return Save JButton on Data Base Panel.
+     *
+     * @return JButton, this is a JButton on Data Base pane.
+     */
+    public JButton getSaveButtonOnDataBasePanel() {
+        LOOGER.info("Get Save button of Data Base Panel");
+        return toolbar.getSaveButtonOnDataBasePanel();
+    }
+
+    /**
+     * This method return Load JButton on Data Base Panel.
+     *
+     * @return JButton, this is a JButton on Data Base pane.
+     */
+    public JButton getLoadButtonOnDataBasePanel() {
+        LOOGER.info("Get Load button of Data Base Panel");
+        return toolbar.getLoadButtonOnDataBasePanel();
+    }
+
+    /**
+     * This method return Fill JButton on Data Base Panel.
+     *
+     * @return JButton, this is a JButton on Data Base pane.
+     */
+    public JButton getFillButtonOnDataBasePanel() {
+        LOOGER.info("Get Fill button of Data Base Panel");
+        return toolbar.getFillButtonOnDataBasePanel();
+    }
+
+    /**
+     * This method return selection model of Data Base Table result.
+     * Controller need use this.
+     *
+     * @return JButton, this is a JButton on Data Base pane.
+     */
+    public ListSelectionModel getSelectionModel() {
+        return toolbar.getSelectionModel();
+    }
+
+    /**
+     * This method return Data Base Table result.
+     * Controller need use this.
+     *
+     * @return JTable, this is a Data Base JTable.
+     */
+    public JTable getDataBaseTableResult() {
+        return toolbar.getDataBaseTableResult();
+    }
+
+    /**
+     * This method is for return Delete JButton.
+     *
+     * @return JButton, this is Delete button of Data Base
+     */
+    public JButton getDeleteButtonOnDataBasePanel() {
+        return this.toolbar.getDeleteButtonOnDataBasePanel();
     }
 }

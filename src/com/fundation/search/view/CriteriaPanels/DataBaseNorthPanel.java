@@ -18,9 +18,7 @@ import com.fundation.search.view.SearchTextField;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.*;
 import java.util.logging.Logger;
 
 /**
@@ -30,6 +28,7 @@ import java.util.logging.Logger;
  * @version 1.0.
  */
 public class DataBaseNorthPanel extends JPanel {
+
     /**
      * Init logger  in Top Panel
      */
@@ -63,6 +62,7 @@ public class DataBaseNorthPanel extends JPanel {
         LOOGER.info("Get top panel Entry");
         this.saveToDBButton = new JButton();
         this.saveToDBButton.setText("Search");
+
         //setup layout
         this.constraints = new GridBagConstraints();
         this.setLayout(new GridBagLayout());

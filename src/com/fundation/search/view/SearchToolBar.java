@@ -16,15 +16,9 @@ package com.fundation.search.view;
 import com.fundation.search.common.SearchLogger;
 import com.fundation.search.view.CriteriaPanels.*;
 
-import javax.swing.JPanel;
-import javax.swing.JToolBar;
-import javax.swing.JToggleButton;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.Collection;
-import java.util.Vector;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -39,6 +33,10 @@ public class SearchToolBar extends JToolBar {
      */
 
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
+    /**
+     * Separator of System
+     */
+    private static final String SEPARATOR = System.getProperty("file.separator");
     /**
      * toggleButtonCollection, Type: Collection<JToggleButton>, this is a collection of buttons.
      */
@@ -90,6 +88,11 @@ public class SearchToolBar extends JToolBar {
     private static final TypePanel TYPE_PANEL = new TypePanel();
 
     /**
+     * DB_PANEL, Type: DatePanel, this Type criteria Panel.
+     */
+    private static final DataBasePanel DB_PANEL = new DataBasePanel();
+
+    /**
      * Constructor for SearchToolBar.
      * This method is for initialize toggleButtonCollection, action, criteriaPanel and panelList.
      */
@@ -122,6 +125,7 @@ public class SearchToolBar extends JToolBar {
         this.addButtonToToggleCollection("Size");
         this.addButtonToToggleCollection("Owner");
         this.addButtonToToggleCollection("Date");
+        this.addButtonToToggleCollection("Data Base");
         // you need implements others buttons here.
         // Adding action listeners for all buttons
         this.addActionListeners();
@@ -156,6 +160,13 @@ public class SearchToolBar extends JToolBar {
             this.addingCriteriaPanelToActionListenerButton();
         } else {
             this.removingCriteriaPanelToActionListenerButton();
+        }
+
+        // updating buttons
+        for(JToggleButton toggleButton: toggleButtonCollection){
+            if(!toggleButton.equals(sourceButton)){
+                toggleButton.setSelected(false);
+            }
         }
         criteriaPanel.addComponent(panelList);
         LOOGER.info("addActionListeners of buttons exit");
@@ -194,6 +205,9 @@ public class SearchToolBar extends JToolBar {
         if (action.equalsIgnoreCase("Date")) {
             panelList.remove(action);
         }
+        if (action.equalsIgnoreCase("Data Base")) {
+            panelList.remove(action);
+        }
         LOOGER.info("remove criteria listener of buttons exit");
     }
 
@@ -202,6 +216,7 @@ public class SearchToolBar extends JToolBar {
      */
     private void addingCriteriaPanelToActionListenerButton() {
         LOOGER.info("add criteria panel  action of button");
+        panelList = new HashMap<>();
         // Adding "All Tags Panel Criteria"
         if (action.equalsIgnoreCase("All Tags")) {
             panelList.put("File Name", FILE_NAME_PANEL);
@@ -212,6 +227,7 @@ public class SearchToolBar extends JToolBar {
             panelList.put("Date", DATE_PANEL);
             panelList.put("Type", TYPE_PANEL);
         }
+
         // Adding "File Name Panel Criteria"
         if (action.equalsIgnoreCase("File Name")) {
             panelList.put(action, FILE_NAME_PANEL);
@@ -240,6 +256,11 @@ public class SearchToolBar extends JToolBar {
         if (action.equalsIgnoreCase("Type")) {
             panelList.put(action, TYPE_PANEL);
         }
+
+        if (action.equalsIgnoreCase("Data Base")) {
+            System.out.println(action+" ===");
+            panelList.put(action, DB_PANEL);
+        }
         LOOGER.info("exit criteria panel  action of button");
     }
 
@@ -252,9 +273,41 @@ public class SearchToolBar extends JToolBar {
     private void addButtonToToggleCollection(String nameOfJToggleButton) {
         LOOGER.info("add button to toggle collection");
         JToggleButton buttonToAddCollection = new JToggleButton(nameOfJToggleButton);
+        this.updateIcon(buttonToAddCollection,nameOfJToggleButton);
         this.add(buttonToAddCollection);
         this.toggleButtonCollection.add(buttonToAddCollection);
         LOOGER.info("exit button to toggle collection");
+    }
+
+    private void updateIcon(JToggleButton buttonToAddCollection, String nameOfJToggleButton) {
+        if("All Tags".equalsIgnoreCase(nameOfJToggleButton)){
+            buttonToAddCollection.setIcon(new ImageIcon(System.getProperty("user.dir")+SEPARATOR+"resources"+SEPARATOR+"icons"+SEPARATOR+"alltags.png"));
+        }
+        if("Path".equalsIgnoreCase(nameOfJToggleButton)){
+            buttonToAddCollection.setIcon(new ImageIcon(System.getProperty("user.dir")+SEPARATOR+"resources"+SEPARATOR+"icons"+SEPARATOR+"path.png"));
+        }
+        if("Hidden".equalsIgnoreCase(nameOfJToggleButton)){
+            buttonToAddCollection.setIcon(new ImageIcon(System.getProperty("user.dir")+SEPARATOR+"resources"+SEPARATOR+"icons"+SEPARATOR+"hidden.png"));
+        }
+        if("Size".equalsIgnoreCase(nameOfJToggleButton)){
+            buttonToAddCollection.setIcon(new ImageIcon(System.getProperty("user.dir")+SEPARATOR+"resources"+SEPARATOR+"icons"+SEPARATOR+"size.png"));
+        }
+        if("Owner".equalsIgnoreCase(nameOfJToggleButton)){
+            buttonToAddCollection.setIcon(new ImageIcon(System.getProperty("user.dir")+SEPARATOR+"resources"+SEPARATOR+"icons"+SEPARATOR+"owner.png"));
+        }
+        if("Date".equalsIgnoreCase(nameOfJToggleButton)){
+            buttonToAddCollection.setIcon(new ImageIcon(System.getProperty("user.dir")+SEPARATOR+"resources"+SEPARATOR+"icons"+SEPARATOR+"date.png"));
+        }
+        if("Type".equalsIgnoreCase(nameOfJToggleButton)){
+            buttonToAddCollection.setIcon(new ImageIcon(System.getProperty("user.dir")+SEPARATOR+"resources"+SEPARATOR+"icons"+SEPARATOR+"type.png"));
+        }
+        if("Data Base".equalsIgnoreCase(nameOfJToggleButton)){
+            buttonToAddCollection.setIcon(new ImageIcon(System.getProperty("user.dir")+SEPARATOR+"resources"+SEPARATOR+"icons"+SEPARATOR+"database.png"));
+        }
+        if("File Name".equalsIgnoreCase(nameOfJToggleButton)){
+            buttonToAddCollection.setIcon(new ImageIcon(System.getProperty("user.dir")+SEPARATOR+"resources"+SEPARATOR+"icons"+SEPARATOR+"name.png"));
+        }
+
     }
 
     /**
@@ -618,5 +671,80 @@ public class SearchToolBar extends JToolBar {
      */
     public void setTextContainsInsideFileCriteria(String textContainsInsideFileCriteria) {
         this.FILE_NAME_PANEL.setTextContainsInsideFileCriteria(textContainsInsideFileCriteria);
+    }
+
+    public void resetAllDataOfDataDBTable() {
+        LOOGER.info("reset all data of table data base result");
+        this.DB_PANEL.resetAllDataOfDataDBTable();
+        LOOGER.info("reset all data of table result exit");
+    }
+
+    public void insertRowToDataBaseTableResult(Object[] row) {
+        LOOGER.info("Insert data to Data Base table result");
+        this.DB_PANEL.insertRowToDataBaseTableResult(row);
+    }
+
+    public String getNameOfCriteriaToSaveOnDataBase() {
+        LOOGER.info("Get name of criteria");
+        return DB_PANEL.getNameOfCriteriaToSaveOnDataBase();
+    }
+
+    /**
+     * This method return Save JButton on Data Base Panel.
+     *
+     * @return JButton, this is a JButton on Data Base pane.
+     */
+    public JButton getSaveButtonOnDataBasePanel() {
+        LOOGER.info("Get Save button of Data Base Panel");
+        return DB_PANEL.getSaveButtonOnDataBasePanel();
+    }
+
+    /**
+     * This method return Load JButton on Data Base Panel.
+     *
+     * @return JButton, this is a JButton on Data Base pane.
+     */
+    public JButton getLoadButtonOnDataBasePanel() {
+        LOOGER.info("Get Load button of Data Base Panel");
+        return DB_PANEL.getLoadButtonOnDataBasePanel();
+    }
+
+    /**
+     * This method return Fill JButton on Data Base Panel.
+     *
+     * @return JButton, this is a JButton on Data Base pane.
+     */
+    public JButton getFillButtonOnDataBasePanel() {
+        LOOGER.info("Get Fill button of Data Base Panel");
+        return DB_PANEL.getFillButtonOnDataBasePanel();
+    }
+
+    /**
+     * This method return selection model of Data Base Table result.
+     * Controller need use this.
+     *
+     * @return JButton, this is a JButton on Data Base pane.
+     */
+    public ListSelectionModel getSelectionModel() {
+        return DB_PANEL.getSelectionModel();
+    }
+
+    /**
+     * This method return Data Base Table result.
+     * Controller need use this.
+     *
+     * @return JTable, this is a Data Base JTable.
+     */
+    public JTable getDataBaseTableResult() {
+        return DB_PANEL.getDataBaseTableResult();
+    }
+
+    /**
+     * This method is for return Delete JButton.
+     *
+     * @return JButton, this is Delete button of Data Base
+     */
+    public JButton getDeleteButtonOnDataBasePanel() {
+        return this.DB_PANEL.getDeleteButtonOnDataBasePanel();
     }
 }

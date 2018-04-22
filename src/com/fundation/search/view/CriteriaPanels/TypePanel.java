@@ -14,6 +14,7 @@
 package com.fundation.search.view.CriteriaPanels;
 
 import com.fundation.search.common.SearchLogger;
+import com.fundation.search.view.SearchTextField;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -38,7 +39,7 @@ public class TypePanel extends JPanel {
     /**
      * typeTextField, Type: JTextField, this is a JTextField for contains final type result.
      */
-    private JTextField typeTextField;
+    private SearchTextField typeTextField;
 
     /**
      * TypeLabelField, Type: JLabel, this is a JLabel for contains type label.
@@ -63,9 +64,9 @@ public class TypePanel extends JPanel {
     private void initComponents() {
         LOOGER.info("Get init");
         //Initialize
-        this.TypeLabelField = new JLabel("Type: ");
-        this.typeTextField = new JTextField();
-        typeTextField.setPreferredSize(new Dimension(40, 25));
+        this.TypeLabelField = new JLabel("Type of File :");
+        this.typeTextField = new SearchTextField(".pdf");
+        this.typeTextField.setPreferredSize(new Dimension(75, 32));
         LOOGER.info("init exit");
     }
 
