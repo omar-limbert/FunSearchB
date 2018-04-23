@@ -22,8 +22,8 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 /**
- * This class is a class that validate the command
- * format and return a map with criteria to search files.
+ * This class validate the command line format
+ * and return a criterias with criterias to search files.
  *
  * @author J Christian Galarza Crespo
  * @author Escarleth Ledezma Q.
@@ -35,13 +35,15 @@ public class SearchCommand {
      */
     private List<String> criteriaList;
     /**
-     * map contains the criteria and value .
+     * criterias contains the criterias and value .
      */
-    private Map<String, String> map;
+    private Map<String, String> criterias;
     /**
      * Logger create a instance of logger.
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
+
+    private String[] commandLine;
 
     /**
      * Init the constructor.
@@ -50,10 +52,10 @@ public class SearchCommand {
      */
     public SearchCommand(String[] args) {
         LOOGER.info("Init Constructor SearchCommand");
+        commandLine = args;
         criteriaList = new ArrayList<>();
-        map = new HashMap<>();
         this.addCriterias();
-        this.validateCommand(args);
+        this.validateCommand();
         LOOGER.info("Exit Constructor SearchCommand");
     }
 
@@ -75,21 +77,19 @@ public class SearchCommand {
         criteriaList.add("-dm");//modifiedDate
         criteriaList.add("-dl");//dateLastAccess
         criteriaList.add("-ro");//readOnly
-        criteriaList.add("-ex");//readOnly
+        criteriaList.add("-ex");//extension
         LOOGER.info("AddCriterias exit");
     }
 
     /**
-     * Validate if the command line has criterias(criteria-value) and create helper.
-     *
-     * @param args command line list
+     * Validate if the command line has valid criterias in the correct position
+     * and if contains -helper, create CommandHelper object.
      */
-    public boolean validateCommandFormat(String[] args) {
+    public boolean validateCommandCriteria() {
         LOOGER.info("ValidateCommandFormat entry");
-        for (int i = 0; i < args.length; i += 2) {
-            if (!criteriaList.contains(args[i])) {
-                LOOGER.info("ValidateCommandFormat with invalid criteria");
-                if (args[i].equals("-helper")) {
+        for (int i = 0; i < commandLine.length; i += 2) {
+            if (!criteriaList.contains(commandLine[i])) {
+                if (commandLine[i].equals("-help")) {
                     CommandHelper helper = new CommandHelper();
                     helper.printHelper();
                 }
@@ -101,23 +101,21 @@ public class SearchCommand {
     }
 
     /**
-     * Validate if the command line doesn´t have duplicated criterias and fill the map
+     * Validate if the command line doesn´t have duplicated criterias and fill the criterias
      * with citeria and values
-     *
-     * @param args command line list
      */
-    public boolean criteriaValidatorDuplicated(String[] args) {
-        LOOGER.info("criteriaValidatorDuplicated entry");
+    public boolean addCriteriaWithoutDuplicated() {
+        criterias = new HashMap<>();
+        LOOGER.info("addCriteriaWithoutDuplicated entry");
         try {
-            for (int i = 0; i < args.length; i += 2) {
-                if (map.containsKey(args[i])) {
-                    LOOGER.info("criteriaValidatorDuplicated criteriaDuplicated");
+            for (int i = 0; i < commandLine.length; i += 2) {
+                if (criterias.containsKey(commandLine[i])) {
                     return false;
                 } else {
-                    map.put(args[i], args[i + 1]);
+                    criterias.put(commandLine[i], commandLine[i + 1]);
                 }
             }
-            LOOGER.info("criteriaValidatorDuplicated exit");
+            LOOGER.info("addCriteriaWithoutDuplicated exit");
             return true;
         } catch (IndexOutOfBoundsException e) {
             return false;
@@ -125,25 +123,23 @@ public class SearchCommand {
     }
 
     /**
-     * Impress a message if the command is valid.
-     *
-     * @param args command line list
+     * Impress "Please,Write -help for help" message if the command is invalid.
      */
-    public void validateCommand(String[] args) {
+    public void validateCommand() {
         LOOGER.info("ValidateCommand entry");
-        if (!validateCommandFormat(args) || !criteriaValidatorDuplicated(args)) {
-            map = new HashMap<>();
-            System.out.println("Please,Write -helper for help");
+        if (!validateCommandCriteria() || !addCriteriaWithoutDuplicated()) {
+            criterias = new HashMap<>();
+            System.out.println("Please,Write \"-help\" for help");
         }
         LOOGER.info("ValidateCommand exit");
     }
 
     /**
-     * return the filled map if the command is valid
+     * return criterias map.
      */
     public Map<String, String> getMapToSearch() {
         LOOGER.info("GetMapToSearch entry");
-        return map;
+        return criterias;
     }
 
 }

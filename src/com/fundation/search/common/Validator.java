@@ -86,7 +86,6 @@ public class Validator {
 
     /**
      * It method checks if the input is a valid Type (extension of the file) format.
-     * NOTE: this method need improve.
      *
      * @param type a format file extension name.
      * @return true if it is a valid format for a extension.
@@ -160,6 +159,56 @@ public class Validator {
         }
         LOOGER.info("Exit Validator");
         return result;
+    }
+
+    /**
+     * this method compares the options allowed in command line
+     * for the search by size.
+     *
+     * @param optionSize command size.
+     * @return optionSize validated
+     */
+    public boolean isOptionSize(String optionSize) {
+        return optionSize.equalsIgnoreCase("Minor to:") ||
+                optionSize.equalsIgnoreCase("Major to:") ||
+                optionSize.equalsIgnoreCase("Equals to:");
+    }
+
+    /**
+     * this method compares the options allowed in command line
+     * for the search by hidden files.
+     *
+     * @param optionHidden command hidden.
+     * @return optionHidden validated
+     */
+    public boolean isOptionHidden(String optionHidden) {
+        return optionHidden.equalsIgnoreCase("only hidden") ||
+                optionHidden.equalsIgnoreCase("without hidden");
+    }
+
+    /**
+     * this method compares the options allowed in command line
+     * for the search by criteria file name.
+     *
+     * @param criteriaFileName command criteriaFileName.
+     * @return criteriaFileName validated
+     */
+    public boolean isOptionCriteriaFileName(String criteriaFileName) {
+        return criteriaFileName.equalsIgnoreCase("start with") ||
+                criteriaFileName.equalsIgnoreCase("end with") ||
+                criteriaFileName.equalsIgnoreCase("equal to");
+    }
+
+    /**
+     * this method compares the options allowed in command line
+     * for the search by isReadOnly/isDirectory.
+     *
+     * @param criteria true/false.
+     * @return criteria validated
+     */
+    public boolean isTrueFalse(String criteria) {
+        return criteria.equalsIgnoreCase("true") ||
+                criteria.equalsIgnoreCase("false");
     }
 
 }

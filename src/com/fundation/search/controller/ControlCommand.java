@@ -23,7 +23,6 @@ import com.fundation.search.view.command.CommandCriteria;
 import com.fundation.search.view.command.CommandView;
 import com.fundation.search.view.command.SearchCommand;
 
-import java.nio.file.attribute.FileTime;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -92,30 +91,27 @@ public class ControlCommand {
     private void listenCommands() {
         LOOGER.info("Action Search Button entry");
 
-        // Converting Size to bytes for Model
-        Long size = 0L;
-        /** if (tam!=null) {
-         size = Long.parseLong(tam);
-         }**/
-
-        // YOU NEED IMPLEMENT FOR KB, MB and GB HERE
-        Date[] dateCreation = convertDate(dateValidation(commandCriteria.getDateCreation()));
-        Date[] dateModified = convertDate(dateValidation(commandCriteria.getDateModified()));
-        Date[] dateLastAccess = convertDate(dateValidation(commandCriteria.getDateLastAccess()));
+        Date[] dateCreation = converter.convertDate(dateValidation(commandCriteria.getDateCreation()));
+        Date[] dateModified = converter.convertDate(dateValidation(commandCriteria.getDateModified()));
+        Date[] dateLastAccess = converter.convertDate(dateValidation(commandCriteria.getDateLastAccess()));
+        String[] getSize = splitGetSize(commandCriteria.getSize());
+        System.out.println(getSize[0] + " :1");
+        System.out.println(converter.convertSizeStringToLong(getSize[1], getSize[2]) + " :2");
+        System.out.println(getSize[2] + " :3");
         // Adding to SearchCriteria and Validating some data
         this.searchCriteria = new com.fundation.search.controller.builder.SearchCriteriaBuilder()
                 .pathCriteria(this.pathValidation(commandCriteria.getPath()))
                 .fileName(this.nameValidation(commandCriteria.getFileName()))
-                .hiddenCriteria(commandCriteria.getIsHidden())
-                .fileNameCriteria(commandCriteria.getCriteriaName())
+                .hiddenCriteria(isHiddenValidation(commandCriteria.getIsHidden()))
+                .fileNameCriteria(fileNameCriteriaValidation(commandCriteria.getCriteriaName()))
                 .ownerCriteria(commandCriteria.getOwner())
-                .isReadCriteria(Boolean.valueOf(commandCriteria.getReadOnly()))
-                .creationDateCriteria(contentDate(dateCreation[0]), contentDate(dateCreation[1]))
-                .modifiedDateCriteria(contentDate(dateModified[0]), contentDate(dateModified[1]))
-                .lastAccessDateCriteria(contentDate(dateLastAccess[0]), contentDate(dateLastAccess[1]))
-                .sizeCriteria("", size, "")
-                .isDirectoryCriteria(Boolean.valueOf(commandCriteria.getIsDirectory()))
-                .extensionCriteria(commandCriteria.getExtension())
+                .isReadCriteria(isTrueFalseValidation(commandCriteria.getReadOnly()))
+                .creationDateCriteria(converter.convertDateToFileDate(dateCreation[0]), converter.convertDateToFileDate(dateCreation[1]))
+                .modifiedDateCriteria(converter.convertDateToFileDate(dateModified[0]), converter.convertDateToFileDate(dateModified[1]))
+                .lastAccessDateCriteria(converter.convertDateToFileDate(dateLastAccess[0]), converter.convertDateToFileDate(dateLastAccess[1]))
+                .sizeCriteria(getSize[0], converter.convertSizeStringToLong(getSize[1], getSize[2]), getSize[2])
+                .isDirectoryCriteria(isTrueFalseValidation(commandCriteria.getIsDirectory()))
+                .extensionCriteria(extensionFileValidation(commandCriteria.getExtension()))
                 .build();
 
         // Shown results
@@ -125,20 +121,32 @@ public class ControlCommand {
     }
 
     /**
-     * This method convertDate to FileDate.
+     * This method  split the command size
+     * Minor to:/Major to:/Equals to obtain:
+     * tam size
+     * bytes/kb/mb/gb
      *
-     * @param date Date of File.
-     * @return FileTime, return validated date on FileTime format.
+     * @param sizeCommand dates.
+     * @return String []dates.
      */
-    private FileTime contentDate(Date date) {
-        LOOGER.info("ConvertDate to FileDate");
-        return converter.convertDateToFileDate(date);
+    public String[] splitGetSize(String sizeCommand) {
+        String[] parts = sizeCommand.split(":");
+        String[] valueCommand = new String[3];
+        if (parts.length == 2 && validateInputs.isOptionSize(parts[0].concat(":"))) {
+            valueCommand[0] = parts[0].concat(":");
+            valueCommand[1] = parts[1].replaceAll("[^.0-9]+", "");
+            valueCommand[2] = parts[1].replaceAll("[^a-zA-Z]+", "");
+        }
+        return valueCommand;
     }
 
     /**
-     * This method convertString to String[].
+     * This method split and validate the date command in:
+     * dd/MM/yyyy
+     * to
+     * dd/MM/yyyy
      *
-     * @param date dates.
+     * @param date command date.
      * @return String []dates.
      */
     private String[] dateValidation(String date) {
@@ -155,32 +163,14 @@ public class ControlCommand {
     }
 
     /**
-     * This method convertDate to FileDate.
+     * This method validate Path.
      *
-     * @param dates String dates.
+     * @param pathOfCriteria Path of file.
+     * @return String return Path validated.
      */
-    private Date[] convertDate(String[] dates) {
-        LOOGER.info("dates ConvertDate entry");
-        Date[] dateList = new Date[2];
-        dateList[0] = converter.convertStringToDate(dates[0]);
-        dateList[1] = converter.convertStringToDate(dates[2]);
-        LOOGER.info("dates ConvertDate exit");
-        return dateList;
-    }
-
-    /**
-     * This method validate Date.
-     *
-     * @param creationDateInit Date of Creation of File.
-     * @return FileTime, return validated date on FileTime format.
-     */
-    private FileTime dateValidation(Date creationDateInit) {
-        LOOGER.info("dateValidation Entry");
-        if (validateInputs.isValidDate(creationDateInit.toString())) {
-            return converter.convertDateToFileDate(creationDateInit);
-        }
-        LOOGER.info("dateValidation Exit");
-        return converter.convertDateToFileDate(creationDateInit);
+    private String pathValidation(String pathOfCriteria) {
+        LOOGER.info("pathValidation Entry");
+        return validateInputs.isValidPath(pathOfCriteria) ? pathOfCriteria : null;
     }
 
     /**
@@ -191,26 +181,51 @@ public class ControlCommand {
      */
     private String nameValidation(String searchText) {
         LOOGER.info("nameValidation Entry");
-        if (validateInputs.isValidFile(searchText)) {
-            return searchText;
-        }
-        LOOGER.info("nameValidation Exit");
-        return "";
+        return validateInputs.isValidFile(searchText) ? searchText : "";
     }
 
     /**
-     * This method validate Path.
+     * This method validate if is a hidden criteria.
      *
-     * @param pathOfCriteria Path of file.
-     * @return String return Path validated.
+     * @param hiddenCriteria (only hidden/without hidden) .
+     * @return String return hiddenCriteria validated.
      */
-    private String pathValidation(String pathOfCriteria) {
+    private String isHiddenValidation(String hiddenCriteria) {
         LOOGER.info("pathValidation Entry");
-        if (validateInputs.isValidPath(pathOfCriteria)) {
-            return pathOfCriteria;
-        }
-        LOOGER.info("pathValidation Exit");
-        return null;
+        return validateInputs.isOptionHidden(hiddenCriteria) ? hiddenCriteria : "";
+    }
+
+    /**
+     * This method validate a criteria file name.
+     *
+     * @param criteriaName criteria file name(start with,end with,all words).
+     * @return String criteria file name validated.
+     */
+    private String fileNameCriteriaValidation(String criteriaName) {
+        LOOGER.info("fileNameCriteriaValidation" + criteriaName);
+        return validateInputs.isOptionCriteriaFileName(criteriaName) ? criteriaName : "";
+    }
+
+    /**
+     * This method validate if a criteria is true or false.
+     *
+     * @param criteria true or false.
+     * @return boolean criteria validated.
+     */
+    private boolean isTrueFalseValidation(String criteria) {
+        LOOGER.info("isTrueFalseValidation " + criteria);
+        return validateInputs.isTrueFalse(criteria) ? Boolean.parseBoolean(criteria) : false;
+    }
+
+    /**
+     * This method validate the structure extension file.
+     *
+     * @param extension is the extension file.
+     * @return String extension validated.
+     */
+    private String extensionFileValidation(String extension) {
+        LOOGER.info("isTrueFalseValidation " + extension);
+        return validateInputs.isValidFileExtension(extension) ? extension : "";
     }
 
     /**
@@ -233,8 +248,10 @@ public class ControlCommand {
 
         // Init CommandView
         CommandView commandView = new CommandView();
+        if (!search.getResultList().isEmpty()) {
+            commandView.printHeader();
+        }
         // Adding row to Table of Result
-        commandView.printColumn();
         search.getResultList().forEach(e -> commandView.printRows(this.getDataFromAsset(e)));
         LOOGER.info("Get Result Exit");
     }

@@ -15,7 +15,6 @@
 package com.fundation.search.view.command;
 
 import com.fundation.search.common.SearchLogger;
-import com.fundation.search.common.table.SimpleConsoleTable;
 
 import java.util.logging.Logger;
 
@@ -34,16 +33,16 @@ public class CommandView {
     /**
      * Print header results.
      */
-    public void printColumn() {
-        LOOGER.info("Print Colum entry");
+    public void printHeader() {
+        LOOGER.info("Print Column entry");
         System.out.print("----------------------------------------------------------------------------------");
         System.out.print("RESULTS----------------------------------------------------------------------------------");
         System.out.println();
-        System.out.print(String.format("%s %-70s %2s %-100s %2s %-6s %2s %-15s %2s", " ", "NAME", "|", "PATH", "|", "HIDDEN", "|", "SIZE", "|"));
+        System.out.print(String.format("%s %-70s %2s %-100s %2s %-6s %2s %-15s %2s", " ", "NAME", "|", "PATH", "|", "HIDDEN", "|", "SIZE (Bytes)", "|"));
         System.out.print(String.format("%-30s %2s %-13s %2s %-13s %2s %-16s", "OWNER", "|", "CREATION DATE", "|", "MODIFIED DATE", "|", "LAST ACCESS DATE"));
         System.out.print(String.format("%2s %-9s %2s %-6s", "|", "READ ONLY", "|", "IS DIRECTORY"));
         System.out.println();
-        LOOGER.info("Print Colum exit");
+        LOOGER.info("Print Column exit");
     }
 
     /**
