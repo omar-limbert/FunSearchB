@@ -17,6 +17,7 @@ import com.fundation.search.controller.builder.SearchCriteria;
 import com.fundation.search.model.asset.Asset;
 import com.fundation.search.model.asset.AssetFactory;
 import com.fundation.search.model.asset.FileResult;
+import com.fundation.search.model.asset.FolderResult;
 import com.fundation.search.model.database.SearchQuery;
 import com.google.gson.Gson;
 import org.apache.poi.openxml4j.opc.OPCPackage;
@@ -58,6 +59,7 @@ public class Search {
      */
     private List<Asset> assetList;
     private AssetFactory assetFactory;
+
     /**
      * Search Class constructor.
      */
@@ -100,8 +102,26 @@ public class Search {
                         , "");
 
                 assetList.add(asset);
+
                 if (file.isDirectory()) {
-                    searchByPath(file.getPath());
+                    if (asset instanceof FolderResult) {
+
+                        asset = assetFactory.getAsset(file.getPath()
+                                , file.getName()
+                                , fileBasicAttributes.size()
+                                , file.isHidden()
+                                , fileBasicAttributes.lastModifiedTime()
+                                , fileBasicAttributes.creationTime()
+                                , fileBasicAttributes.lastAccessTime()
+                                , file.canRead()
+                                , isFileSystem
+                                , fileBasicAttributes.isDirectory()
+                                , ownerFile
+                                , 15);
+
+                        assetList.add(asset);
+                        searchByPath(file.getPath());
+                    }
                 }
             }
         } catch (NullPointerException e) {
@@ -146,23 +166,23 @@ public class Search {
         List<Asset> listFilter = new ArrayList<>();
         for (Asset file : listFile) {
 
-                if (operator.equalsIgnoreCase("upper")) {
-                    if (file.getSizeFile() > size) {
-                        listFilter.add(file);
-                    }
+            if (operator.equalsIgnoreCase("upper")) {
+                if (file.getSizeFile() > size) {
+                    listFilter.add(file);
                 }
+            }
 
-                if (operator.equalsIgnoreCase("lower")) {
-                    if (file.getSizeFile() < size) {
-                        listFilter.add(file);
-                    }
+            if (operator.equalsIgnoreCase("lower")) {
+                if (file.getSizeFile() < size) {
+                    listFilter.add(file);
                 }
+            }
 
-                if (operator.equalsIgnoreCase("equal")) {
-                    if (file.getSizeFile() == size) {
-                        listFilter.add(file);
-                    }
+            if (operator.equalsIgnoreCase("equal")) {
+                if (file.getSizeFile() == size) {
+                    listFilter.add(file);
                 }
+            }
 
         }
 
@@ -198,9 +218,9 @@ public class Search {
     private List<Asset> lastModifiedTime(List<Asset> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
         List<Asset> listFilter = new ArrayList<>();
         for (Asset file : listFile) {
-                if ((file.getLastModifiedTime().toMillis() >= dateConditionInt.toMillis() && file.getLastModifiedTime().toMillis() <= dateConditionEnd.toMillis())) {
-                    listFilter.add(file);
-                }
+            if ((file.getLastModifiedTime().toMillis() >= dateConditionInt.toMillis() && file.getLastModifiedTime().toMillis() <= dateConditionEnd.toMillis())) {
+                listFilter.add(file);
+            }
         }
         return listFilter;
     }
@@ -214,9 +234,9 @@ public class Search {
     private List<Asset> creationTime(List<Asset> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
         List<Asset> listFilter = new ArrayList<>();
         for (Asset file : listFile) {
-                if ((file.getCreationTime().toMillis() >= dateConditionInt.toMillis() && file.getCreationTime().toMillis() <= dateConditionEnd.toMillis())) {
-                    listFilter.add(file);
-                }
+            if ((file.getCreationTime().toMillis() >= dateConditionInt.toMillis() && file.getCreationTime().toMillis() <= dateConditionEnd.toMillis())) {
+                listFilter.add(file);
+            }
         }
 
         return listFilter;
@@ -232,9 +252,9 @@ public class Search {
     private List<Asset> lastAccessTime(List<Asset> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
         List<Asset> listFilter = new ArrayList<>();
         for (Asset file : listFile) {
-                if ((file.getLastAccessTime().toMillis() >= dateConditionInt.toMillis() && file.getLastAccessTime().toMillis() <= dateConditionEnd.toMillis())) {
-                    listFilter.add(file);
-                }
+            if ((file.getLastAccessTime().toMillis() >= dateConditionInt.toMillis() && file.getLastAccessTime().toMillis() <= dateConditionEnd.toMillis())) {
+                listFilter.add(file);
+            }
         }
 
         return listFilter;
@@ -248,9 +268,9 @@ public class Search {
 
         List<Asset> listFilter = new ArrayList<>();
         for (Asset file : listFile) {
-                if (file.getIsReadOnlyFile()) {
-                    listFilter.add(file);
-                }
+            if (file.getIsReadOnlyFile()) {
+                listFilter.add(file);
+            }
         }
 
         return listFilter;
@@ -263,9 +283,9 @@ public class Search {
     private List<Asset> isFileSystem(List<Asset> listFile) {
         List<Asset> listFilter = new ArrayList<>();
         for (Asset file : listFile) {
-                if (file.getIsFileSystemFile()) {
-                    listFilter.add(file);
-                }
+            if (file.getIsFileSystemFile()) {
+                listFilter.add(file);
+            }
         }
 
         return listFilter;
@@ -278,9 +298,9 @@ public class Search {
     private List<Asset> searchByDirectory(List<Asset> listFile) {
         List<Asset> listFilter = new ArrayList<>();
         for (Asset file : listFile) {
-                if (file.getIsDirectory()) {
-                    listFilter.add(file);
-                }
+            if (file.getIsDirectory()) {
+                listFilter.add(file);
+            }
         }
         return listFilter;
     }
@@ -314,46 +334,52 @@ public class Search {
         return listFilter;
     }
 
-   /* private List<Asset> searchIntoFile(List<Asset> listFile, String text) {
+    private List<Asset> searchIntoFile(List<Asset> listFile, String text) throws IOException {
+        File fileToSearch = null;
         List<Asset> listFilter = new ArrayList<>();
         Scanner sc = null;
         for (Asset file : listFile) {
-            if (file.getName().endsWith(".txt")) {
+            if (file instanceof FileResult) {
+                fileToSearch = new File(file.getPathFile());
+                // this.searchInto(listFilter,fileToSearch, text);
+                if (fileToSearch.getName().endsWith(".txt")) {
+                    try {
 
-                try {
-                    sc = new Scanner(new FileReader(file));
-                    while (sc.hasNextLine()) {
-                        if (sc.nextLine().contains(text)) {
-                            listFilter.add(file);
+                        sc = new Scanner(new FileReader(fileToSearch));
+
+                        while (sc.hasNextLine()) {
+                            if (sc.nextLine().contains(text)) {
+                                listFilter.add(file);
+                            }
                         }
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
                     }
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
                 }
 
             }
-
-            if (file.getName().endsWith(".docx")) {
+            if (fileToSearch.getName().endsWith(".docx")) {
 
                 try {
 
-                    FileInputStream fis = new FileInputStream(file.getPathFile());
+                    FileInputStream fis = new FileInputStream(fileToSearch.getPath());
                     XWPFDocument xdoc = new XWPFDocument(OPCPackage.open(fis));
                     XWPFWordExtractor extractor = new XWPFWordExtractor(xdoc);
                     if (extractor.getText().contains(text)) {
                         listFilter.add(file);
                     }
-
                 } catch (Exception ex) {
                     return null;
 
                 }
-
             }
 
+
         }
+
+
         return listFilter;
-    }*/
+    }
 
     /**
      * This method is for search files by Owner.
@@ -364,9 +390,9 @@ public class Search {
     private List<Asset> searchByOwner(List<Asset> listFile, String owner) {
         List<Asset> listFilter = new ArrayList<>();
         for (Asset file : listFile) {
-                if (file.getOwnerFile().equalsIgnoreCase(owner)) {
-                    listFilter.add(file);
-                }
+            if (file.getOwnerFile().equalsIgnoreCase(owner)) {
+                listFilter.add(file);
+            }
         }
 
         return listFilter;
@@ -379,7 +405,7 @@ public class Search {
      *                 Is a method that filter a List according that receive of SearchCriteria.
      */
     private void filterByCriteria(SearchCriteria criteria) {
-
+        assetList = new ArrayList<Asset>();
 
         if (criteria.getPath() != null) {
             assetList = searchByPath(criteria.getPath());
@@ -449,9 +475,13 @@ public class Search {
                 assetList = searchKeySensitive(assetList, criteria.getName());
 
             }
-            /*if (criteria.getIsContainsInsideFileCriteria()) {
-                assetList = searchIntoFile(assetList, criteria.getTextContainsInsideFileCriteria());
-            }*/
+            if (criteria.getIsContainsInsideFileCriteria()) {
+                try {
+                    assetList = searchIntoFile(assetList, "arbol"/*criteria.getTextContainsInsideFileCriteria()*/);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
