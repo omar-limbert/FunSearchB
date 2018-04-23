@@ -66,7 +66,7 @@ public class DataBaseCenterPanel extends JPanel {
         this.add(dataBaseCriteriaTable, BorderLayout.CENTER);
         this.add(header, BorderLayout.NORTH);
         this.add(new JScrollPane(dataBaseCriteriaTable));
-
+        this.setPreferredSize(new Dimension(200,200));
         this.dataBaseCriteriaTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
 

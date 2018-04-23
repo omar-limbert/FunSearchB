@@ -47,9 +47,6 @@ public class CriteriaPanel extends JPanel {
         LOOGER.info("Get Result Entry");
         this.constraints = new GridBagConstraints();
         this.setLayout(new GridBagLayout());
-        this.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("Search Criteria"),
-                BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         this.initComponents();
         this.revalidate();
         this.repaint();
@@ -75,11 +72,23 @@ public class CriteriaPanel extends JPanel {
         this.removeAll();
         LOOGER.info("Get init");
         //Adding Panel for each button
-        panelList.forEach((k, v) -> this.addCriteriaPanel(k, v) /*this.add(v)*/);
+        panelList.forEach((k, v) -> this.addCriteriaPanel(k, v));
         // Revalidate and repaint.
         this.revalidate();
         this.repaint();
         LOOGER.info("add exit component Criteria");
+    }
+
+    public void setBorderCriteriaPanel(String tittle) {
+
+        if (tittle != null) {
+            this.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createTitledBorder(tittle),
+                    BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        } else {
+            this.setBorder(null);
+        }
+
     }
 
     private void addCriteriaPanel(String namePanel, JPanel criteriaPanel) {
@@ -135,6 +144,20 @@ public class CriteriaPanel extends JPanel {
         }
         if ("Data Base".equalsIgnoreCase(namePanel)) {
             constraints.gridx = 1;
+            constraints.gridy = 2;
+            constraints.gridwidth = 1;
+            constraints.gridheight = 1;
+            this.add(criteriaPanel, constraints);
+        }
+        if ("Multimedia".equalsIgnoreCase(namePanel)) {
+            constraints.gridx =1;
+            constraints.gridy = 2;
+            constraints.gridwidth = 1;
+            constraints.gridheight = 1;
+            this.add(criteriaPanel, constraints);
+        }
+        if ("Audio".equalsIgnoreCase(namePanel)) {
+            constraints.gridx =1;
             constraints.gridy = 2;
             constraints.gridwidth = 1;
             constraints.gridheight = 1;

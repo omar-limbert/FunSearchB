@@ -61,7 +61,7 @@ public class DataBaseNorthPanel extends JPanel {
     public DataBaseNorthPanel() {
         LOOGER.info("Get top panel Entry");
         this.saveToDBButton = new JButton();
-        this.saveToDBButton.setText("Search");
+        this.saveToDBButton.setText("Save");
 
         //setup layout
         this.constraints = new GridBagConstraints();

@@ -77,12 +77,12 @@ public class SizePanel extends JPanel {
         this.sizeLabel = new JLabel("Size :");
         this.sizeTextField.setPreferredSize(new Dimension(100, 32));
         this.sizeComboBox = new JComboBox();
-        this.sizeComboBox.addItem("bit");
+        this.sizeComboBox.addItem("Bytes");
         this.sizeComboBox.addItem("Kb");
         this.sizeComboBox.addItem("Mb");
         this.sizeComboBox.addItem("Gb");
         this.majorMinorComboBox = new JComboBox();
-        this.majorMinorComboBox.addItem("Equals:");
+        this.majorMinorComboBox.addItem("Equal to:");
         this.majorMinorComboBox.addItem("Major to:");
         this.majorMinorComboBox.addItem("Minor to:");
         LOOGER.info("init exit");

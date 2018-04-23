@@ -40,6 +40,11 @@ public class MainSearchWindows extends JFrame {
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
+     * Separator of System
+     */
+    private static final String SEPARATOR = System.getProperty("file.separator");
+
+    /**
      * topPanel, Type: TopPanel, this is top panel of main windows.
      */
     private TopPanel topPanel;
@@ -66,6 +71,7 @@ public class MainSearchWindows extends JFrame {
      */
     public void initWindows() {
         LOOGER.info("Get init");
+
         // Setting tittle of application.
         this.setTitle("Search Application");
         LOOGER.info("Get init top and center panel");

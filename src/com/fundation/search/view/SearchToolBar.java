@@ -33,33 +33,37 @@ public class SearchToolBar extends JToolBar {
      */
 
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
+
     /**
      * Separator of System
      */
     private static final String SEPARATOR = System.getProperty("file.separator");
+
     /**
      * toggleButtonCollection, Type: Collection<JToggleButton>, this is a collection of buttons.
      */
-
     private Collection<JToggleButton> toggleButtonCollection;
+
     /**
      * action, Type: String, this is action of one button.
      */
-
     private String action;
+
     /**
      * criteriaPanel, Type: CriteriaPanel, this criteria panel.
      */
-
     private CriteriaPanel criteriaPanel;
+
     /**
      * panelList, Type: Map<String, JPanel>, this is a Map of panels.
      */
     private Map<String, JPanel> panelList;
+
     /**
      * FILE_NAME_PANEL, Type: FileNamePanel, this is a File Name criteria Panel
      */
     private static final FileNamePanel FILE_NAME_PANEL = new FileNamePanel();
+
     /**
      * PATH_PANEL, Type: PathPanel, this Path criteria Panel.
      */
@@ -69,14 +73,17 @@ public class SearchToolBar extends JToolBar {
      * HIDDEN_PANEL, Type: HiddenPanel, this Hidden criteria Panel.
      */
     private static final HiddenPanel HIDDEN_PANEL = new HiddenPanel();
+
     /**
      * SIZE_PANEL, Type: SizePanel, this Size criteria Panel.
      */
     private static final SizePanel SIZE_PANEL = new SizePanel();
+
     /**
      * OWNER_PANEL, Type: OwnerPanel, this Owner criteria Panel.
      */
     private static final OwnerPanel OWNER_PANEL = new OwnerPanel();
+
     /**
      * DATE_PANEL, Type: DatePanel, this Date criteria Panel.
      */
@@ -91,6 +98,16 @@ public class SearchToolBar extends JToolBar {
      * DB_PANEL, Type: DatePanel, this Type criteria Panel.
      */
     private static final DataBasePanel DB_PANEL = new DataBasePanel();
+
+    /**
+     * MULTIMEDIA, Type: MultimediaPanel, this is Multimedia Panel.
+     */
+    private static final MultimediaPanel MULTIMEDIA = new MultimediaPanel();
+
+    /**
+     * AUDIO, Type: MultimediaPanel, this is Multimedia Panel.
+     */
+    private static final AudioPanel AUDIO = new AudioPanel();
 
     /**
      * Constructor for SearchToolBar.
@@ -125,8 +142,11 @@ public class SearchToolBar extends JToolBar {
         this.addButtonToToggleCollection("Size");
         this.addButtonToToggleCollection("Owner");
         this.addButtonToToggleCollection("Date");
+        this.addButtonToToggleCollection("Multimedia");
+        this.addButtonToToggleCollection("Audio");
         this.addButtonToToggleCollection("Data Base");
         // you need implements others buttons here.
+
         // Adding action listeners for all buttons
         this.addActionListeners();
         LOOGER.info("add Components exit");
@@ -160,9 +180,10 @@ public class SearchToolBar extends JToolBar {
             this.addingCriteriaPanelToActionListenerButton();
         } else {
             this.removingCriteriaPanelToActionListenerButton();
+            criteriaPanel.setBorderCriteriaPanel(null);
         }
 
-        // updating buttons
+        // updating button states
         for(JToggleButton toggleButton: toggleButtonCollection){
             if(!toggleButton.equals(sourceButton)){
                 toggleButton.setSelected(false);
@@ -208,6 +229,12 @@ public class SearchToolBar extends JToolBar {
         if (action.equalsIgnoreCase("Data Base")) {
             panelList.remove(action);
         }
+        if (action.equalsIgnoreCase("Multimedia")) {
+            panelList.remove(action);
+        }
+        if (action.equalsIgnoreCase("Audio")) {
+            panelList.remove(action);
+        }
         LOOGER.info("remove criteria listener of buttons exit");
     }
 
@@ -226,40 +253,56 @@ public class SearchToolBar extends JToolBar {
             panelList.put("Owner", OWNER_PANEL);
             panelList.put("Date", DATE_PANEL);
             panelList.put("Type", TYPE_PANEL);
+            criteriaPanel.setBorderCriteriaPanel(action);
         }
 
         // Adding "File Name Panel Criteria"
         if (action.equalsIgnoreCase("File Name")) {
             panelList.put(action, FILE_NAME_PANEL);
+            criteriaPanel.setBorderCriteriaPanel(action);
         }
         // Adding "Path Panel Criteria"
         if (action.equalsIgnoreCase("Path")) {
             panelList.put(action, PATH_PANEL);
+            criteriaPanel.setBorderCriteriaPanel(action);
         }
         // Adding "Hidden Panel Criteria"
         if (action.equalsIgnoreCase("Hidden")) {
             panelList.put(action, HIDDEN_PANEL);
+            criteriaPanel.setBorderCriteriaPanel(action);
         }
         // Adding "Size Panel Criteria"
         if (action.equalsIgnoreCase("Size")) {
             panelList.put(action, SIZE_PANEL);
+            criteriaPanel.setBorderCriteriaPanel(action);
         }
         // Adding "Owner Panel Criteria"
         if (action.equalsIgnoreCase("Owner")) {
             panelList.put(action, OWNER_PANEL);
+            criteriaPanel.setBorderCriteriaPanel(action);
         }
         // Adding "Date Panel Criteria"
         if (action.equalsIgnoreCase("Date")) {
             panelList.put(action, DATE_PANEL);
+            criteriaPanel.setBorderCriteriaPanel(action);
         }
-
         if (action.equalsIgnoreCase("Type")) {
             panelList.put(action, TYPE_PANEL);
+            criteriaPanel.setBorderCriteriaPanel(action);
+        }
+
+        if (action.equalsIgnoreCase("Multimedia")) {
+            panelList.put(action, MULTIMEDIA);
+            criteriaPanel.setBorderCriteriaPanel(action);
+        }
+        if (action.equalsIgnoreCase("Audio")) {
+            panelList.put(action, AUDIO);
+            criteriaPanel.setBorderCriteriaPanel(action);
         }
 
         if (action.equalsIgnoreCase("Data Base")) {
-            System.out.println(action+" ===");
             panelList.put(action, DB_PANEL);
+            criteriaPanel.setBorderCriteriaPanel(action);
         }
         LOOGER.info("exit criteria panel  action of button");
     }
@@ -306,6 +349,12 @@ public class SearchToolBar extends JToolBar {
         }
         if("File Name".equalsIgnoreCase(nameOfJToggleButton)){
             buttonToAddCollection.setIcon(new ImageIcon(System.getProperty("user.dir")+SEPARATOR+"resources"+SEPARATOR+"icons"+SEPARATOR+"name.png"));
+        }
+        if("Multimedia".equalsIgnoreCase(nameOfJToggleButton)){
+            buttonToAddCollection.setIcon(new ImageIcon(System.getProperty("user.dir")+SEPARATOR+"resources"+SEPARATOR+"icons"+SEPARATOR+"video.png"));
+        }
+        if("Audio".equalsIgnoreCase(nameOfJToggleButton)){
+            buttonToAddCollection.setIcon(new ImageIcon(System.getProperty("user.dir")+SEPARATOR+"resources"+SEPARATOR+"icons"+SEPARATOR+"audio.png"));
         }
 
     }

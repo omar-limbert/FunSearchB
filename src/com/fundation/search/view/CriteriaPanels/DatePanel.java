@@ -18,7 +18,7 @@ import com.fundation.search.common.SearchLogger;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
-import java.awt.FlowLayout;
+import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -143,6 +143,7 @@ public class DatePanel extends JPanel {
 
             this.to1 = new JLabel("to :");
             this.to2 = new JLabel("to :");
+            this.to3 = new JLabel("to :");
 
             this.dateOfCriteria.addItemListener(e -> this.dateOfCriteriaListener(e));
 
@@ -167,7 +168,6 @@ public class DatePanel extends JPanel {
 
     private void dateOfCriteriaListener(ItemEvent event) {
 
-        System.out.println(dateOfCriteria.getModel().getSelectedItem().toString() + " <=");
         if (event != null) {
             if ("Last Modified Date".equalsIgnoreCase(dateOfCriteria.getModel().getSelectedItem().toString())) {
                 this.add(dateModificationInitDateChooser);
@@ -191,11 +191,11 @@ public class DatePanel extends JPanel {
 
             if ("Creation Date".equalsIgnoreCase(dateOfCriteria.getModel().getSelectedItem().toString())) {
                 this.add(dateCreationInitDateChooser);
-                this.add(to1);
+                this.add(to3);
                 this.add(dateCreationEndDateChooser);
             } else {
                 this.remove(dateCreationInitDateChooser);
-                this.remove(to1);
+                this.remove(to3);
                 this.remove(dateCreationEndDateChooser);
             }
             this.revalidate();
