@@ -1,5 +1,5 @@
 /*
- * @(#)HiddenPanel.java
+ * @(#)Multimedia.java
  *
  * Copyright (c) 2018 Jala Foundation.
  * 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
@@ -17,20 +17,27 @@ import com.fundation.search.common.SearchLogger;
 import com.fundation.search.view.JComboCheckBox;
 import com.fundation.search.view.SearchTextField;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.Vector;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
+import java.awt.GridBagLayout;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
+import java.util.Vector;
 
 /**
- * This class is to create the configuration for Hidden button.
+ * This class is to create Multimedia Panel.
  *
- * @author Escarleth Ledezma Quiroga - AT-[06].
+ * @author Omar Limbert Huanca Sanchez - AT-[06].
  * @version 1.0.
  */
 public class MultimediaPanel extends JPanel {
     /**
-     * Init logger  in Hidden Panel
+     * Init logger  in Multimedia Panel
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
@@ -55,41 +62,76 @@ public class MultimediaPanel extends JPanel {
     private SearchTextField durationTextField;
 
     /**
-     * JLabel for duration criteria
+     * JComboBox<String> for duration criteria
      */
     private JComboBox<String> durationType;
 
+    /**
+     * JLabel for frameRate criteria
+     */
     private JLabel frameRate;
+
+    /**
+     * JComboCheckBox for frameRate criteria
+     */
     private JComboCheckBox frameRateJComboBox;
-    private Vector frameRateData;
 
+    /**
+     * Vector<JCheckBox> data of CheckBox's to frame rate criteria
+     */
+    private Vector<JCheckBox> frameRateData;
+
+    /**
+     * JLabel for frameRate videoCodec
+     */
     private JLabel videoCodec;
-    private JComboCheckBox videoCodecJComboBox;
-    private Vector videoCodecData;
 
+    /**
+     * JComboCheckBox for videoCodec criteria
+     */
+    private JComboCheckBox videoCodecJComboBox;
+
+    /**
+     * Vector<JCheckBox> data of CheckBox's to video codec criteria
+     */
+    private Vector<JCheckBox> videoCodecData;
+
+    /**
+     * JLabel for frameRate resolution
+     */
     private JLabel resolution;
+
+    /**
+     * JComboCheckBox for resolution criteria
+     */
     private JComboCheckBox resolutionJComboBox;
-    private Vector resolutionData;
+
+    /**
+     * Vector<JCheckBox> data of CheckBox's to resolution criteria
+     */
+    private Vector<JCheckBox> resolutionData;
 
 
     /**
-     * Constructor to HiddenPanel.
-     * This method is for set layout to FlowLayout, call to iniComponents(), call to addComponents(),
-     * and repaint.
+     * Constructor to Multimedia Panel.
      */
     public MultimediaPanel() {
         LOOGER.info("Get Result Entry");
-        // Setting layout to FlowLayout.
-        this.frameRateData = new Vector();
-        this.videoCodecData = new Vector();
-        this.resolutionData = new Vector();
+
+        // Setting layout to GridBagLayout.
         this.constraints = new GridBagConstraints();
         this.setLayout(new GridBagLayout());
+        this.frameRateData = new Vector<>();
+        this.videoCodecData = new Vector<>();
+        this.resolutionData = new Vector<>();
+
         // Calling to initComponents() method.
         this.initComponents();
+
         // Calling to addComponents() method.
         this.addComponents();
-        // repaint.
+
+        // repaint
         this.repaint();
         LOOGER.info("Constructor exit");
     }
@@ -99,6 +141,7 @@ public class MultimediaPanel extends JPanel {
      */
     private void initComponents() {
         LOOGER.info("Get init");
+
         // Initialize duration criteria
         duration = new JLabel("Duration :");
         durationCriteria = new JComboBox<>();
@@ -121,7 +164,8 @@ public class MultimediaPanel extends JPanel {
         // Initialize Frame Rate criteria
         frameRate = new JLabel("Frame Rate :");
         frameRateJComboBox = new JComboCheckBox(frameRateData);
-        frameRateJComboBox.setPreferredSize(new Dimension(200,34));
+        frameRateJComboBox.setPreferredSize(new Dimension(200, 34));
+        frameRateJComboBox.addActionListener(e -> this.updateFrameRateData());
 
         // Sample Data
         videoCodecData.add(new JCheckBox("All", true));
@@ -129,11 +173,11 @@ public class MultimediaPanel extends JPanel {
         videoCodecData.add(new JCheckBox("AVI", false));
         videoCodecData.add(new JCheckBox("WEB", false));
 
-
         // Initialize Video Codec
         videoCodec = new JLabel("Video Codec :");
         videoCodecJComboBox = new JComboCheckBox(videoCodecData);
-        videoCodecJComboBox.setPreferredSize(new Dimension(200,34));
+        videoCodecJComboBox.setPreferredSize(new Dimension(200, 34));
+        videoCodecJComboBox.addActionListener(e -> this.updateVideoCodecData());
 
         // Sample Data
         resolutionData.add(new JCheckBox("All", true));
@@ -144,8 +188,30 @@ public class MultimediaPanel extends JPanel {
         // Initialize resolution
         resolution = new JLabel("Resolution :");
         resolutionJComboBox = new JComboCheckBox(resolutionData);
-        resolutionJComboBox.setPreferredSize(new Dimension(200,34));
+        resolutionJComboBox.setPreferredSize(new Dimension(200, 34));
+        resolutionJComboBox.addActionListener(e -> this.updateResolutionData());
         LOOGER.info("init exit");
+    }
+
+    /**
+     * This method is to update data with event
+     */
+    private void updateResolutionData() {
+        resolutionJComboBox.itemSelected();
+    }
+
+    /**
+     * This method is to update data with event
+     */
+    private void updateVideoCodecData() {
+        videoCodecJComboBox.itemSelected();
+    }
+
+    /**
+     * This method is to update data with event
+     */
+    private void updateFrameRateData() {
+        frameRateJComboBox.itemSelected();
     }
 
     /**
@@ -217,5 +283,76 @@ public class MultimediaPanel extends JPanel {
         LOOGER.info("add exit");
     }
 
+    /**
+     * This method is for return Duration Multimedia critera.
+     *
+     * @return String, this comparator for multimedia filter.
+     */
+    public String getDurationMultimediaCriteria() {
+        return this.durationCriteria.getModel().getSelectedItem().toString();
+    }
+
+    /**
+     * This method is for return Duration Multimedia Number.
+     *
+     * @return String, this is number for filter multimedia files.
+     */
+    public String getDurationMultimediaNumber() {
+        return this.durationTextField.getText();
+    }
+
+    /**
+     * This method is for return Duration Multimedia Time.
+     *
+     * @return String, this is type time {seconds,minutes,hours}.
+     */
+    public String getDurationMultimediaTime() {
+        return this.durationType.getModel().getSelectedItem().toString();
+    }
+
+    /**
+     * This method is for return Frame Rate Array.
+     *
+     * @return String[], this is String array with selected values.
+     */
+    public ArrayList<String> getFrameRateCriteria() {
+        ArrayList<String> result = new ArrayList<>();
+        frameRateData.forEach(e -> {
+            if (e.isSelected()) {
+                result.add(e.getText());
+            }
+        });
+        return result;
+    }
+
+    /**
+     * This method is for return Video Codec Array.
+     *
+     * @return String[], this is String array with selected values.
+     */
+    public ArrayList<String> getVideoCodecCriteria() {
+        ArrayList<String> result = new ArrayList<>();
+        videoCodecData.forEach(e -> {
+            if (e.isSelected()) {
+                result.add(e.getText());
+            }
+        });
+        return result;
+    }
+
+    /**
+     * This method is for return Resolution Array.
+     *
+     * @return String[], this is String array with selected values.
+     */
+    public ArrayList<String> getResolutionCriteria() {
+        ArrayList<String> result = new ArrayList<>();
+        resolutionData.forEach(e -> {
+            if (e.isSelected()) {
+                result.add(e.getText());
+            }
+        });
+        return result;
+    }
 
 }

@@ -1,5 +1,5 @@
 /*
- * @(#)TopPanel.java
+ * @(#)DataBaseNorthPanel.java
  *
  * Copyright (c) 2018 Jala Foundation.
  * 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
@@ -18,7 +18,9 @@ import com.fundation.search.view.SearchTextField;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JButton;
 import java.util.logging.Logger;
 
 /**
@@ -56,7 +58,7 @@ public class DataBaseNorthPanel extends JPanel {
 
     /**
      * Constructor for DataBaseNorthPanel.
-     * This method is for initialize saveToDBButton, setting layout and repaint panel.
+     *
      */
     public DataBaseNorthPanel() {
         LOOGER.info("Get top panel Entry");
@@ -91,19 +93,22 @@ public class DataBaseNorthPanel extends JPanel {
      */
     private void addComponents() {
         LOOGER.info("Get add Components Entry");
-        // Adding Search JLabel to first row.
+
+        // Adding name JLabel to first row.
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
         this.add(nameLabel, constraints);
-        // Adding Search SearchJTextField to first row.
+
+        // Adding name SearchJTextField to first row.
         constraints.gridx = 1;
         constraints.gridy = 0;
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
         this.add(nameDBTextfield, constraints);
-        // Adding Search JButton to first row.
+
+        // Adding save JButton to first row.
         constraints.gridx = 2;
         constraints.gridy = 0;
         constraints.gridwidth = 1;
@@ -113,19 +118,9 @@ public class DataBaseNorthPanel extends JPanel {
     }
 
     /**
-     * This method is for return Save button.
-     *
-     * @return JButton
-     */
-    public JButton getSaveToDBButton() {
-        LOOGER.info("get search button");
-        return saveToDBButton;
-    }
-
-    /**
      * This method is return name of criteria to save.
      *
-     * @return String
+     * @return String, this is name to save on data base.
      */
     public String getNameOfCriteriaToSaveOnDataBase() {
         LOOGER.info("Get name of criteria to save on data base");

@@ -16,11 +16,16 @@ package com.fundation.search.view.CriteriaPanels;
 import com.fundation.search.common.SearchLogger;
 import com.fundation.search.view.SearchTextField;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
+import java.awt.FlowLayout;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
 import java.util.logging.Logger;
+import java.awt.event.ItemEvent;
+import java.awt.Dimension;
+import java.awt.Color;
 
 /**
  * This class is to create the configuration for File Name button.
@@ -29,6 +34,7 @@ import java.util.logging.Logger;
  * @version 1.0.
  */
 public class FileNamePanel extends JPanel {
+
     /**
      * Init logger  in File Name Panel
      */
@@ -38,30 +44,37 @@ public class FileNamePanel extends JPanel {
      * allWordsRadioButton, Type: JRadioButton, when file name contains all words.
      */
     private JRadioButton allWordsRadioButton;
+
     /**
      * startWithRadioButton, Type: JRadioButton, when file name start with word.
      */
     private JRadioButton startWithRadioButton;
+
     /**
      * endWithRadioButton, Type: JRadioButton, when file name end with word.
      */
     private JRadioButton endWithRadioButton;
+
     /**
      * equalsToRadioButton, Type: JRadioButton, when file name is equal to word.
      */
     private JRadioButton equalsToRadioButton;
+
     /**
      * radioButtonGroup, Type: ButtonGroup, this radio button groups will contains all radioButtons.
      */
     private ButtonGroup radioButtonGroup;
+
     /**
      * containsTextInside, Type: JCheckBox, this criteria is for check inside to file.
      */
     private JCheckBox containsTextInside;
+
     /**
      * containsJTextField, Type: JTextField, this JTextField for contains criteria.
      */
     private SearchTextField containsJTextField;
+
     /**
      * containsJTextField, Type: JTextField, this JTextField for contains criteria.
      */
@@ -75,13 +88,17 @@ public class FileNamePanel extends JPanel {
      */
     public FileNamePanel() {
         LOOGER.info("Get Result Entry");
-        // Setting layout to FlowLayout.
+
+        // Setting layout to FlowLayout
         this.setLayout(new FlowLayout());
-        // Calling to initComponents() method.
+
+        // Calling to initComponents() method
+
         this.initComponents();
-        // Callind to addComponents() method.
+        // Callind to addComponents() method
+
         this.addComponents();
-        // repaint.
+        // repaint all panel
         this.repaint();
         LOOGER.info("Constructor exit");
     }
@@ -91,7 +108,6 @@ public class FileNamePanel extends JPanel {
      */
     private void initComponents() {
         LOOGER.info("initComponents init");
-
         this.containsJTextField = new SearchTextField("<- Search inside a File");
         this.containsJTextField.setPreferredSize(new Dimension(200, 32));
         this.fileNameLabel = new JLabel("File Name :");
@@ -108,7 +124,6 @@ public class FileNamePanel extends JPanel {
         this.startWithRadioButton.setActionCommand("start with");
         this.endWithRadioButton.setActionCommand("end with");
         this.equalsToRadioButton.setActionCommand("equal to");
-
         LOOGER.info("initComponents exit");
     }
 
@@ -117,11 +132,13 @@ public class FileNamePanel extends JPanel {
      */
     private void addComponents() {
         LOOGER.info("Get add");
+
         // Adding radioButtons to one Group Radio Button.
         this.radioButtonGroup.add(allWordsRadioButton);
         this.radioButtonGroup.add(startWithRadioButton);
         this.radioButtonGroup.add(endWithRadioButton);
         this.radioButtonGroup.add(equalsToRadioButton);
+
         // Adding radioButtons to Panel
         this.add(fileNameLabel);
         this.add(allWordsRadioButton);
@@ -130,26 +147,28 @@ public class FileNamePanel extends JPanel {
         this.add(equalsToRadioButton);
         this.add(containsTextInside);
         this.add(containsJTextField);
+
         // Default radioButton selected.
         this.allWordsRadioButton.setSelected(true);
         this.containsTextInside.setSelected(false);
         this.containsJTextField.setEditable(false);
-        this.containsTextInside.addItemListener(e->containsTextInsideAction(e));
-
+        this.containsTextInside.addItemListener(e -> containsTextInsideAction(e));
         LOOGER.info("add exit");
     }
 
     private void containsTextInsideAction(ItemEvent e) {
-        if(e.getStateChange()==1){
+        LOOGER.info("containsTextInsideAction init");
+        if (e.getStateChange() == 1) {
             this.containsJTextField.setEditable(true);
             this.containsJTextField.setPlaceHolderColor(Color.RED);
             this.containsJTextField.setPlaceHolderText("Type a word");
         }
-        if(e.getStateChange()==2){
+        if (e.getStateChange() == 2) {
             this.containsJTextField.setEditable(false);
             this.containsJTextField.setPlaceHolderColor(Color.GRAY);
             this.containsJTextField.setPlaceHolderText("<- Search inside a File");
         }
+        LOOGER.info("containsTextInsideAction end");
     }
 
 
@@ -170,6 +189,7 @@ public class FileNamePanel extends JPanel {
      * @param fileNameCriteria, this is file name criteria.
      */
     public void setFileNameCriteria(String fileNameCriteria) {
+        LOOGER.info("setFileNameCriteria init");
         if ("all words".equalsIgnoreCase(fileNameCriteria)) {
             this.allWordsRadioButton.setSelected(true);
         }
@@ -182,6 +202,7 @@ public class FileNamePanel extends JPanel {
         if ("equal to".equalsIgnoreCase(fileNameCriteria)) {
             this.equalsToRadioButton.setSelected(true);
         }
+        LOOGER.info("setFileNameCriteria end");
     }
 
     /**
@@ -190,6 +211,7 @@ public class FileNamePanel extends JPanel {
      * @return boolean, true when is selected, false when is unselected.
      */
     public boolean getIsContainsInsideFileCriteria() {
+        LOOGER.info("getIsContainsInsideFileCriteria init");
         return containsTextInside.isSelected();
     }
 
@@ -199,6 +221,7 @@ public class FileNamePanel extends JPanel {
      * @return String, text of contains criteria.
      */
     public String getTextContainsInsideFileCriteria() {
+        LOOGER.info("getTextContainsInsideFileCriteria init");
         return containsJTextField.getText();
     }
 
@@ -208,7 +231,9 @@ public class FileNamePanel extends JPanel {
      * @param isContainsInsideFileCriteria, this is contains criteria.
      */
     public void setIsContainsInsideFileCriteria(boolean isContainsInsideFileCriteria) {
+        LOOGER.info("setIsContainsInsideFileCriteria init");
         this.containsTextInside.setSelected(isContainsInsideFileCriteria);
+        LOOGER.info("setIsContainsInsideFileCriteria end");
     }
 
     /**
@@ -217,6 +242,8 @@ public class FileNamePanel extends JPanel {
      * @param textContainsInsideFileCriteria, this is contains criteria.
      */
     public void setTextContainsInsideFileCriteria(String textContainsInsideFileCriteria) {
+        LOOGER.info("setTextContainsInsideFileCriteria init");
         this.containsJTextField.setText(textContainsInsideFileCriteria);
+        LOOGER.info("setTextContainsInsideFileCriteria end");
     }
 }

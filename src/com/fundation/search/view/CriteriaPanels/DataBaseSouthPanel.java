@@ -1,5 +1,5 @@
 /*
- * @(#)TopPanel.java
+ * @(#)DataBaseSouthPanel.java
  *
  * Copyright (c) 2018 Jala Foundation.
  * 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.

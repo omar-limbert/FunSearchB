@@ -17,7 +17,6 @@ import com.fundation.search.common.SearchLogger;
 import com.fundation.search.view.SearchTextField;
 
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Dimension;
 import java.awt.FlowLayout;

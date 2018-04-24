@@ -1,5 +1,5 @@
 /*
- * @(#)CenterPanel.java
+ * @(#)DataBaseCenterPanel.java
  *
  * Copyright (c) 2018 Jala Foundation.
  * 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
@@ -15,12 +15,15 @@ package com.fundation.search.view.CriteriaPanels;
 
 import com.fundation.search.common.SearchLogger;
 
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import java.awt.BorderLayout;
-import javax.swing.*;
+import java.awt.Dimension;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import java.awt.*;
-import java.util.logging.Logger;
 
 /**
  * This class is for create Botton Panel.
@@ -29,26 +32,30 @@ import java.util.logging.Logger;
  * @version 1.0.
  */
 public class DataBaseCenterPanel extends JPanel {
+
     /**
      * Init logger  in Center Panel
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
+
     /**
      * dataBaseCriteriaTable, Type: JTable, this table is for show results.
      */
     private JTable dataBaseCriteriaTable;
+
     /**
      * modelOfJTableResult, Type: DefaultTableModel, this is a file chooser for get path of directory.
      */
     private DefaultTableModel modelOfJTableResult;
+
     /**
      * modelOfTableHeader, Type:JTableHeader, is the Header of the table.
      */
     private JTableHeader header;
 
     /**
-     * Constructor for CentralPanel.
-     * This method is for set Layout to GirdLayout, call initComponents() and call addComponents().
+     * Constructor for Data Base Central Panel.
+     *
      */
     public DataBaseCenterPanel() {
         LOOGER.info("Constructor Bottom Panel Entry");
@@ -127,7 +134,11 @@ public class DataBaseCenterPanel extends JPanel {
         LOOGER.info("Exit clean model of table");
     }
 
-
+    /**
+     * This method is for insert one row to JTable result.
+     *
+     * @param row, this is array to insert into JTable.
+     */
     public void insertRowToDataBaseTableResult(Object[] row) {
         LOOGER.info("Insert data to Data Base table result");
         this.modelOfJTableResult.addRow(row);
@@ -139,7 +150,6 @@ public class DataBaseCenterPanel extends JPanel {
 
     /**
      * This method return Data Base Table result.
-     * Controller need use this.
      *
      * @return JTable, this is a Data Base JTable.
      */

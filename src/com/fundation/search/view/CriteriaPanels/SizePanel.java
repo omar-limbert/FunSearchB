@@ -17,7 +17,10 @@ package com.fundation.search.view.CriteriaPanels;
 import com.fundation.search.common.SearchLogger;
 import com.fundation.search.view.SearchTextField;
 
-import javax.swing.*;
+
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.logging.Logger;
@@ -82,7 +85,7 @@ public class SizePanel extends JPanel {
         this.sizeComboBox.addItem("Mb");
         this.sizeComboBox.addItem("Gb");
         this.majorMinorComboBox = new JComboBox();
-        this.majorMinorComboBox.addItem("Equal to:");
+        this.majorMinorComboBox.addItem("Equals to:");
         this.majorMinorComboBox.addItem("Major to:");
         this.majorMinorComboBox.addItem("Minor to:");
         LOOGER.info("init exit");

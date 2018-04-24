@@ -23,6 +23,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -603,5 +604,77 @@ public class TopPanel extends JPanel {
      */
     public JButton getDeleteButtonOnDataBasePanel() {
         return this.toolbar.getDeleteButtonOnDataBasePanel();
+    }
+
+    /**
+     * This method is for return Duration Multimedia critera.
+     *
+     * @return String, this comparator for multimedia filter.
+     */
+    public String getDurationMultimediaCriteria() {
+        return this.toolbar.getDurationMultimediaCriteria();
+    }
+
+    /**
+     * This method is for return Duration Multimedia Number.
+     *
+     * @return String, this is number for filter multimedia files.
+     */
+    public String getDurationMultimediaNumber() {
+        return this.toolbar.getDurationMultimediaNumber();
+    }
+
+    /**
+     * This method is for return Duration Multimedia Time.
+     *
+     * @return String, this is type time {seconds,minutes,hours}.
+     */
+    public String getDurationMultimediaTime() {
+        return this.toolbar.getDurationMultimediaTime();
+    }
+
+    /**
+     * This method is for return Frame Rate Array.
+     *
+     * @return String[], this is String array with selected values.
+     */
+    public ArrayList<String> getFrameRateCriteria() {
+        return this.toolbar.getFrameRateCriteria();
+    }
+
+    /**
+     * This method is for return Video Codec Array.
+     *
+     * @return String[], this is String array with selected values.
+     */
+    public ArrayList<String> getVideoCodecCriteria() {
+        return this.toolbar.getVideoCodecCriteria();
+    }
+
+    /**
+     * This method is for return Resolution Array.
+     *
+     * @return String[], this is String array with selected values.
+     */
+    public ArrayList<String> getResolutionCriteria() {
+        return this.toolbar.getResolutionCriteria();
+    }
+
+    /**
+     * This method is for return Audio Rate Array.
+     *
+     * @return String[], this is String array with selected values.
+     */
+    public ArrayList<String> getAudioRateCriteria() {
+        return this.toolbar.getAudioRateCriteria();
+    }
+
+    /**
+     * This method is for return Audio Format Array.
+     *
+     * @return String[], this is String array with selected values.
+     */
+    public ArrayList<String> getAudioFormatCriteria() {
+        return this.toolbar.getAudioFormatCriteria();
     }
 }
