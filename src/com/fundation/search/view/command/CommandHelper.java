@@ -50,7 +50,7 @@ public class CommandHelper {
 
         System.out.println(String.format("%10s %5s %-40s %-20s", "-s", " ", "[\"major to: [size file] [bytes/kb/mb/gb]\"]", "List files with major to size file"));
         System.out.println(String.format("%10s %5s %-40s %-20s", " ", " ", "[\"minor to: [size file][bytes/kb/mb/gb]\"]", "List files with minor to size file"));
-        System.out.println(String.format("%10s %5s %-40s %-20s", " ", " ", "[\"equals to: [size file][bytes/kb/mb/gb]\"]", "List files with equals to size file"));
+        System.out.println(String.format("%10s %5s %-40s %-20s", " ", " ", "[\"equal to: [size file][bytes/kb/mb/gb]\"]", "List files with equals to size file"));
         System.out.println(String.format("%10s %5s %-40s %-20s", "-d", " ", "[true/false]", "List directories/no directories"));
         System.out.println(String.format("%10s %5s %-40s %-20s", "-dc", " ", "dd/mm/yyy to dd/mm/yyyy", "List files with \"Creation Date\""));
         System.out.println(String.format("%10s %5s %-40s %-20s", "-dm", " ", "dd/mm/yyy to dd/mm/yyyy", "List files with \"Modified Date\""));
