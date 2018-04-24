@@ -77,11 +77,10 @@ public class TopPanel extends JPanel {
     /**
      * Constructor for TopPanel.
      * This method is for initialize searchButton, setting layout and repaint panel.
-     *
      */
     public TopPanel() {
         LOOGER.info("Get top panel Entry");
-        this.searchButton = new JButton(new ImageIcon(System.getProperty("user.dir")+SEPARATOR+"resources"+SEPARATOR+"icons"+SEPARATOR+"search.png"));
+        this.searchButton = new JButton(new ImageIcon(System.getProperty("user.dir") + SEPARATOR + "resources" + SEPARATOR + "icons" + SEPARATOR + "search.png"));
         this.searchButton.setOpaque(true);
         //setup layout
         this.constraints = new GridBagConstraints();
@@ -94,7 +93,6 @@ public class TopPanel extends JPanel {
 
     /**
      * This method is for initialize all components.
-     *
      */
     private void initComponents() {
         LOOGER.info("Get init components");
@@ -666,15 +664,15 @@ public class TopPanel extends JPanel {
      * @return String[], this is String array with selected values.
      */
     public ArrayList<String> getAudioRateCriteria() {
-        return this.toolbar.getAudioRateCriteria();
+        return toolbar.getAudioRateCriteria();
     }
 
     /**
-     * This method is for return Audio Format Array.
+     * This method is for return Audio Rate Array.
      *
      * @return String[], this is String array with selected values.
      */
-    public ArrayList<String> getAudioFormatCriteria() {
-        return this.toolbar.getAudioFormatCriteria();
+    public ArrayList<String> getMultimediaTypeCriteria() {
+        return toolbar.getMultimediaTypeCriteria();
     }
 }

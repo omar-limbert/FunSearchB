@@ -184,6 +184,8 @@ public class AudioPanel extends JPanel {
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
         this.add(audioCodecJComboBox, constraints);
+
+
         LOOGER.info("add exit");
     }
 

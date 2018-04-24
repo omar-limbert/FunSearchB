@@ -84,6 +84,7 @@ public class MainSearchWindows extends JFrame {
         this.repaint();
 
         // Setting main windows <= maybe you could be this dynamic.
+
         final int width = 1300;
         final int height = 900;
         this.setSize(width, height);
@@ -698,21 +699,19 @@ public class MainSearchWindows extends JFrame {
 
     /**
      * This method is for return Audio Rate Array.
-     * Controller need use this.
      *
      * @return String[], this is String array with selected values.
      */
     public ArrayList<String> getAudioRateCriteria() {
-        return this.topPanel.getAudioRateCriteria();
+        return topPanel.getAudioRateCriteria();
     }
 
     /**
-     * This method is for return Audio Format Array.
-     * Controller need use this.
+     * This method is for return Audio Rate Array.
      *
      * @return String[], this is String array with selected values.
      */
-    public ArrayList<String> getAudioFormatCriteria() {
-        return this.topPanel.getAudioFormatCriteria();
+    public ArrayList<String> getMultimediaTypeCriteria() {
+        return topPanel.getMultimediaTypeCriteria();
     }
 }

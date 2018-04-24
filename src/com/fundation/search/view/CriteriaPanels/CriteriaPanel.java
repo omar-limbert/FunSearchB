@@ -14,12 +14,15 @@
 package com.fundation.search.view.CriteriaPanels;
 
 import com.fundation.search.common.SearchLogger;
+import com.fundation.search.view.JComboCheckBox;
 
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.BorderFactory;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.Map;
+import java.util.Vector;
 import java.util.logging.Logger;
 
 
@@ -39,6 +42,16 @@ public class CriteriaPanel extends JPanel {
      * Constrains to set layout on Criteria Panel.
      */
     private GridBagConstraints constraints;
+
+    /**
+     * JComboCheckBox, to Bit Rate with many options
+     */
+    private JComboCheckBox bitRateJComboBox;
+
+    /**
+     * Vector, all data for Bit Rate
+     */
+    private Vector<JCheckBox> bitRateData;
 
     /**
      * Constructor for TopPanel.

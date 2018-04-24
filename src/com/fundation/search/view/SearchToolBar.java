@@ -105,11 +105,6 @@ public class SearchToolBar extends JToolBar {
     private static final MultimediaPanel MULTIMEDIA = new MultimediaPanel();
 
     /**
-     * AUDIO, Type: MultimediaPanel, this is Multimedia Panel.
-     */
-    private static final AudioPanel AUDIO = new AudioPanel();
-
-    /**
      * Constructor for SearchToolBar.
      * This method is for initialize toggleButtonCollection, action, criteriaPanel and panelList.
      */
@@ -143,7 +138,6 @@ public class SearchToolBar extends JToolBar {
         this.addButtonToToggleCollection("Owner");
         this.addButtonToToggleCollection("Date");
         this.addButtonToToggleCollection("Multimedia");
-        this.addButtonToToggleCollection("Audio");
         this.addButtonToToggleCollection("Data Base");
         // you need implements others buttons here.
 
@@ -232,9 +226,6 @@ public class SearchToolBar extends JToolBar {
         if (action.equalsIgnoreCase("Multimedia")) {
             panelList.remove(action);
         }
-        if (action.equalsIgnoreCase("Audio")) {
-            panelList.remove(action);
-        }
         LOOGER.info("remove criteria listener of buttons exit");
     }
 
@@ -295,10 +286,6 @@ public class SearchToolBar extends JToolBar {
             panelList.put(action, MULTIMEDIA);
             criteriaPanel.setBorderCriteriaPanel(action);
         }
-        if (action.equalsIgnoreCase("Audio")) {
-            panelList.put(action, AUDIO);
-            criteriaPanel.setBorderCriteriaPanel(action);
-        }
 
         if (action.equalsIgnoreCase("Data Base")) {
             panelList.put(action, DB_PANEL);
@@ -352,9 +339,6 @@ public class SearchToolBar extends JToolBar {
         }
         if("Multimedia".equalsIgnoreCase(nameOfJToggleButton)){
             buttonToAddCollection.setIcon(new ImageIcon(System.getProperty("user.dir")+SEPARATOR+"resources"+SEPARATOR+"icons"+SEPARATOR+"video.png"));
-        }
-        if("Audio".equalsIgnoreCase(nameOfJToggleButton)){
-            buttonToAddCollection.setIcon(new ImageIcon(System.getProperty("user.dir")+SEPARATOR+"resources"+SEPARATOR+"icons"+SEPARATOR+"audio.png"));
         }
 
     }
@@ -857,15 +841,15 @@ public class SearchToolBar extends JToolBar {
      * @return String[], this is String array with selected values.
      */
     public ArrayList<String> getAudioRateCriteria() {
-        return this.AUDIO.getAudioRateCriteria();
+        return MULTIMEDIA.getAudioRateCriteria();
     }
 
     /**
-     * This method is for return Audio Format Array.
+     * This method is for return Audio Rate Array.
      *
      * @return String[], this is String array with selected values.
      */
-    public ArrayList<String> getAudioFormatCriteria() {
-        return this.AUDIO.getAudioFormatCriteria();
+    public ArrayList<String> getMultimediaTypeCriteria() {
+        return MULTIMEDIA.getMultimediaTypeCriteria();
     }
 }
