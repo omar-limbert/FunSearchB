@@ -182,18 +182,18 @@ public class SearchCriteriaBuilder {
      *
      * @return SearchCriteriaBuilder return Builder Class.
      */
-    public SearchCriteriaBuilder sizeCriteria(String operator, long size, String type) {
+    public SearchCriteriaBuilder sizeCriteria(String operators, long size, String type) {
         LOOGER.info("sizeCriteria Entry");
 
-        if (operator != null) {
+        if (operators != null) {
             // Converting operator to valid format for Model
-            if (operator.equalsIgnoreCase("Minor to:")) {
+            if (operators.equalsIgnoreCase("Minor to:")) {
                 this.operator = "lower";
             }
-            if (operator.equalsIgnoreCase("Major to:")) { // Little change on UI to "Major"
+            if (operators.equalsIgnoreCase("Major to:")) { // Little change on UI to "Major"
                 this.operator = "upper";
             }
-            if (operator.equalsIgnoreCase("Equals to:")) {
+            if (operators.equalsIgnoreCase("Equals to:")) {
                 this.operator = "equal";
             }
             this.type = type;
