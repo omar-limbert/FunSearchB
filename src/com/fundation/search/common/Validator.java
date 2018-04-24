@@ -50,9 +50,13 @@ public class Validator {
      * @return true if it is a valid format for a path.
      */
     public boolean isValidPath(String path) {
+
         LOOGER.info("Validate Path: " + path);
         LOOGER.info("Exit Validator");
-        return Files.exists(Paths.get(path));
+        if (!path.isEmpty()) {
+            return Files.exists(Paths.get(path));
+        }
+        return false;
     }
 
     /**
@@ -171,7 +175,7 @@ public class Validator {
     public boolean isOptionSize(String optionSize) {
         return optionSize.equalsIgnoreCase("Minor to:") ||
                 optionSize.equalsIgnoreCase("Major to:") ||
-                optionSize.equalsIgnoreCase("Equals to:");
+                optionSize.equalsIgnoreCase("Equal to:");
     }
 
     /**
@@ -210,5 +214,6 @@ public class Validator {
         return criteria.equalsIgnoreCase("true") ||
                 criteria.equalsIgnoreCase("false");
     }
+
 
 }
