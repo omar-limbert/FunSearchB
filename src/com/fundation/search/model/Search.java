@@ -104,6 +104,7 @@ public class Search {
                 assetList.add(asset);
 
                 if (file.isDirectory()) {
+                    searchByPath(file.getPath());
                     if (asset instanceof FolderResult) {
 
                         asset = assetFactory.getAsset(file.getPath()
@@ -120,7 +121,6 @@ public class Search {
                                 , 15);
 
                         assetList.add(asset);
-                        searchByPath(file.getPath());
                     }
                 }
             }
