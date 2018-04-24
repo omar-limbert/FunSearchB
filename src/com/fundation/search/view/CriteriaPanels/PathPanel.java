@@ -1,5 +1,5 @@
 /*
- * @(#)FileNamePanel.java
+ * @(#)PathPanel.java
  *
  * Copyright (c) 2018 Jala Foundation.
  * 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
@@ -132,6 +132,7 @@ public class PathPanel extends JPanel {
         pathTextField = new JTextField();
         pathTextField.setPreferredSize(new Dimension(200, 35));
         pathTextField.setText(directoryChooser.getCurrentDirectory().getPath());
+        pathTextField.setEnabled(false);
         //Check box
         keySensitiveLabel = new JLabel("Key Sensitive");
         keySensitiveCheck = new JCheckBox();

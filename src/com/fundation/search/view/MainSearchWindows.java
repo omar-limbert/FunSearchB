@@ -22,10 +22,10 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import java.util.Date;
-import java.util.logging.Logger;
 
 /**
  * This class main windows.
@@ -38,11 +38,6 @@ public class MainSearchWindows extends JFrame {
      * Init logger  in Main Search Panel
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
-
-    /**
-     * Separator of System
-     */
-    private static final String SEPARATOR = System.getProperty("file.separator");
 
     /**
      * topPanel, Type: TopPanel, this is top panel of main windows.
@@ -74,12 +69,12 @@ public class MainSearchWindows extends JFrame {
 
         // Setting tittle of application.
         this.setTitle("Search Application");
-        LOOGER.info("Get init top and center panel");
+
         // Initialize Top and Center Panel, you need add new Bottom panel for new functionalities.
         this.topPanel = new TopPanel();
         this.centerPanel = new CenterPanel();
         this.bottomPanel = new BottomPanel();
-        // this.bottom = new BottomPanel(); <= you need implement this for next features.
+
         // Setting Border Layout and repaint.
         this.getContentPane().setLayout(new BorderLayout());
         this.getContentPane().add(topPanel, BorderLayout.NORTH);
@@ -87,13 +82,15 @@ public class MainSearchWindows extends JFrame {
         this.getContentPane().add(bottomPanel, BorderLayout.SOUTH);
         this.revalidate();
         this.repaint();
+
         // Setting main windows <= maybe you could be this dynamic.
-        LOOGER.info("finish add top and center panel");
+
         final int width = 1300;
         final int height = 900;
         this.setSize(width, height);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+
         LOOGER.info("init exit");
     }
 
@@ -638,5 +635,83 @@ public class MainSearchWindows extends JFrame {
      */
     public JButton getDeleteButtonOnDataBasePanel() {
         return this.topPanel.getDeleteButtonOnDataBasePanel();
+    }
+
+    /**
+     * This method is for return Duration Multimedia critera.
+     * Controller need use this.
+     *
+     * @return String, this comparator for multimedia filter.
+     */
+    public String getDurationMultimediaCriteria() {
+        return this.topPanel.getDurationMultimediaCriteria();
+    }
+
+    /**
+     * This method is for return Duration Multimedia Number.
+     * Controller need use this.
+     *
+     * @return String, this is number for filter multimedia files.
+     */
+    public String getDurationMultimediaNumber() {
+        return this.topPanel.getDurationMultimediaNumber();
+    }
+
+    /**
+     * This method is for return Duration Multimedia Time.
+     * Controller need use this.
+     *
+     * @return String, this is type time {seconds,minutes,hours}.
+     */
+    public String getDurationMultimediaTime() {
+        return this.topPanel.getDurationMultimediaTime();
+    }
+
+    /**
+     * This method is for return Frame Rate Array.
+     * Controller need use this.
+     *
+     * @return String[], this is String array with selected values.
+     */
+    public ArrayList<String> getFrameRateCriteria() {
+        return this.topPanel.getFrameRateCriteria();
+    }
+
+    /**
+     * This method is for return Video Codec Array.
+     * Controller need use this.
+     *
+     * @return String[], this is String array with selected values.
+     */
+    public ArrayList<String> getVideoCodecCriteria() {
+        return this.topPanel.getVideoCodecCriteria();
+    }
+
+    /**
+     * This method is for return Resolution Array.
+     * Controller need use this.
+     *
+     * @return String[], this is String array with selected values.
+     */
+    public ArrayList<String> getResolutionCriteria() {
+        return this.topPanel.getResolutionCriteria();
+    }
+
+    /**
+     * This method is for return Audio Rate Array.
+     *
+     * @return String[], this is String array with selected values.
+     */
+    public ArrayList<String> getAudioRateCriteria() {
+        return topPanel.getAudioRateCriteria();
+    }
+
+    /**
+     * This method is for return Audio Rate Array.
+     *
+     * @return String[], this is String array with selected values.
+     */
+    public ArrayList<String> getMultimediaTypeCriteria() {
+        return topPanel.getMultimediaTypeCriteria();
     }
 }

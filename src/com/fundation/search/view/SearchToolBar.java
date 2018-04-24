@@ -105,11 +105,6 @@ public class SearchToolBar extends JToolBar {
     private static final MultimediaPanel MULTIMEDIA = new MultimediaPanel();
 
     /**
-     * AUDIO, Type: MultimediaPanel, this is Multimedia Panel.
-     */
-    private static final AudioPanel AUDIO = new AudioPanel();
-
-    /**
      * Constructor for SearchToolBar.
      * This method is for initialize toggleButtonCollection, action, criteriaPanel and panelList.
      */
@@ -143,7 +138,6 @@ public class SearchToolBar extends JToolBar {
         this.addButtonToToggleCollection("Owner");
         this.addButtonToToggleCollection("Date");
         this.addButtonToToggleCollection("Multimedia");
-        this.addButtonToToggleCollection("Audio");
         this.addButtonToToggleCollection("Data Base");
         // you need implements others buttons here.
 
@@ -232,9 +226,6 @@ public class SearchToolBar extends JToolBar {
         if (action.equalsIgnoreCase("Multimedia")) {
             panelList.remove(action);
         }
-        if (action.equalsIgnoreCase("Audio")) {
-            panelList.remove(action);
-        }
         LOOGER.info("remove criteria listener of buttons exit");
     }
 
@@ -295,10 +286,6 @@ public class SearchToolBar extends JToolBar {
             panelList.put(action, MULTIMEDIA);
             criteriaPanel.setBorderCriteriaPanel(action);
         }
-        if (action.equalsIgnoreCase("Audio")) {
-            panelList.put(action, AUDIO);
-            criteriaPanel.setBorderCriteriaPanel(action);
-        }
 
         if (action.equalsIgnoreCase("Data Base")) {
             panelList.put(action, DB_PANEL);
@@ -352,9 +339,6 @@ public class SearchToolBar extends JToolBar {
         }
         if("Multimedia".equalsIgnoreCase(nameOfJToggleButton)){
             buttonToAddCollection.setIcon(new ImageIcon(System.getProperty("user.dir")+SEPARATOR+"resources"+SEPARATOR+"icons"+SEPARATOR+"video.png"));
-        }
-        if("Audio".equalsIgnoreCase(nameOfJToggleButton)){
-            buttonToAddCollection.setIcon(new ImageIcon(System.getProperty("user.dir")+SEPARATOR+"resources"+SEPARATOR+"icons"+SEPARATOR+"audio.png"));
         }
 
     }
@@ -795,5 +779,77 @@ public class SearchToolBar extends JToolBar {
      */
     public JButton getDeleteButtonOnDataBasePanel() {
         return this.DB_PANEL.getDeleteButtonOnDataBasePanel();
+    }
+
+    /**
+     * This method is for return Duration Multimedia critera.
+     *
+     * @return String, this comparator for multimedia filter.
+     */
+    public String getDurationMultimediaCriteria() {
+        return this.MULTIMEDIA.getDurationMultimediaCriteria();
+    }
+
+    /**
+     * This method is for return Duration Multimedia Number.
+     *
+     * @return String, this is number for filter multimedia files.
+     */
+    public String getDurationMultimediaNumber() {
+        return this.MULTIMEDIA.getDurationMultimediaNumber();
+    }
+
+    /**
+     * This method is for return Duration Multimedia Time.
+     *
+     * @return String, this is type time {seconds,minutes,hours}.
+     */
+    public String getDurationMultimediaTime() {
+        return this.MULTIMEDIA.getDurationMultimediaTime();
+    }
+
+    /**
+     * This method is for return Frame Rate Array.
+     *
+     * @return String[], this is String array with selected values.
+     */
+    public ArrayList<String> getFrameRateCriteria() {
+        return this.MULTIMEDIA.getFrameRateCriteria();
+    }
+
+    /**
+     * This method is for return Video Codec Array.
+     *
+     * @return String[], this is String array with selected values.
+     */
+    public ArrayList<String> getVideoCodecCriteria() {
+        return this.MULTIMEDIA.getVideoCodecCriteria();
+    }
+
+    /**
+     * This method is for return Resolution Array.
+     *
+     * @return String[], this is String array with selected values.
+     */
+    public ArrayList<String> getResolutionCriteria() {
+        return this.MULTIMEDIA.getResolutionCriteria();
+    }
+
+    /**
+     * This method is for return Audio Rate Array.
+     *
+     * @return String[], this is String array with selected values.
+     */
+    public ArrayList<String> getAudioRateCriteria() {
+        return MULTIMEDIA.getAudioRateCriteria();
+    }
+
+    /**
+     * This method is for return Audio Rate Array.
+     *
+     * @return String[], this is String array with selected values.
+     */
+    public ArrayList<String> getMultimediaTypeCriteria() {
+        return MULTIMEDIA.getMultimediaTypeCriteria();
     }
 }

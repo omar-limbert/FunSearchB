@@ -1,5 +1,5 @@
 /*
- * @(#)OwnerPanel.java
+ * @(#)TypePanel.java
  *
  * Copyright (c) 2018 Jala Foundation.
  * 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
@@ -17,7 +17,6 @@ import com.fundation.search.common.SearchLogger;
 import com.fundation.search.view.SearchTextField;
 
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Dimension;
 import java.awt.FlowLayout;

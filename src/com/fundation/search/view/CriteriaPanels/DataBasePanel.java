@@ -1,5 +1,5 @@
 /*
- * @(#)FileNamePanel.java
+ * @(#)DataBasePanel.java
  *
  * Copyright (c) 2018 Jala Foundation.
  * 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
@@ -30,23 +30,41 @@ import java.util.logging.Logger;
  * @version 1.0.
  */
 public class DataBasePanel extends JPanel {
+
     /**
-     * Init logger  on DataBase Panel
+     * Logger, Init logger  on DataBase Panel
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
+
+    /**
+     * dataBaseNorthPanel, North Data Base Panel with components
+     */
     private DataBaseNorthPanel dataBaseNorthPanel;
+
+    /**
+     * DataBaseCenterPanel, Central Data Base Panel with Jtable Result
+     */
     private DataBaseCenterPanel dataBaseCenterPanel;
+
+    /**
+     * DataBaseSouthPanel, South Data Base Panel with components
+     */
     private DataBaseSouthPanel dataBaseSouthPanel;
 
     /**
      * Constructor for DataBasePanel.
-     * This constructor call initComponents() after this
-     * revalidate and repaint all panel.
+     *
      */
     public DataBasePanel() {
         LOOGER.info("Constructor Entry");
+
+        // Initialize Components
         this.initComponents();
+
+        // Adding Components
         this.addComponents();
+
+        // Revalidate and repaint all panel
         this.revalidate();
         this.repaint();
         LOOGER.info("Constructor exit");
@@ -54,7 +72,7 @@ public class DataBasePanel extends JPanel {
 
     /**
      * This method is for initialize all components.
-     * This is for set Layout to BoxLayout on vertical position.
+     *
      */
     private void initComponents() {
         LOOGER.info("Get init");
@@ -67,6 +85,7 @@ public class DataBasePanel extends JPanel {
 
     /**
      * This method is for add all components.
+     *
      */
     public void addComponents() {
         this.removeAll();
@@ -74,23 +93,34 @@ public class DataBasePanel extends JPanel {
         this.add(dataBaseNorthPanel, BorderLayout.NORTH);
         this.add(dataBaseCenterPanel, BorderLayout.CENTER);
         this.add(dataBaseSouthPanel, BorderLayout.SOUTH);
-        // Revalidate and repaint.
-        this.revalidate();
-        this.repaint();
         LOOGER.info("add exit component Criteria");
     }
 
+    /**
+     * This method is for reset all data from JTable result.
+     *
+     */
     public void resetAllDataOfDataDBTable() {
         LOOGER.info("reset all data of table data base result");
         this.dataBaseCenterPanel.resetAllDataOfDBTable();
         LOOGER.info("reset all data of table data base result exit");
     }
 
+    /**
+     * This method is for insert one row to JTable result.
+     *
+     * @param row, this is array to insert into JTable.
+     */
     public void insertRowToDataBaseTableResult(Object[] row) {
         LOOGER.info("Insert data to Data Base table result");
         this.dataBaseCenterPanel.insertRowToDataBaseTableResult(row);
     }
 
+    /**
+     * This method is for return name of criteria to save.
+     *
+     * @@return  String, name of criteria to save on data base.
+     */
     public String getNameOfCriteriaToSaveOnDataBase() {
         LOOGER.info("Get name of criteria to save on data base");
         return dataBaseNorthPanel.getNameOfCriteriaToSaveOnDataBase();
