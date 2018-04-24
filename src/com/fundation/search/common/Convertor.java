@@ -32,6 +32,7 @@ public class Convertor {
      * LOOGER is the logger.
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
+
     /**
      * This class convert.
      * Gb (Gigabytes) to Mb(Megabytes).
@@ -107,6 +108,7 @@ public class Convertor {
         LOOGER.info("convertFileDateToDate Exit");
         return fileTime != null ? df.format(fileTime.toMillis()) : null;//"01/01/1999";
     }
+
     /**
      * This method convert String to Date.
      *
@@ -126,5 +128,63 @@ public class Convertor {
         }
         LOOGER.info("convertStringToDate Exit");
         return fechaDate;
+    }
+
+    /**
+     * This method converts String to Date in specific positions.
+     *
+     * @param dates String[] dates.
+     * @return Date []
+     */
+    public Date[] convertDate(String[] dates) {
+        LOOGER.info("dates ConvertDate entry");
+        Date[] dateList = new Date[2];
+        dateList[0] = convertStringToDate(dates[0]);
+        dateList[1] = convertStringToDate(dates[2]);
+        LOOGER.info("dates ConvertDate exit");
+        return dateList;
+    }
+
+    /**
+     * This method converts bytes/kb/mb/gb to bytes.
+     *
+     * @param size       length file.
+     * @param typeOfSize bytes/kb/mb/gb.
+     * @return long converted to bytes.
+     */
+    public long convertToBytes(double size, String typeOfSize) {
+
+        if (typeOfSize.equalsIgnoreCase("Gb")) {
+            return Math.round(size * 1024 * 1024 * 1024);
+        }
+        if (typeOfSize.equalsIgnoreCase("Mb")) {
+            return Math.round(size * 1024 * 1024);
+        }
+        if (typeOfSize.equalsIgnoreCase("Kb")) {
+            return Math.round(size * 1024);
+        }
+        if (typeOfSize.equalsIgnoreCase("Bytes")) {
+            return Math.round(size);
+        }
+        return Math.round(0.0);
+    }
+
+    /**
+     * This method converts String to long
+     * to convert to bytes.
+     *
+     * @param sizeOfSize length file.
+     * @param typeOfSize bytes/kb/mb/gb.
+     * @return long converted to bytes.
+     */
+    public long convertSizeStringToLong(String sizeOfSize, String typeOfSize) {
+        long size = 0L;
+        try {
+            if (sizeOfSize != null) {
+                size = convertToBytes(Double.parseDouble(sizeOfSize), typeOfSize);
+            }
+        } catch (NumberFormatException e) {
+        }
+        return size;
     }
 }

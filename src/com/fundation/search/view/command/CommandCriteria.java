@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 /**
- * This class allows to get files attributes of commad line
+ * This class allows to get files attributes of command line
  *
  * @author Escarleth Ledezma Q.
  * @version 1.0
@@ -190,10 +190,10 @@ public class CommandCriteria {
     }
 
     /**
-     * This method return if is a directory.
+     * This method return the file extension.
      */
     public String getExtension() {
-        LOOGER.info("getExtension CommandCriteria" + extension);
+        LOOGER.info("GetExtension CommandCriteria" + extension);
         return extension;
     }
 }
