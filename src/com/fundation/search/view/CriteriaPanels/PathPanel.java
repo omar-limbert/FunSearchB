@@ -94,6 +94,11 @@ public class PathPanel extends JPanel {
     private JLabel keySensitiveLabel;
 
     /**
+     * inputLabel, Type: JLabel, this is JLabel for file chooser.
+     */
+    private JLabel inputLabel;
+
+    /**
      * Constructor for PathPanel.
      * This method is for set Layout, call initComponents(), call addComponents() and repaint() panel.
      */
@@ -116,6 +121,7 @@ public class PathPanel extends JPanel {
         directoryChooser.setCurrentDirectory(new java.io.File("/"));
         directoryChooser.setDialogTitle("Folder chooser for search files");
         directoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        inputLabel = new JLabel("Path: ");
         directoryChooser.setAcceptAllFileFilterUsed(false);
         // Button for open Folder Chooser.
         pathButton = new JButton();
@@ -160,6 +166,7 @@ public class PathPanel extends JPanel {
      */
     private void addComponents() {
         LOOGER.info("add component");
+        this.add(inputLabel);
         this.add(pathTextField);
         this.add(pathButton);
         //Check box

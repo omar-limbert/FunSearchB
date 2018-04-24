@@ -40,6 +40,11 @@ public class MainSearchWindows extends JFrame {
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
+     * Separator of System
+     */
+    private static final String SEPARATOR = System.getProperty("file.separator");
+
+    /**
      * topPanel, Type: TopPanel, this is top panel of main windows.
      */
     private TopPanel topPanel;
@@ -66,11 +71,12 @@ public class MainSearchWindows extends JFrame {
      */
     public void initWindows() {
         LOOGER.info("Get init");
+
         // Setting tittle of application.
         this.setTitle("Search Application");
         LOOGER.info("Get init top and center panel");
         // Initialize Top and Center Panel, you need add new Bottom panel for new functionalities.
-        this.topPanel = new TopPanel("Searching...");
+        this.topPanel = new TopPanel();
         this.centerPanel = new CenterPanel();
         this.bottomPanel = new BottomPanel();
         // this.bottom = new BottomPanel(); <= you need implement this for next features.
@@ -316,7 +322,7 @@ public class MainSearchWindows extends JFrame {
      */
     public void resetDataOfDataBaseTableResult() {
         LOOGER.info("get reset table");
-        bottomPanel.resetAllDataOfDataDBTable();
+        topPanel.resetAllDataOfDataDBTable();
     }
 
     /**
@@ -327,7 +333,7 @@ public class MainSearchWindows extends JFrame {
      */
     public void insertDataToDataBaseTableResult(Object[] row) {
         LOOGER.info("Insert data to Data Base table result");
-        bottomPanel.insertRowToDataBaseTableResult(row);
+        topPanel.insertRowToDataBaseTableResult(row);
     }
 
     /**
@@ -338,7 +344,7 @@ public class MainSearchWindows extends JFrame {
      */
     public String getNameOfCriteriaToSaveOnDataBase() {
         LOOGER.info("Get name of criteria");
-        return bottomPanel.getNameOfCriteriaToSaveOnDataBase();
+        return topPanel.getNameOfCriteriaToSaveOnDataBase();
     }
 
     /**
@@ -349,7 +355,7 @@ public class MainSearchWindows extends JFrame {
      */
     public JButton getSaveButtonOnDataBasePanel() {
         LOOGER.info("Get Save button of Data Base Panel");
-        return bottomPanel.getSaveButtonOnDataBasePanel();
+        return topPanel.getSaveButtonOnDataBasePanel();
     }
 
     /**
@@ -360,7 +366,7 @@ public class MainSearchWindows extends JFrame {
      */
     public JButton getLoadButtonOnDataBasePanel() {
         LOOGER.info("Get Load button of Data Base Panel");
-        return bottomPanel.getLoadButtonOnDataBasePanel();
+        return topPanel.getLoadButtonOnDataBasePanel();
     }
 
     /**
@@ -371,7 +377,7 @@ public class MainSearchWindows extends JFrame {
      */
     public JButton getFillButtonOnDataBasePanel() {
         LOOGER.info("Get Fill button of Data Base Panel");
-        return bottomPanel.getFillButtonOnDataBasePanel();
+        return topPanel.getFillButtonOnDataBasePanel();
     }
 
     /**
@@ -381,7 +387,7 @@ public class MainSearchWindows extends JFrame {
      * @return ListSelectionModel, ListSelectionmodel from Data Base Table Result.
      */
     public ListSelectionModel getSelectionModelOfDataBaseTableResult() {
-        return bottomPanel.getSelectionModel();
+        return topPanel.getSelectionModel();
     }
 
     /**
@@ -391,7 +397,7 @@ public class MainSearchWindows extends JFrame {
      * @return JTable, this is a Data Base JTable.
      */
     public JTable getDataBaseTableResult() {
-        return bottomPanel.getDataBaseTableResult();
+        return topPanel.getDataBaseTableResult();
     }
 
     /**
@@ -631,6 +637,6 @@ public class MainSearchWindows extends JFrame {
      * @return JButton, this is Delete button of Data Base
      */
     public JButton getDeleteButtonOnDataBasePanel() {
-        return this.bottomPanel.getDeleteButtonOnDataBasePanel();
+        return this.topPanel.getDeleteButtonOnDataBasePanel();
     }
 }

@@ -14,6 +14,7 @@
 package com.fundation.search.view.CriteriaPanels;
 
 import com.fundation.search.common.SearchLogger;
+import com.fundation.search.view.SearchTextField;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -38,7 +39,7 @@ public class OwnerPanel extends JPanel {
     /**
      * ownerTextField, Type: JTextField, this is a JTextField for contains final owner result.
      */
-    private JTextField ownerTextField;
+    private SearchTextField ownerTextField;
 
     /**
      * ownerLabelField, Type: JLabel, this is a JLabel for contains label.
@@ -64,8 +65,8 @@ public class OwnerPanel extends JPanel {
         LOOGER.info("Get init");
         //Initialize
         this.ownerLabelField = new JLabel("Owner: ");
-        this.ownerTextField = new JTextField();
-        ownerTextField.setPreferredSize(new Dimension(100, 25));
+        this.ownerTextField = new SearchTextField("e.g. Administrator");
+        this.ownerTextField.setPreferredSize(new Dimension(250, 32));
         LOOGER.info("init exit");
     }
 

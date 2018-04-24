@@ -18,6 +18,8 @@ import com.fundation.search.view.SearchTextField;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
 import java.util.logging.Logger;
 
 /**
@@ -60,6 +62,10 @@ public class FileNamePanel extends JPanel {
      * containsJTextField, Type: JTextField, this JTextField for contains criteria.
      */
     private SearchTextField containsJTextField;
+    /**
+     * containsJTextField, Type: JTextField, this JTextField for contains criteria.
+     */
+    private JLabel fileNameLabel;
 
 
     /**
@@ -86,10 +92,10 @@ public class FileNamePanel extends JPanel {
     private void initComponents() {
         LOOGER.info("initComponents init");
 
-        this.containsJTextField = new SearchTextField("Insert word");
-        this.containsJTextField.setSizeOfSearchTextFienld(70,32);
-
-        this.containsTextInside = new JCheckBox();
+        this.containsJTextField = new SearchTextField("<- Search inside a File");
+        this.containsJTextField.setPreferredSize(new Dimension(200, 32));
+        this.fileNameLabel = new JLabel("File Name :");
+        this.containsTextInside = new JCheckBox("Search Inside :");
         // Initialize RadioButtons.
         this.radioButtonGroup = new ButtonGroup();
         this.allWordsRadioButton = new JRadioButton("all words");
@@ -117,6 +123,7 @@ public class FileNamePanel extends JPanel {
         this.radioButtonGroup.add(endWithRadioButton);
         this.radioButtonGroup.add(equalsToRadioButton);
         // Adding radioButtons to Panel
+        this.add(fileNameLabel);
         this.add(allWordsRadioButton);
         this.add(startWithRadioButton);
         this.add(endWithRadioButton);
@@ -126,9 +133,25 @@ public class FileNamePanel extends JPanel {
         // Default radioButton selected.
         this.allWordsRadioButton.setSelected(true);
         this.containsTextInside.setSelected(false);
+        this.containsJTextField.setEditable(false);
+        this.containsTextInside.addItemListener(e->containsTextInsideAction(e));
 
         LOOGER.info("add exit");
     }
+
+    private void containsTextInsideAction(ItemEvent e) {
+        if(e.getStateChange()==1){
+            this.containsJTextField.setEditable(true);
+            this.containsJTextField.setPlaceHolderColor(Color.RED);
+            this.containsJTextField.setPlaceHolderText("Type a word");
+        }
+        if(e.getStateChange()==2){
+            this.containsJTextField.setEditable(false);
+            this.containsJTextField.setPlaceHolderColor(Color.GRAY);
+            this.containsJTextField.setPlaceHolderText("<- Search inside a File");
+        }
+    }
+
 
     /**
      * This method return Hidden File criteria.

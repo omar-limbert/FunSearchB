@@ -129,7 +129,7 @@ public class SearchTextField extends JTextField {
      *
      * @param placeHolderText This is a text for place holder.
      */
-    private void setPlaceHolderText(String placeHolderText) {
+    public void setPlaceHolderText(String placeHolderText) {
         this.placeHolderText = placeHolderText;
     }
 

@@ -15,8 +15,8 @@ package com.fundation.search.view.CriteriaPanels;
 
 import com.fundation.search.common.SearchLogger;
 
-import javax.swing.JPanel;
-import javax.swing.BoxLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -34,12 +34,19 @@ public class CriteriaPanel extends JPanel {
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
+     * Constrains to set layout on Criteria Panel
+     */
+    private GridBagConstraints constraints;
+
+    /**
      * Constructor for TopPanel.
      * This constructor call initComponents() after this
      * revalidate and repaint all panel.
      */
     public CriteriaPanel() {
         LOOGER.info("Get Result Entry");
+        this.constraints = new GridBagConstraints();
+        this.setLayout(new GridBagLayout());
         this.initComponents();
         this.revalidate();
         this.repaint();
@@ -52,7 +59,7 @@ public class CriteriaPanel extends JPanel {
      */
     private void initComponents() {
         LOOGER.info("Get init");
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(new GridBagLayout());
         LOOGER.info("init component criteria exit");
     }
 
@@ -65,10 +72,98 @@ public class CriteriaPanel extends JPanel {
         this.removeAll();
         LOOGER.info("Get init");
         //Adding Panel for each button
-        panelList.forEach((k, v) -> this.add(v));
+        panelList.forEach((k, v) -> this.addCriteriaPanel(k, v));
         // Revalidate and repaint.
         this.revalidate();
         this.repaint();
         LOOGER.info("add exit component Criteria");
     }
+
+    public void setBorderCriteriaPanel(String tittle) {
+
+        if (tittle != null) {
+            this.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createTitledBorder(tittle),
+                    BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        } else {
+            this.setBorder(null);
+        }
+
+    }
+
+    private void addCriteriaPanel(String namePanel, JPanel criteriaPanel) {
+
+        if ("Path".equalsIgnoreCase(namePanel)) {
+            constraints.gridx = 0;
+            constraints.gridy = 0;
+            constraints.gridwidth = 3;
+            constraints.gridheight = 1;
+            this.add(criteriaPanel, constraints);
+        }
+        if ("File Name".equalsIgnoreCase(namePanel)) {
+            constraints.gridx = 0;
+            constraints.gridy = 1;
+            constraints.gridwidth = 3;
+            constraints.gridheight = 1;
+            this.add(criteriaPanel, constraints);
+        }
+        if ("Hidden".equalsIgnoreCase(namePanel)) {
+            constraints.gridx = 0;
+            constraints.gridy = 2;
+            constraints.gridwidth = 1;
+            constraints.gridheight = 1;
+            this.add(criteriaPanel, constraints);
+        }
+        if ("Type".equalsIgnoreCase(namePanel)) {
+            constraints.gridx = 1;
+            constraints.gridy = 2;
+            constraints.gridwidth = 1;
+            constraints.gridheight = 1;
+            this.add(criteriaPanel, constraints);
+        }
+        if ("Owner".equalsIgnoreCase(namePanel)) {
+            constraints.gridx = 2;
+            constraints.gridy = 2;
+            constraints.gridwidth = 1;
+            constraints.gridheight = 1;
+            this.add(criteriaPanel, constraints);
+        }
+        if ("Size".equalsIgnoreCase(namePanel)) {
+            constraints.gridx = 0;
+            constraints.gridy = 3;
+            constraints.gridwidth = 1;
+            constraints.gridheight = 1;
+            this.add(criteriaPanel, constraints);
+        }
+        if ("date".equalsIgnoreCase(namePanel)) {
+            constraints.gridx = 1;
+            constraints.gridy = 3;
+            constraints.gridwidth = 2;
+            constraints.gridheight = 1;
+            this.add(criteriaPanel, constraints);
+        }
+        if ("Data Base".equalsIgnoreCase(namePanel)) {
+            constraints.gridx = 1;
+            constraints.gridy = 2;
+            constraints.gridwidth = 1;
+            constraints.gridheight = 1;
+            this.add(criteriaPanel, constraints);
+        }
+        if ("Multimedia".equalsIgnoreCase(namePanel)) {
+            constraints.gridx =1;
+            constraints.gridy = 2;
+            constraints.gridwidth = 1;
+            constraints.gridheight = 1;
+            this.add(criteriaPanel, constraints);
+        }
+        if ("Audio".equalsIgnoreCase(namePanel)) {
+            constraints.gridx =1;
+            constraints.gridy = 2;
+            constraints.gridwidth = 1;
+            constraints.gridheight = 1;
+            this.add(criteriaPanel, constraints);
+        }
+
+    }
+
 }
