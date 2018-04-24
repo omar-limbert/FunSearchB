@@ -69,8 +69,6 @@ public class SearchCommandTest {
         search2 = new SearchCommand(COMMAND_LIST2);
         search3 = new SearchCommand(COMMAND_LIST3);
         search4 = new SearchCommand(COMMAND_LIST4);
-
-
     }
 
     /**
@@ -137,4 +135,5 @@ public class SearchCommandTest {
     public void testAddCriteriaWithoutDuplicatedFalse4() {
         assertFalse(search4.addCriteriaWithoutDuplicated());
     }
+
 }

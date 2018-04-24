@@ -95,9 +95,6 @@ public class ControlCommand {
         Date[] dateModified = converter.convertDate(dateValidation(commandCriteria.getDateModified()));
         Date[] dateLastAccess = converter.convertDate(dateValidation(commandCriteria.getDateLastAccess()));
         String[] getSize = splitGetSize(commandCriteria.getSize());
-        System.out.println(getSize[0] + " :1");
-        System.out.println(converter.convertSizeStringToLong(getSize[1], getSize[2]) + " :2");
-        System.out.println(getSize[2] + " :3");
         // Adding to SearchCriteria and Validating some data
         this.searchCriteria = new com.fundation.search.controller.builder.SearchCriteriaBuilder()
                 .pathCriteria(this.pathValidation(commandCriteria.getPath()))
@@ -130,6 +127,7 @@ public class ControlCommand {
      * @return String []dates.
      */
     public String[] splitGetSize(String sizeCommand) {
+        LOOGER.info("SizeCommand entry");
         String[] parts = sizeCommand.split(":");
         String[] valueCommand = new String[3];
         if (parts.length == 2 && validateInputs.isOptionSize(parts[0].concat(":"))) {
@@ -137,6 +135,7 @@ public class ControlCommand {
             valueCommand[1] = parts[1].replaceAll("[^.0-9]+", "");
             valueCommand[2] = parts[1].replaceAll("[^a-zA-Z]+", "");
         }
+        LOOGER.info("SizeCommand exit");
         return valueCommand;
     }
 

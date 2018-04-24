@@ -184,14 +184,14 @@ public class SearchCriteriaBuilder {
      */
     public SearchCriteriaBuilder sizeCriteria(String operator, long size, String type) {
         LOOGER.info("sizeCriteria Entry");
-       // System.out.println(operator+" "+size+" "+type );
-        if (operator != null && size != 0) {
+
+        if (operator != "" ) {
 
             // Converting operator to valid format for Model
             if (operator.equalsIgnoreCase("Minor to:")) {
                 this.operator = "lower";
             }
-            if (operator.equalsIgnoreCase("major to:")) { // Little change on UI to "Major"
+            if (operator.equalsIgnoreCase("Major to:")) { // Little change on UI to "Major"
                 this.operator = "upper";
             }
             if (operator.equalsIgnoreCase("Equals to:")) {
