@@ -185,8 +185,7 @@ public class SearchCriteriaBuilder {
     public SearchCriteriaBuilder sizeCriteria(String operator, long size, String type) {
         LOOGER.info("sizeCriteria Entry");
 
-        if (operator != "" ) {
-
+        if (operator != null) {
             // Converting operator to valid format for Model
             if (operator.equalsIgnoreCase("Minor to:")) {
                 this.operator = "lower";
