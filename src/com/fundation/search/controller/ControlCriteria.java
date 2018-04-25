@@ -20,7 +20,7 @@ import com.fundation.search.controller.builder.SearchCriteria;
 import com.fundation.search.model.Search;
 import com.fundation.search.model.asset.Asset;
 import com.fundation.search.model.asset.FileResult;
-import com.fundation.search.model.asset.MultimediaResult;
+import com.fundation.search.controller.builder.SearchCriteriaBuilder;
 import com.fundation.search.view.MainSearchWindows;
 
 import javax.swing.JOptionPane;
@@ -149,8 +149,6 @@ public class ControlCriteria {
             indexSelectedOnDataTableResult = Integer.parseInt(index);
 
         }
-
-
     }
 
     /**
@@ -289,17 +287,15 @@ public class ControlCriteria {
         String criteriaOfSize = searchWindows.getSizeOfCriteria()[0];
         String sizeOfSize = searchWindows.getSizeOfCriteria()[1];
         String typeOfSize = searchWindows.getSizeOfCriteria()[2];
-        Long size = 0L;
+        long size = -1L;
 
         // Converting Size to bytes for Model
-        if (typeOfSize.equalsIgnoreCase("bit") && !sizeOfSize.isEmpty()) {
-            size = Long.parseLong(sizeOfSize);
+        if (!sizeOfSize.isEmpty()) {
+            size = converter.convertSizeStringToLong(sizeOfSize,typeOfSize);
         }
 
-        // YOU NEED IMPLEMENT FOR KB, MB and GB HERE
-
         // Adding to SearchCriteria and Validating some data
-        this.searchCriteria = new com.fundation.search.controller.builder.SearchCriteriaBuilder()
+        this.searchCriteria = new SearchCriteriaBuilder()
                 .pathCriteria(this.pathValidation(searchWindows.getPathOfCriteria()))
                 .fileName(this.nameValidation(searchWindows.getSearchText()))
                 .hiddenCriteria(searchWindows.getHiddenOfCriteria())
