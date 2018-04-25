@@ -13,6 +13,7 @@
  */
 package com.fundation.search.model;
 
+import com.fundation.search.common.SearchLogger;
 import com.fundation.search.controller.builder.SearchCriteria;
 import com.fundation.search.model.asset.Asset;
 import com.fundation.search.model.asset.AssetFactory;
@@ -40,6 +41,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 
 /**
@@ -51,6 +53,10 @@ import java.util.HashMap;
  */
 public class Search {
     /**
+     * LOOGER is the logger.
+     */
+    private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
+    /**
      * criteria  is a SearchCriteria object that receive criteria to find files.
      */
     private SearchCriteria criteria;
@@ -58,6 +64,9 @@ public class Search {
      * fileList is a Asset.
      */
     private List<Asset> assetList;
+    /**
+     * assetFactory is a FileResult, FolderResult or MultimediaResult.
+     */
     private AssetFactory assetFactory;
 
     /**
@@ -73,6 +82,7 @@ public class Search {
      * @return list all the files contained within the path.
      */
     private List<Asset> searchByPath(String path) {
+        LOOGER.info("Entry to searchByPath Method");
         try {
 
             BasicFileAttributes fileBasicAttributes;
@@ -121,11 +131,11 @@ public class Search {
                 }
             }
 
-            // assetList.forEach(e -> System.out.println(e.getName()));
         } catch (NullPointerException e) {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        LOOGER.info("Exit of searchByPath Method");
         return assetList;
     }
 
@@ -137,6 +147,7 @@ public class Search {
      * @return list all the files that contains the name of a file.
      */
     private List<Asset> searchByName(List<Asset> listFile, String nameFile, String fileNameCriteria) {
+        LOOGER.info("Entry to searchByName Method");
         if (fileNameCriteria.equalsIgnoreCase("all words") || fileNameCriteria.isEmpty()) {
             listFile.removeIf(e -> (!e.getName().contains(nameFile)));
         }
@@ -149,6 +160,8 @@ public class Search {
         if (fileNameCriteria.equalsIgnoreCase("equal to")) {
             listFile.removeIf(e -> (!e.getName().equals(nameFile)));
         }
+        LOOGER.info("Exit of searchByName Method");
+
         return listFile;
     }
 
@@ -159,8 +172,7 @@ public class Search {
      * @return list all the files minor or major or equal to given size.
      */
     private List<Asset> searchBySize(List<Asset> listFile, long size, String operator) {
-
-
+        LOOGER.info("Entry to searchBySize Method");
         List<Asset> listFilter = new ArrayList<>();
         for (Asset file : listFile) {
 
@@ -183,7 +195,7 @@ public class Search {
             }
 
         }
-
+        LOOGER.info("Exit of searchBySize Method");
         return listFilter;
     }
 
@@ -196,14 +208,14 @@ public class Search {
      */
 
     private List<Asset> searchHiddenFiles(List<Asset> listFile, String hiddenCriteria) {
-
+        LOOGER.info("Entry to searchHiddenFiles Method");
         if (hiddenCriteria.equalsIgnoreCase("only hidden")) {
             listFile.removeIf(e -> (!e.getIsHidden()));
         }
         if (hiddenCriteria.equalsIgnoreCase("without hidden")) {
             listFile.removeIf(e -> (e.getIsHidden()));
         }
-
+        LOOGER.info("Exit of searchHiddenFiles Method");
         return listFile;
     }
 
@@ -214,14 +226,14 @@ public class Search {
      * @return a list of files that are on range between init date and end date.
      */
     private List<Asset> lastModifiedTime(List<Asset> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
+        LOOGER.info("Entry to lastModifiedTime Method");
         List<Asset> listFilter = new ArrayList<>();
-        //listFile.forEach(e -> System.out.println(e.getName()));
         for (Asset file : listFile) {
             if ((file.getLastModifiedTime().toMillis() >= dateConditionInt.toMillis() && file.getLastModifiedTime().toMillis() <= dateConditionEnd.toMillis())) {
                 listFilter.add(file);
             }
         }
-        //listFilter.forEach(e -> System.out.println(e.getName()));
+        LOOGER.info("Exit of lastModifiedTime Method");
         return listFilter;
     }
 
@@ -232,14 +244,14 @@ public class Search {
      * @return a list of files that are on range creationTime init date and end date.
      */
     private List<Asset> creationTime(List<Asset> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
+        LOOGER.info("Entry to creationTime Method");
         List<Asset> listFilter = new ArrayList<>();
-        //listFile.forEach(e -> System.out.println(e.getName()));
         for (Asset file : listFile) {
             if ((file.getCreationTime().toMillis() >= dateConditionInt.toMillis() && file.getCreationTime().toMillis() <= dateConditionEnd.toMillis())) {
                 listFilter.add(file);
             }
         }
-        // listFilter.forEach(e -> System.out.println(e.getName()));
+        LOOGER.info("Exit of creationTime Method");
         return listFilter;
     }
 
@@ -251,14 +263,14 @@ public class Search {
      * @return a list of files that are on range lastAccessTime init date and end date.
      */
     private List<Asset> lastAccessTime(List<Asset> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
+        LOOGER.info("Entry to lastAccessTime Method");
         List<Asset> listFilter = new ArrayList<>();
-        //listFile.forEach(e -> System.out.println(e.getName()));
         for (Asset file : listFile) {
             if ((file.getLastAccessTime().toMillis() >= dateConditionInt.toMillis() && file.getLastAccessTime().toMillis() <= dateConditionEnd.toMillis())) {
                 listFilter.add(file);
             }
         }
-        // listFilter.forEach(e -> System.out.println(e.getName()));
+        LOOGER.info("Exit of lastAccessTime Method");
         return listFilter;
     }
 
@@ -267,14 +279,14 @@ public class Search {
      * @return A list of files that are ReadOnly.
      */
     private List<Asset> isReadOnly(List<Asset> listFile) {
-
+        LOOGER.info("Entry to isReadOnly Method");
         List<Asset> listFilter = new ArrayList<>();
         for (Asset file : listFile) {
             if (file.getIsReadOnlyFile()) {
                 listFilter.add(file);
             }
         }
-
+        LOOGER.info("Exit of isReadOnly Method");
         return listFilter;
     }
 
@@ -283,13 +295,14 @@ public class Search {
      * @return A list of files that are on System.
      */
     private List<Asset> isFileSystem(List<Asset> listFile) {
+        LOOGER.info("Entry to isFileSystem Method");
         List<Asset> listFilter = new ArrayList<>();
         for (Asset file : listFile) {
             if (file.getIsFileSystemFile()) {
                 listFilter.add(file);
             }
         }
-
+        LOOGER.info("Exit of isFileSystem Method");
         return listFilter;
     }
 
@@ -298,12 +311,14 @@ public class Search {
      * @return A list of files that are a Directories (Folders).
      */
     private List<Asset> searchByDirectory(List<Asset> listFile) {
+        LOOGER.info("Entry to searchByDirectory Method");
         List<Asset> listFilter = new ArrayList<>();
         for (Asset file : listFile) {
             if (file.getIsDirectory()) {
                 listFilter.add(file);
             }
         }
+        LOOGER.info("Exit of searchByDirectory Method");
         return listFilter;
     }
 
@@ -313,12 +328,14 @@ public class Search {
      * @return A list of files that are the criteria of the extension.
      */
     private List<Asset> searchByExtension(List<Asset> listFile, String extension) {
+        LOOGER.info("Entry to searchByExtension Method");
         List<Asset> listFilter = new ArrayList<>();
         for (Asset file : listFile) {
             if (file.getName().endsWith(extension)) {
                 listFilter.add(file);
             }
         }
+        LOOGER.info("Exit of searchByExtension Method");
         return listFilter;
     }
 
@@ -327,16 +344,25 @@ public class Search {
      * @return A list of files that are the criteria of the extension.
      */
     private List<Asset> searchKeySensitive(List<Asset> listFile, String name) {
+        LOOGER.info("Entry to searchKeySensitive Method");
         List<Asset> listFilter = new ArrayList<>();
         for (Asset file : listFile) {
             if (file.getName().equals(name)) {
                 listFilter.add(file);
             }
         }
+        LOOGER.info("Exit of searchKeySensitive Method");
         return listFilter;
     }
 
+    /**
+     * @param listFile It is the list of Files.
+     * @param text     The text for search into files.
+     * @return A list of files that are the criteria of the intoFiles.
+     * @throws IOException
+     */
     private List<Asset> searchIntoFile(List<Asset> listFile, String text) throws IOException {
+        LOOGER.info("Entry to searchIntoFile Method");
         File fileToSearch = null;
         List<Asset> listFilter = new ArrayList<>();
         Scanner sc = null;
@@ -376,9 +402,8 @@ public class Search {
                 }
             }
 
-
         }
-
+        LOOGER.info("Exit of searchIntoFile Method");
         return listFilter;
     }
 
@@ -389,13 +414,14 @@ public class Search {
      * @return list all the files minor or major or equal to given size.
      */
     private List<Asset> searchByOwner(List<Asset> listFile, String owner) {
+        LOOGER.info("Entry to searchByOwner Method");
         List<Asset> listFilter = new ArrayList<>();
         for (Asset file : listFile) {
             if (file.getOwnerFile().equalsIgnoreCase(owner)) {
                 listFilter.add(file);
             }
         }
-
+        LOOGER.info("Exit of searchByOwner Method");
         return listFilter;
     }
 
@@ -406,6 +432,7 @@ public class Search {
      *                 Is a method that filter a List according that receive of SearchCriteria.
      */
     private void filterByCriteria(SearchCriteria criteria) {
+        LOOGER.info("Entry to filterByCriteria Method");
         assetList = new ArrayList<Asset>();
 
         if (criteria.getPath() != null) {
@@ -457,16 +484,12 @@ public class Search {
             }*/
 
             if (criteria.getLastAccessDateInit() != null && criteria.getLastAccessDateEnd() != null) {
-                //System.out.println(criteria.getLastAccessDateInit() + "    " + criteria.getLastAccessDateEnd());
                 assetList = lastAccessTime(assetList, criteria.getLastAccessDateInit(), criteria.getLastAccessDateEnd());
             }
 
             if (criteria.getModifiedDateInit() != null && criteria.getModifiedDateEnd() != null) {
-                // System.out.println(criteria.getModifiedDateInit() + "    " + criteria.getModifiedDateEnd());
                 assetList = lastModifiedTime(assetList, criteria.getModifiedDateInit(), criteria.getModifiedDateEnd());
             }
-            // assetList.forEach(e -> System.out.println(e.getName()));
-
 
             if (criteria.getIsContainsInsideFileCriteria()) {
                 try {
@@ -476,12 +499,15 @@ public class Search {
                 }
             }
         }
+        LOOGER.info("Exit of filterByCriteria Method");
     }
 
     /**
      * @param criteria This method receives a criteria.
      */
     public void setSearchCriteria(SearchCriteria criteria) {
+        LOOGER.info("Entry to setSearchCriteria Method");
+        LOOGER.info("Exit of setSearchCriteria Method");
         this.criteria = criteria;
     }
 
@@ -489,6 +515,8 @@ public class Search {
      * This method initialize the criteria filtering..
      */
     public void initSearch() {
+        LOOGER.info("Entry to initSearch Method");
+        LOOGER.info("Exit of initSearch Method");
         filterByCriteria(criteria);
     }
 
@@ -496,6 +524,8 @@ public class Search {
      * @return List of files.
      */
     public List<Asset> getResultList() {
+        LOOGER.info("Entry to getResultList Method");
+        LOOGER.info("Exit of getResultList Method");
         return assetList;
 
     }
@@ -507,6 +537,7 @@ public class Search {
      *                       Is a method that filter a List according that insert to DB.
      */
     public void saveCriteriaToDataBase(SearchCriteria searchCriteria) {
+        LOOGER.info("Entry to saveCriteriaToDataBase Method");
         try {
             //Insert to DB
             SearchQuery queryToInsertOnDataBase = new SearchQuery();
@@ -520,7 +551,7 @@ public class Search {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
+        LOOGER.info("Exit of saveCriteriaToDataBase Method");
     }
 
     /**
@@ -529,7 +560,7 @@ public class Search {
      * @return Criteria list of files.
      */
     public Map<Integer, SearchCriteria> getAllDataFromDataBase() {
-
+        LOOGER.info("Entry to getAllDataFromDataBase Method");
         ResultSet resultSet = null;
         SearchCriteria searchCriteria;
         int index;
@@ -552,14 +583,15 @@ public class Search {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        LOOGER.info("Exit of getAllDataFromDataBase Method");
         return criteriaList;
-
     }
 
     /**
      * Delete data from DB.
      */
     public void deleteCriteriaFromDataBase(int index) {
+        LOOGER.info("Entry to deleteCriteriaFromDataBase Method");
         try {
             //Delete from DB
             SearchQuery searchQuery = new SearchQuery();
@@ -570,6 +602,7 @@ public class Search {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        LOOGER.info("Exit of deleteCriteriaFromDataBase Method");
     }
 
 }
