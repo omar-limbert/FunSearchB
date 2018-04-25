@@ -80,25 +80,21 @@ public class Search {
 
             // Attributes for user inside foreach
             Asset asset;
-            String ownerFile;
-            boolean isFileSystem;
-            boolean isReadOnly;
             for (File file : files) {
                 fileBasicAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
-                ownerFile = Files.getFileAttributeView(file.toPath(), FileOwnerAttributeView.class).getOwner().getName();
-                isFileSystem = Files.readAttributes(file.toPath(), DosFileAttributes.class).isSystem();
-                isReadOnly = Files.readAttributes(file.toPath(), DosFileAttributes.class).isReadOnly();
+                FileOwnerAttributeView fileOwnerAttributeView = Files.getFileAttributeView(file.toPath(), FileOwnerAttributeView.class);
+                DosFileAttributes dosFileAttributes = Files.readAttributes(file.toPath(), DosFileAttributes.class);
                 asset = assetFactory.getAsset(file.getPath()
                         , file.getName()
                         , fileBasicAttributes.size()
-                        , file.isHidden()
+                        , dosFileAttributes.isHidden()
                         , fileBasicAttributes.lastModifiedTime()
                         , fileBasicAttributes.creationTime()
                         , fileBasicAttributes.lastAccessTime()
-                        , isReadOnly
-                        , isFileSystem
+                        , dosFileAttributes.isReadOnly()
+                        , dosFileAttributes.isSystem()
                         , fileBasicAttributes.isDirectory()
-                        , ownerFile
+                        , fileOwnerAttributeView.getOwner().getName()
                         , ""
                         , "");
 
@@ -110,14 +106,14 @@ public class Search {
                         asset = assetFactory.getAsset(file.getPath()
                                 , file.getName()
                                 , fileBasicAttributes.size()
-                                , file.isHidden()
+                                , dosFileAttributes.isHidden()
                                 , fileBasicAttributes.lastModifiedTime()
                                 , fileBasicAttributes.creationTime()
                                 , fileBasicAttributes.lastAccessTime()
-                                , isReadOnly
-                                , isFileSystem
+                                , dosFileAttributes.isReadOnly()
+                                , dosFileAttributes.isSystem()
                                 , fileBasicAttributes.isDirectory()
-                                , ownerFile
+                                , fileOwnerAttributeView.getOwner().getName()
                                 , 15);
 
                         assetList.add(asset);
