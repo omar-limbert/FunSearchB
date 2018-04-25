@@ -194,7 +194,7 @@ public class SearchCriteriaBuilder {
             if (operator.equalsIgnoreCase("Major to:")) { // Little change on UI to "Major"
                 this.operator = "upper";
             }
-            if (operator.equalsIgnoreCase("Equals to:")) {
+            if (operator.equalsIgnoreCase("Equal to:")) {
                 this.operator = "equal";
             }
             this.type = type;
