@@ -85,7 +85,7 @@ public class SizePanel extends JPanel {
         this.sizeComboBox.addItem("Mb");
         this.sizeComboBox.addItem("Gb");
         this.majorMinorComboBox = new JComboBox();
-        this.majorMinorComboBox.addItem("Equals to:");
+        this.majorMinorComboBox.addItem("Equal to:");
         this.majorMinorComboBox.addItem("Major to:");
         this.majorMinorComboBox.addItem("Minor to:");
         LOOGER.info("init exit");
