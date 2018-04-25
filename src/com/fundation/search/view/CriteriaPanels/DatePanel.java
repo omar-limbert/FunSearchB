@@ -123,9 +123,10 @@ public class DatePanel extends JPanel {
             this.to2 = new JLabel("to :");
             this.to3 = new JLabel("to :");
 
+            this.dateOfCriteria.getModel().setSelectedItem("Creation Date");
             this.dateOfCriteria.addItemListener(e -> this.dateOfCriteriaListener(e));
 
-            this.dateOfCriteria.getModel().setSelectedItem("Creation Date");
+
 
             // Initialize all dates
             this.dateCreationInitDateChooser = new JDateChooser(DATE_FORMAT.parse("01/01/1999"));
@@ -190,9 +191,9 @@ public class DatePanel extends JPanel {
     private void addComponents() {
         LOOGER.info("Get add");
         this.add(dateOfCriteria);
-        this.add(dateModificationInitDateChooser);
+        this.add(dateCreationInitDateChooser);
         this.add(to1);
-        this.add(dateModificationEndDateChooser);
+        this.add(dateCreationEndDateChooser);
         LOOGER.info("add exit");
     }
 
