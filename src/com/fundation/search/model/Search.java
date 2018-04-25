@@ -76,28 +76,25 @@ public class Search {
         try {
 
             BasicFileAttributes fileBasicAttributes;
-            boolean os = System.getProperty("os.name").contains("mac");
             File[] files = new File(path).listFiles();
 
             // Attributes for user inside foreach
             Asset asset;
-            String ownerFile;
-            boolean isFileSystem;
             for (File file : files) {
                 fileBasicAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
-                ownerFile = Files.getFileAttributeView(file.toPath(), FileOwnerAttributeView.class).getOwner().getName();
-                isFileSystem = os ? Files.readAttributes(file.toPath(), DosFileAttributes.class).isReadOnly() : false;
+                FileOwnerAttributeView fileOwnerAttributeView = Files.getFileAttributeView(file.toPath(), FileOwnerAttributeView.class);
+                DosFileAttributes dosFileAttributes = Files.readAttributes(file.toPath(), DosFileAttributes.class);
                 asset = assetFactory.getAsset(file.getPath()
                         , file.getName()
                         , fileBasicAttributes.size()
-                        , file.isHidden()
+                        , dosFileAttributes.isHidden()
                         , fileBasicAttributes.lastModifiedTime()
                         , fileBasicAttributes.creationTime()
                         , fileBasicAttributes.lastAccessTime()
-                        , file.canRead()
-                        , isFileSystem
+                        , dosFileAttributes.isReadOnly()
+                        , dosFileAttributes.isSystem()
                         , fileBasicAttributes.isDirectory()
-                        , ownerFile
+                        , fileOwnerAttributeView.getOwner().getName()
                         , ""
                         , "");
 
@@ -106,24 +103,25 @@ public class Search {
                 if (file.isDirectory()) {
                     searchByPath(file.getPath());
                     if (asset instanceof FolderResult) {
-
                         asset = assetFactory.getAsset(file.getPath()
                                 , file.getName()
                                 , fileBasicAttributes.size()
-                                , file.isHidden()
+                                , dosFileAttributes.isHidden()
                                 , fileBasicAttributes.lastModifiedTime()
                                 , fileBasicAttributes.creationTime()
                                 , fileBasicAttributes.lastAccessTime()
-                                , file.canRead()
-                                , isFileSystem
+                                , dosFileAttributes.isReadOnly()
+                                , dosFileAttributes.isSystem()
                                 , fileBasicAttributes.isDirectory()
-                                , ownerFile
+                                , fileOwnerAttributeView.getOwner().getName()
                                 , 15);
 
                         assetList.add(asset);
                     }
                 }
             }
+
+            // assetList.forEach(e -> System.out.println(e.getName()));
         } catch (NullPointerException e) {
         } catch (IOException e) {
             e.printStackTrace();
@@ -217,11 +215,13 @@ public class Search {
      */
     private List<Asset> lastModifiedTime(List<Asset> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
         List<Asset> listFilter = new ArrayList<>();
+        //listFile.forEach(e -> System.out.println(e.getName()));
         for (Asset file : listFile) {
             if ((file.getLastModifiedTime().toMillis() >= dateConditionInt.toMillis() && file.getLastModifiedTime().toMillis() <= dateConditionEnd.toMillis())) {
                 listFilter.add(file);
             }
         }
+        //listFilter.forEach(e -> System.out.println(e.getName()));
         return listFilter;
     }
 
@@ -233,12 +233,13 @@ public class Search {
      */
     private List<Asset> creationTime(List<Asset> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
         List<Asset> listFilter = new ArrayList<>();
+        //listFile.forEach(e -> System.out.println(e.getName()));
         for (Asset file : listFile) {
             if ((file.getCreationTime().toMillis() >= dateConditionInt.toMillis() && file.getCreationTime().toMillis() <= dateConditionEnd.toMillis())) {
                 listFilter.add(file);
             }
         }
-
+        // listFilter.forEach(e -> System.out.println(e.getName()));
         return listFilter;
     }
 
@@ -251,12 +252,13 @@ public class Search {
      */
     private List<Asset> lastAccessTime(List<Asset> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
         List<Asset> listFilter = new ArrayList<>();
+        //listFile.forEach(e -> System.out.println(e.getName()));
         for (Asset file : listFile) {
             if ((file.getLastAccessTime().toMillis() >= dateConditionInt.toMillis() && file.getLastAccessTime().toMillis() <= dateConditionEnd.toMillis())) {
                 listFilter.add(file);
             }
         }
-
+        // listFilter.forEach(e -> System.out.println(e.getName()));
         return listFilter;
     }
 
@@ -327,8 +329,8 @@ public class Search {
     private List<Asset> searchKeySensitive(List<Asset> listFile, String name) {
         List<Asset> listFilter = new ArrayList<>();
         for (Asset file : listFile) {
-            if (!(file.getName().equals(name))) {
-                listFilter.remove(file);
+            if (file.getName().equals(name)) {
+                listFilter.add(file);
             }
         }
         return listFilter;
@@ -377,7 +379,6 @@ public class Search {
 
         }
 
-
         return listFilter;
     }
 
@@ -417,27 +418,13 @@ public class Search {
             if (criteria.getHiddenCriteria().equalsIgnoreCase("all files")) {
                 assetList = searchHiddenFiles(assetList, "all files");
             }
+
             if (criteria.getHiddenCriteria().equalsIgnoreCase("only hidden")) {
                 assetList = searchHiddenFiles(assetList, "only hidden");
             }
+
             if (criteria.getHiddenCriteria().equalsIgnoreCase("without hidden")) {
                 assetList = searchHiddenFiles(assetList, "without hidden");
-            }
-
-            if (criteria.getModifiedDateInit() != null && criteria.getModifiedDateEnd() != null) {
-                assetList = lastModifiedTime(assetList, criteria.getModifiedDateInit(), criteria.getModifiedDateEnd());
-            }
-
-            if (criteria.getCreationDateInit() != null && criteria.getCreationDateEnd() != null) {
-                assetList = creationTime(assetList, criteria.getCreationDateInit(), criteria.getCreationDateEnd());
-            }
-
-            if (criteria.getLastAccessDateInit() != null && criteria.getLastAccessDateEnd() != null) {
-                assetList = lastAccessTime(assetList, criteria.getLastAccessDateInit(), criteria.getLastAccessDateEnd());
-            }
-            if (criteria.getIsReadOnly()) {
-
-                assetList = isReadOnly(assetList);
             }
 
             if (criteria.getIsDirectory()) {
@@ -448,22 +435,10 @@ public class Search {
                 assetList = isFileSystem(assetList);
             }
 
-
             if (criteria.getExtension() != null) {
                 assetList = searchByExtension(assetList, criteria.getExtension());
             }
 
-            if (criteria.getCreationDateInit() != null && criteria.getCreationDateEnd() != null) {
-                assetList = lastModifiedTime(assetList, criteria.getCreationDateInit(), criteria.getCreationDateEnd());
-            }
-
-            if (criteria.getModifiedDateInit() != null && criteria.getModifiedDateEnd() != null) {
-                assetList = creationTime(assetList, criteria.getModifiedDateInit(), criteria.getModifiedDateEnd());
-            }
-
-            if (criteria.getLastAccessDateInit() != null && criteria.getLastAccessDateEnd() != null) {
-                assetList = lastAccessTime(assetList, criteria.getLastAccessDateInit(), criteria.getLastAccessDateEnd());
-            }
             if (criteria.getSize() > -1 && criteria.getSize() != 0L) {
                 assetList = searchBySize(assetList, criteria.getSize(), criteria.getOperator());
             }
@@ -475,9 +450,27 @@ public class Search {
                 assetList = searchKeySensitive(assetList, criteria.getName());
 
             }
+
+            /*if (criteria.getCreationDateInit() != null && criteria.getCreationDateEnd() != null) {
+                System.out.println(criteria.getCreationDateInit() + "    " + criteria.getCreationDateEnd());
+                assetList = creationTime(assetList, criteria.getModifiedDateInit(), criteria.getModifiedDateEnd());
+            }*/
+
+            if (criteria.getLastAccessDateInit() != null && criteria.getLastAccessDateEnd() != null) {
+                //System.out.println(criteria.getLastAccessDateInit() + "    " + criteria.getLastAccessDateEnd());
+                assetList = lastAccessTime(assetList, criteria.getLastAccessDateInit(), criteria.getLastAccessDateEnd());
+            }
+
+            if (criteria.getModifiedDateInit() != null && criteria.getModifiedDateEnd() != null) {
+                // System.out.println(criteria.getModifiedDateInit() + "    " + criteria.getModifiedDateEnd());
+                assetList = lastModifiedTime(assetList, criteria.getModifiedDateInit(), criteria.getModifiedDateEnd());
+            }
+            // assetList.forEach(e -> System.out.println(e.getName()));
+
+
             if (criteria.getIsContainsInsideFileCriteria()) {
                 try {
-                    assetList = searchIntoFile(assetList, "arbol"/*criteria.getTextContainsInsideFileCriteria()*/);
+                    assetList = searchIntoFile(assetList, criteria.getTextContainsInsideFileCriteria());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -503,7 +496,6 @@ public class Search {
      * @return List of files.
      */
     public List<Asset> getResultList() {
-
         return assetList;
 
     }
