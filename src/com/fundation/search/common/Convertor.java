@@ -25,6 +25,7 @@ import java.util.logging.Logger;
  * This class made the conversion from size to bytes.
  *
  * @author Ariel Gonzales Vargas - AT-[06].
+ * @author Escarleth Ledezma Q - AT-[06].
  * @version 1.0.
  */
 public class Convertor {
@@ -32,51 +33,6 @@ public class Convertor {
      * LOOGER is the logger.
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
-
-    /**
-     * This class convert.
-     * Gb (Gigabytes) to Mb(Megabytes).
-     * Mb (Megabytes) to Kb (Kilobytes).
-     * Kb (Kilobytes) to B (Bytes).
-     */
-    public Convertor() {
-    }
-
-    /**
-     * This method convert Gb to Mb
-     *
-     * @param tam a decimal number (Gb).
-     * @return the a number(a conversion from Gb to Mb) on Mb
-     */
-    public double convertGbToMb(double tam) {
-        LOOGER.info("convertGbToMb Entry");
-        LOOGER.info("convertGbToMb Exit");
-        return tam * 1024.0;
-    }
-
-    /**
-     * This method convert Mb to Kb
-     *
-     * @param tam a decimal number (Mb).
-     * @return the a number(a conversion from Mb to Kb) on Kb
-     */
-    public double convertMbToKb(double tam) {
-        LOOGER.info("convertMbToKb Entry");
-        LOOGER.info("convertMbToKb Exit");
-        return tam * 1024.0;
-    }
-
-    /**
-     * This method convert Kb to B
-     *
-     * @param tam a decimal number (Kb).
-     * @return the a number (a conversion from Kb to B) on B
-     */
-    public double convertKbToB(double tam) {
-        LOOGER.info("convertKbToB Entry");
-        LOOGER.info("convertKbToB Exit");
-        return tam * 1024.0;
-    }
 
     /**
      * This method convert a Date to FileTime.
@@ -110,39 +66,47 @@ public class Convertor {
     }
 
     /**
-     * This method convert String to Date.
+     * This method convert String to FileTime.
      *
      * @param date This is a String.
-     * @return Date this is date converted.
+     * @return Date this is String converted to FileTime.
      */
-    public Date convertStringToDate(String date) {
+    public FileTime convertStringToFileTime(String date) {
         LOOGER.info("convertStringToDate Entry");
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        Date fechaDate = null;
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        FileTime result = null;
         try {
-            if (date != null) {
-                fechaDate = formato.parse(date);
+            if (!("").equals(date)) {
+                result = FileTime.fromMillis(format.parse(date).getTime());
+                return result;
             }
         } catch (ParseException e) {
             e.printStackTrace();
         }
         LOOGER.info("convertStringToDate Exit");
-        return fechaDate;
+        return result;
     }
 
     /**
-     * This method converts String to Date in specific positions.
+     * This method convert a String to FileTime[].
      *
-     * @param dates String[] dates.
-     * @return Date []
+     * @param dates This is a String.
+     * @return FileTime[] this is String converted to FileTime[].
      */
-    public Date[] convertDate(String[] dates) {
-        LOOGER.info("dates ConvertDate entry");
-        Date[] dateList = new Date[2];
-        dateList[0] = convertStringToDate(dates[0]);
-        dateList[1] = convertStringToDate(dates[2]);
-        LOOGER.info("dates ConvertDate exit");
-        return dateList;
+    public FileTime[] convertStringToListFileTime(String dates) {
+        LOOGER.info("convertStringToListFileTime Entry");
+        FileTime listFiles[] = new FileTime[2];
+        try {
+            if (!("").equals(dates)) {
+                String list[] = dates.split(" ");
+                listFiles[0] = convertStringToFileTime(list[0]);
+                listFiles[1] = convertStringToFileTime(list[2]);
+                return listFiles;
+            }
+        } catch (NullPointerException e) {
+        }
+        LOOGER.info("convertStringToListFileTime exit");
+        return listFiles;
     }
 
     /**
@@ -153,7 +117,7 @@ public class Convertor {
      * @return long converted to bytes.
      */
     public long convertToBytes(double size, String typeOfSize) {
-
+        LOOGER.info("convertToBytes Entry");
         if (typeOfSize.equalsIgnoreCase("Gb")) {
             return Math.round(size * 1024 * 1024 * 1024);
         }
@@ -166,6 +130,7 @@ public class Convertor {
         if (typeOfSize.equalsIgnoreCase("Bytes")) {
             return Math.round(size);
         }
+        LOOGER.info("convertToBytes Entry");
         return Math.round(0.0);
     }
 
@@ -178,6 +143,7 @@ public class Convertor {
      * @return long converted to bytes.
      */
     public long convertSizeStringToLong(String sizeOfSize, String typeOfSize) {
+        LOOGER.info("convertSizeStringToLong Entry");
         long size = 0L;
         try {
             if (sizeOfSize != null) {
@@ -185,6 +151,30 @@ public class Convertor {
             }
         } catch (NumberFormatException e) {
         }
+        LOOGER.info("convertSizeStringToLong exit");
         return size;
     }
+
+    /**
+     * This method  split the command size
+     * Minor to:/Major to:/Equals to obtain:
+     * tam size
+     * bytes/kb/mb/gb
+     *
+     * @param sizeCommand dates.
+     * @return String []dates.
+     */
+    public String[] splitGetSize(String sizeCommand) {
+        LOOGER.info("SizeCommand entry");
+        String[] valueCommand = new String[3];
+        if (!("").equals(sizeCommand)) {
+            String[] parts = sizeCommand.split(":");
+            valueCommand[0] = parts[0].concat(":");
+            valueCommand[1] = parts[1].replaceAll("[^.0-9]+", "");
+            valueCommand[2] = parts[1].replaceAll("[^a-zA-Z]+", "");
+        }
+        LOOGER.info("SizeCommand exit");
+        return valueCommand;
+    }
+
 }

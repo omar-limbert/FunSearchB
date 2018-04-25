@@ -20,9 +20,11 @@ import com.fundation.search.controller.builder.SearchCriteria;
 import com.fundation.search.model.Search;
 import com.fundation.search.model.asset.Asset;
 import com.fundation.search.view.command.CommandCriteria;
+import com.fundation.search.view.command.CommandHelper;
 import com.fundation.search.view.command.CommandView;
 import com.fundation.search.view.command.SearchCommand;
 
+import java.nio.file.attribute.FileTime;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -46,9 +48,9 @@ public class ControlCommand {
      */
     private CommandCriteria commandCriteria;
     /**
-     * validateInputs is the validator for valid inputs.
+     * validator is the validator for valid inputs.
      */
-    private Validator validateInputs;
+    private Validator validator;
     /**
      * converter is the converter for valid inputs.
      */
@@ -57,6 +59,7 @@ public class ControlCommand {
      * SearchCriteria is Search Criteria with Builder Pattern.
      */
     private SearchCriteria searchCriteria;
+    private CommandView commandView;
 
     /**
      * Init the constructor.
@@ -71,44 +74,43 @@ public class ControlCommand {
         this.searchCommand = new SearchCommand(inputCommands);
 
         // Initialize CommandCriteria
-        this.commandCriteria = new CommandCriteria(searchCommand.getMapToSearch());
-
-        // Initialize Validator
-        this.validateInputs = new Validator();
-
-        // Initialize Converter
-        this.converter = new Convertor();
-
-        this.listenCommands();
-
+        if (!searchCommand.getMapToSearch().isEmpty()) {
+            this.commandCriteria = new CommandCriteria(searchCommand.getMapToSearch());
+            this.converter = new Convertor();
+            this.commandView = new CommandView();
+            this.validator = new Validator();
+            if (validateAllInputs()) {
+                this.listenCommands();
+            }
+        }
         LOOGER.info("Constructor exit");
     }
 
     /***
-     * This method check the event button "search" and fill Data from User Interface.
-     * then the inputs are insert for validate.
+     * This method  fill Data from Command Line in Search Criteria object.
      */
     private void listenCommands() {
         LOOGER.info("Action Search Button entry");
 
-        Date[] dateCreation = converter.convertDate(dateValidation(commandCriteria.getDateCreation()));
-        Date[] dateModified = converter.convertDate(dateValidation(commandCriteria.getDateModified()));
-        Date[] dateLastAccess = converter.convertDate(dateValidation(commandCriteria.getDateLastAccess()));
-        String[] getSize = splitGetSize(commandCriteria.getSize());
+        FileTime[] dateCreation = converter.convertStringToListFileTime(commandCriteria.getDateCreation());
+        FileTime[] dateModified = converter.convertStringToListFileTime(commandCriteria.getDateModified());
+        FileTime[] dateLastAccess = converter.convertStringToListFileTime(commandCriteria.getDateLastAccess());
+        String[] getSize = converter.splitGetSize(commandCriteria.getSize());
+
         // Adding to SearchCriteria and Validating some data
         this.searchCriteria = new com.fundation.search.controller.builder.SearchCriteriaBuilder()
-                .pathCriteria(this.pathValidation(commandCriteria.getPath()))
-                .fileName(this.nameValidation(commandCriteria.getFileName()))
-                .hiddenCriteria(isHiddenValidation(commandCriteria.getIsHidden()))
-                .fileNameCriteria(fileNameCriteriaValidation(commandCriteria.getCriteriaName()))
+                .pathCriteria(commandCriteria.getPath())
+                .fileName(commandCriteria.getFileName())
+                .hiddenCriteria(commandCriteria.getIsHidden())
+                .fileNameCriteria(commandCriteria.getCriteriaName())
                 .ownerCriteria(commandCriteria.getOwner())
-                .isReadCriteria(isTrueFalseValidation(commandCriteria.getReadOnly()))
-                .creationDateCriteria(converter.convertDateToFileDate(dateCreation[0]), converter.convertDateToFileDate(dateCreation[1]))
-                .modifiedDateCriteria(converter.convertDateToFileDate(dateModified[0]), converter.convertDateToFileDate(dateModified[1]))
-                .lastAccessDateCriteria(converter.convertDateToFileDate(dateLastAccess[0]), converter.convertDateToFileDate(dateLastAccess[1]))
+                .isReadCriteria(Boolean.parseBoolean(commandCriteria.getReadOnly()))
+                .creationDateCriteria(dateCreation[0], dateCreation[1])
+                .modifiedDateCriteria(dateModified[0], dateModified[1])
+                .lastAccessDateCriteria(dateLastAccess[0], dateLastAccess[1])
                 .sizeCriteria(getSize[0], converter.convertSizeStringToLong(getSize[1], getSize[2]), getSize[2])
-                .isDirectoryCriteria(isTrueFalseValidation(commandCriteria.getIsDirectory()))
-                .extensionCriteria(extensionFileValidation(commandCriteria.getExtension()))
+                .isDirectoryCriteria(Boolean.parseBoolean(commandCriteria.getReadOnly()))
+                .extensionCriteria(commandCriteria.getExtension())
                 .build();
 
         // Shown results
@@ -117,114 +119,58 @@ public class ControlCommand {
         LOOGER.info("Action Search Button exit");
     }
 
-    /**
-     * This method  split the command size
-     * Minor to:/Major to:/Equals to obtain:
-     * tam size
-     * bytes/kb/mb/gb
-     *
-     * @param sizeCommand dates.
-     * @return String []dates.
+    /***
+     * This method validate all inputs of Command Criteria
+     * and print the error message.
      */
-    public String[] splitGetSize(String sizeCommand) {
-        LOOGER.info("SizeCommand entry");
-        String[] parts = sizeCommand.split(":");
-        String[] valueCommand = new String[3];
-        if (parts.length == 2 && validateInputs.isOptionSize(parts[0].concat(":"))) {
-            valueCommand[0] = parts[0].concat(":");
-            valueCommand[1] = parts[1].replaceAll("[^.0-9]+", "");
-            valueCommand[2] = parts[1].replaceAll("[^a-zA-Z]+", "");
+    public boolean validateAllInputs() {
+        LOOGER.info("validateAllInputs entry");
+        if (!validator.isValidPath(commandCriteria.getPath())) {
+            commandView.printErrorMessage("Invalid Path: ".concat(commandCriteria.getPath()));
+            return false;
         }
-        LOOGER.info("SizeCommand exit");
-        return valueCommand;
-    }
-
-    /**
-     * This method split and validate the date command in:
-     * dd/MM/yyyy
-     * to
-     * dd/MM/yyyy
-     *
-     * @param date command date.
-     * @return String []dates.
-     */
-    private String[] dateValidation(String date) {
-        LOOGER.info("dateValidation entry");
-        String[] listDate = date.split(" ");
-        if (listDate.length == 3) {
-            if (validateInputs.isValidDate(listDate[0]) &&
-                    validateInputs.isValidDate(listDate[2])) {
-                return listDate;
-            }
+        if (commandCriteria.getFileName().equals("") && validator.isOptionCriteriaFileName(commandCriteria.getCriteriaName())) {
+            commandView.printErrorMessage("-f is empty,please put -f \"file name\"");
+            return false;
         }
-        LOOGER.info("dateValidation exit");
-        return new String[3];
-    }
-
-    /**
-     * This method validate Path.
-     *
-     * @param pathOfCriteria Path of file.
-     * @return String return Path validated.
-     */
-    private String pathValidation(String pathOfCriteria) {
-        LOOGER.info("pathValidation Entry");
-        return validateInputs.isValidPath(pathOfCriteria) ? pathOfCriteria : null;
-    }
-
-    /**
-     * This method validate File Name.
-     *
-     * @param searchText Name of File.
-     * @return String return name validated.
-     */
-    private String nameValidation(String searchText) {
-        LOOGER.info("nameValidation Entry");
-        return validateInputs.isValidFile(searchText) ? searchText : "";
-    }
-
-    /**
-     * This method validate if is a hidden criteria.
-     *
-     * @param hiddenCriteria (only hidden/without hidden) .
-     * @return String return hiddenCriteria validated.
-     */
-    private String isHiddenValidation(String hiddenCriteria) {
-        LOOGER.info("pathValidation Entry");
-        return validateInputs.isOptionHidden(hiddenCriteria) ? hiddenCriteria : "";
-    }
-
-    /**
-     * This method validate a criteria file name.
-     *
-     * @param criteriaName criteria file name(start with,end with,all words).
-     * @return String criteria file name validated.
-     */
-    private String fileNameCriteriaValidation(String criteriaName) {
-        LOOGER.info("fileNameCriteriaValidation" + criteriaName);
-        return validateInputs.isOptionCriteriaFileName(criteriaName) ? criteriaName : "";
-    }
-
-    /**
-     * This method validate if a criteria is true or false.
-     *
-     * @param criteria true or false.
-     * @return boolean criteria validated.
-     */
-    private boolean isTrueFalseValidation(String criteria) {
-        LOOGER.info("isTrueFalseValidation " + criteria);
-        return validateInputs.isTrueFalse(criteria) ? Boolean.parseBoolean(criteria) : false;
-    }
-
-    /**
-     * This method validate the structure extension file.
-     *
-     * @param extension is the extension file.
-     * @return String extension validated.
-     */
-    private String extensionFileValidation(String extension) {
-        LOOGER.info("isTrueFalseValidation " + extension);
-        return validateInputs.isValidFileExtension(extension) ? extension : "";
+        if (!commandCriteria.getCriteriaName().equals("") && !validator.isOptionCriteriaFileName(commandCriteria.getCriteriaName())) {
+            commandView.printErrorMessage("Invalid Criteria File Name Option: ".concat(commandCriteria.getCriteriaName()));
+            return false;
+        }
+        if (!commandCriteria.getIsHidden().equals("") && !validator.isOptionHidden(commandCriteria.getIsHidden())) {
+            commandView.printErrorMessage("Invalid Hidden Option: ".concat(commandCriteria.getIsHidden()));
+            return false;
+        }
+        if (!commandCriteria.getReadOnly().equals("") && !validator.isTrueFalse(commandCriteria.getReadOnly())) {
+            commandView.printErrorMessage("Invalid Read Only Option: ".concat(commandCriteria.getReadOnly()));
+            return false;
+        }
+        if (!commandCriteria.getIsDirectory().equals("") && !validator.isTrueFalse(commandCriteria.getIsDirectory())) {
+            commandView.printErrorMessage("Invalid Is Directory Option: ".concat(commandCriteria.getIsDirectory()));
+            return false;
+        }
+        if (!commandCriteria.getExtension().equals("") && !validator.isValidFileExtension(commandCriteria.getExtension())) {
+            commandView.printErrorMessage("Invalid File Extension: ".concat(commandCriteria.getExtension()));
+            return false;
+        }
+        if (!commandCriteria.getSize().equals("") && !validator.validateCommandSize(commandCriteria.getSize())) {
+            commandView.printErrorMessage("Invalid File Size Option: ".concat(commandCriteria.getSize()));
+            return false;
+        }
+        if (!commandCriteria.getDateCreation().equals("") && !validator.isValidDateCommand(commandCriteria.getDateCreation())) {
+            commandView.printErrorMessage("Invalid Creation Date Option: ".concat(commandCriteria.getDateCreation()));
+            return false;
+        }
+        if (!commandCriteria.getDateModified().equals("") && !validator.isValidDateCommand(commandCriteria.getDateModified())) {
+            commandView.printErrorMessage("Invalid Modified Date Option: ".concat(commandCriteria.getDateModified()));
+            return false;
+        }
+        if (!commandCriteria.getDateLastAccess().equals("") && !validator.isValidDateCommand(commandCriteria.getDateLastAccess())) {
+            commandView.printErrorMessage("Invalid Last Access Option: ".concat(commandCriteria.getDateLastAccess()));
+            return false;
+        }
+        LOOGER.info("validateAllInputs exit");
+        return true;
     }
 
     /**
@@ -244,9 +190,6 @@ public class ControlCommand {
 
         // Init Model
         search.initSearch();
-
-        // Init CommandView
-        CommandView commandView = new CommandView();
         if (!search.getResultList().isEmpty()) {
             commandView.printHeader();
         }

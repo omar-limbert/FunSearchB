@@ -60,4 +60,13 @@ public class CommandView {
         LOOGER.info("Constructor Command Criteria exit");
     }
 
+    /**
+     * Print the error message received of Control Command
+     *
+     * @param error input error of criteria.
+     */
+    public void printErrorMessage(String error) {
+        LOOGER.info("printErrorMessage" + error);
+        System.out.println(error);
+    }
 }

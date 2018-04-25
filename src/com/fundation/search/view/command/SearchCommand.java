@@ -42,8 +42,14 @@ public class SearchCommand {
      * Logger create a instance of logger.
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
-
+    /**
+     * Receives String [] of command line.
+     */
     private String[] commandLine;
+    /**
+     * Prints helper.
+     */
+    private CommandHelper helper;
 
     /**
      * Init the constructor.
@@ -54,6 +60,7 @@ public class SearchCommand {
         LOOGER.info("Init Constructor SearchCommand");
         commandLine = args;
         criteriaList = new ArrayList<>();
+        helper = new CommandHelper();
         this.addCriterias();
         this.validateCommand();
         LOOGER.info("Exit Constructor SearchCommand");
@@ -62,7 +69,6 @@ public class SearchCommand {
     /**
      * Add criterias in the Criteria list.
      */
-
     public void addCriterias() {
         LOOGER.info("AddCriterias entry");
         criteriaList.add("-v");//version
@@ -90,7 +96,6 @@ public class SearchCommand {
         for (int i = 0; i < commandLine.length; i += 2) {
             if (!criteriaList.contains(commandLine[i])) {
                 if (commandLine[i].equals("-help")) {
-                    CommandHelper helper = new CommandHelper();
                     helper.printHelper();
                 }
                 return false;
@@ -109,7 +114,7 @@ public class SearchCommand {
         LOOGER.info("addCriteriaWithoutDuplicated entry");
         try {
             for (int i = 0; i < commandLine.length; i += 2) {
-                if (criterias.containsKey(commandLine[i])) {
+                if (criterias.containsKey(commandLine[i]) || commandLine[i + 1].equals(null)) {
                     return false;
                 } else {
                     criterias.put(commandLine[i], commandLine[i + 1]);
@@ -117,7 +122,7 @@ public class SearchCommand {
             }
             LOOGER.info("addCriteriaWithoutDuplicated exit");
             return true;
-        } catch (IndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             return false;
         }
     }
@@ -129,7 +134,7 @@ public class SearchCommand {
         LOOGER.info("ValidateCommand entry");
         if (!validateCommandCriteria() || !addCriteriaWithoutDuplicated()) {
             criterias = new HashMap<>();
-            System.out.println("Please,Write \"-help\" for help");
+            helper.printHelperMessage();
         }
         LOOGER.info("ValidateCommand exit");
     }
