@@ -42,7 +42,19 @@ public class Validator {
      */
     public Validator() {
     }
-
+    /**
+     * It method checks if the input is a valid Path format.
+     *
+     * @param path Path
+     * @return boolean
+     */
+    public boolean validatorPath(String path) {
+        LOOGER.info("ValidatorPath : " + path);
+        Pattern patternFormat = Pattern.compile("(^[A-Z]:)?((\\\\)\\w+((\\s|\\.)\\w+)*)+");
+        Matcher matcher = patternFormat.matcher(path);
+        LOOGER.info("Exit Validator");
+        return matcher.matches()&& Files.exists(Paths.get(path));
+    }
     /**
      * It method checks if the input is a valid Path format.
      *
