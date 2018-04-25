@@ -177,5 +177,7 @@ public class Asset {
         return ownerFile;
     }
 
-
+    public String getExtensionFile() {
+        return getExtensionFile();
+    }
 }
