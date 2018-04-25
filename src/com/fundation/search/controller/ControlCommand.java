@@ -20,12 +20,11 @@ import com.fundation.search.controller.builder.SearchCriteria;
 import com.fundation.search.model.Search;
 import com.fundation.search.model.asset.Asset;
 import com.fundation.search.view.command.CommandCriteria;
-import com.fundation.search.view.command.CommandHelper;
 import com.fundation.search.view.command.CommandView;
 import com.fundation.search.view.command.SearchCommand;
+import com.fundation.search.controller.builder.SearchCriteriaBuilder;
 
 import java.nio.file.attribute.FileTime;
-import java.util.Date;
 import java.util.logging.Logger;
 
 /**
@@ -59,6 +58,9 @@ public class ControlCommand {
      * SearchCriteria is Search Criteria with Builder Pattern.
      */
     private SearchCriteria searchCriteria;
+    /**
+     * Command View allows to show error messages in command line.
+     */
     private CommandView commandView;
 
     /**
@@ -96,9 +98,8 @@ public class ControlCommand {
         FileTime[] dateModified = converter.convertStringToListFileTime(commandCriteria.getDateModified());
         FileTime[] dateLastAccess = converter.convertStringToListFileTime(commandCriteria.getDateLastAccess());
         String[] getSize = converter.splitGetSize(commandCriteria.getSize());
-
-        // Adding to SearchCriteria and Validating some data
-        this.searchCriteria = new com.fundation.search.controller.builder.SearchCriteriaBuilder()
+        // Adding to SearchCriteria
+        this.searchCriteria = new SearchCriteriaBuilder()
                 .pathCriteria(commandCriteria.getPath())
                 .fileName(commandCriteria.getFileName())
                 .hiddenCriteria(commandCriteria.getIsHidden())
@@ -109,7 +110,7 @@ public class ControlCommand {
                 .modifiedDateCriteria(dateModified[0], dateModified[1])
                 .lastAccessDateCriteria(dateLastAccess[0], dateLastAccess[1])
                 .sizeCriteria(getSize[0], converter.convertSizeStringToLong(getSize[1], getSize[2]), getSize[2])
-                .isDirectoryCriteria(Boolean.parseBoolean(commandCriteria.getReadOnly()))
+                .isDirectoryCriteria(Boolean.parseBoolean(commandCriteria.getIsDirectory()))
                 .extensionCriteria(commandCriteria.getExtension())
                 .build();
 
