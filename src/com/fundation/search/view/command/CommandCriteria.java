@@ -28,52 +28,52 @@ public class CommandCriteria {
     /**
      * pathFile is the file path
      */
-    public String path;//p
+    private String path;//p
     /**
      * nameFile is the file name
      */
-    public String fileName;//f
+    private String fileName;//f
     /**
      * criteria file name(all words, start with, end with)
      */
-    public String criteriaFileName;//cf
+    private String criteriaFileName;//cf
     /**
      * isHiddenFile is the file state hidden/no hidden
      */
-    public String isHidden;//h
+    private String isHidden;//h
     /**
      * owner is the file owner.
      */
-    public String owner;//o
+    private String owner;//o
 
     /**
      * size is the file size.
      */
-    public String size;//s
+    private String size;//s
     /**
      * dateCreation is the file dateCreation.
      */
-    public String dateCreation;//dc
+    private String dateCreation;//dc
     /**
      * dateModified is the file dateModified.
      */
-    public String dateModified;//dm
+    private String dateModified;//dm
     /**
      * dateLastAccess is the file dateLastAccess.
      */
-    public String dateLastAccess;//dl
+    private String dateLastAccess;//dl
     /**
      * readOnly is true or false read only the file.
      */
-    public String readOnly;//ro
+    private String readOnly;//ro
     /**
      * isDirectory is true or false a directory .
      */
-    public String isDirectory; //d
+    private String isDirectory; //d
     /**
      * extension is the file extension  .
      */
-    public String extension; //ex
+    private String extension; //ex
     /**
      * Logger create a instance of logger.
      */

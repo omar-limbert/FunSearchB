@@ -58,4 +58,7 @@ public class CommandHelper {
         System.out.println(String.format("%10s %5s %-40s %-20s", "-ro", " ", "[true/false]", "List files read only/without read only"));
         LOOGER.info("Print Helpers exit");
     }
+    public void printHelperMessage(){
+        System.out.println("Please,Write \"-help\" for help");
+    }
 }

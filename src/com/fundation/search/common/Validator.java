@@ -60,19 +60,6 @@ public class Validator {
     }
 
     /**
-     * It method checks if the path exist.
-     *
-     * @param directoryPath Direction path.
-     * @return true if the path exist on the PC.
-     * false if the that does not exist on the PC.
-     */
-    public boolean isValidDirectory(String directoryPath) {
-        LOOGER.info("Validate Directory: " + directoryPath);
-        LOOGER.info("Exit Validator");
-        return Files.isDirectory(Paths.get(directoryPath));
-    }
-
-    /**
      * It method checks if the input is a valid File format.
      *
      * @param file format file name.
@@ -121,6 +108,20 @@ public class Validator {
         LOOGER.info("Exit Validator");
         return true;
     }
+    /**
+     * It method checks if the dateCommand is a valid date command format.
+     *
+     * @param dateCommand format date command.
+     * @return true if it is a valid format for a date command format.
+     * false if it is an invalid format for a date command format.
+     */
+    public boolean isValidDateCommand(String dateCommand){
+        LOOGER.info("Validate Type: " + dateCommand);
+        pattern = Pattern.compile("\\d{1,2}/\\d{1,2}/\\d{4}\\s+(to|TO)\\s+\\d{1,2}/\\d{1,2}/\\d{4}");
+        matcher = pattern.matcher(dateCommand);
+        LOOGER.info("Exit Validator");
+        return matcher.matches();
+    }
 
     /**
      * This method check to date input is valid
@@ -164,18 +165,19 @@ public class Validator {
         LOOGER.info("Exit Validator");
         return result;
     }
-
     /**
-     * this method compares the options allowed in command line
-     * for the search by size.
+     * It method checks if the dateCommand is a valid command Size format.
      *
-     * @param optionSize command size.
-     * @return optionSize validated
+     * @param commandSize format date command.
+     * @return true if it is a valid format for a command Size format.
+     * false if it is an invalid format for a command Size format.
      */
-    public boolean isOptionSize(String optionSize) {
-        return optionSize.equalsIgnoreCase("Minor to:") ||
-                optionSize.equalsIgnoreCase("Major to:") ||
-                optionSize.equalsIgnoreCase("Equal to:");
+    public  boolean validateCommandSize(String commandSize){
+        LOOGER.info("validateCommandSize: " + commandSize);
+        Pattern pattern = Pattern.compile("\\b(Major to:|Minor to:|Equal to:)\\s*[0-9]+\\s*(?:mb|kb|gb|bytes)", Pattern.CASE_INSENSITIVE);
+        Matcher matcherCommand = pattern.matcher(commandSize);
+        LOOGER.info("Exit validateCommandSize");
+        return matcherCommand.find();
     }
 
     /**
@@ -186,6 +188,7 @@ public class Validator {
      * @return optionHidden validated
      */
     public boolean isOptionHidden(String optionHidden) {
+        LOOGER.info("isOptionHidden: " + optionHidden);
         return optionHidden.equalsIgnoreCase("only hidden") ||
                 optionHidden.equalsIgnoreCase("without hidden");
     }
@@ -198,6 +201,7 @@ public class Validator {
      * @return criteriaFileName validated
      */
     public boolean isOptionCriteriaFileName(String criteriaFileName) {
+        LOOGER.info("isOptionCriteriaFileName: " + criteriaFileName);
         return criteriaFileName.equalsIgnoreCase("start with") ||
                 criteriaFileName.equalsIgnoreCase("end with") ||
                 criteriaFileName.equalsIgnoreCase("equal to");
@@ -211,9 +215,9 @@ public class Validator {
      * @return criteria validated
      */
     public boolean isTrueFalse(String criteria) {
+        LOOGER.info("isTrueFalse validator: " + criteria);
         return criteria.equalsIgnoreCase("true") ||
                 criteria.equalsIgnoreCase("false");
     }
-
 
 }
