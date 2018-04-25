@@ -383,7 +383,6 @@ public class Search {
 
         }
 
-
         return listFilter;
     }
 
@@ -456,16 +455,19 @@ public class Search {
 
             }
 
-           /*if (criteria.getCreationDateInit() != null && criteria.getCreationDateEnd() != null) {
+            /*if (criteria.getCreationDateInit() != null && criteria.getCreationDateEnd() != null) {
+                System.out.println(criteria.getCreationDateInit() + "    " + criteria.getCreationDateEnd());
                 assetList = creationTime(assetList, criteria.getModifiedDateInit(), criteria.getModifiedDateEnd());
             }*/
 
             if (criteria.getLastAccessDateInit() != null && criteria.getLastAccessDateEnd() != null) {
+                //System.out.println(criteria.getLastAccessDateInit() + "    " + criteria.getLastAccessDateEnd());
                 assetList = lastAccessTime(assetList, criteria.getLastAccessDateInit(), criteria.getLastAccessDateEnd());
             }
 
             if (criteria.getModifiedDateInit() != null && criteria.getModifiedDateEnd() != null) {
-                assetList = lastModifiedTime(assetList, criteria.getCreationDateInit(), criteria.getCreationDateEnd());
+                // System.out.println(criteria.getModifiedDateInit() + "    " + criteria.getModifiedDateEnd());
+                assetList = lastModifiedTime(assetList, criteria.getModifiedDateInit(), criteria.getModifiedDateEnd());
             }
             // assetList.forEach(e -> System.out.println(e.getName()));
 
