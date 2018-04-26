@@ -95,6 +95,7 @@ public class Search {
             File[] files = new File(path).listFiles();
             boolean os = System.getProperty("os.name").contains("mac");
             boolean isFileSystem;
+            boolean isReadOnly;
             // Attributes for user inside foreach
             Asset asset = null;
 
@@ -106,8 +107,8 @@ public class Search {
             for (File file : files) {
                 fileBasicAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
                 FileOwnerAttributeView fileOwnerAttributeView = Files.getFileAttributeView(file.toPath(), FileOwnerAttributeView.class);
-                isFileSystem = os ? Files.readAttributes(file.toPath(), DosFileAttributes.class).isReadOnly() : false;
-
+                isFileSystem = Files.readAttributes(file.toPath(), DosFileAttributes.class).isSystem();
+                isReadOnly = Files.readAttributes(file.toPath(), DosFileAttributes.class).isReadOnly();
                 // Extension file
 
                 String extension = "";
@@ -120,10 +121,9 @@ public class Search {
                 if (!file.isDirectory()) {
                     try {
                         // Data for multimedia
-                        if(os){
+                        if (os) {
                             ffprobePath = new File(".").getCanonicalPath() + "/resources/ffprobe.exe";
-                        }
-                        else{
+                        } else {
                             ffprobePath = new File(".").getCanonicalPath() + "/resources/ffprobe";
                         }
 
@@ -161,9 +161,9 @@ public class Search {
                                 , fileBasicAttributes.size()
                                 , file.isHidden()
                                 , fileBasicAttributes.lastModifiedTime()
-                                , fileBasicAttributes.creationTime()
                                 , fileBasicAttributes.lastAccessTime()
-                                , file.canRead()
+                                , fileBasicAttributes.creationTime()
+                                , isReadOnly
                                 , isFileSystem
                                 , fileBasicAttributes.isDirectory()
                                 , fileOwnerAttributeView.getOwner().getName()
@@ -197,9 +197,9 @@ public class Search {
                                 , fileBasicAttributes.size()
                                 , file.isHidden()
                                 , fileBasicAttributes.lastModifiedTime()
-                                , fileBasicAttributes.creationTime()
                                 , fileBasicAttributes.lastAccessTime()
-                                , file.canRead()
+                                , fileBasicAttributes.creationTime()
+                                , isReadOnly
                                 , isFileSystem
                                 , fileBasicAttributes.isDirectory()
                                 , fileOwnerAttributeView.getOwner().getName()
@@ -214,9 +214,9 @@ public class Search {
                             , fileBasicAttributes.size()
                             , file.isHidden()
                             , fileBasicAttributes.lastModifiedTime()
-                            , fileBasicAttributes.creationTime()
                             , fileBasicAttributes.lastAccessTime()
-                            , file.canRead()
+                            , fileBasicAttributes.creationTime()
+                            , isReadOnly
                             , isFileSystem
                             , fileBasicAttributes.isDirectory()
                             , fileOwnerAttributeView.getOwner().getName()
@@ -613,10 +613,9 @@ public class Search {
                 assetList = searchKeySensitive(assetList, criteria.getName());
             }
 
-            /*if (criteria.getCreationDateInit() != null && criteria.getCreationDateEnd() != null) {
-                System.out.println(criteria.getCreationDateInit() + "    " + criteria.getCreationDateEnd());
-                assetList = creationTime(assetList, criteria.getModifiedDateInit(), criteria.getModifiedDateEnd());
-            }*/
+            if (criteria.getCreationDateInit() != null && criteria.getCreationDateEnd() != null) {
+                assetList = creationTime(assetList, criteria.getCreationDateInit(), criteria.getCreationDateEnd());
+            }
 
             if (criteria.getLastAccessDateInit() != null && criteria.getLastAccessDateEnd() != null) {
                 assetList = lastAccessTime(assetList, criteria.getLastAccessDateInit(), criteria.getLastAccessDateEnd());
