@@ -120,10 +120,15 @@ public class Search {
                 if (!file.isDirectory()) {
                     try {
                         // Data for multimedia
-                        ffprobePath = new File(".").getCanonicalPath() + "/resources/ffprobe";
+                        if(os){
+                            ffprobePath = new File(".").getCanonicalPath() + "/resources/ffprobe.exe";
+                        }
+                        else{
+                            ffprobePath = new File(".").getCanonicalPath() + "/resources/ffprobe";
+                        }
+
                         ffprobe = new FFprobe(ffprobePath);
                         probeResult = ffprobe.probe(file.getAbsolutePath());
-                        FFmpegFormat format = probeResult.getFormat();
 
                         // Getting video information
                         FFmpegStream stream = probeResult.getStreams().get(0);
