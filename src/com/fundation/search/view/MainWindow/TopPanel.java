@@ -658,14 +658,6 @@ public class TopPanel extends JPanel {
         return this.toolbar.getResolutionCriteria();
     }
 
-    /**
-     * This method is for return Audio Rate Array.
-     *
-     * @return String[], this is String array with selected values.
-     */
-    public ArrayList<String> getAudioRateCriteria() {
-        return toolbar.getAudioRateCriteria();
-    }
 
     /**
      * This method is for return Audio Rate Array.
@@ -674,5 +666,31 @@ public class TopPanel extends JPanel {
      */
     public ArrayList<String> getMultimediaTypeCriteria() {
         return toolbar.getMultimediaTypeCriteria();
+    }
+
+    /**
+     * This method is return is search multimedia actived.
+     *
+     * @return boolean, true when is selected, false when is unselected.
+     */
+    public boolean isSearchMultimedia() {
+        return toolbar.isSearchMultimedia();
+    }
+
+    /**
+     * This method is for return Audio Rate Array.
+     *
+     * @return String
+     */
+    public String getAudioBitRateInit() {
+        return this.toolbar.getAudioBitRateInit();
+    }
+    /**
+     * This method is for return Audio Rate Array.
+     *
+     * @return String
+     */
+    public String getAudioBitRateEnd() {
+        return this.toolbar.getAudioBitRateEnd();
     }
 }

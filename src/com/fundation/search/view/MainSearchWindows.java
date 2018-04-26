@@ -700,10 +700,18 @@ public class MainSearchWindows extends JFrame {
     /**
      * This method is for return Audio Rate Array.
      *
-     * @return String[], this is String array with selected values.
+     * @return String
      */
-    public ArrayList<String> getAudioRateCriteria() {
-        return topPanel.getAudioRateCriteria();
+    public String getAudioBitRateInit() {
+        return this.topPanel.getAudioBitRateInit();
+    }
+    /**
+     * This method is for return Audio Rate Array.
+     *
+     * @return String
+     */
+    public String getAudioBitRateEnd() {
+        return this.topPanel.getAudioBitRateEnd();
     }
 
     /**
@@ -713,5 +721,15 @@ public class MainSearchWindows extends JFrame {
      */
     public ArrayList<String> getMultimediaTypeCriteria() {
         return topPanel.getMultimediaTypeCriteria();
+    }
+
+    /**
+     * This method is return is search multimedia actived.
+     * Controller need use this.
+     *
+     * @return boolean, true when is selected, false when is unselected.
+     */
+    public boolean isSearchMultimedia() {
+        return topPanel.isSearchMultimedia();
     }
 }

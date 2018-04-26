@@ -21,11 +21,11 @@ import com.fundation.search.model.Search;
 import com.fundation.search.model.asset.Asset;
 import com.fundation.search.model.asset.FileResult;
 import com.fundation.search.controller.builder.SearchCriteriaBuilder;
+import com.fundation.search.model.asset.MultimediaResult;
 import com.fundation.search.view.MainSearchWindows;
 
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
-import java.io.File;
 import java.nio.file.attribute.FileTime;
 import java.util.Date;
 import java.util.HashMap;
@@ -316,6 +316,14 @@ public class ControlCriteria {
                 .keySensitiveOfCriteria(Boolean.valueOf(searchWindows.getKeySensitiveOfCriteria()))
                 .isContainsInsideFileCriteria(Boolean.valueOf(searchWindows.getIsContainsInsideFileCriteria()))
                 .textContainsInsideFileCriteria(searchWindows.getTextContainsInsideFileCriteria())
+                .multimediaDurationInputCriteria(searchWindows.getDurationMultimediaCriteria(),searchWindows.getDurationMultimediaNumber(),searchWindows.getDurationMultimediaTime())
+                .multimediaVideoCodecCriteria(searchWindows.getVideoCodecCriteria())
+                .searchMultimediaFrameCriteria(searchWindows.getFrameRateCriteria())
+                .multimediaResolutionCriteria(searchWindows.getResolutionCriteria())
+                .multimediaAudioBitRateCriteriaInit(searchWindows.getAudioBitRateInit())
+                .multimediaAudioBitRateCriteriaEnd(searchWindows.getAudioBitRateEnd())
+                .multimediaTypeCriteria(searchWindows.getMultimediaTypeCriteria())
+                .searchMultimediaCriteria(searchWindows.isSearchMultimedia())
                 .build();
 
         // Shown results
@@ -409,8 +417,8 @@ public class ControlCriteria {
         dataFromAsset[3] = file.getIsReadOnlyFile();
         dataFromAsset[4] = file.getIsFileSystemFile();
         dataFromAsset[5] = file.getIsDirectory();
-        if(file instanceof FileResult){
-            dataFromAsset[6] = ((FileResult) file).getExtensionFile();
+        if(file instanceof FileResult || file instanceof MultimediaResult){
+            dataFromAsset[6] = file.getExtensionFile();
         }
 
         dataFromAsset[7] = file.getSizeFile();
@@ -418,6 +426,10 @@ public class ControlCriteria {
         dataFromAsset[9] = converter.convertFileDateToDate(file.getCreationTime());
         dataFromAsset[10] = converter.convertFileDateToDate(file.getLastModifiedTime());
         dataFromAsset[11] = converter.convertFileDateToDate(file.getLastAccessTime());
+        if(file instanceof MultimediaResult){
+            dataFromAsset[6] = ((MultimediaResult)file).getDuration();
+        }
+
 
         //LOOGER.info("getDataFromAsset Exit");
         return dataFromAsset;

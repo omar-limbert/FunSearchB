@@ -112,19 +112,18 @@ public class MultimediaPanel extends JPanel {
     private Vector<JCheckBox> resolutionData;
 
     /**
-     * JComboCheckBox, to Bit Rate with many options
+     * JLabel for duration criteria
      */
-    private JComboCheckBox bitRateJComboBox;
+    private JLabel audioBitRate;
 
     /**
-     * Vector, all data for Bit Rate
+     * SearchTextField for duration criteria to input data
      */
-    private Vector<JCheckBox> bitRateData;
-
+    private SearchTextField audioBitRateTextFieldInit;
     /**
-     * JLabel for frameRate resolution
+     * SearchTextField for duration criteria to input data
      */
-    private JLabel bitRate;
+    private SearchTextField audioBitRateTextFieldEnd;
 
     /**
      * JComboCheckBox, all data for multimedia type data
@@ -153,7 +152,6 @@ public class MultimediaPanel extends JPanel {
         this.frameRateData = new Vector<>();
         this.videoCodecData = new Vector<>();
         this.resolutionData = new Vector<>();
-        this.bitRateData = new Vector();
         this.multimediaTypeData = new Vector<>();
 
         // Calling to initComponents() method.
@@ -187,10 +185,13 @@ public class MultimediaPanel extends JPanel {
 
         // Sample Data
         frameRateData.add(new JCheckBox("All", true));
-        frameRateData.add(new JCheckBox("30 fps", false));
-        frameRateData.add(new JCheckBox("48 fps", false));
-        frameRateData.add(new JCheckBox("50 fps", false));
-        frameRateData.add(new JCheckBox("60 fps", false));
+        frameRateData.add(new JCheckBox("12 fps", true));
+        frameRateData.add(new JCheckBox("23 fps", true));
+        frameRateData.add(new JCheckBox("24 fps", true));
+        frameRateData.add(new JCheckBox("25 fps", true));
+        frameRateData.add(new JCheckBox("30 fps", true));
+        frameRateData.add(new JCheckBox("64 fps", true));
+        frameRateData.add(new JCheckBox("96 fps", true));
 
         // Initialize Frame Rate criteria
         frameRate = new JLabel("Frame Rate :");
@@ -200,10 +201,11 @@ public class MultimediaPanel extends JPanel {
 
         // Sample Data
         videoCodecData.add(new JCheckBox("All", true));
-        videoCodecData.add(new JCheckBox("H.264", false));
-        videoCodecData.add(new JCheckBox("H.263", false));
-        videoCodecData.add(new JCheckBox("MPEG-4", false));
-        videoCodecData.add(new JCheckBox("MPEG-2", false));
+        videoCodecData.add(new JCheckBox("H264", true));
+        videoCodecData.add(new JCheckBox("H263", true));
+        videoCodecData.add(new JCheckBox("MPEG4", true));
+        videoCodecData.add(new JCheckBox("WMV1", true));
+        videoCodecData.add(new JCheckBox("DVD_NAV_PACKET", true));
 
         // Initialize Video Codec
         videoCodec = new JLabel("Video Codec :");
@@ -213,9 +215,26 @@ public class MultimediaPanel extends JPanel {
 
         // Sample Data
         resolutionData.add(new JCheckBox("All", true));
-        resolutionData.add(new JCheckBox("4:3 320x240", false));
-        resolutionData.add(new JCheckBox("15:9 1280x768", false));
-        resolutionData.add(new JCheckBox("25:16 3200x2048", false));
+        resolutionData.add(new JCheckBox("0:1 480x360", true));
+        resolutionData.add(new JCheckBox("3:2 540x360", true));
+        resolutionData.add(new JCheckBox("3:2 720x480", true));
+        resolutionData.add(new JCheckBox("4:3 320x240", true));
+        resolutionData.add(new JCheckBox("4:3 384x288", true));
+        resolutionData.add(new JCheckBox("4:3 480x360", true));
+        resolutionData.add(new JCheckBox("4:3 640x480", true));
+        resolutionData.add(new JCheckBox("4:3 720x480", true));
+        resolutionData.add(new JCheckBox("4:3 1920x1440", true));
+        resolutionData.add(new JCheckBox("15:9 1280x768", true));
+        resolutionData.add(new JCheckBox("16:9 640x480", true));
+        resolutionData.add(new JCheckBox("16:9 720x480", true));
+        resolutionData.add(new JCheckBox("16:9 1280x720", true));
+        resolutionData.add(new JCheckBox("22:15 720x480", true));
+        resolutionData.add(new JCheckBox("25:16 3200x2048", true));
+        resolutionData.add(new JCheckBox("41:30 720x480", true));
+        resolutionData.add(new JCheckBox("49:36 720x480", true));
+        resolutionData.add(new JCheckBox("127:72 720x480", true));
+        resolutionData.add(new JCheckBox("160:119 720x480", true));
+        resolutionData.add(new JCheckBox("320:179 720x480", true));
 
         // Initialize resolution
         resolution = new JLabel("Resolution :");
@@ -224,24 +243,18 @@ public class MultimediaPanel extends JPanel {
         resolutionJComboBox.addActionListener(e -> this.updateResolutionData());
         LOOGER.info("init exit");
 
-        // Sample Data
-        bitRateData.add(new JCheckBox("All", true));
-        bitRateData.add(new JCheckBox("16 fps", false));
-        bitRateData.add(new JCheckBox("24 fps", false));
-        bitRateData.add(new JCheckBox("64 fps", false));
-        bitRateData.add(new JCheckBox("96 fps", false));
+        // Initialize audio bit rate
+        audioBitRate = new JLabel("Audio Bit Rate :");
+        audioBitRateTextFieldInit = new SearchTextField("From: e.g. 32000");
+        audioBitRateTextFieldEnd = new SearchTextField("To: e.g. 128000");
 
-        // Initialize Audio Bit Rate criteria
-        bitRate = new JLabel("Audio Bit Rate:");
-        bitRateJComboBox = new JComboCheckBox(bitRateData);
-        bitRateJComboBox.setPreferredSize(new Dimension(200, 34));
-        bitRateJComboBox.addActionListener(e->this.updateBitRateData());
 
         // Sample Data
         multimediaTypeData.add(new JCheckBox("All", true));
-        multimediaTypeData.add(new JCheckBox("MP4", false));
-        multimediaTypeData.add(new JCheckBox("AVI", false));
-        multimediaTypeData.add(new JCheckBox("WEB", false));
+        multimediaTypeData.add(new JCheckBox("MP4", true));
+        multimediaTypeData.add(new JCheckBox("MOV", true));
+        multimediaTypeData.add(new JCheckBox("WMV", true));
+        multimediaTypeData.add(new JCheckBox("AVI", true));
 
         // Initialize Multimedia Type criteria
         multimediaTypeLabel = new JLabel("Multimedia Type:");
@@ -269,13 +282,6 @@ public class MultimediaPanel extends JPanel {
      */
     private void updateFrameRateData() {
         frameRateJComboBox.itemSelected();
-    }
-
-    /**
-     * This method is to update data with event
-     */
-    private void updateBitRateData() {
-        bitRateJComboBox.itemSelected();
     }
 
     /**
@@ -355,13 +361,19 @@ public class MultimediaPanel extends JPanel {
         constraints.gridy = 4;
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
-        this.add(bitRate, constraints);
+        this.add(audioBitRate, constraints);
 
         constraints.gridx = 2;
         constraints.gridy = 4;
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
-        this.add(bitRateJComboBox, constraints);
+        this.add(audioBitRateTextFieldInit, constraints);
+
+        constraints.gridx = 3;
+        constraints.gridy = 4;
+        constraints.gridwidth = 1;
+        constraints.gridheight = 1;
+        this.add(audioBitRateTextFieldEnd, constraints);
 
         constraints.gridx = 1;
         constraints.gridy = 5;
@@ -413,9 +425,17 @@ public class MultimediaPanel extends JPanel {
     public ArrayList<String> getFrameRateCriteria() {
         ArrayList<String> result = new ArrayList<>();
         frameRateData.forEach(e -> {
-            if (e.isSelected()) {
-                result.add(e.getText());
+            if(e.getText().equalsIgnoreCase("All")){
+                if (e.isSelected()) {
+                    result.add(e.getText());
+                }
             }
+            else{
+                if (e.isSelected()) {
+                    result.add(e.getText());
+                }
+            }
+
         });
         return result;
     }
@@ -428,9 +448,17 @@ public class MultimediaPanel extends JPanel {
     public ArrayList<String> getVideoCodecCriteria() {
         ArrayList<String> result = new ArrayList<>();
         videoCodecData.forEach(e -> {
-            if (e.isSelected()) {
-                result.add(e.getText());
+            if(e.getText().equalsIgnoreCase("All")){
+                if (e.isSelected()) {
+                    result.add(e.getText());
+                }
             }
+            else{
+                if (e.isSelected()) {
+                    result.add(e.getText());
+                }
+            }
+
         });
         return result;
     }
@@ -443,24 +471,17 @@ public class MultimediaPanel extends JPanel {
     public ArrayList<String> getResolutionCriteria() {
         ArrayList<String> result = new ArrayList<>();
         resolutionData.forEach(e -> {
-            if (e.isSelected()) {
-                result.add(e.getText());
+            if(e.getText().equalsIgnoreCase("All")){
+                if (e.isSelected()) {
+                    result.add(e.getText());
+                }
             }
-        });
-        return result;
-    }
+            else{
+                if (e.isSelected()) {
+                    result.add(e.getText());
+                }
+            }
 
-    /**
-     * This method is for return Audio Rate Array.
-     *
-     * @return String[], this is String array with selected values.
-     */
-    public ArrayList<String> getAudioRateCriteria() {
-        ArrayList<String> result = new ArrayList<>();
-        bitRateData.forEach(e -> {
-            if (e.isSelected()) {
-                result.add(e.getText());
-            }
         });
         return result;
     }
@@ -473,12 +494,34 @@ public class MultimediaPanel extends JPanel {
     public ArrayList<String> getMultimediaTypeCriteria() {
         ArrayList<String> result = new ArrayList<>();
         multimediaTypeData.forEach(e -> {
-            if (e.isSelected()) {
-                result.add(e.getText());
+            if(e.getText().equalsIgnoreCase("All")){
+                if (e.isSelected()) {
+                    result.add(e.getText());
+                }
             }
+            else{
+                if (e.isSelected()) {
+                    result.add(e.getText());
+                }
+            }
+
         });
         return result;
     }
-
-
+    /**
+     * This method is for return Audio Rate Array.
+     *
+     * @return String
+     */
+    public String getAudioBitRateInit() {
+        return this.audioBitRateTextFieldInit.getText();
+    }
+    /**
+     * This method is for return Audio Rate Array.
+     *
+     * @return String
+     */
+    public String getAudioBitRateEnd() {
+        return this.audioBitRateTextFieldEnd.getText();
+    }
 }

@@ -105,6 +105,11 @@ public class SearchToolBar extends JToolBar {
     private static final MultimediaPanel MULTIMEDIA = new MultimediaPanel();
 
     /**
+     * isSearchMultimedia, Type: boolean, true when multimedia panel is actived, false when multimedia panel is not actived.
+     */
+    private boolean isSearchMultimedia;
+
+    /**
      * Constructor for SearchToolBar.
      * This method is for initialize toggleButtonCollection, action, criteriaPanel and panelList.
      */
@@ -112,6 +117,7 @@ public class SearchToolBar extends JToolBar {
         LOOGER.info("Get Result Entry");
         // This is a collection of buttons.
         this.toggleButtonCollection = new Vector<>();
+        this.isSearchMultimedia = false;
         // Action for define button.
         this.action = "";
         // Dynamic JPanel for add all button panels.
@@ -181,8 +187,10 @@ public class SearchToolBar extends JToolBar {
         for(JToggleButton toggleButton: toggleButtonCollection){
             if(!toggleButton.equals(sourceButton)){
                 toggleButton.setSelected(false);
+
             }
         }
+
         criteriaPanel.addComponent(panelList);
         LOOGER.info("addActionListeners of buttons exit");
     }
@@ -192,6 +200,7 @@ public class SearchToolBar extends JToolBar {
      */
     private void removingCriteriaPanelToActionListenerButton() {
         LOOGER.info("remove criteria Action listener of buttons init");
+        System.out.println(action);
         // Removing "All Tags Panel Criteria"
         if (action.equalsIgnoreCase("All Tags")) {
             panelList = new Hashtable<>();
@@ -224,6 +233,7 @@ public class SearchToolBar extends JToolBar {
             panelList.remove(action);
         }
         if (action.equalsIgnoreCase("Multimedia")) {
+            isSearchMultimedia= false;
             panelList.remove(action);
         }
         LOOGER.info("remove criteria listener of buttons exit");
@@ -245,44 +255,53 @@ public class SearchToolBar extends JToolBar {
             panelList.put("Date", DATE_PANEL);
             panelList.put("Type", TYPE_PANEL);
             criteriaPanel.setBorderCriteriaPanel(action);
+            isSearchMultimedia= false;
         }
 
         // Adding "File Name Panel Criteria"
         if (action.equalsIgnoreCase("File Name")) {
             panelList.put(action, FILE_NAME_PANEL);
             criteriaPanel.setBorderCriteriaPanel(action);
+            isSearchMultimedia= false;
         }
         // Adding "Path Panel Criteria"
         if (action.equalsIgnoreCase("Path")) {
             panelList.put(action, PATH_PANEL);
             criteriaPanel.setBorderCriteriaPanel(action);
+            isSearchMultimedia= false;
         }
         // Adding "Hidden Panel Criteria"
         if (action.equalsIgnoreCase("Hidden")) {
             panelList.put(action, HIDDEN_PANEL);
             criteriaPanel.setBorderCriteriaPanel(action);
+            isSearchMultimedia= false;
         }
         // Adding "Size Panel Criteria"
         if (action.equalsIgnoreCase("Size")) {
             panelList.put(action, SIZE_PANEL);
             criteriaPanel.setBorderCriteriaPanel(action);
+            isSearchMultimedia= false;
         }
         // Adding "Owner Panel Criteria"
         if (action.equalsIgnoreCase("Owner")) {
             panelList.put(action, OWNER_PANEL);
             criteriaPanel.setBorderCriteriaPanel(action);
+            isSearchMultimedia= false;
         }
         // Adding "Date Panel Criteria"
         if (action.equalsIgnoreCase("Date")) {
             panelList.put(action, DATE_PANEL);
             criteriaPanel.setBorderCriteriaPanel(action);
+            isSearchMultimedia= false;
         }
         if (action.equalsIgnoreCase("Type")) {
             panelList.put(action, TYPE_PANEL);
             criteriaPanel.setBorderCriteriaPanel(action);
+            isSearchMultimedia= false;
         }
 
         if (action.equalsIgnoreCase("Multimedia")) {
+            isSearchMultimedia = true;
             panelList.put(action, MULTIMEDIA);
             criteriaPanel.setBorderCriteriaPanel(action);
         }
@@ -290,6 +309,7 @@ public class SearchToolBar extends JToolBar {
         if (action.equalsIgnoreCase("Data Base")) {
             panelList.put(action, DB_PANEL);
             criteriaPanel.setBorderCriteriaPanel(action);
+            isSearchMultimedia= false;
         }
         LOOGER.info("exit criteria panel  action of button");
     }
@@ -840,16 +860,33 @@ public class SearchToolBar extends JToolBar {
      *
      * @return String[], this is String array with selected values.
      */
-    public ArrayList<String> getAudioRateCriteria() {
-        return MULTIMEDIA.getAudioRateCriteria();
+    public ArrayList<String> getMultimediaTypeCriteria() {
+        return MULTIMEDIA.getMultimediaTypeCriteria();
+    }
+
+    /**
+     * This method is return is search multimedia actived.
+     *
+     * @return boolean, true when is selected, false when is unselected.
+     */
+    public boolean isSearchMultimedia() {
+        return isSearchMultimedia;
     }
 
     /**
      * This method is for return Audio Rate Array.
      *
-     * @return String[], this is String array with selected values.
+     * @return String
      */
-    public ArrayList<String> getMultimediaTypeCriteria() {
-        return MULTIMEDIA.getMultimediaTypeCriteria();
+    public String getAudioBitRateInit() {
+        return this.MULTIMEDIA.getAudioBitRateInit();
+    }
+    /**
+     * This method is for return Audio Rate Array.
+     *
+     * @return String
+     */
+    public String getAudioBitRateEnd() {
+        return this.MULTIMEDIA.getAudioBitRateEnd();
     }
 }

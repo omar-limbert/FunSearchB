@@ -16,6 +16,7 @@ package com.fundation.search.controller.builder;
 import com.fundation.search.common.SearchLogger;
 
 import java.nio.file.attribute.FileTime;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 /**
@@ -120,6 +121,19 @@ public class SearchCriteria {
     private String textContainsInsideFileCriteria;
 
 
+    private Double multimediaDuration;
+    private String multimediaDurationOperator;
+    private String multimediaDurationType;
+    private ArrayList<String> multimediaVideoCodec;
+    private ArrayList<String> multimediaResolution;
+    private ArrayList<String> multimediaType;
+    private boolean searchMultimedia;
+    private ArrayList<String> multimediaFrameRate;
+    private String multimediaAudioBitRateInit;
+    private String multimediaAudioBitRateEnd;
+
+
+
 
     /**
      * This class is to create SearchCriteria with Builder Pattern.
@@ -153,7 +167,48 @@ public class SearchCriteria {
         this.keySensitiveOfCriteria = builder.getKeySensitiveOfCriteria();
         this.isContainsInsideFileCriteria = builder.getIsContainsInsideFileCriteria();
         this.textContainsInsideFileCriteria = builder.getTextContainsInsideFileCriteria();
+        this.multimediaDuration = builder.getMultimediaDuration();
+        this.multimediaVideoCodec = builder.getMultimediaVideoCodec();
+        this.multimediaResolution = builder.getMultimediaResolution();
+        this.multimediaAudioBitRateInit = builder.getMultimediaAudioBitRateInit();
+        this.multimediaAudioBitRateEnd = builder.getMultimediaAudioBitRateEnd();
+        this.multimediaType = builder.getMultimediaType();
+        this.multimediaDurationOperator = builder.getMultimediaDurationOperator();
+        this.multimediaDurationType = builder.getMultimediaDurationType();
+        this.searchMultimedia = builder.isSearchMultimedia();
+        this.multimediaFrameRate = builder.getFrameRateCriteria();
         LOOGER.info("Constructor Exit");
+    }
+
+    public String getMultimediaAudioBitRateInit() {
+        return multimediaAudioBitRateInit;
+    }
+    public String getMultimediaAudioBitRateEnd() {
+        return multimediaAudioBitRateEnd;
+    }
+    public ArrayList<String> getFrameRateCriteria() {
+        return multimediaFrameRate;
+    }
+    public boolean isSearchMultimedia() {
+        return searchMultimedia;
+    }
+    public String getMultimediaDurationType() {
+        return multimediaDurationType;
+    }
+    public String getMultimediaDurationOperator() {
+        return multimediaDurationOperator;
+    }
+    public ArrayList<String> getMultimediaVideoCodec() {
+        return multimediaVideoCodec;
+    }
+    public ArrayList<String> getMultimediaResolution() {
+        return multimediaResolution;
+    }
+    public ArrayList<String> getMultimediaType() {
+        return multimediaType;
+    }
+    public Double getMultimediaDuration() {
+        return multimediaDuration;
     }
 
     /**

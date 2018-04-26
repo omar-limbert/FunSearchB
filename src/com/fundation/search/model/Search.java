@@ -19,8 +19,14 @@ import com.fundation.search.model.asset.Asset;
 import com.fundation.search.model.asset.AssetFactory;
 import com.fundation.search.model.asset.FileResult;
 import com.fundation.search.model.asset.FolderResult;
+import com.fundation.search.model.asset.MultimediaResult;
 import com.fundation.search.model.database.SearchQuery;
 import com.google.gson.Gson;
+import net.bramp.ffmpeg.FFprobe;
+import net.bramp.ffmpeg.probe.FFmpegFormat;
+import net.bramp.ffmpeg.probe.FFmpegProbeResult;
+import net.bramp.ffmpeg.probe.FFmpegStream;
+import org.apache.commons.lang3.math.Fraction;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -87,42 +93,131 @@ public class Search {
 
             BasicFileAttributes fileBasicAttributes;
             File[] files = new File(path).listFiles();
+            boolean os = System.getProperty("os.name").contains("mac");
+            boolean isFileSystem;
             // Attributes for user inside foreach
             Asset asset = null;
+
+            // Obtains data for multimedia
+            FFmpegProbeResult probeResult = null;
+            String ffprobePath = null;
+            FFprobe ffprobe = null;
+
             for (File file : files) {
                 fileBasicAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
                 FileOwnerAttributeView fileOwnerAttributeView = Files.getFileAttributeView(file.toPath(), FileOwnerAttributeView.class);
-                DosFileAttributes dosFileAttributes = Files.readAttributes(file.toPath(), DosFileAttributes.class);
+                isFileSystem = os ? Files.readAttributes(file.toPath(), DosFileAttributes.class).isReadOnly() : false;
+
+                // Extension file
+
+                String extension = "";
+
+                int i = file.getName().lastIndexOf('.');
+                if (i > 0) {
+                    extension = file.getName().substring(i + 1);
+                }
+
                 if (!file.isDirectory()) {
-                    asset = assetFactory.getAsset(file.getPath()
-                            , file.getName()
-                            , fileBasicAttributes.size()
-                            , dosFileAttributes.isHidden()
-                            , fileBasicAttributes.lastModifiedTime()
-                            , fileBasicAttributes.creationTime()
-                            , fileBasicAttributes.lastAccessTime()
-                            , dosFileAttributes.isReadOnly()
-                            , dosFileAttributes.isSystem()
-                            , fileBasicAttributes.isDirectory()
-                            , fileOwnerAttributeView.getOwner().getName()
-                            , file.getName()
-                            , "");
-                    assetList.add(asset);
+                    try {
+                        // Data for multimedia
+                        ffprobePath = new File(".").getCanonicalPath() + "/resources/ffprobe";
+                        ffprobe = new FFprobe(ffprobePath);
+                        probeResult = ffprobe.probe(file.getAbsolutePath());
+                        FFmpegFormat format = probeResult.getFormat();
+
+                        // Getting video information
+                        FFmpegStream stream = probeResult.getStreams().get(0);
+                        String codecName = stream.codec_name;
+                        String codecLongName = stream.codec_long_name;
+                        int width = stream.width;
+                        int height = stream.height;
+                        String displayAspect = stream.display_aspect_ratio;
+                        Fraction rFrameRate = stream.r_frame_rate;
+                        double startTime = stream.start_time;
+                        double duration = stream.duration;
+                        long bitRate = stream.bit_rate;
+                        long nbFrames = stream.nb_frames;
+
+                        // Getting audio information
+                        stream = probeResult.getStreams().get(1);
+                        String audioCodecName = stream.codec_name;
+                        String audioCodecNameLong = stream.codec_long_name;
+                        String audioCodecTag = stream.codec_tag;
+                        int audioChannels = stream.channels;
+                        String audioChannelsLayout = stream.channel_layout;
+                        double audioStarTime = stream.start_time;
+                        double audioDuration = stream.duration;
+                        long audioBitRate = stream.bit_rate;
+                        long audioMaxBitRate = stream.max_bit_rate;
+                        long audioNbFrame = stream.nb_frames;
+
+                        asset = assetFactory.getAsset(file.getPath()
+                                , file.getName()
+                                , fileBasicAttributes.size()
+                                , file.isHidden()
+                                , fileBasicAttributes.lastModifiedTime()
+                                , fileBasicAttributes.creationTime()
+                                , fileBasicAttributes.lastAccessTime()
+                                , file.canRead()
+                                , isFileSystem
+                                , fileBasicAttributes.isDirectory()
+                                , fileOwnerAttributeView.getOwner().getName()
+                                , codecName
+                                , extension
+                                , codecLongName
+                                , width
+                                , height
+                                , displayAspect
+                                , rFrameRate
+                                , startTime
+                                , duration
+                                , bitRate
+                                , nbFrames
+                                , audioCodecName
+                                , audioCodecNameLong
+                                , audioCodecTag
+                                , audioChannels
+                                , audioChannelsLayout
+                                , audioStarTime
+                                , audioDuration
+                                , audioBitRate
+                                , audioMaxBitRate
+                                , audioNbFrame);
+                        assetList.add(asset);
+
+                    } catch (java.io.IOException | java.lang.NullPointerException exception) {
+                        // Data for File
+                        asset = assetFactory.getAsset(file.getPath()
+                                , file.getName()
+                                , fileBasicAttributes.size()
+                                , file.isHidden()
+                                , fileBasicAttributes.lastModifiedTime()
+                                , fileBasicAttributes.creationTime()
+                                , fileBasicAttributes.lastAccessTime()
+                                , file.canRead()
+                                , isFileSystem
+                                , fileBasicAttributes.isDirectory()
+                                , fileOwnerAttributeView.getOwner().getName()
+                                , extension
+                                , "");
+                        assetList.add(asset);
+                    } catch (java.lang.IndexOutOfBoundsException ex) {
+                    }
                 } else {
-                    searchByPath(file.getPath());
                     asset = assetFactory.getAsset(file.getPath()
                             , file.getName()
                             , fileBasicAttributes.size()
-                            , dosFileAttributes.isHidden()
+                            , file.isHidden()
                             , fileBasicAttributes.lastModifiedTime()
                             , fileBasicAttributes.creationTime()
                             , fileBasicAttributes.lastAccessTime()
-                            , dosFileAttributes.isReadOnly()
-                            , dosFileAttributes.isSystem()
+                            , file.canRead()
+                            , isFileSystem
                             , fileBasicAttributes.isDirectory()
                             , fileOwnerAttributeView.getOwner().getName()
                             , 15);
                     assetList.add(asset);
+                    searchByPath(file.getPath());
                 }
             }
 
@@ -133,6 +228,7 @@ public class Search {
         LOOGER.info("Exit of searchByPath Method");
         return assetList;
     }
+
 
     /**
      * NOTE: You need improve 'e.getName()' for get only file name without extension.
@@ -158,6 +254,44 @@ public class Search {
         LOOGER.info("Exit of searchByName Method");
 
         return listFile;
+    }
+
+    /**
+     * This Method is for filter Multimedia file by duration.
+     * Note: Need unittest.
+     *
+     * @param listFile asset list.
+     * @param time     is the multimedia file duration.
+     * @param operator is "upper" or "lower" or "equal".
+     * @return list all the asset minor or major or equal to given time.
+     */
+    private List<Asset> searchMultimediaByDuration(List<Asset> listFile, Double time, String operator) {
+        LOOGER.info("Entry to searchMultimediaByDuration Method");
+        List<Asset> listFilter = new ArrayList<>();
+        for (Asset file : listFile) {
+            if (file instanceof MultimediaResult) {
+                MultimediaResult multimediaResult = (MultimediaResult) file;
+                if (operator.equalsIgnoreCase("upper")) {
+                    if (multimediaResult.getDuration() > time) {
+                        listFilter.add(file);
+                    }
+                }
+
+                if (operator.equalsIgnoreCase("lower")) {
+                    if (multimediaResult.getDuration() < time) {
+                        listFilter.add(file);
+                    }
+                }
+
+                if (operator.equalsIgnoreCase("equal")) {
+                    if (multimediaResult.getDuration() == time) {
+                        listFilter.add(file);
+                    }
+                }
+            }
+        }
+        LOOGER.info("Exit of searchMultimediaByDuration Method");
+        return listFilter;
     }
 
     /**
@@ -494,8 +628,124 @@ public class Search {
                     e.printStackTrace();
                 }
             }
+            // Multimedia
+
+            if (criteria.getMultimediaDuration() > -1 && criteria.isSearchMultimedia()) {
+                assetList = searchMultimediaByDuration(assetList, criteria.getMultimediaDuration(), criteria.getMultimediaDurationOperator());
+            }
+            if (!criteria.getMultimediaVideoCodec().isEmpty() && criteria.isSearchMultimedia()) {
+                assetList = searchMultimediaByVideoCodec(assetList, criteria.getMultimediaVideoCodec());
+            }
+            if (!criteria.getMultimediaResolution().isEmpty() && criteria.isSearchMultimedia()) {
+                assetList = searchMultimediaByResolution(assetList, criteria.getMultimediaResolution());
+            }
+            if (!criteria.getMultimediaType().isEmpty() && criteria.isSearchMultimedia()) {
+                assetList = searchMultimediaByType(assetList, criteria.getMultimediaType());
+            }
+            if (!criteria.getFrameRateCriteria().isEmpty() && criteria.isSearchMultimedia()) {
+                assetList = searchMultimediaByFrameRate(assetList, criteria.getFrameRateCriteria());
+            }
+            if (!criteria.getMultimediaAudioBitRateInit().isEmpty() && !criteria.getMultimediaAudioBitRateEnd().isEmpty() && criteria.isSearchMultimedia()) {
+                assetList = searchMultimediaByAudioBitRate(assetList, criteria.getMultimediaAudioBitRateInit(), criteria.getMultimediaAudioBitRateEnd());
+            }
         }
         LOOGER.info("Exit of filterByCriteria Method");
+    }
+
+    private List<Asset> searchMultimediaByAudioBitRate(List<Asset> assetList, String bitRateInit, String bitRateEnd) {
+        LOOGER.info("Entry to searchMultimediaByType Method");
+
+        List<Asset> listFilter = new ArrayList<>();
+
+        for (Asset file : assetList) {
+            if (file instanceof MultimediaResult) {
+                MultimediaResult multimediaResult = (MultimediaResult) file;
+
+                if (multimediaResult.getAudioBitRate() >= Long.valueOf(bitRateInit) && multimediaResult.getAudioBitRate() <= Long.valueOf(bitRateEnd)) {
+                    listFilter.add(multimediaResult);
+                }
+            }
+        }
+        LOOGER.info("Exit of searchMultimediaByType Method");
+        return listFilter;
+    }
+
+    private List<Asset> searchMultimediaByFrameRate(List<Asset> assetList, ArrayList<String> frameRate) {
+        LOOGER.info("Entry to searchMultimediaByType Method");
+
+        List<Asset> listFilter = new ArrayList<>();
+
+        for (Asset file : assetList) {
+            if (file instanceof MultimediaResult) {
+                MultimediaResult multimediaResult = (MultimediaResult) file;
+                frameRate.forEach(e -> {
+                    Double value = (Math.ceil(multimediaResult.getrFrameRate().doubleValue()));
+                    String valueForCompare = value.intValue() + " fps";
+
+                    if (e.equalsIgnoreCase(valueForCompare)) {
+                        listFilter.add(multimediaResult);
+                    }
+                });
+            }
+        }
+        LOOGER.info("Exit of searchMultimediaByType Method");
+        return listFilter;
+    }
+
+    private List<Asset> searchMultimediaByType(List<Asset> assetList, ArrayList<String> multimediaType) {
+        LOOGER.info("Entry to searchMultimediaByType Method");
+
+        List<Asset> listFilter = new ArrayList<>();
+        for (Asset file : assetList) {
+            if (file instanceof MultimediaResult) {
+                MultimediaResult multimediaResult = (MultimediaResult) file;
+                multimediaType.forEach(e -> {
+                    if (e.equalsIgnoreCase(multimediaResult.getExtensionFile())) {
+                        listFilter.add(multimediaResult);
+                    }
+
+                });
+            }
+        }
+        LOOGER.info("Exit of searchMultimediaByType Method");
+        return listFilter;
+    }
+
+    private List<Asset> searchMultimediaByVideoCodec(List<Asset> assetList, ArrayList<String> multimediaVideoCodec) {
+        LOOGER.info("Entry to searchMultimediaByVideoCodec Method");
+
+        List<Asset> listFilter = new ArrayList<>();
+        for (Asset file : assetList) {
+            if (file instanceof MultimediaResult) {
+                MultimediaResult multimediaResult = (MultimediaResult) file;
+                multimediaVideoCodec.forEach(e -> {
+                    if (e.equalsIgnoreCase(multimediaResult.getCodecName())) {
+                        listFilter.add(multimediaResult);
+                    }
+
+                });
+            }
+        }
+        LOOGER.info("Exit of searchMultimediaByVideoCodec Method");
+        return listFilter;
+    }
+
+    private List<Asset> searchMultimediaByResolution(List<Asset> assetList, ArrayList<String> multimediaREsolution) {
+        LOOGER.info("Entry to searchMultimediaByResolution Method");
+        List<Asset> listFilter = new ArrayList<>();
+        for (Asset file : assetList) {
+            if (file instanceof MultimediaResult) {
+                MultimediaResult multimediaResult = (MultimediaResult) file;
+                multimediaREsolution.forEach(e -> {
+                    if (e.equalsIgnoreCase(multimediaResult.getDisplayAspect() + " " + multimediaResult.getWidth() + "x" + multimediaResult.getHeight())) {
+                        listFilter.add(multimediaResult);
+                    }
+
+                });
+            }
+        }
+        LOOGER.info("Exit of searchMultimediaByResolution Method");
+        return listFilter;
     }
 
     /**
@@ -600,5 +850,6 @@ public class Search {
         }
         LOOGER.info("Exit of deleteCriteriaFromDataBase Method");
     }
+
 
 }
