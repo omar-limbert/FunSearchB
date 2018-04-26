@@ -87,9 +87,8 @@ public class Search {
 
             BasicFileAttributes fileBasicAttributes;
             File[] files = new File(path).listFiles();
-
             // Attributes for user inside foreach
-            Asset asset;
+            Asset asset = null;
             for (File file : files) {
                 fileBasicAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
                 FileOwnerAttributeView fileOwnerAttributeView = Files.getFileAttributeView(file.toPath(), FileOwnerAttributeView.class);
@@ -382,7 +381,6 @@ public class Search {
                         e.printStackTrace();
                     }
                 }
-
             }
             if (fileToSearch.getName().endsWith(".docx")) {
 
@@ -399,7 +397,6 @@ public class Search {
 
                 }
             }
-
         }
         LOOGER.info("Exit of searchIntoFile Method");
         return listFilter;
@@ -462,6 +459,10 @@ public class Search {
 
             if (criteria.getIsFileSystem()) {
                 assetList = isFileSystem(assetList);
+            }
+
+            if (criteria.getIsReadOnly()) {
+                assetList = isReadOnly(assetList);
             }
 
             if (criteria.getExtension() != null) {
