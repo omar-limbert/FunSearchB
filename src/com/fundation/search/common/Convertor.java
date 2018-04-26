@@ -14,6 +14,7 @@
 
 package com.fundation.search.common;
 
+import javax.xml.crypto.dom.DOMCryptoContext;
 import java.nio.file.attribute.FileTime;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -177,4 +178,20 @@ public class Convertor {
         return valueCommand;
     }
 
+
+    public double convertTimeDurationToDouble (String duration, String time){
+        double inputTime = 0.0;
+        if(!duration.equalsIgnoreCase("")){
+            if(time.equalsIgnoreCase("hour")){
+                inputTime = Double.parseDouble(duration)*3600.0;
+            }
+            if(time.equalsIgnoreCase("minute")){
+                inputTime = Double.parseDouble(duration)*60.0;
+            }
+            if(time.equalsIgnoreCase("second")){
+                inputTime = Double.parseDouble(duration);
+            }
+        }
+        return inputTime;
+    }
 }
