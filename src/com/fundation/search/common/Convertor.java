@@ -179,6 +179,13 @@ public class Convertor {
     }
 
 
+    /**
+     * This method convert  hours and minutes to seconds.
+     *
+     * @param duration Input string
+     * @param time Unit Time hour or minute.
+     * @return a double number on unit seconds.
+     */
     public double convertTimeDurationToDouble (String duration, String time){
         double inputTime = 0.0;
         if(!duration.equalsIgnoreCase("")){
