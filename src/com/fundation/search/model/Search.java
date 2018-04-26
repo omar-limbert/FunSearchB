@@ -87,47 +87,42 @@ public class Search {
 
             BasicFileAttributes fileBasicAttributes;
             File[] files = new File(path).listFiles();
-
             // Attributes for user inside foreach
-            Asset asset;
+            Asset asset = null;
             for (File file : files) {
                 fileBasicAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
                 FileOwnerAttributeView fileOwnerAttributeView = Files.getFileAttributeView(file.toPath(), FileOwnerAttributeView.class);
                 DosFileAttributes dosFileAttributes = Files.readAttributes(file.toPath(), DosFileAttributes.class);
-                asset = assetFactory.getAsset(file.getPath()
-                        , file.getName()
-                        , fileBasicAttributes.size()
-                        , dosFileAttributes.isHidden()
-                        , fileBasicAttributes.lastModifiedTime()
-                        , fileBasicAttributes.creationTime()
-                        , fileBasicAttributes.lastAccessTime()
-                        , dosFileAttributes.isReadOnly()
-                        , dosFileAttributes.isSystem()
-                        , fileBasicAttributes.isDirectory()
-                        , fileOwnerAttributeView.getOwner().getName()
-                        , ""
-                        , "");
-
-                assetList.add(asset);
-
-                if (file.isDirectory()) {
+                if (!file.isDirectory()) {
+                    asset = assetFactory.getAsset(file.getPath()
+                            , file.getName()
+                            , fileBasicAttributes.size()
+                            , dosFileAttributes.isHidden()
+                            , fileBasicAttributes.lastModifiedTime()
+                            , fileBasicAttributes.creationTime()
+                            , fileBasicAttributes.lastAccessTime()
+                            , dosFileAttributes.isReadOnly()
+                            , dosFileAttributes.isSystem()
+                            , fileBasicAttributes.isDirectory()
+                            , fileOwnerAttributeView.getOwner().getName()
+                            , file.getName()
+                            , "");
+                    assetList.add(asset);
+                } else {
                     searchByPath(file.getPath());
-                    if (asset instanceof FolderResult) {
-                        asset = assetFactory.getAsset(file.getPath()
-                                , file.getName()
-                                , fileBasicAttributes.size()
-                                , dosFileAttributes.isHidden()
-                                , fileBasicAttributes.lastModifiedTime()
-                                , fileBasicAttributes.creationTime()
-                                , fileBasicAttributes.lastAccessTime()
-                                , dosFileAttributes.isReadOnly()
-                                , dosFileAttributes.isSystem()
-                                , fileBasicAttributes.isDirectory()
-                                , fileOwnerAttributeView.getOwner().getName()
-                                , 15);
-
-                        assetList.add(asset);
-                    }
+                    asset = assetFactory.getAsset(file.getPath()
+                            , file.getName()
+                            , fileBasicAttributes.size()
+                            , dosFileAttributes.isHidden()
+                            , fileBasicAttributes.lastModifiedTime()
+                            , fileBasicAttributes.creationTime()
+                            , fileBasicAttributes.lastAccessTime()
+                            , dosFileAttributes.isReadOnly()
+                            , dosFileAttributes.isSystem()
+                            , fileBasicAttributes.isDirectory()
+                            , fileOwnerAttributeView.getOwner().getName()
+                            , 15);
+                    assetList.add(asset);
                 }
             }
 
@@ -384,7 +379,6 @@ public class Search {
                         e.printStackTrace();
                     }
                 }
-
             }
             if (fileToSearch.getName().endsWith(".docx")) {
 
@@ -401,7 +395,6 @@ public class Search {
 
                 }
             }
-
         }
         LOOGER.info("Exit of searchIntoFile Method");
         return listFilter;
@@ -462,11 +455,15 @@ public class Search {
                 assetList = isFileSystem(assetList);
             }
 
+            if (criteria.getIsReadOnly()) {
+                assetList = isReadOnly(assetList);
+            }
+
             if (criteria.getExtension() != null) {
                 assetList = searchByExtension(assetList, criteria.getExtension());
             }
 
-            if (criteria.getSize() > -1 && criteria.getSize() != 0L) {
+            if (criteria.getSize() > -1) {
                 assetList = searchBySize(assetList, criteria.getSize(), criteria.getOperator());
             }
 
@@ -475,7 +472,6 @@ public class Search {
             }
             if (criteria.getKeySensitiveOfCriteria()) {
                 assetList = searchKeySensitive(assetList, criteria.getName());
-
             }
 
             /*if (criteria.getCreationDateInit() != null && criteria.getCreationDateEnd() != null) {
