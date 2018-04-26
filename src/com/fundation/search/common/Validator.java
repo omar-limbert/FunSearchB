@@ -1,3 +1,5 @@
+
+
 /*
  * @(#)Validator.java
  *
@@ -42,6 +44,7 @@ public class Validator {
      */
     public Validator() {
     }
+
     /**
      * It method checks if the input is a valid Path format.
      *
@@ -53,8 +56,9 @@ public class Validator {
         Pattern patternFormat = Pattern.compile("(^[A-Z]:)?((\\\\)\\w+((\\s|\\.)\\w+)*)+");
         Matcher matcher = patternFormat.matcher(path);
         LOOGER.info("Exit Validator");
-        return matcher.matches()&& Files.exists(Paths.get(path));
+        return matcher.matches() && Files.exists(Paths.get(path));
     }
+
     /**
      * It method checks if the input is a valid Path format.
      *
@@ -82,7 +86,7 @@ public class Validator {
 
         LOOGER.info("Validate File: " + file);
         pattern = Pattern.compile("(\\w+(\\s|[^:*?\"<>|]\\w+)*)+");
-        matcher = pattern.matcher(file);
+        matcher = pattern.matcher(file.trim());
         LOOGER.info("Exit Validator");
         return matcher.matches();
     }
@@ -97,10 +101,38 @@ public class Validator {
     public boolean isValidFileExtension(String type) {
         LOOGER.info("Validate Type: " + type);
         pattern = Pattern.compile("^\\.[a-z]{3,4}");
-        matcher = pattern.matcher(type);
+        matcher = pattern.matcher(type.trim());
         LOOGER.info("Exit Validator");
         return matcher.matches();
     }
+
+
+    /**
+     * @param owner a format owner name.
+     * @return true if it is a valid format for a owner name.
+     * false if it is an invalid format for a owner name.
+     */
+    public boolean isOwnerName(String owner) {
+        LOOGER.info("Validate Type: " + owner);
+        Pattern pattern = Pattern.compile("\\w+(\\s|[\\\\\\-]\\w+)*(\\\\)?\\w+\\s\\w+");
+        matcher = pattern.matcher(owner.trim());
+        LOOGER.info("Exit Validator");
+        return matcher.matches();
+    }
+
+    /**
+     * @param size a format of a number
+     * @return true if it is a valid format for a size.
+     * false if it is an invalid format for a size.
+     */
+    public boolean isValidformatSize(String size) {
+        LOOGER.info("Validate Type: " + size);
+        Pattern pattern = Pattern.compile("[0-9]+(\\.[0-9]+)?");
+        matcher = pattern.matcher(size.trim());
+        LOOGER.info("Exit Validator");
+        return matcher.matches();
+    }
+
 
     /**
      * It method checks if the input is a valid size format.
@@ -120,6 +152,7 @@ public class Validator {
         LOOGER.info("Exit Validator");
         return true;
     }
+
     /**
      * It method checks if the dateCommand is a valid date command format.
      *
@@ -127,7 +160,7 @@ public class Validator {
      * @return true if it is a valid format for a date command format.
      * false if it is an invalid format for a date command format.
      */
-    public boolean isValidDateCommand(String dateCommand){
+    public boolean isValidDateCommand(String dateCommand) {
         LOOGER.info("Validate Type: " + dateCommand);
         pattern = Pattern.compile("\\d{1,2}/\\d{1,2}/\\d{4}\\s+(to|TO)\\s+\\d{1,2}/\\d{1,2}/\\d{4}");
         matcher = pattern.matcher(dateCommand);
@@ -177,6 +210,7 @@ public class Validator {
         LOOGER.info("Exit Validator");
         return result;
     }
+
     /**
      * It method checks if the dateCommand is a valid command Size format.
      *
@@ -184,7 +218,7 @@ public class Validator {
      * @return true if it is a valid format for a command Size format.
      * false if it is an invalid format for a command Size format.
      */
-    public  boolean validateCommandSize(String commandSize){
+    public boolean validateCommandSize(String commandSize) {
         LOOGER.info("validateCommandSize: " + commandSize);
         Pattern pattern = Pattern.compile("\\b(Major to:|Minor to:|Equal to:)\\s*[0-9]+\\s*(?:mb|kb|gb|bytes)", Pattern.CASE_INSENSITIVE);
         Matcher matcherCommand = pattern.matcher(commandSize);
