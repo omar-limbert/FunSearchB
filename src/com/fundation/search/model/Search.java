@@ -26,13 +26,8 @@ import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.nio.file.attribute.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -95,37 +90,40 @@ public class Search {
                 FileOwnerAttributeView fileOwnerAttributeView = Files.getFileAttributeView(file.toPath(), FileOwnerAttributeView.class);
                 DosFileAttributes dosFileAttributes = Files.readAttributes(file.toPath(), DosFileAttributes.class);
 
-                if (!file.isDirectory()) {
-                    asset = assetFactory.getAsset(file.getPath()
-                            , file.getName()
-                            , fileBasicAttributes.size()
-                            , dosFileAttributes.isHidden()
-                            , fileBasicAttributes.lastModifiedTime()
-                            , fileBasicAttributes.creationTime()
-                            , fileBasicAttributes.lastAccessTime()
-                            , dosFileAttributes.isReadOnly()
-                            , dosFileAttributes.isSystem()
-                            , fileBasicAttributes.isDirectory()
-                            , fileOwnerAttributeView.getOwner().getName()
-                            , ""
-                            , "");
-                    assetList.add(asset);
-
-                } else {
+                if (file.isDirectory()) {
                     searchByPath(file.getPath());
                     asset = assetFactory.getAsset(file.getPath()
                             , file.getName()
                             , fileBasicAttributes.size()
                             , dosFileAttributes.isHidden()
                             , fileBasicAttributes.lastModifiedTime()
-                            , fileBasicAttributes.creationTime()
                             , fileBasicAttributes.lastAccessTime()
+                            , fileBasicAttributes.creationTime()
                             , dosFileAttributes.isReadOnly()
                             , dosFileAttributes.isSystem()
                             , fileBasicAttributes.isDirectory()
                             , fileOwnerAttributeView.getOwner().getName()
                             , 15);
-                    assetList.add(asset);
+                    if (asset instanceof FolderResult && !assetList.contains(asset)) {
+                        assetList.add(asset);
+                    }
+                } else {
+                    asset = assetFactory.getAsset(file.getPath()
+                            , file.getName()
+                            , fileBasicAttributes.size()
+                            , dosFileAttributes.isHidden()
+                            , fileBasicAttributes.lastModifiedTime()
+                            , fileBasicAttributes.lastAccessTime()
+                            , fileBasicAttributes.creationTime()
+                            , dosFileAttributes.isReadOnly()
+                            , dosFileAttributes.isSystem()
+                            , fileBasicAttributes.isDirectory()
+                            , fileOwnerAttributeView.getOwner().getName()
+                            , ""
+                            , "");
+                    if (asset instanceof FileResult && !assetList.contains(asset)) {
+                        assetList.add(asset);
+                    }
                 }
             }
 
@@ -367,7 +365,6 @@ public class Search {
         for (Asset file : listFile) {
             if (file instanceof FileResult) {
                 fileToSearch = new File(file.getPathFile());
-                // this.searchInto(listFilter,fileToSearch, text);
                 if (fileToSearch.getName().endsWith(".txt")) {
                     try {
 
@@ -382,7 +379,6 @@ public class Search {
                         e.printStackTrace();
                     }
                 }
-
             }
             if (fileToSearch.getName().endsWith(".docx")) {
 
@@ -480,18 +476,17 @@ public class Search {
                 assetList = searchKeySensitive(assetList, criteria.getName());
             }
 
-            /*if (criteria.getCreationDateInit() != null && criteria.getCreationDateEnd() != null) {
+            if (criteria.getCreationDateInit() != null && criteria.getCreationDateEnd() != null) {
                 assetList = creationTime(assetList, criteria.getCreationDateInit(), criteria.getCreationDateEnd());
-            }*/
-
-            if (criteria.getLastAccessDateInit() != null && criteria.getLastAccessDateEnd() != null) {
-                assetList = lastAccessTime(assetList, criteria.getLastAccessDateInit(), criteria.getLastAccessDateEnd());
             }
 
             if (criteria.getModifiedDateInit() != null && criteria.getModifiedDateEnd() != null) {
                 assetList = lastModifiedTime(assetList, criteria.getModifiedDateInit(), criteria.getModifiedDateEnd());
             }
 
+            if (criteria.getLastAccessDateInit() != null && criteria.getLastAccessDateEnd() != null) {
+                assetList = lastAccessTime(assetList, criteria.getLastAccessDateInit(), criteria.getLastAccessDateEnd());
+            }
             if (criteria.getIsContainsInsideFileCriteria()) {
                 try {
                     assetList = searchIntoFile(assetList, criteria.getTextContainsInsideFileCriteria());
@@ -499,6 +494,7 @@ public class Search {
                     e.printStackTrace();
                 }
             }
+
         }
         LOOGER.info("Exit of filterByCriteria Method");
     }
@@ -527,7 +523,7 @@ public class Search {
     public List<Asset> getResultList() {
         LOOGER.info("Entry to getResultList Method");
         LOOGER.info("Exit of getResultList Method");
-        assetList.forEach(e -> System.out.println(e.getName()));
+        assetList.forEach(e -> System.out.println(e.getName() + "  " + e.getIsDirectory()));
         return assetList;
 
     }
