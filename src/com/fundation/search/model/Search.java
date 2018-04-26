@@ -663,7 +663,6 @@ public class Search {
 
                 if (multimediaResult.getAudioBitRate() >= Long.valueOf(bitRateInit) && multimediaResult.getAudioBitRate() <= Long.valueOf(bitRateEnd)) {
                     listFilter.add(multimediaResult);
-                    System.out.println(multimediaResult.getAudioBitRate() + " " + Long.valueOf(bitRateInit) + " " + Long.valueOf(bitRateEnd));
                 }
             }
         }
@@ -682,7 +681,7 @@ public class Search {
                 frameRate.forEach(e -> {
                     Double value = (Math.ceil(multimediaResult.getrFrameRate().doubleValue()));
                     String valueForCompare = value.intValue() + " fps";
-                    System.out.println(e + " = " + valueForCompare);
+
                     if (e.equalsIgnoreCase(valueForCompare)) {
                         listFilter.add(multimediaResult);
                     }
