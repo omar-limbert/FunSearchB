@@ -70,7 +70,7 @@ public class Search {
     private AssetFactory assetFactory;
 
     /**
-     * Search Class constructor.
+     * Search Class constructor..
      */
     public Search() {
         assetList = new ArrayList<Asset>();
@@ -94,40 +94,38 @@ public class Search {
                 fileBasicAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
                 FileOwnerAttributeView fileOwnerAttributeView = Files.getFileAttributeView(file.toPath(), FileOwnerAttributeView.class);
                 DosFileAttributes dosFileAttributes = Files.readAttributes(file.toPath(), DosFileAttributes.class);
-                asset = assetFactory.getAsset(file.getPath()
-                        , file.getName()
-                        , fileBasicAttributes.size()
-                        , dosFileAttributes.isHidden()
-                        , fileBasicAttributes.lastModifiedTime()
-                        , fileBasicAttributes.creationTime()
-                        , fileBasicAttributes.lastAccessTime()
-                        , dosFileAttributes.isReadOnly()
-                        , dosFileAttributes.isSystem()
-                        , fileBasicAttributes.isDirectory()
-                        , fileOwnerAttributeView.getOwner().getName()
-                        , ""
-                        , "");
 
-                assetList.add(asset);
+                if (!file.isDirectory()) {
+                    asset = assetFactory.getAsset(file.getPath()
+                            , file.getName()
+                            , fileBasicAttributes.size()
+                            , dosFileAttributes.isHidden()
+                            , fileBasicAttributes.lastModifiedTime()
+                            , fileBasicAttributes.creationTime()
+                            , fileBasicAttributes.lastAccessTime()
+                            , dosFileAttributes.isReadOnly()
+                            , dosFileAttributes.isSystem()
+                            , fileBasicAttributes.isDirectory()
+                            , fileOwnerAttributeView.getOwner().getName()
+                            , ""
+                            , "");
+                    assetList.add(asset);
 
-                if (file.isDirectory()) {
+                } else {
                     searchByPath(file.getPath());
-                    if (asset instanceof FolderResult) {
-                        asset = assetFactory.getAsset(file.getPath()
-                                , file.getName()
-                                , fileBasicAttributes.size()
-                                , dosFileAttributes.isHidden()
-                                , fileBasicAttributes.lastModifiedTime()
-                                , fileBasicAttributes.creationTime()
-                                , fileBasicAttributes.lastAccessTime()
-                                , dosFileAttributes.isReadOnly()
-                                , dosFileAttributes.isSystem()
-                                , fileBasicAttributes.isDirectory()
-                                , fileOwnerAttributeView.getOwner().getName()
-                                , 15);
-
-                        assetList.add(asset);
-                    }
+                    asset = assetFactory.getAsset(file.getPath()
+                            , file.getName()
+                            , fileBasicAttributes.size()
+                            , dosFileAttributes.isHidden()
+                            , fileBasicAttributes.lastModifiedTime()
+                            , fileBasicAttributes.creationTime()
+                            , fileBasicAttributes.lastAccessTime()
+                            , dosFileAttributes.isReadOnly()
+                            , dosFileAttributes.isSystem()
+                            , fileBasicAttributes.isDirectory()
+                            , fileOwnerAttributeView.getOwner().getName()
+                            , 15);
+                    assetList.add(asset);
                 }
             }
 
@@ -458,6 +456,10 @@ public class Search {
                 assetList = searchByDirectory(assetList);
             }
 
+            if (criteria.getIsReadOnly()) {
+                assetList = isReadOnly(assetList);
+            }
+
             if (criteria.getIsFileSystem()) {
                 assetList = isFileSystem(assetList);
             }
@@ -466,21 +468,20 @@ public class Search {
                 assetList = searchByExtension(assetList, criteria.getExtension());
             }
 
-            if (criteria.getSize() > -1 && criteria.getSize() != 0L) {
+            if (criteria.getSize() > -1) {
                 assetList = searchBySize(assetList, criteria.getSize(), criteria.getOperator());
             }
 
             if (!criteria.getOwnerCriteria().isEmpty()) {
                 assetList = searchByOwner(assetList, criteria.getOwnerCriteria());
             }
+
             if (criteria.getKeySensitiveOfCriteria()) {
                 assetList = searchKeySensitive(assetList, criteria.getName());
-
             }
 
             /*if (criteria.getCreationDateInit() != null && criteria.getCreationDateEnd() != null) {
-                System.out.println(criteria.getCreationDateInit() + "    " + criteria.getCreationDateEnd());
-                assetList = creationTime(assetList, criteria.getModifiedDateInit(), criteria.getModifiedDateEnd());
+                assetList = creationTime(assetList, criteria.getCreationDateInit(), criteria.getCreationDateEnd());
             }*/
 
             if (criteria.getLastAccessDateInit() != null && criteria.getLastAccessDateEnd() != null) {
@@ -526,6 +527,7 @@ public class Search {
     public List<Asset> getResultList() {
         LOOGER.info("Entry to getResultList Method");
         LOOGER.info("Exit of getResultList Method");
+        assetList.forEach(e -> System.out.println(e.getName()));
         return assetList;
 
     }
