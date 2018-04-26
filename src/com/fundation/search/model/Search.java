@@ -70,7 +70,7 @@ public class Search {
     private AssetFactory assetFactory;
 
     /**
-     * Search Class constructor.
+     * Search Class constructor..
      */
     public Search() {
         assetList = new ArrayList<Asset>();
@@ -93,6 +93,7 @@ public class Search {
                 fileBasicAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
                 FileOwnerAttributeView fileOwnerAttributeView = Files.getFileAttributeView(file.toPath(), FileOwnerAttributeView.class);
                 DosFileAttributes dosFileAttributes = Files.readAttributes(file.toPath(), DosFileAttributes.class);
+
                 if (!file.isDirectory()) {
                     asset = assetFactory.getAsset(file.getPath()
                             , file.getName()
@@ -105,9 +106,10 @@ public class Search {
                             , dosFileAttributes.isSystem()
                             , fileBasicAttributes.isDirectory()
                             , fileOwnerAttributeView.getOwner().getName()
-                            , file.getName()
+                            , ""
                             , "");
                     assetList.add(asset);
+
                 } else {
                     searchByPath(file.getPath());
                     asset = assetFactory.getAsset(file.getPath()
@@ -451,6 +453,10 @@ public class Search {
                 assetList = searchByDirectory(assetList);
             }
 
+            if (criteria.getIsReadOnly()) {
+                assetList = isReadOnly(assetList);
+            }
+
             if (criteria.getIsFileSystem()) {
                 assetList = isFileSystem(assetList);
             }
@@ -470,13 +476,13 @@ public class Search {
             if (!criteria.getOwnerCriteria().isEmpty()) {
                 assetList = searchByOwner(assetList, criteria.getOwnerCriteria());
             }
+
             if (criteria.getKeySensitiveOfCriteria()) {
                 assetList = searchKeySensitive(assetList, criteria.getName());
             }
 
             /*if (criteria.getCreationDateInit() != null && criteria.getCreationDateEnd() != null) {
-                System.out.println(criteria.getCreationDateInit() + "    " + criteria.getCreationDateEnd());
-                assetList = creationTime(assetList, criteria.getModifiedDateInit(), criteria.getModifiedDateEnd());
+                assetList = creationTime(assetList, criteria.getCreationDateInit(), criteria.getCreationDateEnd());
             }*/
 
             if (criteria.getLastAccessDateInit() != null && criteria.getLastAccessDateEnd() != null) {
@@ -522,6 +528,7 @@ public class Search {
     public List<Asset> getResultList() {
         LOOGER.info("Entry to getResultList Method");
         LOOGER.info("Exit of getResultList Method");
+        assetList.forEach(e -> System.out.println(e.getName()));
         return assetList;
 
     }

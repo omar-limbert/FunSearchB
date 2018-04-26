@@ -291,37 +291,68 @@ public class ControlCriteria {
 
         // Converting Size to bytes for Model
         if (!sizeOfSize.isEmpty()) {
-            size = converter.convertSizeStringToLong(sizeOfSize,typeOfSize);
+            size = converter.convertSizeStringToLong(sizeOfSize, typeOfSize);
+        }
+        if (validateInputsGUI()) {
+            // Adding to SearchCriteria and Validating some data
+            this.searchCriteria = new SearchCriteriaBuilder()
+                    .pathCriteria(this.pathValidation(searchWindows.getPathOfCriteria()))
+                    .fileName(this.nameValidation(searchWindows.getSearchText()))
+                    .hiddenCriteria(searchWindows.getHiddenOfCriteria())
+                    .fileNameCriteria(searchWindows.getFileNameOfCriteria())
+                    .ownerCriteria(searchWindows.getOwnerOfCriteria())
+                    .isReadCriteria(Boolean.valueOf(searchWindows.getReadOnlyOfCriteria()))
+                    .isFileSystemCriteria(Boolean.valueOf(searchWindows.getFileSystemOfCriteria()))
+                    .creationDateCriteria(this.dateValidation(searchWindows.getCreationDateInit())
+                            , this.dateValidation(searchWindows.getCreationDateEnd()))
+                    .modifiedDateCriteria(this.dateValidation(searchWindows.getModifiedDateInit())
+                            , this.dateValidation(searchWindows.getModifiedDateEnd()))
+                    .lastAccessDateCriteria(this.dateValidation(searchWindows.getLastAccessDateInit())
+                            , this.dateValidation(searchWindows.getLastAccessDateEnd()))
+                    .sizeCriteria(criteriaOfSize, size, typeOfSize)
+                    .isDirectoryCriteria(searchWindows.getDirectoryOfCriteria())
+                    .extensionCriteria(searchWindows.getTypeCriteria())
+                    .nameOnDataBase("")
+                    .keySensitiveOfCriteria(Boolean.valueOf(searchWindows.getKeySensitiveOfCriteria()))
+                    .isContainsInsideFileCriteria(Boolean.valueOf(searchWindows.getIsContainsInsideFileCriteria()))
+                    .textContainsInsideFileCriteria(searchWindows.getTextContainsInsideFileCriteria())
+                    .build();
+
+            // Shown results
+            this.getResults(searchCriteria);
+
+        }
+        LOOGER.info("Action Search Button exit");
+    }
+
+    /**
+     * @return Return true if all the inputs have the rith format.
+     */
+    private boolean validateInputsGUI() {
+        if (!validateInputs.validatorPath(searchWindows.getPathOfCriteria())) {
+            JOptionPane.showMessageDialog(null, "Invalid Format Path", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (!validateInputs.isValidFile(searchWindows.getSearchText()) && !searchWindows.getSearchText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Invalid Format File", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
 
-        // Adding to SearchCriteria and Validating some data
-        this.searchCriteria = new SearchCriteriaBuilder()
-                .pathCriteria(this.pathValidation(searchWindows.getPathOfCriteria()))
-                .fileName(this.nameValidation(searchWindows.getSearchText()))
-                .hiddenCriteria(searchWindows.getHiddenOfCriteria())
-                .fileNameCriteria(searchWindows.getFileNameOfCriteria())
-                .ownerCriteria(searchWindows.getOwnerOfCriteria())
-                .isReadCriteria(Boolean.valueOf(searchWindows.getReadOnlyOfCriteria()))
-                .isFileSystemCriteria(Boolean.valueOf(searchWindows.getFileSystemOfCriteria()))
-                .creationDateCriteria(this.dateValidation(searchWindows.getCreationDateInit())
-                        , this.dateValidation(searchWindows.getCreationDateEnd()))
-                .modifiedDateCriteria(this.dateValidation(searchWindows.getModifiedDateInit())
-                        , this.dateValidation(searchWindows.getModifiedDateEnd()))
-                .lastAccessDateCriteria(this.dateValidation(searchWindows.getLastAccessDateInit())
-                        , this.dateValidation(searchWindows.getLastAccessDateEnd()))
-                .sizeCriteria(criteriaOfSize, size, typeOfSize)
-                .isDirectoryCriteria(searchWindows.getDirectoryOfCriteria())
-                .extensionCriteria(searchWindows.getTypeCriteria())
-                .nameOnDataBase("")
-                .keySensitiveOfCriteria(Boolean.valueOf(searchWindows.getKeySensitiveOfCriteria()))
-                .isContainsInsideFileCriteria(Boolean.valueOf(searchWindows.getIsContainsInsideFileCriteria()))
-                .textContainsInsideFileCriteria(searchWindows.getTextContainsInsideFileCriteria())
-                .build();
+        if (!validateInputs.isOwnerName(searchWindows.getOwnerOfCriteria()) && !searchWindows.getOwnerOfCriteria().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "Invalid Format Owner", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
 
-        // Shown results
-        this.getResults(searchCriteria);
+        if (!validateInputs.isValidformatSize(searchWindows.getSizeOfCriteria()[1]) && !searchWindows.getSizeOfCriteria()[1].equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "Invalid Format of Size", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
 
-        LOOGER.info("Action Search Button exit");
+        if (!validateInputs.isValidFileExtension(searchWindows.getTypeCriteria()) && !searchWindows.getTypeCriteria().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "Invalid Format of Extension File", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -409,7 +440,7 @@ public class ControlCriteria {
         dataFromAsset[3] = file.getIsReadOnlyFile();
         dataFromAsset[4] = file.getIsFileSystemFile();
         dataFromAsset[5] = file.getIsDirectory();
-        if(file instanceof FileResult){
+        if (file instanceof FileResult) {
             dataFromAsset[6] = ((FileResult) file).getExtensionFile();
         }
 
