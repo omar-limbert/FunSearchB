@@ -21,6 +21,7 @@ import com.fundation.search.model.Search;
 import com.fundation.search.model.asset.Asset;
 import com.fundation.search.model.asset.FileResult;
 import com.fundation.search.controller.builder.SearchCriteriaBuilder;
+import com.fundation.search.model.asset.FolderResult;
 import com.fundation.search.model.asset.MultimediaResult;
 import com.fundation.search.view.MainSearchWindows;
 
@@ -411,23 +412,38 @@ public class ControlCriteria {
         // Object[] for create row and sent this to table result on User Interface
         Object[] dataFromAsset = new Object[15]; // number of columns
         // Getting data for table result
-        dataFromAsset[0] = file.getName();
-        dataFromAsset[1] = file.getPathFile();
-        dataFromAsset[2] = file.getIsHidden();
-        dataFromAsset[3] = file.getIsReadOnlyFile();
-        dataFromAsset[4] = file.getIsFileSystemFile();
-        dataFromAsset[5] = file.getIsDirectory();
-        if(file instanceof FileResult || file instanceof MultimediaResult){
-            dataFromAsset[6] = file.getExtensionFile();
-        }
 
-        dataFromAsset[7] = file.getSizeFile();
-        dataFromAsset[8] = file.getOwnerFile();
-        dataFromAsset[9] = converter.convertFileDateToDate(file.getCreationTime());
-        dataFromAsset[10] = converter.convertFileDateToDate(file.getLastModifiedTime());
-        dataFromAsset[11] = converter.convertFileDateToDate(file.getLastAccessTime());
-        if(file instanceof MultimediaResult){
-            dataFromAsset[6] = ((MultimediaResult)file).getDuration();
+        if(file instanceof MultimediaResult && searchWindows.isSearchMultimedia()) {
+            MultimediaResult multimediaResult = (MultimediaResult) file;
+            dataFromAsset[0] = multimediaResult.getName();
+            dataFromAsset[1] = multimediaResult.getCodecLongName();
+            dataFromAsset[2] = multimediaResult.getrFrameRate().toString();
+            dataFromAsset[3] = multimediaResult.getDisplayAspect();
+            dataFromAsset[4] = multimediaResult.getWidth()+"x"+multimediaResult.getHeight();
+            dataFromAsset[5] = multimediaResult.getExtensionFile();
+            dataFromAsset[6] = multimediaResult.getDuration();
+            dataFromAsset[7] = multimediaResult.getAudioCodecLongName();
+            dataFromAsset[8] = multimediaResult.getAudioBitRate();
+            dataFromAsset[9] = multimediaResult.getAudioChannels();
+            dataFromAsset[10] = multimediaResult.getAudiofCodecTag();
+            dataFromAsset[11] = multimediaResult.getAudioNbFrame();
+        }
+        else{
+            dataFromAsset[0] = file.getName();
+            dataFromAsset[1] = file.getPathFile();
+            dataFromAsset[2] = file.getIsHidden();
+            dataFromAsset[3] = file.getIsReadOnlyFile();
+            dataFromAsset[4] = file.getIsFileSystemFile();
+            dataFromAsset[5] = file.getIsDirectory();
+            if(file instanceof FileResult || file instanceof  MultimediaResult){
+                dataFromAsset[6] = file.getExtensionFile();
+            }
+            dataFromAsset[7] = file.getSizeFile();
+            dataFromAsset[8] = file.getOwnerFile();
+            dataFromAsset[9] = converter.convertFileDateToDate(file.getCreationTime());
+            dataFromAsset[10] = converter.convertFileDateToDate(file.getLastModifiedTime());
+            dataFromAsset[11] = converter.convertFileDateToDate(file.getLastAccessTime());
+
         }
 
 
