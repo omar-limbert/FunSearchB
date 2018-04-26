@@ -16,6 +16,7 @@ package com.fundation.search.controller.builder;
 import com.fundation.search.common.SearchLogger;
 
 import java.nio.file.attribute.FileTime;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 /**
@@ -119,7 +120,94 @@ public class SearchCriteriaBuilder {
      */
     private String textContainsInsideFileCriteria;
 
+    private Double multimediaDuration;
+    private ArrayList<String> multimediaVideoCodec;
+    private ArrayList<String> multimediaResolution;
+    private ArrayList<String> multimediaType;
+    private ArrayList<String> multimediaFrame;
+    private String multimediaDurationOperator;
+    private String multimediaDurationType;
+    private boolean searchMultimedia;
+    private String multimediaAudioBitRateInit;
+    private String multimediaAudioBitRateEnd;
 
+
+    // FALTA
+    public SearchCriteriaBuilder searchMultimediaFrameCriteria(ArrayList<String> multimediaFrame){
+        LOOGER.info("multimediaVideoCodecCriteria Entry");
+        LOOGER.info("multimediaVideoCodecCriteria Exit");
+        this.multimediaFrame = multimediaFrame;
+        return this;
+    }
+
+    public SearchCriteriaBuilder searchMultimediaCriteria(boolean searchMultimedia){
+        LOOGER.info("multimediaVideoCodecCriteria Entry");
+        LOOGER.info("multimediaVideoCodecCriteria Exit");
+        this.searchMultimedia = searchMultimedia;
+        return this;
+    }
+    public SearchCriteriaBuilder multimediaVideoCodecCriteria(ArrayList<String> videoCodecCriteria) {
+        LOOGER.info("multimediaVideoCodecCriteria Entry");
+        LOOGER.info("multimediaVideoCodecCriteria Exit");
+        this.multimediaVideoCodec = videoCodecCriteria;
+        return this;
+    }
+
+    public SearchCriteriaBuilder multimediaResolutionCriteria(ArrayList<String> multimediaResolution) {
+        LOOGER.info("multimediaResolutionCriteria Entry");
+        LOOGER.info("multimediaResolutionCriteria Exit");
+        this.multimediaResolution = multimediaResolution;
+        return this;
+    }
+
+    public SearchCriteriaBuilder multimediaAudioBitRateCriteriaInit(String multimediaAudioBitRateInit) {
+        LOOGER.info("multimediaAudioBitRateCriteria Entry");
+        LOOGER.info("multimediaAudioBitRateCriteria Exit");
+        this.multimediaAudioBitRateInit = multimediaAudioBitRateInit;
+        return this;
+    }
+    public SearchCriteriaBuilder multimediaAudioBitRateCriteriaEnd(String multimediaAudioBitRateEnd) {
+        LOOGER.info("multimediaAudioBitRateCriteria Entry");
+        LOOGER.info("multimediaAudioBitRateCriteria Exit");
+        this.multimediaAudioBitRateEnd = multimediaAudioBitRateEnd;
+        return this;
+    }
+
+    public SearchCriteriaBuilder multimediaTypeCriteria(ArrayList<String> multimediaType) {
+        LOOGER.info("multimediaTypeCriteria Entry");
+        LOOGER.info("multimediaTypeCriteria Exit");
+        this.multimediaType = multimediaType;
+        return this;
+    }
+
+    //miss
+    public SearchCriteriaBuilder multimediaDurationInputCriteria(String durationMultimediaCriteria, String durationMultimediaNumber, String durationMultimediaTime) {
+        LOOGER.info("multimediaDurationInputCriteria Entry");
+
+        if (durationMultimediaCriteria != null && !durationMultimediaNumber.isEmpty()) {
+
+            // Converting operator to valid format for Model
+            // Converting operator to valid format for Model
+            if (durationMultimediaCriteria.equalsIgnoreCase("Minor to:")) {
+                this.multimediaDurationOperator = "lower";
+            }
+            if (durationMultimediaCriteria.equalsIgnoreCase("Major to:")) { // Little change on UI to "Major"
+                this.multimediaDurationOperator = "upper";
+            }
+            if (durationMultimediaCriteria.equalsIgnoreCase("Equal to:")) {
+                this.multimediaDurationOperator = "equal";
+            }
+            this.multimediaDurationType = durationMultimediaTime;
+            this.multimediaDuration = Double.valueOf(durationMultimediaNumber);
+            return this;
+        }
+
+        this.multimediaDurationOperator = "upper";
+        this.multimediaDurationType = "second";
+        this.multimediaDuration = 0.0;
+        LOOGER.info("multimediaDurationInputCriteria Exit");
+        return this;
+    }
 
     /**
      * This method is constructor of SearchCriteriaBuilder
@@ -209,6 +297,7 @@ public class SearchCriteriaBuilder {
         return this;
     }
 
+
     /**
      * This method is for initialize fileNameCriteria.
      *
@@ -220,6 +309,7 @@ public class SearchCriteriaBuilder {
         this.keySensitiveOfCriteria = keySensitiveOfCriteria;
         return this;
     }
+
     /**
      * This method is for initialize fileNameCriteria.
      *
@@ -318,6 +408,7 @@ public class SearchCriteriaBuilder {
         this.textContainsInsideFileCriteria = textContainsInsideFileCriteria;
         return this;
     }
+
     /**
      * This method is for initialize isDirectory
      *
@@ -329,6 +420,7 @@ public class SearchCriteriaBuilder {
         this.isDirectory = isDirectory;
         return this;
     }
+
     /**
      * This method is for initialize isFileSystem.
      *
@@ -364,6 +456,7 @@ public class SearchCriteriaBuilder {
         this.nameOnDataBase = nameOnDataBase;
         return this;
     }
+
     /**
      * This method is for get Path.
      *
@@ -605,6 +698,51 @@ public class SearchCriteriaBuilder {
         LOOGER.info("getTextContainsInsideFileCriteria Exit");
         return textContainsInsideFileCriteria;
     }
+
+    public Double getMultimediaDuration() {
+        LOOGER.info("getTextContainsInsideFileCriteria Entry");
+        LOOGER.info("getTextContainsInsideFileCriteria Exit");
+        return multimediaDuration;
+    }
+
+    public ArrayList<String> getMultimediaVideoCodec() {
+        LOOGER.info("getMultimediaVideoCodec Entry");
+        LOOGER.info("getMultimediaVideoCodec Exit");
+        return multimediaVideoCodec;
+    }
+
+    public ArrayList<String> getMultimediaResolution() {
+        LOOGER.info("getMultimediaResolution Entry");
+        LOOGER.info("getMultimediaResolution Exit");
+        return multimediaResolution;
+    }
+
+    public ArrayList<String> getMultimediaType() {
+        LOOGER.info("getMultimediaType Entry");
+        LOOGER.info("getMultimediaType Exit");
+        return multimediaType;
+    }
+
+    public String getMultimediaDurationOperator() {
+        return multimediaDurationOperator;
+    }
+
+    public String getMultimediaDurationType() {
+        return multimediaDurationType;
+    }
+    public boolean isSearchMultimedia() {
+        return searchMultimedia;
+    }
+    public ArrayList<String> getFrameRateCriteria() {
+        return multimediaFrame;
+    }
+    public String getMultimediaAudioBitRateInit() {
+        return multimediaAudioBitRateInit;
+    }
+    public String getMultimediaAudioBitRateEnd() {
+        return multimediaAudioBitRateEnd;
+    }
+
 
 }
 

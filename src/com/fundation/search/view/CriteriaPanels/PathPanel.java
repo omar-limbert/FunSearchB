@@ -132,7 +132,7 @@ public class PathPanel extends JPanel {
         pathTextField = new JTextField();
         pathTextField.setPreferredSize(new Dimension(200, 35));
         pathTextField.setText(directoryChooser.getCurrentDirectory().getPath());
-        pathTextField.setEnabled(false);
+        pathTextField.setEnabled(true);
         //Check box
         keySensitiveLabel = new JLabel("Key Sensitive");
         keySensitiveCheck = new JCheckBox();

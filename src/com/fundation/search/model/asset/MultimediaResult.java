@@ -13,6 +13,8 @@
  */
 package com.fundation.search.model.asset;
 
+import org.apache.commons.lang3.math.Fraction;
+
 import java.nio.file.attribute.FileTime;
 
 /**
@@ -58,7 +60,7 @@ public class MultimediaResult extends Asset{
     /**
      * Frame Rate is the rFrameRate.
      */
-    private  String rFrameRate;
+    private Fraction rFrameRate;
 
     /**
      * Start Time is the starTime.
@@ -137,7 +139,7 @@ public class MultimediaResult extends Asset{
     /**
      * Constructor for MultimediaResult of Video.
      */
-    public MultimediaResult (String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, FileTime lastModifiedTime, FileTime creationTime, FileTime lastAccessTime, String ownerFile, boolean isReadOnly, boolean isFileSystem, boolean isDirectory, String codecName, String extensionFile, String codecLongName, int width, int height, String displayAspect, String rFrameRate, double startTime, double duration, long bitRate, long nbFrames, String audioCodecName, String audioCodecNameLong, String audioCodecTag, int audioChannels, String audioChannelsLayout, double audioStarTime, double audioDuration, long audioBitRate, long audioMaxBitRate, long audioNbFrame){
+    public MultimediaResult (String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, FileTime lastModifiedTime, FileTime creationTime, FileTime lastAccessTime, String ownerFile, boolean isReadOnly, boolean isFileSystem, boolean isDirectory, String codecName, String extensionFile, String codecLongName, int width, int height, String displayAspect, Fraction rFrameRate, double startTime, double duration, long bitRate, long nbFrames, String audioCodecName, String audioCodecNameLong, String audioCodecTag, int audioChannels, String audioChannelsLayout, double audioStarTime, double audioDuration, long audioBitRate, long audioMaxBitRate, long audioNbFrame){
         super( pathFile,  nameFile,  sizeFile,  isHiddenFile,  lastModifiedTime,  creationTime,  lastAccessTime,  ownerFile,  isReadOnly,  isFileSystem,  isDirectory);
         //Video
         this.extensionFile = extensionFile;
@@ -216,7 +218,7 @@ public class MultimediaResult extends Asset{
     /**
      * This method return a Frame Rate.
      */
-    public String getrFrameRate() {
+    public Fraction getrFrameRate() {
         return rFrameRate;
     }
 
