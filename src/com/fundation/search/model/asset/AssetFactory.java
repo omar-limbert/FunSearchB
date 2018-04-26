@@ -34,8 +34,8 @@ public class AssetFactory {
     }
 
     // constructor for MultimediaResult
-    public Asset getAsset( String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, FileTime lastModifiedTime, FileTime lastAccessTime, FileTime creationTime, boolean isReadOnly, boolean isFileSystem, boolean isDirectory, String ownerFile, double duration, String extensionFile) {
-        return new MultimediaResult(pathFile, nameFile, sizeFile, isHiddenFile, lastModifiedTime, creationTime, lastAccessTime, ownerFile, isReadOnly, isFileSystem, isDirectory, duration, extensionFile);
+    public Asset getAsset( String pathFile, String nameFile, long sizeFile, boolean isHiddenFile, FileTime lastModifiedTime, FileTime lastAccessTime, FileTime creationTime, boolean isReadOnly, boolean isFileSystem, boolean isDirectory, String ownerFile, String codecName, String extensionFile, String codecLongName, int width, int height, String displayAspect, String rFrameRate, double startTime, double duration, long bitRate, long nbFrames, String audioCodecName, String audioCodecNameLong, String audioCodecTag, int audioChannels, String audioChannelsLayout, double audioStarTime, double audioDuration, long audioBitRate, long audioMaxBitRate, long audioNbFrame) {
+        return new MultimediaResult(pathFile, nameFile, sizeFile, isHiddenFile, lastModifiedTime, creationTime, lastAccessTime, ownerFile, isReadOnly, isFileSystem, isDirectory, codecName, extensionFile, codecLongName, width, height, displayAspect, rFrameRate, startTime, duration, bitRate, nbFrames, audioCodecName, audioCodecNameLong, audioCodecTag, audioChannels, audioChannelsLayout, audioStarTime, audioDuration, audioBitRate, audioMaxBitRate, audioNbFrame);
     }
 
 }

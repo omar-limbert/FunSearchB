@@ -82,15 +82,13 @@ public class Search {
 
             BasicFileAttributes fileBasicAttributes;
             File[] files = new File(path).listFiles();
-
             // Attributes for user inside foreach
-            Asset asset;
+            Asset asset = null;
             for (File file : files) {
                 fileBasicAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
                 FileOwnerAttributeView fileOwnerAttributeView = Files.getFileAttributeView(file.toPath(), FileOwnerAttributeView.class);
                 DosFileAttributes dosFileAttributes = Files.readAttributes(file.toPath(), DosFileAttributes.class);
-
-                if (file.isDirectory()) {
+                 if (file.isDirectory()) {
                     searchByPath(file.getPath());
                     asset = assetFactory.getAsset(file.getPath()
                             , file.getName()
@@ -125,6 +123,7 @@ public class Search {
                         assetList.add(asset);
                     }
                 }
+              
             }
 
         } catch (NullPointerException e) {
@@ -395,7 +394,6 @@ public class Search {
 
                 }
             }
-
         }
         LOOGER.info("Exit of searchIntoFile Method");
         return listFilter;
@@ -458,6 +456,10 @@ public class Search {
 
             if (criteria.getIsFileSystem()) {
                 assetList = isFileSystem(assetList);
+            }
+
+            if (criteria.getIsReadOnly()) {
+                assetList = isReadOnly(assetList);
             }
 
             if (criteria.getExtension() != null) {
