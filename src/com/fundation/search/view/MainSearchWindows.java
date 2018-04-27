@@ -23,6 +23,7 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
+import java.util.Vector;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.table.JTableHeader;
@@ -706,6 +707,7 @@ public class MainSearchWindows extends JFrame {
     public String getAudioBitRateInit() {
         return this.topPanel.getAudioBitRateInit();
     }
+
     /**
      * This method is for return Audio Rate Array.
      *
@@ -735,12 +737,108 @@ public class MainSearchWindows extends JFrame {
     }
 
     /**
-     * This method is return header to table of results
+     * This method is to change columns tittle for file.
+     * Controller need use this.
+     */
+    public void setColumnsTittleToFile(){
+        this.centerPanel.updateColumnsTittleToFile();
+    }
+
+    /**
+     * This method is to change columns tittle for Multimedia.
+     * Controller need use this.
+     */
+    public void setColumnsTittleToMultimedia(){
+        this.centerPanel.updateColumnsTittleToMultimedia();
+    }
+
+    /**
+     * This method is to update duration criteria.
      * Controller need use this.
      *
-     * @return boolean, true when is selected, false when is unselected.
+     * @param multimediaDurationCriteria, this duration criteria "Major to:", "Minor to:" and "Equal to:"
      */
-    public JTableHeader getTableHeaderOfTableResults(){
-        return centerPanel.getTableHeaderOfTableResults();
+    public void setMultimediaDurationCriteria(String multimediaDurationCriteria) {
+        this.topPanel.setMultimediaDurationCriteria(multimediaDurationCriteria);
+    }
+
+    /**
+     * This method is to update duration number criteria.
+     * Controller need use this.
+     *
+     * @param multimediaDurationNumber, this duration number.
+     */
+    public void setMultimediaDurationNumber(String multimediaDurationNumber) {
+        this.topPanel.setMultimediaDurationNumber(multimediaDurationNumber);
+    }
+
+    /**
+     * This method is to update duration type criteria.
+     * Controller need use this.
+     *
+     * @param multimediaDurationType, this duration type.
+     */
+    public void setMultimediaDurationType(String multimediaDurationType) {
+        this.topPanel.setMultimediaDurationType(multimediaDurationType);
+    }
+
+    /**
+     * This method is to update duration Frame Rate criteria.
+     * Controller need use this.
+     *
+     * @param multimediaDurationFrameRate, this is ArrayList with all data.
+     */
+    public void setMultimediaFrameRate(ArrayList<String>  multimediaDurationFrameRate) {
+        this.topPanel.setMultimediaFrameRate(multimediaDurationFrameRate);
+    }
+
+    /**
+     * This method is to update duration VideoCodec criteria.
+     * Controller need use this.
+     *
+     * @param multimediaDurationVideoCodec, this is ArrayList with all data.
+     */
+    public void setMultimediaDurationVideoCodec(ArrayList<String>  multimediaDurationVideoCodec) {
+        this.topPanel.setMultimediaDurationVideoCodec(multimediaDurationVideoCodec);
+    }
+
+    /**
+     * This method is to update duration VideoCodec criteria.
+     * Controller need use this.
+     *
+     * @param multimediaDurationResolution, this is ArrayList with all data.
+     */
+    public void setMultimediaResolution(ArrayList<String>  multimediaDurationResolution) {
+        this.topPanel.setMultimediaResolution(multimediaDurationResolution);
+    }
+
+    /**
+     * This method is to update duration VideoCodec criteria.
+     * Controller need use this.
+     *
+     * @param multimediaType, this is ArrayList with all data.
+     */
+    public void setMultimediaType(ArrayList<String>  multimediaType) {
+        this.topPanel.setMultimediaType(multimediaType);
+    }
+
+    /**
+     * This method is to update init Audio bit rate criteria.
+     * Controller need use this.
+     *
+     * @param multimediaAudioBitRateInit, this audio bit rate.
+     */
+    public void setMultimediaAudioBitRateInit(String multimediaAudioBitRateInit) {
+        this.topPanel.setMultimediaAudioBitRateInit(multimediaAudioBitRateInit);
+    }
+
+    /**
+     * This method is to update end Audio bit rate criteria.
+     * Controller need use this.
+     *
+     * @param multimediaAudioBitRateEnd, this audio bit rate.
+     */
+    public void setMultimediaAudioBitRateEnd(String multimediaAudioBitRateEnd) {
+        this.topPanel.setMultimediaAudioBitRateEnd(multimediaAudioBitRateEnd);
     }
 }

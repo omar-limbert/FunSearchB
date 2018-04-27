@@ -180,6 +180,18 @@ public class SearchCriteria {
         LOOGER.info("Constructor Exit");
     }
 
+    public String getMultimediaDurationOperatorDB() {
+        if(multimediaDurationOperator.equalsIgnoreCase("upper")){
+            return "Major to:";
+        }
+        if(multimediaDurationOperator.equalsIgnoreCase("lower")){
+            return "Minor to:";
+        }
+        if(multimediaDurationOperator.equalsIgnoreCase("equal")){
+            return "Equal to:";
+        }
+        return "Major to:";
+    }
     public String getMultimediaAudioBitRateInit() {
         return multimediaAudioBitRateInit;
     }

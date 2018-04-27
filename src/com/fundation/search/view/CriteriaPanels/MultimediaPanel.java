@@ -524,4 +524,112 @@ public class MultimediaPanel extends JPanel {
     public String getAudioBitRateEnd() {
         return this.audioBitRateTextFieldEnd.getText();
     }
+
+    /**
+     * This method is to update duration criteria.
+     *
+     * @param multimediaDurationCriteria, this duration criteria "Major to:", "Minor to:" and "Equal to:"
+     */
+    public void setMultimediaDurationCriteria(String multimediaDurationCriteria) {
+        this.durationCriteria.getModel().setSelectedItem(multimediaDurationCriteria);
+    }
+    /**
+     * This method is to update duration number criteria.
+     *
+     * @param multimediaDurationNumber, this duration number.
+     */
+    public void setMultimediaDurationNumber(String multimediaDurationNumber) {
+        this.durationTextField.setText(multimediaDurationNumber);
+    }
+
+    /**
+     * This method is to update duration type criteria.
+     *
+     * @param multimediaDurationType, this duration type.
+     */
+    public void setMultimediaDurationType(String multimediaDurationType) {
+        this.durationType.getModel().setSelectedItem(multimediaDurationType);
+    }
+
+    /**
+     * This method is to update duration Frame Rate criteria.
+     *
+     * @param multimediaDurationFrameRate, this is ArrayList with all data.
+     */
+    public void setMultimediaFrameRate(ArrayList<String>  multimediaDurationFrameRate) {
+        frameRateData.forEach(x->x.setSelected(false));
+        multimediaDurationFrameRate.forEach(e->{
+            frameRateData.forEach(checkbox-> {
+                if(checkbox.getText().equalsIgnoreCase(e)){
+                    checkbox.setSelected(true);
+                }
+            });
+        });
+    }
+
+    /**
+     * This method is to update duration VideoCodec criteria.
+     *
+     * @param multimediaDurationVideoCodec, this is ArrayList with all data.
+     */
+    public void setMultimediaDurationVideoCodec(ArrayList<String>  multimediaDurationVideoCodec) {
+        videoCodecData.forEach(x->x.setSelected(false));
+        multimediaDurationVideoCodec.forEach(e->{
+            videoCodecData.forEach(checkbox-> {
+                if(checkbox.getText().equalsIgnoreCase(e)){
+                    checkbox.setSelected(true);
+                }
+            });
+        });
+    }
+
+    /**
+     * This method is to update duration VideoCodec criteria.
+     *
+     * @param multimediaDurationResolution, this is ArrayList with all data.
+     */
+    public void setMultimediaResolution(ArrayList<String>  multimediaDurationResolution) {
+        resolutionData.forEach(x->x.setSelected(false));
+        multimediaDurationResolution.forEach(e->{
+            resolutionData.forEach(checkbox-> {
+                if(checkbox.getText().equalsIgnoreCase(e)){
+                    checkbox.setSelected(true);
+                }
+            });
+        });
+    }
+
+    /**
+     * This method is to update duration VideoCodec criteria.
+     *
+     * @param multimediaType, this is ArrayList with all data.
+     */
+    public void setMultimediaType(ArrayList<String>  multimediaType) {
+        multimediaTypeData.forEach(x->x.setSelected(false));
+        multimediaType.forEach(e->{
+            multimediaTypeData.forEach(checkbox-> {
+                if(checkbox.getText().equalsIgnoreCase(e)){
+                    checkbox.setSelected(true);
+                }
+            });
+        });
+    }
+
+    /**
+     * This method is to update init Audio bit rate criteria.
+     *
+     * @param multimediaAudioBitRateInit, this audio bit rate.
+     */
+    public void setMultimediaAudioBitRateInit(String multimediaAudioBitRateInit) {
+        this.audioBitRateTextFieldInit.setText(multimediaAudioBitRateInit);
+    }
+
+    /**
+     * This method is to update end Audio bit rate criteria.
+     *
+     * @param multimediaAudioBitRateEnd, this audio bit rate.
+     */
+    public void setMultimediaAudioBitRateEnd(String multimediaAudioBitRateEnd) {
+        this.audioBitRateTextFieldEnd.setText(multimediaAudioBitRateEnd);
+    }
 }

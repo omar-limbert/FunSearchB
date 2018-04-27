@@ -15,6 +15,7 @@ package com.fundation.search.view.MainWindow;
 
 import com.fundation.search.common.SearchLogger;
 import com.fundation.search.view.CriteriaPanels.CriteriaPanel;
+import com.fundation.search.view.MainSearchWindows;
 import com.fundation.search.view.SearchTextField;
 import com.fundation.search.view.SearchToolBar;
 
@@ -31,6 +32,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Vector;
 import java.util.logging.Logger;
 
 /**
@@ -691,6 +693,7 @@ public class TopPanel extends JPanel {
     public String getAudioBitRateInit() {
         return this.toolbar.getAudioBitRateInit();
     }
+
     /**
      * This method is for return Audio Rate Array.
      *
@@ -700,4 +703,84 @@ public class TopPanel extends JPanel {
         return this.toolbar.getAudioBitRateEnd();
     }
 
+    /**
+     * This method is to update duration criteria.
+     *
+     * @param multimediaDurationCriteria, this duration criteria "Major to:", "Minor to:" and "Equal to:"
+     */
+    public void setMultimediaDurationCriteria(String multimediaDurationCriteria) {
+        this.toolbar.setMultimediaDurationCriteria(multimediaDurationCriteria);
+    }
+
+    /**
+     * This method is to update duration number criteria.
+     *
+     * @param multimediaDurationNumber, this duration number.
+     */
+    public void setMultimediaDurationNumber(String multimediaDurationNumber) {
+        this.toolbar.setMultimediaDurationNumber(multimediaDurationNumber);
+    }
+
+    /**
+     * This method is to update duration type criteria.
+     *
+     * @param multimediaDurationType, this duration type.
+     */
+    public void setMultimediaDurationType(String multimediaDurationType) {
+        this.toolbar.setMultimediaDurationType(multimediaDurationType);
+    }
+
+    /**
+     * This method is to update duration Frame Rate criteria.
+     *
+     * @param multimediaDurationFrameRate, this is ArrayList with all data.
+     */
+    public void setMultimediaFrameRate(ArrayList<String> multimediaDurationFrameRate) {
+        this.toolbar.setMultimediaFrameRate(multimediaDurationFrameRate);
+    }
+
+    /**
+     * This method is to update duration VideoCodec criteria.
+     *
+     * @param multimediaDurationVideoCodec, this is ArrayList with all data.
+     */
+    public void setMultimediaDurationVideoCodec(ArrayList<String> multimediaDurationVideoCodec) {
+        this.toolbar.setMultimediaDurationVideoCodec(multimediaDurationVideoCodec);
+    }
+
+    /**
+     * This method is to update duration VideoCodec criteria.
+     *
+     * @param multimediaDurationResolution, this is ArrayList with all data.
+     */
+    public void setMultimediaResolution(ArrayList<String> multimediaDurationResolution) {
+        this.toolbar.setMultimediaResolution(multimediaDurationResolution);
+    }
+
+    /**
+     * This method is to update duration VideoCodec criteria.
+     *
+     * @param multimediaType, this is ArrayList with all data.
+     */
+    public void setMultimediaType(ArrayList<String> multimediaType) {
+        this.toolbar.setMultimediaType(multimediaType);
+    }
+
+    /**
+     * This method is to update init Audio bit rate criteria.
+     *
+     * @param multimediaAudioBitRateInit, this audio bit rate.
+     */
+    public void setMultimediaAudioBitRateInit(String multimediaAudioBitRateInit) {
+        this.toolbar.setMultimediaAudioBitRateInit(multimediaAudioBitRateInit);
+    }
+
+    /**
+     * This method is to update end Audio bit rate criteria.
+     *
+     * @param multimediaAudioBitRateEnd, this audio bit rate.
+     */
+    public void setMultimediaAudioBitRateEnd(String multimediaAudioBitRateEnd) {
+        this.toolbar.setMultimediaAudioBitRateEnd(multimediaAudioBitRateEnd);
+    }
 }

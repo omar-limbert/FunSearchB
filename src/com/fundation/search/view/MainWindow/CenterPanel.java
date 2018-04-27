@@ -14,6 +14,9 @@
 package com.fundation.search.view.MainWindow;
 
 import com.fundation.search.common.SearchLogger;
+import com.fundation.search.model.asset.Asset;
+import com.fundation.search.model.asset.FileResult;
+import com.fundation.search.model.asset.MultimediaResult;
 
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -127,11 +130,46 @@ public class CenterPanel extends JPanel {
     }
 
     /**
-     * This method is return header of table results.
+     * This method is to change columns tittle for file.
      *
-     * @return boolean, true when is selected, false when is unselected.
      */
-    public JTableHeader getTableHeaderOfTableResults(){
-        return header;
+    public void updateColumnsTittleToFile(){
+
+        // Setting Columns
+        header.getColumnModel().getColumn(0).setHeaderValue("Name");
+        header.getColumnModel().getColumn(1).setHeaderValue("Path");
+        header.getColumnModel().getColumn(2).setHeaderValue("Hidden");
+        header.getColumnModel().getColumn(3).setHeaderValue("Read Only");
+        header.getColumnModel().getColumn(4).setHeaderValue("File System");
+        header.getColumnModel().getColumn(5).setHeaderValue("Directory");
+        header.getColumnModel().getColumn(6).setHeaderValue("Type");
+        header.getColumnModel().getColumn(7).setHeaderValue("Size");
+        header.getColumnModel().getColumn(8).setHeaderValue("Owner");
+        header.getColumnModel().getColumn(9).setHeaderValue("Date Created");
+        header.getColumnModel().getColumn(10).setHeaderValue("Last Modified");
+        header.getColumnModel().getColumn(11).setHeaderValue("Last Access");
+    }
+
+    /**
+     * This method is to change columns tittle for Multimedia.
+     *
+     */
+    public void updateColumnsTittleToMultimedia(){
+
+        // Setting Columns
+        header.getColumnModel().getColumn(0).setHeaderValue("Multimedia Name");
+        header.getColumnModel().getColumn(1).setHeaderValue("Video Codec");
+        header.getColumnModel().getColumn(2).setHeaderValue("Frame Rate");
+        header.getColumnModel().getColumn(3).setHeaderValue("Aspect Ratio");
+        header.getColumnModel().getColumn(4).setHeaderValue("Resolution");
+        header.getColumnModel().getColumn(5).setHeaderValue("Extension");
+        header.getColumnModel().getColumn(6).setHeaderValue("Duration [S]");
+        header.getColumnModel().getColumn(7).setHeaderValue("Audio Codec");
+        header.getColumnModel().getColumn(8).setHeaderValue("Audio Bit Rate");
+        header.getColumnModel().getColumn(9).setHeaderValue("Channels");
+        header.getColumnModel().getColumn(10).setHeaderValue("Path");
+        header.getColumnModel().getColumn(11).setHeaderValue("Path");
+
+
     }
 }

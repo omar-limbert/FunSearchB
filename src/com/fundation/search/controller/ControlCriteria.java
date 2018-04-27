@@ -216,6 +216,15 @@ public class ControlCriteria {
                 searchWindows.setKeySensitiveOfCriteria(searchCriteriaDB.getKeySensitiveOfCriteria());
                 searchWindows.setIsContainsInsideFileCriteria(searchCriteriaDB.getIsContainsInsideFileCriteria());
                 searchWindows.setTextContainsInsideFileCriteria(searchCriteriaDB.getTextContainsInsideFileCriteria());
+                searchWindows.setMultimediaDurationCriteria(searchCriteriaDB.getMultimediaDurationOperatorDB());
+                searchWindows.setMultimediaDurationNumber(searchCriteriaDB.getMultimediaDuration().toString());
+                searchWindows.setMultimediaDurationType(searchCriteriaDB.getMultimediaDurationType());
+                searchWindows.setMultimediaFrameRate(searchCriteriaDB.getFrameRateCriteria());
+                searchWindows.setMultimediaDurationVideoCodec(searchCriteriaDB.getMultimediaVideoCodec());
+                searchWindows.setMultimediaResolution(searchCriteriaDB.getMultimediaResolution());
+                searchWindows.setMultimediaAudioBitRateInit(searchCriteriaDB.getMultimediaAudioBitRateInit());
+                searchWindows.setMultimediaAudioBitRateEnd(searchCriteriaDB.getMultimediaAudioBitRateEnd());
+                searchWindows.setMultimediaType(searchCriteriaDB.getMultimediaType());
             }
         }
         LOOGER.info("Action Search Button exit");
@@ -414,8 +423,11 @@ public class ControlCriteria {
         // Getting data for table result
 
         if (file instanceof MultimediaResult && searchWindows.isSearchMultimedia()) {
+            this.searchWindows.setColumnsTittleToMultimedia();
             this.multimediaToTableResult(dataFromAsset, file);
+
         } else {
+            this.searchWindows.setColumnsTittleToFile();
             this.fileResultToTableResult(dataFromAsset, file);
         }
 
@@ -425,21 +437,6 @@ public class ControlCriteria {
     }
 
     private void fileResultToTableResult(Object[] dataFromAsset, Asset file) {
-
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(0).setHeaderValue("Name");
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(1).setHeaderValue("Path");
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(2).setHeaderValue("Hidden");
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(3).setHeaderValue("Read Only");
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(4).setHeaderValue("File System");
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(5).setHeaderValue("Directory");
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(6).setHeaderValue("Type");
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(7).setHeaderValue("Size");
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(8).setHeaderValue("Owner");
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(9).setHeaderValue("Date Created");
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(10).setHeaderValue("Last Modified");
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(11).setHeaderValue("Last Access");
-
-
         dataFromAsset[0] = file.getName();
         dataFromAsset[1] = file.getPathFile();
         dataFromAsset[2] = file.getIsHidden();
@@ -457,21 +454,6 @@ public class ControlCriteria {
     }
 
     private void multimediaToTableResult(Object[] dataFromAsset, Asset file) {
-        // Setting Columns
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(0).setHeaderValue("Multimedia Name");
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(1).setHeaderValue("Video Codec");
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(2).setHeaderValue("Frame Rate");
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(3).setHeaderValue("Aspect Ratio");
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(4).setHeaderValue("Resolution");
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(5).setHeaderValue("Extension");
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(6).setHeaderValue("Duration [S]");
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(7).setHeaderValue("Audio Codec");
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(8).setHeaderValue("Audio Bit Rate");
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(9).setHeaderValue("Channels");
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(10).setHeaderValue("Path");
-        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(11).setHeaderValue("Path");
-
-
         // Setting Data
         MultimediaResult multimediaResult = (MultimediaResult) file;
         dataFromAsset[0] = multimediaResult.getName();
@@ -486,7 +468,5 @@ public class ControlCriteria {
         dataFromAsset[9] = multimediaResult.getAudioChannels();
         dataFromAsset[10] = multimediaResult.getPathFile();
         dataFromAsset[11] = multimediaResult.getLastModifiedTime();
-
-
     }
 }
