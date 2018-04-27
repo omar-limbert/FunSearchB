@@ -184,7 +184,7 @@ public class SearchCriteriaBuilder {
     public SearchCriteriaBuilder multimediaDurationInputCriteria(String durationMultimediaCriteria, double durationMultimediaNumber, String durationMultimediaTime) {
         LOOGER.info("multimediaDurationInputCriteria Entry");
 
-        if (durationMultimediaCriteria != null && durationMultimediaNumber != -1.0) {
+        if (durationMultimediaCriteria != null && durationMultimediaNumber > -1.0) {
 
             // Converting operator to valid format for Model
             // Converting operator to valid format for Model
