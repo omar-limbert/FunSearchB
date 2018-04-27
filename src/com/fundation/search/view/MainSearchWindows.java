@@ -25,6 +25,7 @@ import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.table.JTableHeader;
 import java.util.Date;
 
 /**
@@ -731,5 +732,15 @@ public class MainSearchWindows extends JFrame {
      */
     public boolean isSearchMultimedia() {
         return topPanel.isSearchMultimedia();
+    }
+
+    /**
+     * This method is return header to table of results
+     * Controller need use this.
+     *
+     * @return boolean, true when is selected, false when is unselected.
+     */
+    public JTableHeader getTableHeaderOfTableResults(){
+        return centerPanel.getTableHeaderOfTableResults();
     }
 }

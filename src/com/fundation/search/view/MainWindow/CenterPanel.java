@@ -21,6 +21,8 @@ import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
 import java.util.logging.Logger;
 
 /**
@@ -42,6 +44,7 @@ public class CenterPanel extends JPanel {
      * modelOfJTableResult, Type: DefaultTableModel, this is a file chooser for get path of directory.
      */
     private DefaultTableModel modelOfJTableResult;
+
     /**
      * modelOfTableHeader, Type:JTableHeader, is the Header of the table.
      */
@@ -81,7 +84,7 @@ public class CenterPanel extends JPanel {
         resultsOfCriteria = new JTable();
         modelOfJTableResult = new DefaultTableModel(rowData, columnNames);
         resultsOfCriteria.setModel(modelOfJTableResult);
-        /* Accedemos al header de forma individual */
+        resultsOfCriteria.setAutoCreateRowSorter(true);
         header = resultsOfCriteria.getTableHeader();
         LOOGER.info("init exit");
 
@@ -123,5 +126,12 @@ public class CenterPanel extends JPanel {
         LOOGER.info("Exit clean model of table");
     }
 
-
+    /**
+     * This method is return header of table results.
+     *
+     * @return boolean, true when is selected, false when is unselected.
+     */
+    public JTableHeader getTableHeaderOfTableResults(){
+        return header;
+    }
 }

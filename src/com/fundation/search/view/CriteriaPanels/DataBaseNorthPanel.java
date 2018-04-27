@@ -32,7 +32,7 @@ import java.util.logging.Logger;
 public class DataBaseNorthPanel extends JPanel {
 
     /**
-     * Init logger  in Top Panel
+     * Init logger  in Top Panel.
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 

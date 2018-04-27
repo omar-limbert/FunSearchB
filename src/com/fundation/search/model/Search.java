@@ -63,6 +63,10 @@ public class Search {
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
     /**
+     * This is separator for manage paths.
+     */
+    private static final String SEPARATOR = System.getProperty("file.separator");
+    /**
      * criteria  is a SearchCriteria object that receive criteria to find files.
      */
     private SearchCriteria criteria;
@@ -93,9 +97,10 @@ public class Search {
 
             BasicFileAttributes fileBasicAttributes;
             File[] files = new File(path).listFiles();
-            boolean os = System.getProperty("os.name").contains("mac");
+            String operatingSystem = System.getProperty("os.name").toLowerCase();
             boolean isFileSystem;
             boolean isReadOnly;
+
             // Attributes for user inside foreach
             Asset asset = null;
 
@@ -107,10 +112,10 @@ public class Search {
             for (File file : files) {
                 fileBasicAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
                 FileOwnerAttributeView fileOwnerAttributeView = Files.getFileAttributeView(file.toPath(), FileOwnerAttributeView.class);
-                isFileSystem = Files.readAttributes(file.toPath(), DosFileAttributes.class).isSystem();
-                isReadOnly = Files.readAttributes(file.toPath(), DosFileAttributes.class).isReadOnly();
-                // Extension file
+                isFileSystem = operatingSystem.contains("windows") ? Files.readAttributes(file.toPath(), DosFileAttributes.class).isSystem() : false;
+                isReadOnly = operatingSystem.contains("windows") ? Files.readAttributes(file.toPath(), DosFileAttributes.class).isReadOnly() : false;
 
+                // Extension file
                 String extension = "";
 
                 int i = file.getName().lastIndexOf('.');
@@ -121,10 +126,10 @@ public class Search {
                 if (!file.isDirectory()) {
                     try {
                         // Data for multimedia
-                        if (os) {
-                            ffprobePath = new File(".").getCanonicalPath() + "/resources/ffprobe.exe";
+                        if (operatingSystem.contains("windows")) {
+                            ffprobePath = new File(".").getCanonicalPath() + SEPARATOR + "resources" + SEPARATOR + "ffprobe.exe";
                         } else {
-                            ffprobePath = new File(".").getCanonicalPath() + "/resources/ffprobe";
+                            ffprobePath = new File(".").getCanonicalPath() + SEPARATOR + "resources" + SEPARATOR + "ffprobe";
                         }
 
                         ffprobe = new FFprobe(ffprobePath);
@@ -613,7 +618,7 @@ public class Search {
                 assetList = searchKeySensitive(assetList, criteria.getName());
             }
 
-            if (criteria.getCreationDateInit() != null && criteria.getCreationDateEnd() != null) {
+            /*if (criteria.getCreationDateInit() != null && criteria.getCreationDateEnd() != null) {
                 assetList = creationTime(assetList, criteria.getCreationDateInit(), criteria.getCreationDateEnd());
             }
 
@@ -623,7 +628,7 @@ public class Search {
 
             if (criteria.getModifiedDateInit() != null && criteria.getModifiedDateEnd() != null) {
                 assetList = lastModifiedTime(assetList, criteria.getModifiedDateInit(), criteria.getModifiedDateEnd());
-            }
+            }*/
 
             if (criteria.getIsContainsInsideFileCriteria()) {
                 try {

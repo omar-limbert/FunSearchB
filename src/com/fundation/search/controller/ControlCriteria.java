@@ -292,7 +292,7 @@ public class ControlCriteria {
 
         // Converting Size to bytes for Model
         if (!sizeOfSize.isEmpty()) {
-            size = converter.convertSizeStringToLong(sizeOfSize,typeOfSize);
+            size = converter.convertSizeStringToLong(sizeOfSize, typeOfSize);
         }
 
         // Adding to SearchCriteria and Validating some data
@@ -317,7 +317,7 @@ public class ControlCriteria {
                 .keySensitiveOfCriteria(Boolean.valueOf(searchWindows.getKeySensitiveOfCriteria()))
                 .isContainsInsideFileCriteria(Boolean.valueOf(searchWindows.getIsContainsInsideFileCriteria()))
                 .textContainsInsideFileCriteria(searchWindows.getTextContainsInsideFileCriteria())
-                .multimediaDurationInputCriteria(searchWindows.getDurationMultimediaCriteria(),searchWindows.getDurationMultimediaNumber(),searchWindows.getDurationMultimediaTime())
+                .multimediaDurationInputCriteria(searchWindows.getDurationMultimediaCriteria(), searchWindows.getDurationMultimediaNumber(), searchWindows.getDurationMultimediaTime())
                 .multimediaVideoCodecCriteria(searchWindows.getVideoCodecCriteria())
                 .searchMultimediaFrameCriteria(searchWindows.getFrameRateCriteria())
                 .multimediaResolutionCriteria(searchWindows.getResolutionCriteria())
@@ -413,41 +413,80 @@ public class ControlCriteria {
         Object[] dataFromAsset = new Object[15]; // number of columns
         // Getting data for table result
 
-        if(file instanceof MultimediaResult && searchWindows.isSearchMultimedia()) {
-            MultimediaResult multimediaResult = (MultimediaResult) file;
-            dataFromAsset[0] = multimediaResult.getName();
-            dataFromAsset[1] = multimediaResult.getCodecLongName();
-            dataFromAsset[2] = multimediaResult.getrFrameRate().toString();
-            dataFromAsset[3] = multimediaResult.getDisplayAspect();
-            dataFromAsset[4] = multimediaResult.getWidth()+"x"+multimediaResult.getHeight();
-            dataFromAsset[5] = multimediaResult.getExtensionFile();
-            dataFromAsset[6] = multimediaResult.getDuration();
-            dataFromAsset[7] = multimediaResult.getAudioCodecLongName();
-            dataFromAsset[8] = multimediaResult.getAudioBitRate();
-            dataFromAsset[9] = multimediaResult.getAudioChannels();
-            dataFromAsset[10] = multimediaResult.getAudiofCodecTag();
-            dataFromAsset[11] = multimediaResult.getAudioNbFrame();
-        }
-        else{
-            dataFromAsset[0] = file.getName();
-            dataFromAsset[1] = file.getPathFile();
-            dataFromAsset[2] = file.getIsHidden();
-            dataFromAsset[3] = file.getIsReadOnlyFile();
-            dataFromAsset[4] = file.getIsFileSystemFile();
-            dataFromAsset[5] = file.getIsDirectory();
-            if(file instanceof FileResult || file instanceof  MultimediaResult){
-                dataFromAsset[6] = file.getExtensionFile();
-            }
-            dataFromAsset[7] = file.getSizeFile();
-            dataFromAsset[8] = file.getOwnerFile();
-            dataFromAsset[9] = converter.convertFileDateToDate(file.getCreationTime());
-            dataFromAsset[10] = converter.convertFileDateToDate(file.getLastModifiedTime());
-            dataFromAsset[11] = converter.convertFileDateToDate(file.getLastAccessTime());
-
+        if (file instanceof MultimediaResult && searchWindows.isSearchMultimedia()) {
+            this.multimediaToTableResult(dataFromAsset, file);
+        } else {
+            this.fileResultToTableResult(dataFromAsset, file);
         }
 
 
         //LOOGER.info("getDataFromAsset Exit");
         return dataFromAsset;
+    }
+
+    private void fileResultToTableResult(Object[] dataFromAsset, Asset file) {
+
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(0).setHeaderValue("Name");
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(1).setHeaderValue("Path");
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(2).setHeaderValue("Hidden");
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(3).setHeaderValue("Read Only");
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(4).setHeaderValue("File System");
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(5).setHeaderValue("Directory");
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(6).setHeaderValue("Type");
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(7).setHeaderValue("Size");
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(8).setHeaderValue("Owner");
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(9).setHeaderValue("Date Created");
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(10).setHeaderValue("Last Modified");
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(11).setHeaderValue("Last Access");
+
+
+        dataFromAsset[0] = file.getName();
+        dataFromAsset[1] = file.getPathFile();
+        dataFromAsset[2] = file.getIsHidden();
+        dataFromAsset[3] = file.getIsReadOnlyFile();
+        dataFromAsset[4] = file.getIsFileSystemFile();
+        dataFromAsset[5] = file.getIsDirectory();
+        if (file instanceof FileResult || file instanceof MultimediaResult) {
+            dataFromAsset[6] = file.getExtensionFile();
+        }
+        dataFromAsset[7] = file.getSizeFile();
+        dataFromAsset[8] = file.getOwnerFile();
+        dataFromAsset[9] = converter.convertFileDateToDate(file.getCreationTime());
+        dataFromAsset[10] = converter.convertFileDateToDate(file.getLastModifiedTime());
+        dataFromAsset[11] = converter.convertFileDateToDate(file.getLastAccessTime());
+    }
+
+    private void multimediaToTableResult(Object[] dataFromAsset, Asset file) {
+        // Setting Columns
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(0).setHeaderValue("Multimedia Name");
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(1).setHeaderValue("Video Codec");
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(2).setHeaderValue("Frame Rate");
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(3).setHeaderValue("Aspect Ratio");
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(4).setHeaderValue("Resolution");
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(5).setHeaderValue("Extension");
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(6).setHeaderValue("Duration [S]");
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(7).setHeaderValue("Audio Codec");
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(8).setHeaderValue("Audio Bit Rate");
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(9).setHeaderValue("Channels");
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(10).setHeaderValue("Path");
+        searchWindows.getTableHeaderOfTableResults().getColumnModel().getColumn(11).setHeaderValue("Path");
+
+
+        // Setting Data
+        MultimediaResult multimediaResult = (MultimediaResult) file;
+        dataFromAsset[0] = multimediaResult.getName();
+        dataFromAsset[1] = multimediaResult.getCodecLongName();
+        dataFromAsset[2] = multimediaResult.getrFrameRate().toString();
+        dataFromAsset[3] = multimediaResult.getDisplayAspect();
+        dataFromAsset[4] = multimediaResult.getWidth() + "x" + multimediaResult.getHeight();
+        dataFromAsset[5] = multimediaResult.getExtensionFile();
+        dataFromAsset[6] = multimediaResult.getDuration();
+        dataFromAsset[7] = multimediaResult.getAudioCodecLongName();
+        dataFromAsset[8] = multimediaResult.getAudioBitRate();
+        dataFromAsset[9] = multimediaResult.getAudioChannels();
+        dataFromAsset[10] = multimediaResult.getPathFile();
+        dataFromAsset[11] = multimediaResult.getLastModifiedTime();
+
+
     }
 }
