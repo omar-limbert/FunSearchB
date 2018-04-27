@@ -1,29 +1,9 @@
-/*
- * @(#)ConvertorTest.java
- *
- * Copyright (c) 2018 Jala Foundation.
- * Address
- * All rights reserved.
- *
- * This software is the confidential and proprietary information of
- * Jala Foundation, ("Confidential Information").  You shall not
- * disclose such Confidential Information and shall use it only in
- * accordance with the terms of the license agreement you entered into
- * with Sun.
- */
 package com.fundation.search.common;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-
-/**
- * This method check the convertor class.
- *
- * @author Escarleth Ledezma Quiroga - AT-[06].
- * @version 1.0.
- */
+import static org.junit.Assert.*;
 
 public class ConvertorTest {
     /**
@@ -115,5 +95,17 @@ public class ConvertorTest {
     @Test
     public void testToSizeStringToLongInvalidNullNull() {
         assertEquals(0L, convertor.convertSizeStringToLong(null, null));
+    }
+
+    /**
+     * this method check if converts the String to double and seconds unit.
+     */
+    @Test
+    public void testConvertTimeDurationToDouble() {
+        assertEquals(3600.0, convertor.convertTimeDurationToDouble("1", "hour"));
+        assertEquals(60.0, convertor.convertTimeDurationToDouble("1", "minute"));
+        assertEquals(123456.0, convertor.convertTimeDurationToDouble("123456", "second"));
+        assertEquals(180.0, convertor.convertTimeDurationToDouble("3", "minute"));
+        assertEquals(36000.0, convertor.convertTimeDurationToDouble("10", "hour"));
     }
 }

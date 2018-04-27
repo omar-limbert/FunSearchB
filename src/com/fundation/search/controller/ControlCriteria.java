@@ -292,9 +292,13 @@ public class ControlCriteria {
 
         // Converting Size to bytes for Model
         if (!sizeOfSize.isEmpty()) {
-            size = converter.convertSizeStringToLong(sizeOfSize,typeOfSize);
+            size = converter.convertSizeStringToLong(sizeOfSize, typeOfSize);
         }
-
+        // Convert String to second
+        double durationMultimedia = -1.0;
+        if (!searchWindows.getDurationMultimediaNumber().equalsIgnoreCase("")) {
+            durationMultimedia = converter.convertTimeDurationToDouble(searchWindows.getDurationMultimediaNumber(), searchWindows.getDurationMultimediaTime());
+        }
         // Adding to SearchCriteria and Validating some data
         this.searchCriteria = new SearchCriteriaBuilder()
                 .pathCriteria(this.pathValidation(searchWindows.getPathOfCriteria()))
@@ -317,7 +321,7 @@ public class ControlCriteria {
                 .keySensitiveOfCriteria(Boolean.valueOf(searchWindows.getKeySensitiveOfCriteria()))
                 .isContainsInsideFileCriteria(Boolean.valueOf(searchWindows.getIsContainsInsideFileCriteria()))
                 .textContainsInsideFileCriteria(searchWindows.getTextContainsInsideFileCriteria())
-                .multimediaDurationInputCriteria(searchWindows.getDurationMultimediaCriteria(),searchWindows.getDurationMultimediaNumber(),searchWindows.getDurationMultimediaTime())
+                .multimediaDurationInputCriteria(searchWindows.getDurationMultimediaCriteria(), durationMultimedia, searchWindows.getDurationMultimediaTime())
                 .multimediaVideoCodecCriteria(searchWindows.getVideoCodecCriteria())
                 .searchMultimediaFrameCriteria(searchWindows.getFrameRateCriteria())
                 .multimediaResolutionCriteria(searchWindows.getResolutionCriteria())
@@ -413,13 +417,13 @@ public class ControlCriteria {
         Object[] dataFromAsset = new Object[15]; // number of columns
         // Getting data for table result
 
-        if(file instanceof MultimediaResult && searchWindows.isSearchMultimedia()) {
+        if (file instanceof MultimediaResult && searchWindows.isSearchMultimedia()) {
             MultimediaResult multimediaResult = (MultimediaResult) file;
             dataFromAsset[0] = multimediaResult.getName();
             dataFromAsset[1] = multimediaResult.getCodecLongName();
             dataFromAsset[2] = multimediaResult.getrFrameRate().toString();
             dataFromAsset[3] = multimediaResult.getDisplayAspect();
-            dataFromAsset[4] = multimediaResult.getWidth()+"x"+multimediaResult.getHeight();
+            dataFromAsset[4] = multimediaResult.getWidth() + "x" + multimediaResult.getHeight();
             dataFromAsset[5] = multimediaResult.getExtensionFile();
             dataFromAsset[6] = multimediaResult.getDuration();
             dataFromAsset[7] = multimediaResult.getAudioCodecLongName();
@@ -427,15 +431,14 @@ public class ControlCriteria {
             dataFromAsset[9] = multimediaResult.getAudioChannels();
             dataFromAsset[10] = multimediaResult.getAudiofCodecTag();
             dataFromAsset[11] = multimediaResult.getAudioNbFrame();
-        }
-        else{
+        } else {
             dataFromAsset[0] = file.getName();
             dataFromAsset[1] = file.getPathFile();
             dataFromAsset[2] = file.getIsHidden();
             dataFromAsset[3] = file.getIsReadOnlyFile();
             dataFromAsset[4] = file.getIsFileSystemFile();
             dataFromAsset[5] = file.getIsDirectory();
-            if(file instanceof FileResult || file instanceof  MultimediaResult){
+            if (file instanceof FileResult || file instanceof MultimediaResult) {
                 dataFromAsset[6] = file.getExtensionFile();
             }
             dataFromAsset[7] = file.getSizeFile();
