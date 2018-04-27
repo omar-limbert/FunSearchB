@@ -181,10 +181,10 @@ public class SearchCriteriaBuilder {
     }
 
     //miss
-    public SearchCriteriaBuilder multimediaDurationInputCriteria(String durationMultimediaCriteria, String durationMultimediaNumber, String durationMultimediaTime) {
+    public SearchCriteriaBuilder multimediaDurationInputCriteria(String durationMultimediaCriteria, double durationMultimediaNumber, String durationMultimediaTime) {
         LOOGER.info("multimediaDurationInputCriteria Entry");
 
-        if (durationMultimediaCriteria != null && !durationMultimediaNumber.isEmpty()) {
+        if (durationMultimediaCriteria != null && durationMultimediaNumber > -1.0) {
 
             // Converting operator to valid format for Model
             // Converting operator to valid format for Model
@@ -198,7 +198,7 @@ public class SearchCriteriaBuilder {
                 this.multimediaDurationOperator = "equal";
             }
             this.multimediaDurationType = durationMultimediaTime;
-            this.multimediaDuration = Double.valueOf(durationMultimediaNumber);
+            this.multimediaDuration = durationMultimediaNumber;
             return this;
         }
 

@@ -303,8 +303,10 @@ public class ControlCriteria {
         if (!sizeOfSize.isEmpty()) {
             size = converter.convertSizeStringToLong(sizeOfSize, typeOfSize);
         }
-
-        // Adding to SearchCriteria and Validating some data
+        double durationMultimedia = -1.0;
+        if (!searchWindows.getDurationMultimediaNumber().equals("")) {
+            durationMultimedia = converter.convertTimeDurationToDouble(searchWindows.getDurationMultimediaNumber(), searchWindows.getDurationMultimediaTime());
+        }        // Adding to SearchCriteria and Validating some data
         this.searchCriteria = new SearchCriteriaBuilder()
                 .pathCriteria(this.pathValidation(searchWindows.getPathOfCriteria()))
                 .fileName(this.nameValidation(searchWindows.getSearchText()))
@@ -326,7 +328,7 @@ public class ControlCriteria {
                 .keySensitiveOfCriteria(Boolean.valueOf(searchWindows.getKeySensitiveOfCriteria()))
                 .isContainsInsideFileCriteria(Boolean.valueOf(searchWindows.getIsContainsInsideFileCriteria()))
                 .textContainsInsideFileCriteria(searchWindows.getTextContainsInsideFileCriteria())
-                .multimediaDurationInputCriteria(searchWindows.getDurationMultimediaCriteria(), searchWindows.getDurationMultimediaNumber(), searchWindows.getDurationMultimediaTime())
+                .multimediaDurationInputCriteria(searchWindows.getDurationMultimediaCriteria(), durationMultimedia, searchWindows.getDurationMultimediaTime())
                 .multimediaVideoCodecCriteria(searchWindows.getVideoCodecCriteria())
                 .searchMultimediaFrameCriteria(searchWindows.getFrameRateCriteria())
                 .multimediaResolutionCriteria(searchWindows.getResolutionCriteria())
