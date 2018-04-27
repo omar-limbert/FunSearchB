@@ -47,6 +47,7 @@ public class ConvertorTest {
     public void testToConvertGbToBytes() {
         assertEquals(16965120819L, convertor.convertToBytes(15.8, "Gb"));
         assertEquals(1073741824L, convertor.convertToBytes(1, "gb"));
+        assertEquals(5073741824L, convertor.convertToBytes(5, "gb"));
     }
 
     /**
@@ -75,6 +76,7 @@ public class ConvertorTest {
         assertEquals(15650867788L, convertor.convertToBytes(15650867787.6, "bytes"));
         assertEquals(0, convertor.convertToBytes(0, "Bytes"));
         assertEquals(222222223, convertor.convertToBytes(222222222.555, "bytes"));
+        assertEquals(500000000, convertor.convertToBytes(500000000, "bytes"));
     }
 
     /**
@@ -99,6 +101,8 @@ public class ConvertorTest {
     @Test
     public void testToSizeStringToLongInvalid() {
         assertEquals(0L, convertor.convertSizeStringToLong("hola", "mb"));
+        assertEquals(0, convertor.convertSizeStringToLong("String", "byte"));
+
     }
 
     /**
@@ -115,6 +119,7 @@ public class ConvertorTest {
     @Test
     public void testToSizeStringToLongInvalidNullNull() {
         assertEquals(0L, convertor.convertSizeStringToLong(null, null));
+        assertEquals(0, convertor.convertSizeStringToLong(null, null));
     }
 
     /**
