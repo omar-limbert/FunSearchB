@@ -98,7 +98,7 @@ public class ConvertorTest {
     }
 
     /**
-     * this method check if converts the String to long with two incorrect values(null/null).
+     * this method check if converts the String to double and seconds unit.
      */
     @Test
     public void testConvertTimeDurationToDouble() {
