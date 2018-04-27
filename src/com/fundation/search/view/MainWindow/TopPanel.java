@@ -17,12 +17,18 @@ import com.fundation.search.common.SearchLogger;
 import com.fundation.search.view.CriteriaPanels.CriteriaPanel;
 import com.fundation.search.view.SearchTextField;
 import com.fundation.search.view.SearchToolBar;
-import com.sun.xml.internal.ws.client.sei.ResponseBuilder;
 
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Logger;
@@ -693,4 +699,5 @@ public class TopPanel extends JPanel {
     public String getAudioBitRateEnd() {
         return this.toolbar.getAudioBitRateEnd();
     }
+
 }
