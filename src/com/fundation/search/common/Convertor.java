@@ -187,6 +187,7 @@ public class Convertor {
      * @return a double number on unit seconds.
      */
     public double convertTimeDurationToDouble (String duration, String time){
+        LOOGER.info("convertTimeDurationToDouble entry");
         double inputTime = 0.0;
         if(!duration.equalsIgnoreCase("")){
             if(time.equalsIgnoreCase("hour")){
@@ -199,6 +200,7 @@ public class Convertor {
                 inputTime = Double.parseDouble(duration);
             }
         }
+        LOOGER.info("convertTimeDurationToDouble exit");
         return inputTime;
     }
 }
