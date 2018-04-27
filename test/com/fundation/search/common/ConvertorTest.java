@@ -116,4 +116,15 @@ public class ConvertorTest {
     public void testToSizeStringToLongInvalidNullNull() {
         assertEquals(0L, convertor.convertSizeStringToLong(null, null));
     }
+
+    /**
+     * this method check if converts the String to double and seconds unit.
+     */
+    @Test
+    public void testConvertTimeDurationToDouble() {
+        assertEquals(3600.0,convertor.convertTimeDurationToDouble("1", "hour"),0.0);
+        assertEquals(123456.0, convertor.convertTimeDurationToDouble("123456", "second"),0.0);
+        assertEquals(180.0, convertor.convertTimeDurationToDouble("3", "minute"),0.0);
+        assertEquals(36000.0, convertor.convertTimeDurationToDouble("10", "hour"),0.0);
+    }
 }
