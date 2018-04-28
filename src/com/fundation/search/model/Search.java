@@ -94,7 +94,6 @@ public class Search {
     private List<Asset> searchByPath(String path) {
         LOOGER.info("Entry to searchByPath Method");
         try {
-
             BasicFileAttributes fileBasicAttributes;
             File[] files = new File(path).listFiles();
             String operatingSystem = System.getProperty("os.name").toLowerCase();
@@ -241,34 +240,29 @@ public class Search {
 
 
     /**
-     * NOTE: You need improve 'e.getName()' for get only file name without extension.
+     * This method is to search by name criteria.
      *
-     * @param listFile .
-     * @param nameFile .
-     * @return list all the files that contains the name of a file.
+     * @param nameFile name of file.
      */
-    private List<Asset> searchByName(List<Asset> listFile, String nameFile, String fileNameCriteria) {
+    private void searchByName(String nameFile, String fileNameCriteria) {
         LOOGER.info("Entry to searchByName Method");
         if (fileNameCriteria.equalsIgnoreCase("all words") || fileNameCriteria.isEmpty()) {
-            listFile.removeIf(e -> (!e.getName().contains(nameFile)));
+            assetList.removeIf(e -> (!e.getName().contains(nameFile)));
         }
         if (fileNameCriteria.equalsIgnoreCase("start with")) {
-            listFile.removeIf(e -> (!e.getName().startsWith(nameFile)));
+            assetList.removeIf(e -> (!e.getName().startsWith(nameFile)));
         }
         if (fileNameCriteria.equalsIgnoreCase("end with")) {
-            listFile.removeIf(e -> (!e.getName().endsWith(nameFile)));
+            assetList.removeIf(e -> (!e.getName().endsWith(nameFile)));
         }
         if (fileNameCriteria.equalsIgnoreCase("equal to")) {
-            listFile.removeIf(e -> (!e.getName().equals(nameFile)));
+            assetList.removeIf(e -> (!e.getName().equals(nameFile)));
         }
         LOOGER.info("Exit of searchByName Method");
-
-        return listFile;
     }
 
     /**
      * This Method is for filter Multimedia file by duration.
-     * Note: Need unittest.
      *
      * @param listFile asset list.
      * @param time     is the multimedia file duration.
@@ -277,11 +271,13 @@ public class Search {
      */
     private List<Asset> searchMultimediaByDuration(List<Asset> listFile, Double time, String operator) {
         LOOGER.info("Entry to searchMultimediaByDuration Method");
+
         List<Asset> listFilter = new ArrayList<>();
         for (Asset file : listFile) {
             if (file instanceof MultimediaResult) {
                 MultimediaResult multimediaResult = (MultimediaResult) file;
                 if (operator.equalsIgnoreCase("upper")) {
+
                     if (multimediaResult.getDuration() > time) {
                         listFilter.add(file);
                     }
@@ -301,197 +297,133 @@ public class Search {
             }
         }
         LOOGER.info("Exit of searchMultimediaByDuration Method");
-        return listFilter;
+
+        return assetList;
     }
 
     /**
-     * @param listFile file list.
+     * This method is for filter by size.
+     *
      * @param size     is the file size.
-     * @param operator is "<" or ">" or "=".
-     * @return list all the files minor or major or equal to given size.
+     * @param operator is "upper" or "lower" or "equal".
      */
-    private List<Asset> searchBySize(List<Asset> listFile, long size, String operator) {
+    private void searchBySize(long size, String operator) {
         LOOGER.info("Entry to searchBySize Method");
-        List<Asset> listFilter = new ArrayList<>();
-        for (Asset file : listFile) {
-
-            if (operator.equalsIgnoreCase("upper")) {
-                if (file.getSizeFile() > size) {
-                    listFilter.add(file);
-                }
-            }
-
-            if (operator.equalsIgnoreCase("lower")) {
-                if (file.getSizeFile() < size) {
-                    listFilter.add(file);
-                }
-            }
-
-            if (operator.equalsIgnoreCase("equal")) {
-                if (file.getSizeFile() == size) {
-                    listFilter.add(file);
-                }
-            }
-
+        if (operator.equalsIgnoreCase("upper")) {
+            assetList.removeIf(e -> !(e.getSizeFile() > size));
         }
+        if (operator.equalsIgnoreCase("lower")) {
+            assetList.removeIf(e -> !(e.getSizeFile() < size));
+        }
+        if (operator.equalsIgnoreCase("equal")) {
+            assetList.removeIf(e -> !(e.getSizeFile() == size));
+        }
+
         LOOGER.info("Exit of searchBySize Method");
-        return listFilter;
     }
 
     /**
      * This method is for search Hidden Files.
      *
-     * @param listFile       list file.
      * @param hiddenCriteria this param has 3 values, all files, only hiddens, without hiddens.
-     * @return list all the files minor or major or equal to given size.
      */
 
-    private List<Asset> searchHiddenFiles(List<Asset> listFile, String hiddenCriteria) {
+    private void searchHiddenFiles(String hiddenCriteria) {
         LOOGER.info("Entry to searchHiddenFiles Method");
         if (hiddenCriteria.equalsIgnoreCase("only hidden")) {
-            listFile.removeIf(e -> (!e.getIsHidden()));
+            assetList.removeIf(e -> (!e.getIsHidden()));
         }
         if (hiddenCriteria.equalsIgnoreCase("without hidden")) {
-            listFile.removeIf(e -> (e.getIsHidden()));
+            assetList.removeIf(e -> (e.getIsHidden()));
         }
         LOOGER.info("Exit of searchHiddenFiles Method");
-        return listFile;
     }
 
     /**
-     * @param listFile         It is the list of Files.
+     * This method is for filter by last modified date.
+     *
      * @param dateConditionInt Is the init date for lastModifiedTime time on a file.
      * @param dateConditionEnd Is the end date for lastModifiedTime time on a file.
-     * @return a list of files that are on range between init date and end date.
      */
-    private List<Asset> lastModifiedTime(List<Asset> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
+    private void lastModifiedTime(FileTime dateConditionInt, FileTime dateConditionEnd) {
         LOOGER.info("Entry to lastModifiedTime Method");
-        List<Asset> listFilter = new ArrayList<>();
-        for (Asset file : listFile) {
-            if ((file.getLastModifiedTime().toMillis() >= dateConditionInt.toMillis() && file.getLastModifiedTime().toMillis() <= dateConditionEnd.toMillis())) {
-                listFilter.add(file);
-            }
-        }
+        assetList.removeIf(e -> !(e.getLastModifiedTime().toMillis() >= dateConditionInt.toMillis() && e.getLastModifiedTime().toMillis() <= dateConditionEnd.toMillis()));
         LOOGER.info("Exit of lastModifiedTime Method");
-        return listFilter;
     }
 
     /**
-     * @param listFile         It is the list of Files.
+     * This method is for filter by creation date.
+     *
      * @param dateConditionInt Is the init date for creationTime time on a file.
      * @param dateConditionEnd Is the end date for creationTime time on a file.
-     * @return a list of files that are on range creationTime init date and end date.
      */
-    private List<Asset> creationTime(List<Asset> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
+    private void creationTime(FileTime dateConditionInt, FileTime dateConditionEnd) {
         LOOGER.info("Entry to creationTime Method");
-        List<Asset> listFilter = new ArrayList<>();
-        for (Asset file : listFile) {
-            if ((file.getCreationTime().toMillis() >= dateConditionInt.toMillis() && file.getCreationTime().toMillis() <= dateConditionEnd.toMillis())) {
-                listFilter.add(file);
-            }
-        }
+        assetList.removeIf(e -> !(e.getLastModifiedTime().toMillis() >= dateConditionInt.toMillis() && e.getLastModifiedTime().toMillis() <= dateConditionEnd.toMillis()));
         LOOGER.info("Exit of creationTime Method");
-        return listFilter;
     }
 
-
     /**
-     * @param listFile         It is the list of Files.
+     * This method is for filter by Las Access Date.
+     *
      * @param dateConditionInt Is the init date for lastAccessTime time on a file.
      * @param dateConditionEnd Is the end date for lastAccessTime time on a file.
-     * @return a list of files that are on range lastAccessTime init date and end date.
      */
-    private List<Asset> lastAccessTime(List<Asset> listFile, FileTime dateConditionInt, FileTime dateConditionEnd) {
+    private void lastAccessTime(FileTime dateConditionInt, FileTime dateConditionEnd) {
         LOOGER.info("Entry to lastAccessTime Method");
-        List<Asset> listFilter = new ArrayList<>();
-        for (Asset file : listFile) {
-            if ((file.getLastAccessTime().toMillis() >= dateConditionInt.toMillis() && file.getLastAccessTime().toMillis() <= dateConditionEnd.toMillis())) {
-                listFilter.add(file);
-            }
-        }
+        assetList.removeIf(e -> !(e.getLastModifiedTime().toMillis() >= dateConditionInt.toMillis() && e.getLastModifiedTime().toMillis() <= dateConditionEnd.toMillis()));
+
         LOOGER.info("Exit of lastAccessTime Method");
-        return listFilter;
+
     }
 
     /**
-     * @param listFile It is the list of Files.
-     * @return A list of files that are ReadOnly.
+     * This method is for filter by is read only or not.
      */
-    private List<Asset> isReadOnly(List<Asset> listFile) {
+    private void isReadOnly() {
         LOOGER.info("Entry to isReadOnly Method");
-        List<Asset> listFilter = new ArrayList<>();
-        for (Asset file : listFile) {
-            if (file.getIsReadOnlyFile()) {
-                listFilter.add(file);
-            }
-        }
+        assetList.removeIf(e -> !(e.getIsReadOnlyFile()));
         LOOGER.info("Exit of isReadOnly Method");
-        return listFilter;
     }
 
     /**
-     * @param listFile It is the list of Files.
-     * @return A list of files that are on System.
+     * This method is to filter by is File System.
      */
-    private List<Asset> isFileSystem(List<Asset> listFile) {
+    private void isFileSystem() {
         LOOGER.info("Entry to isFileSystem Method");
-        List<Asset> listFilter = new ArrayList<>();
-        for (Asset file : listFile) {
-            if (file.getIsFileSystemFile()) {
-                listFilter.add(file);
-            }
-        }
+        assetList.removeIf(e -> !(e.getIsFileSystemFile()));
         LOOGER.info("Exit of isFileSystem Method");
-        return listFilter;
     }
 
     /**
-     * @param listFile It is the list of Files.
-     * @return A list of files that are a Directories (Folders).
+     * This method is to filter by is directory.
      */
-    private List<Asset> searchByDirectory(List<Asset> listFile) {
+    private void searchByDirectory() {
         LOOGER.info("Entry to searchByDirectory Method");
-        List<Asset> listFilter = new ArrayList<>();
-        for (Asset file : listFile) {
-            if (file.getIsDirectory()) {
-                listFilter.add(file);
-            }
-        }
+        assetList.removeIf(e -> !(e.getIsDirectory()));
         LOOGER.info("Exit of searchByDirectory Method");
-        return listFilter;
     }
 
     /**
-     * @param listFile  It is the list of Files.
+     * This method is to filter by extension.
+     *
      * @param extension The name of extension (.png,.docx,etc).
-     * @return A list of files that are the criteria of the extension.
      */
-    private List<Asset> searchByExtension(List<Asset> listFile, String extension) {
+    private void searchByExtension(String extension) {
         LOOGER.info("Entry to searchByExtension Method");
-        List<Asset> listFilter = new ArrayList<>();
-        for (Asset file : listFile) {
-            if (file.getName().endsWith(extension)) {
-                listFilter.add(file);
-            }
-        }
+        assetList.removeIf(e -> !(e.getName().endsWith(extension)));
         LOOGER.info("Exit of searchByExtension Method");
-        return listFilter;
     }
 
     /**
-     * @param listFile It is the list of Files.
+     * This method is to filter by sensitive case.
+     *
      * @return A list of files that are the criteria of the extension.
      */
-    private List<Asset> searchKeySensitive(List<Asset> listFile, String name) {
+    private void searchKeySensitive(String name) {
         LOOGER.info("Entry to searchKeySensitive Method");
-        List<Asset> listFilter = new ArrayList<>();
-        for (Asset file : listFile) {
-            if (file.getName().equals(name)) {
-                listFilter.add(file);
-            }
-        }
+        assetList.removeIf(e -> !(e.getName().equals(name)));
         LOOGER.info("Exit of searchKeySensitive Method");
-        return listFilter;
     }
 
     /**
@@ -500,7 +432,7 @@ public class Search {
      * @return A list of files that are the criteria of the intoFiles.
      * @throws IOException
      */
-    private List<Asset> searchIntoFile(List<Asset> listFile, String text) throws IOException {
+    private List<Asset> searchIntoFile(List<Asset> listFile, String text) {
         LOOGER.info("Entry to searchIntoFile Method");
         File fileToSearch = null;
         List<Asset> listFilter = new ArrayList<>();
@@ -550,16 +482,10 @@ public class Search {
      * @param owner this is name of owner for filter file list.
      * @return list all the files minor or major or equal to given size.
      */
-    private List<Asset> searchByOwner(List<Asset> listFile, String owner) {
+    private void searchByOwner(String owner) {
         LOOGER.info("Entry to searchByOwner Method");
-        List<Asset> listFilter = new ArrayList<>();
-        for (Asset file : listFile) {
-            if (file.getOwnerFile().equalsIgnoreCase(owner)) {
-                listFilter.add(file);
-            }
-        }
+        assetList.removeIf(e -> !(e.getOwnerFile().equalsIgnoreCase(owner)));
         LOOGER.info("Exit of searchByOwner Method");
-        return listFilter;
     }
 
     /**
@@ -570,93 +496,93 @@ public class Search {
      */
     private void filterByCriteria(SearchCriteria criteria) {
         LOOGER.info("Entry to filterByCriteria Method");
-        assetList = new ArrayList<Asset>();
-
         if (criteria.getPath() != null) {
             assetList = searchByPath(criteria.getPath());
-
+            System.out.println(1);
             if (criteria.getName() != null) {
-                assetList = searchByName(assetList, criteria.getName(), criteria.getFileNameCriteria());
+                this.searchByName(criteria.getName(), criteria.getFileNameCriteria());
             }
-
+            System.out.println(2);
             if (criteria.getHiddenCriteria().equalsIgnoreCase("all files")) {
-                assetList = searchHiddenFiles(assetList, "all files");
+                this.searchHiddenFiles("all files");
             }
-
+            System.out.println(3);
             if (criteria.getHiddenCriteria().equalsIgnoreCase("only hidden")) {
-                assetList = searchHiddenFiles(assetList, "only hidden");
+                this.searchHiddenFiles("only hidden");
             }
-
+            System.out.println(4;
             if (criteria.getHiddenCriteria().equalsIgnoreCase("without hidden")) {
-                assetList = searchHiddenFiles(assetList, "without hidden");
+                this.searchHiddenFiles("without hidden");
             }
-
+            System.out.println(5);
             if (criteria.getIsDirectory()) {
-                assetList = searchByDirectory(assetList);
+                this.searchByDirectory();
             }
-
+            System.out.println(6);
             if (criteria.getIsFileSystem()) {
-                assetList = isFileSystem(assetList);
+                this.isFileSystem();
             }
-
+            System.out.println(7);
             if (criteria.getIsReadOnly()) {
-                assetList = isReadOnly(assetList);
+                this.isReadOnly();
             }
-
+            System.out.println(8);
             if (criteria.getExtension() != null) {
-                assetList = searchByExtension(assetList, criteria.getExtension());
+                this.searchByExtension(criteria.getExtension());
             }
-
+            System.out.println(9);
             if (criteria.getSize() > -1) {
-                assetList = searchBySize(assetList, criteria.getSize(), criteria.getOperator());
+                this.searchBySize(criteria.getSize(), criteria.getOperator());
             }
-
+            System.out.println(10);
             if (!criteria.getOwnerCriteria().isEmpty()) {
-                assetList = searchByOwner(assetList, criteria.getOwnerCriteria());
+                this.searchByOwner(criteria.getOwnerCriteria());
             }
+            System.out.println(11);
             if (criteria.getKeySensitiveOfCriteria()) {
-                assetList = searchKeySensitive(assetList, criteria.getName());
+                this.searchKeySensitive(criteria.getName());
             }
-
-            /*if (criteria.getCreationDateInit() != null && criteria.getCreationDateEnd() != null) {
-                assetList = creationTime(assetList, criteria.getCreationDateInit(), criteria.getCreationDateEnd());
+            System.out.println(12);
+            if (criteria.getCreationDateInit() != null && criteria.getCreationDateEnd() != null) {
+                this.creationTime(criteria.getCreationDateInit(), criteria.getCreationDateEnd());
             }
-
+            System.out.println(13);
             if (criteria.getLastAccessDateInit() != null && criteria.getLastAccessDateEnd() != null) {
-                assetList = lastAccessTime(assetList, criteria.getLastAccessDateInit(), criteria.getLastAccessDateEnd());
+                this.lastAccessTime(criteria.getLastAccessDateInit(), criteria.getLastAccessDateEnd());
             }
-
+            System.out.println(14);
             if (criteria.getModifiedDateInit() != null && criteria.getModifiedDateEnd() != null) {
-                assetList = lastModifiedTime(assetList, criteria.getModifiedDateInit(), criteria.getModifiedDateEnd());
-            }*/
-
-            if (criteria.getIsContainsInsideFileCriteria()) {
-                try {
-                    assetList = searchIntoFile(assetList, criteria.getTextContainsInsideFileCriteria());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                this.lastModifiedTime(criteria.getModifiedDateInit(), criteria.getModifiedDateEnd());
             }
-            // Multimedia
-
+            System.out.println(15);
+            if (criteria.getIsContainsInsideFileCriteria()) {
+                assetList = searchIntoFile(assetList, criteria.getTextContainsInsideFileCriteria());
+            }
+            System.out.println(16);
             if (criteria.getMultimediaDuration() > -1 && criteria.isSearchMultimedia()) {
                 assetList = searchMultimediaByDuration(assetList, criteria.getMultimediaDuration(), criteria.getMultimediaDurationOperator());
             }
+            System.out.println(17);
             if (!criteria.getMultimediaVideoCodec().isEmpty() && criteria.isSearchMultimedia()) {
                 assetList = searchMultimediaByVideoCodec(assetList, criteria.getMultimediaVideoCodec());
             }
+            System.out.println(18);
             if (!criteria.getMultimediaResolution().isEmpty() && criteria.isSearchMultimedia()) {
                 assetList = searchMultimediaByResolution(assetList, criteria.getMultimediaResolution());
             }
+            System.out.println(19);
             if (!criteria.getMultimediaType().isEmpty() && criteria.isSearchMultimedia()) {
                 assetList = searchMultimediaByType(assetList, criteria.getMultimediaType());
             }
+            System.out.println(20);
             if (!criteria.getFrameRateCriteria().isEmpty() && criteria.isSearchMultimedia()) {
                 assetList = searchMultimediaByFrameRate(assetList, criteria.getFrameRateCriteria());
             }
+            System.out.println(21);
             if (!criteria.getMultimediaAudioBitRateInit().isEmpty() && !criteria.getMultimediaAudioBitRateEnd().isEmpty() && criteria.isSearchMultimedia()) {
                 assetList = searchMultimediaByAudioBitRate(assetList, criteria.getMultimediaAudioBitRateInit(), criteria.getMultimediaAudioBitRateEnd());
             }
+            System.out.println(22);
         }
         LOOGER.info("Exit of filterByCriteria Method");
     }
@@ -764,6 +690,7 @@ public class Search {
         LOOGER.info("Entry to setSearchCriteria Method");
         LOOGER.info("Exit of setSearchCriteria Method");
         this.criteria = criteria;
+
     }
 
     /**
@@ -772,6 +699,7 @@ public class Search {
     public void initSearch() {
         LOOGER.info("Entry to initSearch Method");
         LOOGER.info("Exit of initSearch Method");
+        assetList = new ArrayList<Asset>();
         filterByCriteria(criteria);
     }
 
@@ -859,6 +787,6 @@ public class Search {
         }
         LOOGER.info("Exit of deleteCriteriaFromDataBase Method");
     }
-
+//1,2,5,12,7,8,6,16,23,66
 
 }
