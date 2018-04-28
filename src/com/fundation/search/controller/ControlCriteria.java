@@ -305,43 +305,83 @@ public class ControlCriteria {
         }
         double durationMultimedia = -1.0;
         if (!searchWindows.getDurationMultimediaNumber().equals("")) {
-            durationMultimedia = converter.convertTimeDurationToDouble(searchWindows.getDurationMultimediaNumber(), searchWindows.getDurationMultimediaTime());
-        }        // Adding to SearchCriteria and Validating some data
-        this.searchCriteria = new SearchCriteriaBuilder()
-                .pathCriteria(this.pathValidation(searchWindows.getPathOfCriteria()))
-                .fileName(this.nameValidation(searchWindows.getSearchText()))
-                .hiddenCriteria(searchWindows.getHiddenOfCriteria())
-                .fileNameCriteria(searchWindows.getFileNameOfCriteria())
-                .ownerCriteria(searchWindows.getOwnerOfCriteria())
-                .isReadCriteria(Boolean.valueOf(searchWindows.getReadOnlyOfCriteria()))
-                .isFileSystemCriteria(Boolean.valueOf(searchWindows.getFileSystemOfCriteria()))
-                .creationDateCriteria(this.dateValidation(searchWindows.getCreationDateInit())
-                        , this.dateValidation(searchWindows.getCreationDateEnd()))
-                .modifiedDateCriteria(this.dateValidation(searchWindows.getModifiedDateInit())
-                        , this.dateValidation(searchWindows.getModifiedDateEnd()))
-                .lastAccessDateCriteria(this.dateValidation(searchWindows.getLastAccessDateInit())
-                        , this.dateValidation(searchWindows.getLastAccessDateEnd()))
-                .sizeCriteria(criteriaOfSize, size, typeOfSize)
-                .isDirectoryCriteria(searchWindows.getDirectoryOfCriteria())
-                .extensionCriteria(searchWindows.getTypeCriteria())
-                .nameOnDataBase("")
-                .keySensitiveOfCriteria(Boolean.valueOf(searchWindows.getKeySensitiveOfCriteria()))
-                .isContainsInsideFileCriteria(Boolean.valueOf(searchWindows.getIsContainsInsideFileCriteria()))
-                .textContainsInsideFileCriteria(searchWindows.getTextContainsInsideFileCriteria())
-                .multimediaDurationInputCriteria(searchWindows.getDurationMultimediaCriteria(), durationMultimedia, searchWindows.getDurationMultimediaTime())
-                .multimediaVideoCodecCriteria(searchWindows.getVideoCodecCriteria())
-                .searchMultimediaFrameCriteria(searchWindows.getFrameRateCriteria())
-                .multimediaResolutionCriteria(searchWindows.getResolutionCriteria())
-                .multimediaAudioBitRateCriteriaInit(searchWindows.getAudioBitRateInit())
-                .multimediaAudioBitRateCriteriaEnd(searchWindows.getAudioBitRateEnd())
-                .multimediaTypeCriteria(searchWindows.getMultimediaTypeCriteria())
-                .searchMultimediaCriteria(searchWindows.isSearchMultimedia())
-                .build();
+            if (!validateInputs.isValidFormatSize(searchWindows.getDurationMultimediaNumber()) && !searchWindows.getDurationMultimediaNumber().equals("")) {
+                JOptionPane.showMessageDialog(null, "Invalid Format of Duration Multimedia", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                durationMultimedia = converter.convertTimeDurationToDouble(searchWindows.getDurationMultimediaNumber(), searchWindows.getDurationMultimediaTime());
+            }
+        }
 
-        // Shown results
-        this.getResults(searchCriteria);
-
+        // Adding to SearchCriteria and Validating some data
+        if (validateInputsGUI()) {
+            this.searchCriteria = new SearchCriteriaBuilder()
+                    .pathCriteria(searchWindows.getPathOfCriteria())
+                    .fileName(searchWindows.getSearchText())
+                    .hiddenCriteria(searchWindows.getHiddenOfCriteria())
+                    .fileNameCriteria(searchWindows.getFileNameOfCriteria())
+                    .ownerCriteria(searchWindows.getOwnerOfCriteria())
+                    .isReadCriteria(Boolean.valueOf(searchWindows.getReadOnlyOfCriteria()))
+                    .isFileSystemCriteria(Boolean.valueOf(searchWindows.getFileSystemOfCriteria()))
+                    .creationDateCriteria(this.dateValidation(searchWindows.getCreationDateInit())
+                            , this.dateValidation(searchWindows.getCreationDateEnd()))
+                    .modifiedDateCriteria(this.dateValidation(searchWindows.getModifiedDateInit())
+                            , this.dateValidation(searchWindows.getModifiedDateEnd()))
+                    .lastAccessDateCriteria(this.dateValidation(searchWindows.getLastAccessDateInit())
+                            , this.dateValidation(searchWindows.getLastAccessDateEnd()))
+                    .sizeCriteria(criteriaOfSize, size, typeOfSize)
+                    .isDirectoryCriteria(searchWindows.getDirectoryOfCriteria())
+                    .extensionCriteria(searchWindows.getTypeCriteria())
+                    .nameOnDataBase("")
+                    .keySensitiveOfCriteria(Boolean.valueOf(searchWindows.getKeySensitiveOfCriteria()))
+                    .isContainsInsideFileCriteria(Boolean.valueOf(searchWindows.getIsContainsInsideFileCriteria()))
+                    .textContainsInsideFileCriteria(searchWindows.getTextContainsInsideFileCriteria())
+                    .multimediaDurationInputCriteria(searchWindows.getDurationMultimediaCriteria(), durationMultimedia, searchWindows.getDurationMultimediaTime())
+                    .multimediaVideoCodecCriteria(searchWindows.getVideoCodecCriteria())
+                    .searchMultimediaFrameCriteria(searchWindows.getFrameRateCriteria())
+                    .multimediaResolutionCriteria(searchWindows.getResolutionCriteria())
+                    .multimediaAudioBitRateCriteriaInit(searchWindows.getAudioBitRateInit())
+                    .multimediaAudioBitRateCriteriaEnd(searchWindows.getAudioBitRateEnd())
+                    .multimediaTypeCriteria(searchWindows.getMultimediaTypeCriteria())
+                    .searchMultimediaCriteria(searchWindows.isSearchMultimedia())
+                    .build();
+            // Shown results
+            this.getResults(searchCriteria);
+        }
         LOOGER.info("Action Search Button exit");
+    }
+
+    /**
+     * @return Return true if all the inputs have the rith format.
+     */
+    private boolean validateInputsGUI() {
+        if (!validateInputs.validatorPath(searchWindows.getPathOfCriteria()) && !validateInputs.isValidPath(searchWindows.getPathOfCriteria())) {
+            JOptionPane.showMessageDialog(null, "Invalid Format Path", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (!validateInputs.isValidFile(searchWindows.getSearchText()) && !searchWindows.getSearchText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Invalid Format File", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        if (!validateInputs.isValidFormatSize(searchWindows.getSizeOfCriteria()[1]) && !searchWindows.getSizeOfCriteria()[1].equals("")) {
+            JOptionPane.showMessageDialog(null, "Invalid Format of Size", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        if (!validateInputs.isValidFileExtension(searchWindows.getTypeCriteria()) && !searchWindows.getTypeCriteria().equals("")) {
+            JOptionPane.showMessageDialog(null, "Invalid Format of Extension File", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        if (!validateInputs.isValidFormatBitRate(searchWindows.getAudioBitRateInit()) && !searchWindows.getAudioBitRateInit().equals("")) {
+            JOptionPane.showMessageDialog(null, "Invalid Format of AudiBitRate", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (!validateInputs.isValidFormatBitRate(searchWindows.getAudioBitRateEnd()) && !searchWindows.getAudioBitRateEnd().equals("")) {
+            JOptionPane.showMessageDialog(null, "Invalid Format of AudiBitRate", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
     }
 
     /**
