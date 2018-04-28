@@ -48,6 +48,7 @@ import java.util.Scanner;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 
 /**
@@ -66,6 +67,8 @@ public class Search {
      * This is separator for manage paths.
      */
     private static final String SEPARATOR = System.getProperty("file.separator");
+
+    private static final String OS = System.getProperty("os.name").toLowerCase();
     /**
      * criteria  is a SearchCriteria object that receive criteria to find files.
      */
@@ -83,7 +86,7 @@ public class Search {
      * Search Class constructor.
      */
     public Search() {
-        assetList = new ArrayList<Asset>();
+        assetList = new ArrayList<>();
         assetFactory = new AssetFactory();
     }
 
@@ -91,8 +94,81 @@ public class Search {
      * @param path .
      * @return list all the files contained within the path.
      */
-    private List<Asset> searchByPath(String path) {
+    private void searchByPath(String path) {
         LOOGER.info("Entry to searchByPath Method");
+
+        try {
+
+
+            assetList = Files.walk(Paths.get(path))
+                    .map(p -> {
+                        Asset asset = null;
+                        File file = new File(p.toString());
+                        BasicFileAttributes fileBasicAttributes = null;
+                        boolean isReadOnly = false;
+                        boolean isFileSystem = false;
+                        FileOwnerAttributeView fileOwnerAttributeView = null;
+                        String extension = null;
+                        int i = file.getName().lastIndexOf('.');
+                        if (i > 0) {
+                            extension = file.getName().substring(i + 1);
+                        }
+                        try {
+                            fileBasicAttributes = Files.readAttributes(p, BasicFileAttributes.class);
+                            fileOwnerAttributeView = Files.getFileAttributeView(file.toPath(), FileOwnerAttributeView.class);
+                            isFileSystem = OS.contains("windows") ? Files.readAttributes(file.toPath(), DosFileAttributes.class).isSystem() : false;
+                            isReadOnly = OS.contains("windows") ? Files.readAttributes(file.toPath(), DosFileAttributes.class).isReadOnly() : false;
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        try {
+                            if (!file.isDirectory()) {
+
+                                // Creation FileResult
+                                asset = new AssetFactory().getAsset(file.getPath()
+                                        , file.getName()
+                                        , fileBasicAttributes.size()
+                                        , file.isHidden()
+                                        , fileBasicAttributes.lastModifiedTime()
+                                        , fileBasicAttributes.lastAccessTime()
+                                        , fileBasicAttributes.creationTime()
+                                        , isReadOnly
+                                        , isFileSystem
+                                        , fileBasicAttributes.isDirectory()
+                                        , fileOwnerAttributeView.getOwner().getName()
+                                        , extension
+                                        , "");
+                            } else {
+
+                                // Creation FolderResult
+                                asset = assetFactory.getAsset(file.getPath()
+                                        , file.getName()
+                                        , fileBasicAttributes.size()
+                                        , file.isHidden()
+                                        , fileBasicAttributes.lastModifiedTime()
+                                        , fileBasicAttributes.lastAccessTime()
+                                        , fileBasicAttributes.creationTime()
+                                        , isReadOnly
+                                        , isFileSystem
+                                        , fileBasicAttributes.isDirectory()
+                                        , fileOwnerAttributeView.getOwner().getName()
+                                        , 15);
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        return asset;
+                    })
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /*
+
+
         try {
             BasicFileAttributes fileBasicAttributes;
             File[] files = new File(path).listFiles();
@@ -191,7 +267,7 @@ public class Search {
                                 , audioDuration
                                 , audioBitRate
                                 , audioMaxBitRate
-                                , audioNbFrame);
+                                , audioNbFrame
                         assetList.add(asset);
 
                     } catch (java.io.IOException | java.lang.NullPointerException exception) {
@@ -233,9 +309,8 @@ public class Search {
         } catch (NullPointerException e) {
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
         LOOGER.info("Exit of searchByPath Method");
-        return assetList;
     }
 
 
@@ -271,6 +346,7 @@ public class Search {
      */
     private List<Asset> searchMultimediaByDuration(List<Asset> listFile, Double time, String operator) {
         LOOGER.info("Entry to searchMultimediaByDuration Method");
+
 
         List<Asset> listFilter = new ArrayList<>();
         for (Asset file : listFile) {
@@ -497,94 +573,169 @@ public class Search {
     private void filterByCriteria(SearchCriteria criteria) {
         LOOGER.info("Entry to filterByCriteria Method");
         if (criteria.getPath() != null) {
-            assetList = searchByPath(criteria.getPath());
-            System.out.println(1);
+            this.searchByPath(criteria.getPath());
             if (criteria.getName() != null) {
                 this.searchByName(criteria.getName(), criteria.getFileNameCriteria());
             }
-            System.out.println(2);
             if (criteria.getHiddenCriteria().equalsIgnoreCase("all files")) {
                 this.searchHiddenFiles("all files");
             }
-            System.out.println(3);
             if (criteria.getHiddenCriteria().equalsIgnoreCase("only hidden")) {
                 this.searchHiddenFiles("only hidden");
             }
-            System.out.println(4;
             if (criteria.getHiddenCriteria().equalsIgnoreCase("without hidden")) {
                 this.searchHiddenFiles("without hidden");
             }
-            System.out.println(5);
             if (criteria.getIsDirectory()) {
                 this.searchByDirectory();
             }
-            System.out.println(6);
             if (criteria.getIsFileSystem()) {
                 this.isFileSystem();
             }
-            System.out.println(7);
             if (criteria.getIsReadOnly()) {
                 this.isReadOnly();
             }
-            System.out.println(8);
             if (criteria.getExtension() != null) {
                 this.searchByExtension(criteria.getExtension());
             }
-            System.out.println(9);
             if (criteria.getSize() > -1) {
                 this.searchBySize(criteria.getSize(), criteria.getOperator());
             }
-            System.out.println(10);
             if (!criteria.getOwnerCriteria().isEmpty()) {
                 this.searchByOwner(criteria.getOwnerCriteria());
             }
-            System.out.println(11);
             if (criteria.getKeySensitiveOfCriteria()) {
                 this.searchKeySensitive(criteria.getName());
             }
-            System.out.println(12);
             if (criteria.getCreationDateInit() != null && criteria.getCreationDateEnd() != null) {
                 this.creationTime(criteria.getCreationDateInit(), criteria.getCreationDateEnd());
             }
-            System.out.println(13);
             if (criteria.getLastAccessDateInit() != null && criteria.getLastAccessDateEnd() != null) {
                 this.lastAccessTime(criteria.getLastAccessDateInit(), criteria.getLastAccessDateEnd());
             }
-            System.out.println(14);
             if (criteria.getModifiedDateInit() != null && criteria.getModifiedDateEnd() != null) {
                 this.lastModifiedTime(criteria.getModifiedDateInit(), criteria.getModifiedDateEnd());
             }
-            System.out.println(15);
             if (criteria.getIsContainsInsideFileCriteria()) {
                 assetList = searchIntoFile(assetList, criteria.getTextContainsInsideFileCriteria());
             }
-            System.out.println(16);
+
+            // Multimedia Files
+            if (criteria.isSearchMultimedia()) {
+                this.addMultimediaAttributes();
+            }
             if (criteria.getMultimediaDuration() > -1 && criteria.isSearchMultimedia()) {
                 assetList = searchMultimediaByDuration(assetList, criteria.getMultimediaDuration(), criteria.getMultimediaDurationOperator());
             }
-            System.out.println(17);
             if (!criteria.getMultimediaVideoCodec().isEmpty() && criteria.isSearchMultimedia()) {
                 assetList = searchMultimediaByVideoCodec(assetList, criteria.getMultimediaVideoCodec());
             }
-            System.out.println(18);
             if (!criteria.getMultimediaResolution().isEmpty() && criteria.isSearchMultimedia()) {
                 assetList = searchMultimediaByResolution(assetList, criteria.getMultimediaResolution());
             }
-            System.out.println(19);
             if (!criteria.getMultimediaType().isEmpty() && criteria.isSearchMultimedia()) {
                 assetList = searchMultimediaByType(assetList, criteria.getMultimediaType());
             }
-            System.out.println(20);
             if (!criteria.getFrameRateCriteria().isEmpty() && criteria.isSearchMultimedia()) {
                 assetList = searchMultimediaByFrameRate(assetList, criteria.getFrameRateCriteria());
             }
-            System.out.println(21);
             if (!criteria.getMultimediaAudioBitRateInit().isEmpty() && !criteria.getMultimediaAudioBitRateEnd().isEmpty() && criteria.isSearchMultimedia()) {
                 assetList = searchMultimediaByAudioBitRate(assetList, criteria.getMultimediaAudioBitRateInit(), criteria.getMultimediaAudioBitRateEnd());
             }
-            System.out.println(22);
         }
         LOOGER.info("Exit of filterByCriteria Method");
+    }
+
+    private void addMultimediaAttributes() {
+        // Obtains data for multimedia
+        List<Asset> assetResult = new ArrayList<>();
+
+        // Initialize library for multimedia
+        assetList.forEach(lookingForMultimedia -> {
+            try {
+                String ffprobePath;
+                FFmpegProbeResult probeResult;
+
+                FFprobe ffprobe;
+                if (OS.contains("windows")) {
+                    ffprobePath = new File(".").getCanonicalPath() + SEPARATOR + "resources" + SEPARATOR + "ffprobe.exe";
+
+                    } else {
+                    ffprobePath= new File(".").getCanonicalPath() + SEPARATOR + "resources" + SEPARATOR + "ffprobe";
+                    }
+
+                ffprobe = new FFprobe(ffprobePath);
+                probeResult = ffprobe.probe(lookingForMultimedia.getPathFile());
+
+                // Getting video information
+                FFmpegStream stream = probeResult.getStreams().get(0);
+                String codecName = stream.codec_name;
+                String codecLongName = stream.codec_long_name;
+                int width = stream.width;
+                int height = stream.height;
+                String displayAspect = stream.display_aspect_ratio;
+                Fraction rFrameRate = stream.r_frame_rate;
+                double startTime = stream.start_time;
+                double duration = stream.duration;
+                long bitRate = stream.bit_rate;
+                long nbFrames = stream.nb_frames;
+
+                // Getting audio information
+                stream = probeResult.getStreams().get(1);
+                String audioCodecName = stream.codec_name;
+                String audioCodecNameLong = stream.codec_long_name;
+                String audioCodecTag = stream.codec_tag;
+                int audioChannels = stream.channels;
+                String audioChannelsLayout = stream.channel_layout;
+                double audioStarTime = stream.start_time;
+                double audioDuration = stream.duration;
+                long audioBitRate = stream.bit_rate;
+                long audioMaxBitRate = stream.max_bit_rate;
+                long audioNbFrame = stream.nb_frames;
+
+                assetResult.add(assetFactory.getAsset(lookingForMultimedia.getPathFile()
+                        , lookingForMultimedia.getName()
+                        , lookingForMultimedia.getSizeFile()
+                        , lookingForMultimedia.getIsHidden()
+                        , lookingForMultimedia.getLastModifiedTime()
+                        , lookingForMultimedia.getLastAccessTime()
+                        , lookingForMultimedia.getCreationTime()
+                        , lookingForMultimedia.getIsReadOnlyFile()
+                        , lookingForMultimedia.getIsFileSystemFile()
+                        , lookingForMultimedia.getIsDirectory()
+                        , lookingForMultimedia.getOwnerFile()
+                        , codecName
+                        , lookingForMultimedia.getExtensionFile()
+                        , codecLongName
+                        , width
+                        , height
+                        , displayAspect
+                        , rFrameRate
+                        , startTime
+                        , duration
+                        , bitRate
+                        , nbFrames
+                        , audioCodecName
+                        , audioCodecNameLong
+                        , audioCodecTag
+                        , audioChannels
+                        , audioChannelsLayout
+                        , audioStarTime
+                        , audioDuration
+                        , audioBitRate
+                        , audioMaxBitRate
+                        , audioNbFrame));
+
+            }  catch (java.io.IOException | java.lang.NullPointerException exception) {
+
+            }
+            catch (java.lang.IndexOutOfBoundsException ex){
+
+            }
+
+
+        });
+        assetList =  assetResult;
     }
 
     private List<Asset> searchMultimediaByAudioBitRate(List<Asset> assetList, String bitRateInit, String bitRateEnd) {
@@ -671,16 +822,20 @@ public class Search {
         for (Asset file : assetList) {
             if (file instanceof MultimediaResult) {
                 MultimediaResult multimediaResult = (MultimediaResult) file;
+                if(!"All".equalsIgnoreCase(multimediaREsolution.get(0))){
                 multimediaREsolution.forEach(e -> {
-                    if (e.equalsIgnoreCase(multimediaResult.getDisplayAspect() + " " + multimediaResult.getWidth() + "x" + multimediaResult.getHeight())) {
+                    if (e.equalsIgnoreCase(multimediaResult.getDisplayAspect() + " " + multimediaResult.getWidth() + "x" + multimediaResult.getHeight()) ) {
                         listFilter.add(multimediaResult);
                     }
 
                 });
+                return listFilter;
+                }
+
             }
         }
         LOOGER.info("Exit of searchMultimediaByResolution Method");
-        return listFilter;
+        return assetList;
     }
 
     /**
