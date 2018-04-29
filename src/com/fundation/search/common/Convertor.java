@@ -59,7 +59,7 @@ public class Convertor {
      * @return the size of the file with its unit.
      */
     public String convertSizeUnit(long size, String unit) {
-        StringBuilder buildResult = new StringBuilder(" ");
+        StringBuilder buildResult = new StringBuilder();
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         if (unit.equalsIgnoreCase("Bytes")) {
             return buildResult.append(String.valueOf(decimalFormat.format(size))).append(unit).toString();
@@ -82,7 +82,7 @@ public class Convertor {
      * @return The duration converted.
      */
     public String convertTimeUnit(double time, String unitTime) {
-        StringBuilder buildResult = new StringBuilder(" ");
+        StringBuilder buildResult = new StringBuilder();
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         if (unitTime.equalsIgnoreCase("second")) {
             return buildResult.append(String.valueOf(decimalFormat.format(time))).append(unitTime).toString();
