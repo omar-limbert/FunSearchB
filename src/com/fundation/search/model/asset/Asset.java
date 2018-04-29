@@ -180,4 +180,8 @@ public class Asset {
     public String getExtensionFile() {
         return getExtensionFile();
     }
+
+    public int getFilesQuantity() {
+        return getFilesQuantity();
+    }
 }
