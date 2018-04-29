@@ -34,6 +34,10 @@ public class SearchLogger {
      * logger, Type: Logger, this is Logger of java.
      */
     private Logger logger;
+    /**
+     * SYSTEM_SEPARATOR, String: This system separator to make portable on Windows, Linux, OSX.
+     */
+    private final static String SYSTEM_SEPARATOR = System.getProperty("file.separator");
 
     /**
      * Private Constructor for Singleton Pattern.
@@ -41,10 +45,12 @@ public class SearchLogger {
     private SearchLogger() {
         // Logger
         logger = Logger.getLogger(SearchLogger.class.getName());
-
         try {
             LogManager.getLogManager().readConfiguration(
-                    new FileInputStream(".\\config\\logging.properties"));
+                    new FileInputStream(System.getProperty("user.dir")
+                            + SYSTEM_SEPARATOR
+                            + "config"
+                            + SYSTEM_SEPARATOR + "logging.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }
