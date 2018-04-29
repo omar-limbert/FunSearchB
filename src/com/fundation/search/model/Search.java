@@ -119,6 +119,7 @@ public class Search {
                             isFileSystem = OS.contains("windows") ? Files.readAttributes(file.toPath(), DosFileAttributes.class).isSystem() : false;
                             isReadOnly = OS.contains("windows") ? Files.readAttributes(file.toPath(), DosFileAttributes.class).isReadOnly() : false;
 
+
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -154,7 +155,7 @@ public class Search {
                                         , isFileSystem
                                         , fileBasicAttributes.isDirectory()
                                         , fileOwnerAttributeView.getOwner().getName()
-                                        , 15);
+                                        , file.list().length);
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -660,9 +661,9 @@ public class Search {
                 if (OS.contains("windows")) {
                     ffprobePath = new File(".").getCanonicalPath() + SEPARATOR + "resources" + SEPARATOR + "ffprobe.exe";
 
-                    } else {
-                    ffprobePath= new File(".").getCanonicalPath() + SEPARATOR + "resources" + SEPARATOR + "ffprobe";
-                    }
+                } else {
+                    ffprobePath = new File(".").getCanonicalPath() + SEPARATOR + "resources" + SEPARATOR + "ffprobe";
+                }
 
                 ffprobe = new FFprobe(ffprobePath);
                 probeResult = ffprobe.probe(lookingForMultimedia.getPathFile());
@@ -726,16 +727,15 @@ public class Search {
                         , audioMaxBitRate
                         , audioNbFrame));
 
-            }  catch (java.io.IOException | java.lang.NullPointerException exception) {
+            } catch (java.io.IOException | java.lang.NullPointerException exception) {
 
-            }
-            catch (java.lang.IndexOutOfBoundsException ex){
+            } catch (java.lang.IndexOutOfBoundsException ex) {
 
             }
 
 
         });
-        assetList =  assetResult;
+        assetList = assetResult;
     }
 
     private List<Asset> searchMultimediaByAudioBitRate(List<Asset> assetList, String bitRateInit, String bitRateEnd) {
@@ -822,14 +822,14 @@ public class Search {
         for (Asset file : assetList) {
             if (file instanceof MultimediaResult) {
                 MultimediaResult multimediaResult = (MultimediaResult) file;
-                if(!"All".equalsIgnoreCase(multimediaREsolution.get(0))){
-                multimediaREsolution.forEach(e -> {
-                    if (e.equalsIgnoreCase(multimediaResult.getDisplayAspect() + " " + multimediaResult.getWidth() + "x" + multimediaResult.getHeight()) ) {
-                        listFilter.add(multimediaResult);
-                    }
+                if (!"All".equalsIgnoreCase(multimediaREsolution.get(0))) {
+                    multimediaREsolution.forEach(e -> {
+                        if (e.equalsIgnoreCase(multimediaResult.getDisplayAspect() + " " + multimediaResult.getWidth() + "x" + multimediaResult.getHeight())) {
+                            listFilter.add(multimediaResult);
+                        }
 
-                });
-                return listFilter;
+                    });
+                    return listFilter;
                 }
 
             }
