@@ -119,13 +119,13 @@ public class Convertor {
     public long convertToBytes(double size, String typeOfSize) {
         LOOGER.info("convertToBytes Entry");
         if (typeOfSize.equalsIgnoreCase("Gb")) {
-            return Math.round(size * 1024 * 1024 * 1024);
+            return Math.round(size * 1000 * 1000 * 1000);
         }
         if (typeOfSize.equalsIgnoreCase("Mb")) {
-            return Math.round(size * 1024 * 1024);
+            return Math.round(size * 1000 * 1000);
         }
         if (typeOfSize.equalsIgnoreCase("Kb")) {
-            return Math.round(size * 1024);
+            return Math.round(size * 1000);
         }
         if (typeOfSize.equalsIgnoreCase("Bytes")) {
             return Math.round(size);
