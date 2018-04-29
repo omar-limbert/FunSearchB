@@ -16,6 +16,7 @@ package com.fundation.search.common;
 
 import java.nio.file.attribute.FileTime;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -49,6 +50,50 @@ public class Convertor {
         }
         LOOGER.info("convertDateToFileDate Exit");
         return result;
+    }
+
+
+    /**
+     * @param size long size on bytes of a file.
+     * @param unit If is Bytes, Kb, Mb, Gb.
+     * @return the size of the file with its unit.
+     */
+    public String convertSizeUnit(long size, String unit) {
+        StringBuilder buildResult = new StringBuilder(" ");
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        if (unit.equalsIgnoreCase("Bytes")) {
+            return buildResult.append(String.valueOf(decimalFormat.format(size))).append(unit).toString();
+        }
+        if (unit.equalsIgnoreCase("Kb")) {
+            return buildResult.append(String.valueOf(decimalFormat.format(size / 1024.0))).append(unit).toString();
+        }
+        if (unit.equalsIgnoreCase("Mb")) {
+            return buildResult.append(String.valueOf(decimalFormat.format((size / 1024.0) / 1024))).append(unit).toString();
+        }
+        if (unit.equalsIgnoreCase("Gb")) {
+            return buildResult.append(String.valueOf(decimalFormat.format(((size / 1024) / 1024.0) / 1024.0))).append(unit).toString();
+        }
+        return String.valueOf(size);
+    }
+
+    /**
+     * @param time     on seconds of a multimedia file.
+     * @param unitTime the unit second, minute, hour.
+     * @return The duration converted.
+     */
+    public String convertTimeUnit(double time, String unitTime) {
+        StringBuilder buildResult = new StringBuilder(" ");
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        if (unitTime.equalsIgnoreCase("second")) {
+            return buildResult.append(String.valueOf(decimalFormat.format(time))).append(unitTime).toString();
+        }
+        if (unitTime.equalsIgnoreCase("minute")) {
+            return buildResult.append(String.valueOf(decimalFormat.format(time / 60.0))).append(unitTime).toString();
+        }
+        if (unitTime.equalsIgnoreCase("hour")) {
+            return buildResult.append(String.valueOf(decimalFormat.format(time / 3600.0))).append(unitTime).toString();
+        }
+        return String.valueOf(time);
     }
 
     /**
