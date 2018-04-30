@@ -98,7 +98,7 @@ public class HiddenPanel extends JPanel {
         this.add(onlyHiddenRadioButton);
         this.add(withoutHiddenRadioButton);
         // Default radioButton selected.
-        this.withoutHiddenRadioButton.setSelected(true);
+        this.allFilesRadioButton.setSelected(true);
         LOOGER.info("add exit");
     }
 
