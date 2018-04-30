@@ -86,18 +86,18 @@ public class CommandCriteria {
      */
     public CommandCriteria(Map<String, String> map) {
         LOOGER.info("Constructor Command Criteria entry");
-        path = map.containsKey("-p") ? map.get("-p") : "";
-        fileName = map.containsKey("-f") ? map.get("-f") : "";
-        isHidden = map.containsKey("-h") ? map.get("-h") : "";
-        owner = map.containsKey("-o") ? map.get("-o") : "";
-        size = map.containsKey("-s") ? map.get("-s") : "";
-        criteriaFileName = map.containsKey("-cf") ? map.get("-cf") : "";
-        dateCreation = map.containsKey("-dc") ? map.get("-dc") : "";
-        dateModified = map.containsKey("-dm") ? map.get("-dm") : "";
-        dateLastAccess = map.containsKey("-dl") ? map.get("-dl") : "";
-        readOnly = map.containsKey("-ro") ? map.get("-ro") : "";
-        isDirectory = map.containsKey("-d") ? map.get("-d") : "";
-        extension = map.containsKey("-ex") ? map.get("-ex") : "";
+        path = map.containsKey("-p") ? map.get("-p").trim() : "";
+        fileName = map.containsKey("-f") ? map.get("-f").trim() : "";
+        isHidden = map.containsKey("-h") ? map.get("-h").trim() : "";
+        owner = map.containsKey("-o") ? map.get("-o").trim() : "";
+        size = map.containsKey("-s") ? map.get("-s").trim() : "";
+        criteriaFileName = map.containsKey("-cf") ? map.get("-cf").trim() : "";
+        dateCreation = map.containsKey("-dc") ? map.get("-dc").trim() : "";
+        dateModified = map.containsKey("-dm") ? map.get("-dm").trim() : "";
+        dateLastAccess = map.containsKey("-dl") ? map.get("-dl").trim() : "";
+        readOnly = map.containsKey("-ro") ? map.get("-ro").trim() : "";
+        isDirectory = map.containsKey("-d") ? map.get("-d").trim() : "";
+        extension = map.containsKey("-ex") ? map.get("-ex").trim() : "";
         LOOGER.info("Constructor Command Criteria exit");
     }
 

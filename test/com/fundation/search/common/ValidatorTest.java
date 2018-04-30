@@ -12,15 +12,13 @@
  * with Sun.
  */
 
-package com.fundation.search.controller;
+package com.fundation.search.common;
 
-import com.fundation.search.common.Validator;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -46,14 +44,14 @@ public class ValidatorTest {
     /**
      * This is separator for manage paths.
      */
-    private static final String SEPARATOR=System.getProperty("file.separator");
+    private static final String SEPARATOR = System.getProperty("file.separator");
 
     /**
      * Init the object validator.
      */
     @Before
     public void init() {
-        validator=new Validator();
+        validator = new Validator();
     }
 
     /**
@@ -62,6 +60,7 @@ public class ValidatorTest {
      */
     @Test
     public void testValidPaths() throws IOException {
+
         assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "config"));
         assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "resources"));
         assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "src"));
@@ -81,8 +80,6 @@ public class ValidatorTest {
         assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "model"));
         assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "view"));
         assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "FilesTest" + SEPARATOR + "test1" + SEPARATOR + "docs"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "FilesTest" + SEPARATOR + "test2"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "FilesTest" + SEPARATOR + "test3"));
         assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "FilesTest" + SEPARATOR + "test1"));
         assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "FilesTest"));
         assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "view" + SEPARATOR + "command"));
@@ -99,6 +96,7 @@ public class ValidatorTest {
      */
     @Test
     public void testInvalidPaths() {
+
         assertFalse(validator.isValidPath("F:" + SEPARATOR + "confg"));
         assertFalse(validator.isValidPath("Z:" + SEPARATOR + "1" + SEPARATOR + "Ariel"));
         assertFalse(validator.isValidPath("" + SEPARATOR + "Usser"));
@@ -133,54 +131,7 @@ public class ValidatorTest {
         assertTrue(validator.isValidPath("C:" + SEPARATOR + "Users" + SEPARATOR + "Public" + SEPARATOR + "Documents"));
         assertTrue(validator.isValidPath("C:" + SEPARATOR + "Program Files (x86)" + SEPARATOR + "Internet Explorer"));
         assertTrue(validator.isValidPath("C:" + SEPARATOR + "Program Files (x86)" + SEPARATOR + "Windows Media Player"));
-        assertTrue(validator.isValidPath("C:" + SEPARATOR + "Program Files (x86)" + SEPARATOR + "WindowsPowerShell"));
-
-
     }
-
-
-    /**
-     * It checks a  valid path
-     * In this test you need a valid path.
-     * that exist on the PC.
-     */
-    @Test
-    public void testIsValidPath() throws IOException {
-
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "src" + SEPARATOR + "com"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "src" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "src" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "view" + SEPARATOR + "command"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "src" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "view" + SEPARATOR + "CriteriaPanels"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "FilesTest" + SEPARATOR + "test2"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "FilesTest" + SEPARATOR + "test3"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "src" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "view" + SEPARATOR + "MainWindow"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "common"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "controller"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "model"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "view"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "src" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "model" + SEPARATOR + "asset"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "src" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "model" + SEPARATOR + "database"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "src" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "controller"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "src" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "controller" + SEPARATOR + "builder"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "resources" + SEPARATOR + "Icons"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "config"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "resources"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "src"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "FilesTest" + SEPARATOR + "test1" + SEPARATOR + "docs"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "src" + SEPARATOR + "com"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "FilesTest" + SEPARATOR + "test1"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "FilesTest"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "view" + SEPARATOR + "command"));
-
-
-    }
-
 
     /**
      * Check the valid format for validatorFile.
@@ -198,7 +149,6 @@ public class ValidatorTest {
         assertTrue(validator.isValidFile("_package"));
         assertTrue(validator.isValidFile("test"));
         assertTrue(validator.isValidFile("src"));
-
     }
 
     /**
@@ -223,6 +173,7 @@ public class ValidatorTest {
      */
     @Test
     public void testValidTypes() {
+
         assertTrue(validator.isValidFileExtension(".doc"));
         assertTrue(validator.isValidFileExtension(".exe"));
         assertTrue(validator.isValidFileExtension(".pack"));
@@ -241,6 +192,7 @@ public class ValidatorTest {
      */
     @Test
     public void testInvalidTypes() {
+
         assertFalse(validator.isValidFileExtension("doc."));
         assertFalse(validator.isValidFileExtension("exe"));
         assertFalse(validator.isValidFileExtension(".treepack"));
@@ -264,7 +216,6 @@ public class ValidatorTest {
         assertFalse(validator.isValidFileExtension("dmg"));
         assertFalse(validator.isValidFileExtension("wav"));
         assertFalse(validator.isValidFileExtension("flv."));
-
     }
 
     /**
@@ -273,12 +224,12 @@ public class ValidatorTest {
      */
     @Test
     public void testValidatorSize() {
+
         assertTrue(validator.isValidSize("6565465465654654"));
         assertTrue(validator.isValidSize("3.071970"));
         assertTrue(validator.isValidSize("25.2"));
         assertTrue(validator.isValidSize("158.3"));
         assertTrue(validator.isValidSize("25874"));
-
     }
 
     /**
@@ -287,6 +238,7 @@ public class ValidatorTest {
      */
     @Test
     public void testInvalidSize() {
+
         assertFalse(validator.isValidSize("656holas65465654654"));
         assertFalse(validator.isValidSize("3*071970"));
         assertFalse(validator.isValidSize("25..2"));
@@ -303,7 +255,6 @@ public class ValidatorTest {
         assertFalse(validator.isValidSize("45!6"));
         assertFalse(validator.isValidSize("´<>"));
         assertFalse(validator.isValidSize("\\"));
-
     }
 
     /**
@@ -312,14 +263,13 @@ public class ValidatorTest {
      */
     @Test
     public void testValidatorDate() {
+
         assertTrue(validator.isValidDate("21/03/1995"));
         assertTrue(validator.isValidDate("12/2/1994"));
         assertTrue(validator.isValidDate("25/12/95"));
         assertTrue(validator.isValidDate("1/1/2000"));
         assertTrue(validator.isValidDate("16/Mar/99"));
         assertTrue(validator.isValidDate("18/8/10"));
-
-
     }
 
     /**
@@ -328,6 +278,7 @@ public class ValidatorTest {
      */
     @Test
     public void testInvalidatorDate() {
+
         assertFalse(validator.isValidDate(""));
         assertFalse(validator.isValidDate("☻"));
         assertFalse(validator.isValidDate("656holas65465654654"));
@@ -360,11 +311,11 @@ public class ValidatorTest {
      */
     @Test
     public void testValidatorIsTrueFalse() {
+
         assertTrue(validator.isTrueFalse("true"));
         assertTrue(validator.isTrueFalse("false"));
-        assertTrue(validator.isTrueFalse("True"));
-        assertTrue(validator.isTrueFalse("False"));
-
+        assertTrue(validator.isTrueFalse("TRUE"));
+        assertTrue(validator.isTrueFalse("FALSE"));
     }
 
     /**
@@ -373,6 +324,7 @@ public class ValidatorTest {
      */
     @Test
     public void testInvalidatorIsTrueFalse() {
+
         assertFalse(validator.isTrueFalse("troe"));
         assertFalse(validator.isTrueFalse("fail"));
         assertFalse(validator.isTrueFalse(""));
@@ -383,24 +335,97 @@ public class ValidatorTest {
         assertFalse(validator.isTrueFalse("*-"));
         assertFalse(validator.isTrueFalse(" "));
         assertFalse(validator.isTrueFalse("♀☺"));
-
     }
 
+    /**
+     * This test check the valid size structure.
+     * It must to be a boolean.
+     */
     @Test
-    public void testValidateCommandSize(){
-        assertTrue(validator.validateCommandSize((Pattern.compile("Major to: 9 mb")).toString()));
-        assertTrue(validator.validateCommandSize((Pattern.compile("Major to: 100 bytes")).toString()));
-        assertTrue(validator.validateCommandSize((Pattern.compile("Major to: 93 kb")).toString()));
-        assertTrue(validator.validateCommandSize((Pattern.compile("Major to: 2 gb")).toString()));
-        assertTrue(validator.validateCommandSize((Pattern.compile("Minor to: 90 mb")).toString()));
-        assertTrue(validator.validateCommandSize((Pattern.compile("Minor to: 106 kb")).toString()));
-        assertTrue(validator.validateCommandSize((Pattern.compile("Minor to: 9623 bytes")).toString()));
-        assertTrue(validator.validateCommandSize((Pattern.compile("Minor to: 6 gb")).toString()));
-        assertTrue(validator.validateCommandSize((Pattern.compile("Equal to: 5 mb")).toString()));
-        assertTrue(validator.validateCommandSize((Pattern.compile("Equal to: 573 kb")).toString()));
-        assertTrue(validator.validateCommandSize((Pattern.compile("Equal to: 95632 bytes")).toString()));
-        assertTrue(validator.validateCommandSize((Pattern.compile("Equal to: 1 gb")).toString()));
+    public void testValidateCommandSize() {
+
+        assertTrue(validator.validateCommandSize("Minor TO: 90 MB"));
+        assertTrue(validator.validateCommandSize("Minor to: 111 GB"));
+        assertTrue(validator.validateCommandSize("Minor to: 90BYTES"));
+        assertTrue(validator.validateCommandSize("Minor to: 1KB"));
+        assertTrue(validator.validateCommandSize("Major to: 9mb"));
+        assertTrue(validator.validateCommandSize("MAJOR TO: 0 Gb"));
+        assertTrue(validator.validateCommandSize("Major to: 9 BYTES"));
+        assertTrue(validator.validateCommandSize("Major To: 9 kb"));
+        assertTrue(validator.validateCommandSize("EQUAL to: 5 mb"));
+        assertTrue(validator.validateCommandSize("EQUAL TO: 988GB"));
+        assertTrue(validator.validateCommandSize("Equal to: 13 byteS"));
+        assertTrue(validator.validateCommandSize("Equal to: 1000 KB"));
     }
 
+    /**
+     * This test check the invalid size structure.
+     * It must to be a boolean.
+     */
+    @Test
+    public void testValidateCommandSizeInvalid() {
+
+        assertFalse(validator.validateCommandSize(""));
+        assertFalse(validator.validateCommandSize("MinorTO: 90 MB"));
+        assertFalse(validator.validateCommandSize("Minorto:111GB"));
+        assertFalse(validator.validateCommandSize("8756fjhfn"));
+        assertFalse(validator.validateCommandSize("MB"));
+        assertFalse(validator.validateCommandSize("♀☺"));
+        assertFalse(validator.validateCommandSize("////./"));
+        assertFalse(validator.validateCommandSize("      "));
+    }
+
+    /**
+     * This test check the valid is option hidden.
+     * It must to be a String.
+     */
+    @Test
+    public void testIsOptionHiddenValid() {
+        assertTrue(validator.isOptionHidden("only hidden"));
+        assertTrue(validator.isOptionHidden("without hidden"));
+        assertTrue(validator.isOptionHidden("ONLY HIDDEN"));
+        assertTrue(validator.isOptionHidden("WITHOUT hidden"));
+        assertTrue(validator.isOptionHidden("onLy HIDDeN"));
+        assertTrue(validator.isOptionHidden("WITHouT HiddeN"));
+    }
+
+    /**
+     * This test check the invalid is option hidden.
+     * It must to be a String.
+     */
+    @Test
+    public void testIsOptionHiddenInvalid() {
+        assertFalse(validator.isOptionHidden("ONLY  "));
+        assertFalse(validator.isOptionHidden("1234556"));
+        assertFalse(validator.isOptionHidden(" ONLI HIDDEN  "));
+        assertFalse(validator.isOptionHidden(""));
+    }
+
+    /**
+     * This test check the valid isOptionCriteriaFileName.
+     * It must to be String.
+     */
+    @Test
+    public void testIsOptionCriteriaFileNameValid() {
+        assertTrue(validator.isOptionCriteriaFileName("start with"));
+        assertTrue(validator.isOptionCriteriaFileName("end with"));
+        assertTrue(validator.isOptionCriteriaFileName("equal to"));
+        assertTrue(validator.isOptionCriteriaFileName("START WITH"));
+        assertTrue(validator.isOptionCriteriaFileName("END with"));
+        assertTrue(validator.isOptionCriteriaFileName("eqUal TO"));
+    }
+
+    /**
+     * This test check the invalid isOptionCriteriaFileName.
+     * It must to be String.
+     */
+    @Test
+    public void testIsOptionCriteriaFileNameInvalid() {
+        assertFalse(validator.isOptionCriteriaFileName("END  WITH "));
+        assertFalse(validator.isOptionCriteriaFileName("START "));
+        assertFalse(validator.isOptionCriteriaFileName(""));
+        assertFalse(validator.isOptionCriteriaFileName("1233425"));
+        assertFalse(validator.isOptionCriteriaFileName("..'¿'0¿9"));
+    }
 
 }
