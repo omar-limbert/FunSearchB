@@ -16,6 +16,7 @@
 package com.fundation.search.common;
 
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -46,30 +47,19 @@ public class Validator {
     /**
      * It method checks if the input is a valid Path format.
      *
-     * @param path Path
-     * @return boolean
-     */
-    public boolean validatorPath(String path) {
-        LOOGER.info("ValidatorPath : " + path);
-        Pattern patternFormat = Pattern.compile("(^[A-Z]:)?((\\\\)\\w+((\\s|\\.)\\w+)*)+");
-        Matcher matcher = patternFormat.matcher(path);
-        LOOGER.info("Exit Validator");
-        return matcher.matches() && Files.exists(Paths.get(path));
-    }
-
-    /**
-     * It method checks if the input is a valid Path format.
-     *
      * @param path a String Path
      * @return true if it is a valid format for a path.
      */
     public boolean isValidPath(String path) {
-
         LOOGER.info("Validate Path: " + path);
-        LOOGER.info("Exit Validator");
-        if (!path.isEmpty()) {
-            return Files.exists(Paths.get(path));
+        try {
+            if (!path.isEmpty()) {
+                return Files.exists(Paths.get(path));
+            }
+        } catch (InvalidPathException e) {
+            return false;
         }
+        LOOGER.info("Exit Validator");
         return false;
     }
 

@@ -354,7 +354,7 @@ public class ControlCriteria {
      * @return Return true if all the inputs have the rith format.
      */
     private boolean validateInputsGUI() {
-        if (!validateInputs.validatorPath(searchWindows.getPathOfCriteria()) && !validateInputs.isValidPath(searchWindows.getPathOfCriteria())) {
+        if (!validateInputs.isValidPath(searchWindows.getPathOfCriteria()) && !validateInputs.isValidPath(searchWindows.getPathOfCriteria())) {
             JOptionPane.showMessageDialog(null, "Invalid Format Path", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
