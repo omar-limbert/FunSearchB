@@ -440,6 +440,12 @@ public class ControlCriteria {
     private void getResults(SearchCriteria searchCriteria) {
         LOOGER.info("Get Result Entry");
 
+        // Files counter
+        final int[] filesCounter = {0};
+
+        // Folder counter
+        final int[] folderCounter = {0};
+
         // Sending SearchCriteria to MODEL
         search.setSearchCriteria(searchCriteria);
 
@@ -447,7 +453,17 @@ public class ControlCriteria {
         search.initSearch();
 
         // Adding row to Table of Result
-        search.getResultList().forEach(e -> searchWindows.insertDataOfJTableResult(this.getDataFromAsset(e)));
+        search.getResultList().forEach(e -> {
+            if(!(e instanceof FolderResult)){
+                filesCounter[0] ++;
+            }
+            else{
+                folderCounter[0] ++;
+            }
+            searchWindows.insertDataOfJTableResult(this.getDataFromAsset(e));
+        });
+
+        searchWindows.setResultProcessTextField(filesCounter[0]+" File(s), "+folderCounter[0]+" Directory(ies)");
         LOOGER.info("Get Result Exit");
     }
 
@@ -488,14 +504,14 @@ public class ControlCriteria {
         if (file instanceof FileResult || file instanceof MultimediaResult) {
             dataFromAsset[6] = file.getExtensionFile();
         }
+        else{
+            dataFromAsset[6] = file.getFilesQuantity()+" File(s)";
+        }
         dataFromAsset[7] = converter.convertSizeUnit(file.getSizeFile(),searchWindows.getSizeOfCriteria()[2]);
         dataFromAsset[8] = file.getOwnerFile();
         dataFromAsset[9] = converter.convertFileDateToDate(file.getCreationTime());
         dataFromAsset[10] = converter.convertFileDateToDate(file.getLastModifiedTime());
         dataFromAsset[11] = converter.convertFileDateToDate(file.getLastAccessTime());
-        if (file.getIsDirectory()) {
-            dataFromAsset[12] = file.getFilesQuantity();
-        }
     }
 
     private void multimediaToTableResult(Object[] dataFromAsset, Asset file) {
@@ -512,6 +528,6 @@ public class ControlCriteria {
         dataFromAsset[8] = multimediaResult.getAudioBitRate();
         dataFromAsset[9] = multimediaResult.getAudioChannels();
         dataFromAsset[10] = multimediaResult.getPathFile();
-        dataFromAsset[11] = multimediaResult.getLastModifiedTime();
+        dataFromAsset[11] = converter.convertSizeUnit( multimediaResult.getSizeFile(),searchWindows.getSizeOfCriteria()[2]);
     }
 }

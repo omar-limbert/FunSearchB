@@ -17,8 +17,11 @@ import com.fundation.search.common.SearchLogger;
 import com.fundation.search.model.asset.Asset;
 import com.fundation.search.model.asset.FileResult;
 import com.fundation.search.model.asset.MultimediaResult;
+import com.fundation.search.view.SearchTextField;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner.ListEditor;
 import javax.swing.JTable;
 import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
@@ -26,6 +29,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.util.logging.Logger;
 
 /**
@@ -39,14 +44,26 @@ public class CenterPanel extends JPanel {
      * Init logger  in Center Panel
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
+
     /**
      * resultsOfCriteria, Type: JTable, this table is for show results.
      */
     private JTable resultsOfCriteria; //maybe you need convert this to new extend class.
+
     /**
      * modelOfJTableResult, Type: DefaultTableModel, this is a file chooser for get path of directory.
      */
     private DefaultTableModel modelOfJTableResult;
+
+    /**
+     * resultProcessJLable, Type: JLabel, this is label to process.
+     */
+    private JLabel resultProcessJLabel;
+
+    /**
+     * resultProcessTextField, Type: SearchTextField, this is textField to process.
+     */
+    private SearchTextField resultProcessTextField;
 
     /**
      * modelOfTableHeader, Type:JTableHeader, is the Header of the table.
@@ -70,8 +87,12 @@ public class CenterPanel extends JPanel {
      */
     private void addComponents() {
         LOOGER.info("Get add");
+        JPanel resultProcess = new JPanel();
+        resultProcess.add(resultProcessJLabel);
+        resultProcess.add(resultProcessTextField);
+        this.add(resultProcess, BorderLayout.NORTH);
         this.add(resultsOfCriteria, BorderLayout.CENTER);
-        this.add(header, BorderLayout.NORTH);
+        this.add(header, BorderLayout.CENTER);
         this.add(new JScrollPane(resultsOfCriteria));
         LOOGER.info("add exit");
 
@@ -82,15 +103,31 @@ public class CenterPanel extends JPanel {
      */
     private void initComponents() {
         LOOGER.info("Get init");
-        String columnNames[] = {"Name", "Path", "Hidden", "Read only", "File System", "Directory", "Type", "Size", "Owner", "Date Created", "Last Modified", "Last Access", "Files Number"};
-        String rowData[][] = {{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}};
-        resultsOfCriteria = new JTable();
-        modelOfJTableResult = new DefaultTableModel(rowData, columnNames);
-        resultsOfCriteria.setModel(modelOfJTableResult);
-        resultsOfCriteria.setAutoCreateRowSorter(true);
-        header = resultsOfCriteria.getTableHeader();
+        String columnNames[] = {"Name", "Path", "Hidden", "Read only", "File System", "Directory", "Type", "Size", "Owner", "Date Created", "Last Modified", "Last Access"};
+        String rowData[][] = {{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}};
+        this.resultProcessJLabel = new JLabel("Files Matched :");
+        this.resultProcessTextField = new SearchTextField("Results Found");
+        this.resultProcessTextField.setPreferredSize(new Dimension(250, 32));
+        this.resultProcessTextField.setEditable(false);
+        this.resultProcessTextField.setEnabled(false);
+        this.resultProcessTextField.setPlaceHolderColor(Color.RED);
+        this.resultsOfCriteria = new JTable();
+        this.modelOfJTableResult = new DefaultTableModel(rowData, columnNames);
+        this.resultsOfCriteria.setModel(modelOfJTableResult);
+        this.resultsOfCriteria.setAutoCreateRowSorter(true);
+        this.header = resultsOfCriteria.getTableHeader();
+        this.repaint();
         LOOGER.info("init exit");
 
+    }
+
+    /**
+     * This method is to set result process.
+     *
+     * @param resultProcessTextField this is text to result process.
+     */
+    public void setResultProcessTextField(String resultProcessTextField) {
+        this.resultProcessTextField.setText(resultProcessTextField);
     }
 
     /**
@@ -142,13 +179,14 @@ public class CenterPanel extends JPanel {
         header.getColumnModel().getColumn(3).setHeaderValue("Read Only");
         header.getColumnModel().getColumn(4).setHeaderValue("File System");
         header.getColumnModel().getColumn(5).setHeaderValue("Directory");
-        header.getColumnModel().getColumn(6).setHeaderValue("Type");
+        header.getColumnModel().getColumn(6).setHeaderValue("Type/Files");
         header.getColumnModel().getColumn(7).setHeaderValue("Size");
         header.getColumnModel().getColumn(8).setHeaderValue("Owner");
         header.getColumnModel().getColumn(9).setHeaderValue("Date Created");
         header.getColumnModel().getColumn(10).setHeaderValue("Last Modified");
         header.getColumnModel().getColumn(11).setHeaderValue("Last Access");
-        header.getColumnModel().getColumn(12).setHeaderValue("Files Number");
+        this.revalidate();
+        this.repaint();
     }
 
     /**
@@ -169,7 +207,9 @@ public class CenterPanel extends JPanel {
         header.getColumnModel().getColumn(8).setHeaderValue("Audio Bit Rate");
         header.getColumnModel().getColumn(9).setHeaderValue("Channels");
         header.getColumnModel().getColumn(10).setHeaderValue("Path");
-        header.getColumnModel().getColumn(11).setHeaderValue("Path");
+        header.getColumnModel().getColumn(11).setHeaderValue("Size");
+        this.revalidate();
+        this.repaint();
 
 
     }
