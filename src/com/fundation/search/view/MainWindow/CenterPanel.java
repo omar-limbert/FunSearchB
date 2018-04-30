@@ -82,8 +82,8 @@ public class CenterPanel extends JPanel {
      */
     private void initComponents() {
         LOOGER.info("Get init");
-        String columnNames[] = {"Name", "Path", "Hidden", "Read only", "File System", "Directory", "Type", "Size", "Owner", "Date Created", "Last Modified", "Last Access"};
-        String rowData[][] = {{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}};
+        String columnNames[] = {"Name", "Path", "Hidden", "Read only", "File System", "Directory", "Type", "Size", "Owner", "Date Created", "Last Modified", "Last Access", "Files Number"};
+        String rowData[][] = {{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}};
         resultsOfCriteria = new JTable();
         modelOfJTableResult = new DefaultTableModel(rowData, columnNames);
         resultsOfCriteria.setModel(modelOfJTableResult);
@@ -148,6 +148,7 @@ public class CenterPanel extends JPanel {
         header.getColumnModel().getColumn(9).setHeaderValue("Date Created");
         header.getColumnModel().getColumn(10).setHeaderValue("Last Modified");
         header.getColumnModel().getColumn(11).setHeaderValue("Last Access");
+        header.getColumnModel().getColumn(12).setHeaderValue("Files Number");
     }
 
     /**

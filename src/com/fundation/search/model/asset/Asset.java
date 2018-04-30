@@ -177,7 +177,17 @@ public class Asset {
         return ownerFile;
     }
 
+    /**
+     * This method return the extension on a file.
+     */
     public String getExtensionFile() {
         return getExtensionFile();
+    }
+
+    /**
+     * This method return the file quantity on a directory.
+     */
+    public int getFilesQuantity(){
+        return getFilesQuantity();
     }
 }

@@ -453,6 +453,9 @@ public class ControlCriteria {
         dataFromAsset[9] = converter.convertFileDateToDate(file.getCreationTime());
         dataFromAsset[10] = converter.convertFileDateToDate(file.getLastModifiedTime());
         dataFromAsset[11] = converter.convertFileDateToDate(file.getLastAccessTime());
+        if (file.getIsDirectory()) {
+            dataFromAsset[12] = file.getFilesQuantity();
+        }
     }
 
     private void multimediaToTableResult(Object[] dataFromAsset, Asset file) {
