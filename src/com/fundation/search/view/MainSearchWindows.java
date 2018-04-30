@@ -22,6 +22,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -38,6 +40,11 @@ public class MainSearchWindows extends JFrame {
      * Init logger  in Main Search Panel
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
+
+    /**
+     * Separator of System
+     */
+    private static final String SEPARATOR = System.getProperty("file.separator");
 
     /**
      * topPanel, Type: TopPanel, this is top panel of main windows.
@@ -69,7 +76,12 @@ public class MainSearchWindows extends JFrame {
 
         // Setting tittle of application.
         this.setTitle("Search Application");
-        JPanelBackground background = new JPanelBackground("/Users/omar/Jala/PROG102/SearchApp/FunSearchB/resources/background.png");
+        JPanelBackground background = null;
+        try {
+            background = new JPanelBackground(new File(".").getCanonicalPath() + SEPARATOR + "resources" + SEPARATOR + "background.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.setContentPane(background);
         // Initialize Top and Center Panel, you need add new Bottom panel for new functionalities.
         this.topPanel = new TopPanel();
