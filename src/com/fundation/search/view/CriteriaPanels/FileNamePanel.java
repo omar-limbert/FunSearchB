@@ -118,16 +118,21 @@ public class FileNamePanel extends JPanel {
         this.fileNameLabel = new JLabel("File Name :");
         this.fileNameLabel.setForeground(FONT_COLOR);
         this.containsTextInside = new JCheckBox("Search Inside :");
+        this.containsTextInside.setOpaque(false);
         this.containsTextInside.setForeground(FONT_COLOR);
         // Initialize RadioButtons.
         this.radioButtonGroup = new ButtonGroup();
         this.allWordsRadioButton = new JRadioButton("all words");
+        this.allWordsRadioButton.setOpaque(false);
         this.allWordsRadioButton.setForeground(FONT_COLOR);
         this.startWithRadioButton = new JRadioButton("start with");
+        this.startWithRadioButton.setOpaque(false);
         this.startWithRadioButton.setForeground(FONT_COLOR);
         this.endWithRadioButton = new JRadioButton("end with");
+        this.endWithRadioButton.setOpaque(false);
         this.endWithRadioButton.setForeground(FONT_COLOR);
         this.equalsToRadioButton = new JRadioButton("equal to");
+        this.equalsToRadioButton.setOpaque(false);
         this.equalsToRadioButton.setForeground(FONT_COLOR);
 
         // Setting Action Command.

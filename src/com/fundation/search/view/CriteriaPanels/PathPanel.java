@@ -145,13 +145,17 @@ public class PathPanel extends JPanel {
         keySensitiveLabel = new JLabel("Key Sensitive");
         keySensitiveLabel.setForeground(FONT_COLOR);
         keySensitiveCheck = new JCheckBox();
+        keySensitiveCheck.setOpaque(false);
         readOnlyCheckBox = new JCheckBox();
+        readOnlyCheckBox.setOpaque(false);
         readOnlyLabel = new JLabel("Read Only");
         readOnlyLabel.setForeground(FONT_COLOR);
         fileSystemCheckBox = new JCheckBox();
+        fileSystemCheckBox.setOpaque(false);
         fileSystemLabel = new JLabel("File System");
         fileSystemLabel.setForeground(FONT_COLOR);
         directoryCheckBox = new JCheckBox();
+        directoryCheckBox.setOpaque(false);
         directoryLabel = new JLabel("Directory");
         directoryLabel.setForeground(FONT_COLOR);
         LOOGER.info("init exit");
