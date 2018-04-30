@@ -20,6 +20,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -385,7 +386,21 @@ public class ValidatorTest {
 
     }
 
-
+    @Test
+    public void testValidateCommandSize(){
+        assertTrue(validator.validateCommandSize((Pattern.compile("Major to: 9 mb")).toString()));
+        assertTrue(validator.validateCommandSize((Pattern.compile("Major to: 100 bytes")).toString()));
+        assertTrue(validator.validateCommandSize((Pattern.compile("Major to: 93 kb")).toString()));
+        assertTrue(validator.validateCommandSize((Pattern.compile("Major to: 2 gb")).toString()));
+        assertTrue(validator.validateCommandSize((Pattern.compile("Minor to: 90 mb")).toString()));
+        assertTrue(validator.validateCommandSize((Pattern.compile("Minor to: 106 kb")).toString()));
+        assertTrue(validator.validateCommandSize((Pattern.compile("Minor to: 9623 bytes")).toString()));
+        assertTrue(validator.validateCommandSize((Pattern.compile("Minor to: 6 gb")).toString()));
+        assertTrue(validator.validateCommandSize((Pattern.compile("Equal to: 5 mb")).toString()));
+        assertTrue(validator.validateCommandSize((Pattern.compile("Equal to: 573 kb")).toString()));
+        assertTrue(validator.validateCommandSize((Pattern.compile("Equal to: 95632 bytes")).toString()));
+        assertTrue(validator.validateCommandSize((Pattern.compile("Equal to: 1 gb")).toString()));
+    }
 
 
 }
