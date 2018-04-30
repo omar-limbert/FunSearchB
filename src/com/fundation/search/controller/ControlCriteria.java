@@ -488,7 +488,7 @@ public class ControlCriteria {
         if (file instanceof FileResult || file instanceof MultimediaResult) {
             dataFromAsset[6] = file.getExtensionFile();
         }
-        dataFromAsset[7] = file.getSizeFile();
+        dataFromAsset[7] = converter.convertSizeUnit(file.getSizeFile(),searchWindows.getSizeOfCriteria()[2]);
         dataFromAsset[8] = file.getOwnerFile();
         dataFromAsset[9] = converter.convertFileDateToDate(file.getCreationTime());
         dataFromAsset[10] = converter.convertFileDateToDate(file.getLastModifiedTime());
@@ -507,7 +507,7 @@ public class ControlCriteria {
         dataFromAsset[3] = multimediaResult.getDisplayAspect();
         dataFromAsset[4] = multimediaResult.getWidth() + "x" + multimediaResult.getHeight();
         dataFromAsset[5] = multimediaResult.getExtensionFile();
-        dataFromAsset[6] = multimediaResult.getDuration();
+        dataFromAsset[6] = converter.convertTimeUnit(multimediaResult.getDuration(),searchWindows.getDurationMultimediaTime());
         dataFromAsset[7] = multimediaResult.getAudioCodecLongName();
         dataFromAsset[8] = multimediaResult.getAudioBitRate();
         dataFromAsset[9] = multimediaResult.getAudioChannels();
