@@ -138,7 +138,6 @@ public class CenterPanel extends JPanel {
         this.resultProcessTextField = new SearchTextField("0 - Results Found");
         this.resultProcessTextField.setPreferredSize(new Dimension(250, 32));
         this.resultProcessTextField.setEditable(false);
-        this.resultProcessTextField.setEnabled(false);
         this.resultProcessTextField.setPlaceHolderColor(Color.RED);
         this.resultsOfCriteria = new JTable();
         this.modelOfJTableResult = new DefaultTableModel(rowData, columnNames){
