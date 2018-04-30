@@ -84,10 +84,13 @@ public class HiddenPanel extends JPanel {
         this.radioButtonGroup = new ButtonGroup();
         this.allFilesRadioButton = new JRadioButton("all files");
         this.allFilesRadioButton.setForeground(FONT_COLOR);
+        this.allFilesRadioButton.setOpaque(false);
         this.onlyHiddenRadioButton = new JRadioButton("only hidden");
         this.onlyHiddenRadioButton.setForeground(FONT_COLOR);
+        this.onlyHiddenRadioButton.setOpaque(false);
         this.withoutHiddenRadioButton = new JRadioButton("without hidden");
         this.withoutHiddenRadioButton.setForeground(FONT_COLOR);
+        this.withoutHiddenRadioButton.setOpaque(false);
         // Setting Action Command.
         this.allFilesRadioButton.setActionCommand("all files");
         this.onlyHiddenRadioButton.setActionCommand("only hidden");
