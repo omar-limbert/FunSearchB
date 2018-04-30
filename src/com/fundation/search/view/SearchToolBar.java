@@ -351,8 +351,9 @@ public class SearchToolBar extends JToolBar {
         buttonToAddCollection.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createTitledBorder(""),
                 BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-     //   buttonToAddCollection.setBorderPainted(false);
+        //buttonToAddCollection.setBorderPainted(false);
         buttonToAddCollection.setContentAreaFilled(true);
+        buttonToAddCollection.setOpaque(false);
         this.add(buttonToAddCollection);
         this.toggleButtonCollection.add(buttonToAddCollection);
         LOOGER.info("exit button to toggle collection");

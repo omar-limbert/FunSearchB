@@ -284,7 +284,7 @@ public class Search {
      */
     private void creationTime(FileTime dateConditionInt, FileTime dateConditionEnd) {
         LOOGER.info("Entry to creationTime Method");
-        assetList.removeIf(e -> !(e.getLastModifiedTime().toMillis() >= dateConditionInt.toMillis() && e.getLastModifiedTime().toMillis() <= dateConditionEnd.toMillis()));
+        assetList.removeIf(e -> !(e.getCreationTime().toMillis() >= dateConditionInt.toMillis() && e.getCreationTime().toMillis() <= dateConditionEnd.toMillis()));
         LOOGER.info("Exit of creationTime Method");
     }
 
@@ -296,7 +296,7 @@ public class Search {
      */
     private void lastAccessTime(FileTime dateConditionInt, FileTime dateConditionEnd) {
         LOOGER.info("Entry to lastAccessTime Method");
-        assetList.removeIf(e -> !(e.getLastModifiedTime().toMillis() >= dateConditionInt.toMillis() && e.getLastModifiedTime().toMillis() <= dateConditionEnd.toMillis()));
+        assetList.removeIf(e -> !(e.getLastAccessTime().toMillis() >= dateConditionInt.toMillis() && e.getLastAccessTime().toMillis() <= dateConditionEnd.toMillis()));
 
         LOOGER.info("Exit of lastAccessTime Method");
 
@@ -451,11 +451,11 @@ public class Search {
             if (criteria.getCreationDateInit() != null && criteria.getCreationDateEnd() != null) {
                 this.creationTime(criteria.getCreationDateInit(), criteria.getCreationDateEnd());
             }
-            if (criteria.getLastAccessDateInit() != null && criteria.getLastAccessDateEnd() != null) {
-                this.lastAccessTime(criteria.getLastAccessDateInit(), criteria.getLastAccessDateEnd());
-            }
             if (criteria.getModifiedDateInit() != null && criteria.getModifiedDateEnd() != null) {
                 this.lastModifiedTime(criteria.getModifiedDateInit(), criteria.getModifiedDateEnd());
+            }
+            if (criteria.getLastAccessDateInit() != null && criteria.getLastAccessDateEnd() != null) {
+                this.lastAccessTime(criteria.getLastAccessDateInit(), criteria.getLastAccessDateEnd());
             }
             if (criteria.getIsContainsInsideFileCriteria()) {
                 this.searchIntoFile(criteria.getTextContainsInsideFileCriteria());
