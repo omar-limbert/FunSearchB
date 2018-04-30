@@ -45,8 +45,11 @@ public class ConvertorTest {
      */
     @Test
     public void testToConvertGbToBytes() {
-        assertEquals(16965120819L, convertor.convertToBytes(15.8, "Gb"));
-        assertEquals(1073741824L, convertor.convertToBytes(1, "gb"));
+        assertEquals(15800000000L, convertor.convertToBytes(15.8, "Gb"));
+        assertEquals(1070000000L, convertor.convertToBytes(1.07, "gb"));
+        assertEquals(170000000L, convertor.convertToBytes(0.17, "gb"));
+        assertEquals(305800000000L, convertor.convertToBytes(305.8, "Gb"));
+        assertEquals(1505800000000L, convertor.convertToBytes(1505.8, "Gb"));
     }
 
     /**
@@ -54,8 +57,12 @@ public class ConvertorTest {
      */
     @Test
     public void testToConvertMbToBytes() {
-        assertEquals(1048576, convertor.convertToBytes(1, "Mb"));
-        assertEquals(27021804, convertor.convertToBytes(25.77, "mb"));
+        assertEquals(1040000, convertor.convertToBytes(1.04, "Mb"));
+        assertEquals(25770000, convertor.convertToBytes(25.77, "mb"));
+        assertEquals(104000, convertor.convertToBytes(0.104, "Mb"));
+        assertEquals(257700000, convertor.convertToBytes(257.7, "mb"));
+        assertEquals(14000, convertor.convertToBytes(0.014, "Mb"));
+
     }
 
     /**
@@ -63,8 +70,11 @@ public class ConvertorTest {
      */
     @Test
     public void testToConvertKbToBytes() {
-        assertEquals(1024, convertor.convertToBytes(1, "kb"));
-        assertEquals(333312, convertor.convertToBytes(325.5, "KB"));
+        assertEquals(1000, convertor.convertToBytes(1, "kb"));
+        assertEquals(33550, convertor.convertToBytes(33.55, "KB"));
+        assertEquals(500, convertor.convertToBytes(0.5, "kb"));
+        assertEquals(303550, convertor.convertToBytes(303.55, "KB"));
+        assertEquals(6303500, convertor.convertToBytes(6303.5, "KB"));
     }
 
     /**
@@ -83,6 +93,9 @@ public class ConvertorTest {
     @Test
     public void testToSizeStringToLong() {
         assertEquals(15650867788L, convertor.convertSizeStringToLong("15650867787.6", "bytes"));
+        assertEquals(56, convertor.convertSizeStringToLong("56", "bytes"));
+        assertEquals(8569, convertor.convertSizeStringToLong("8569", "bytes"));
+
     }
 
     /**
@@ -99,6 +112,11 @@ public class ConvertorTest {
     @Test
     public void testToSizeStringToLongInvalid() {
         assertEquals(0L, convertor.convertSizeStringToLong("hola", "mb"));
+        assertEquals(0L, convertor.convertSizeStringToLong("@-*", "mb"));
+        assertEquals(0L, convertor.convertSizeStringToLong(" ", "mb"));
+        assertEquals(0L, convertor.convertSizeStringToLong("é", "mb"));
+
+
     }
 
     /**
@@ -107,6 +125,10 @@ public class ConvertorTest {
     @Test
     public void testToSizeStringToLongInvalidNull() {
         assertEquals(0L, convertor.convertSizeStringToLong("hola", null));
+        assertEquals(0L, convertor.convertSizeStringToLong("null", null));
+        assertEquals(0L, convertor.convertSizeStringToLong("draft", null));
+        assertEquals(0L, convertor.convertSizeStringToLong("bob", null));
+
     }
 
     /**
@@ -115,6 +137,7 @@ public class ConvertorTest {
     @Test
     public void testToSizeStringToLongInvalidNullNull() {
         assertEquals(0L, convertor.convertSizeStringToLong(null, null));
+        
     }
 
     /**
@@ -153,17 +176,17 @@ public class ConvertorTest {
      */
     @Test
     public void testConvertTimeUnit() {
-        assertEquals("12547second", convertor.convertTimeUnit(12547, "second"));
-        assertEquals("98743second", convertor.convertTimeUnit(98743, "second"));
-        assertEquals("152942second", convertor.convertTimeUnit(152942, "second"));
-        assertEquals("9421289second", convertor.convertTimeUnit(9421289, "second"));
-        assertEquals("3minute", convertor.convertTimeUnit(180, "minute"));
-        assertEquals("60minute", convertor.convertTimeUnit(3600, "minute"));
-        assertEquals("330minute", convertor.convertTimeUnit(19800, "minute"));
-        assertEquals("12535,8minute", convertor.convertTimeUnit(752148, "minute"));
-        assertEquals("5,99hour", convertor.convertTimeUnit(21548, "hour"));
-        assertEquals("4088,95hour", convertor.convertTimeUnit(14720212, "hour"));
-        assertEquals("1hour", convertor.convertTimeUnit(3600, "hour"));
-        assertEquals("23,67hour", convertor.convertTimeUnit(85210, "hour"));
+        assertEquals("12547 second", convertor.convertTimeUnit(12547, "second"));
+        assertEquals("98743 second", convertor.convertTimeUnit(98743, "second"));
+        assertEquals("152942 second", convertor.convertTimeUnit(152942, "second"));
+        assertEquals("9421289 second", convertor.convertTimeUnit(9421289, "second"));
+        assertEquals("3 minute", convertor.convertTimeUnit(180, "minute"));
+        assertEquals("60 minute", convertor.convertTimeUnit(3600, "minute"));
+        assertEquals("330 minute", convertor.convertTimeUnit(19800, "minute"));
+        assertEquals("12535,8 minute", convertor.convertTimeUnit(752148, "minute"));
+        assertEquals("5,99 hour", convertor.convertTimeUnit(21548, "hour"));
+        assertEquals("4088,95 hour", convertor.convertTimeUnit(14720212, "hour"));
+        assertEquals("1 hour", convertor.convertTimeUnit(3600, "hour"));
+        assertEquals("23,67 hour", convertor.convertTimeUnit(85210, "hour"));
     }
 }
