@@ -126,7 +126,7 @@ public class ControlCommand {
      */
     public boolean validateAllInputs() {
         LOOGER.info("validateAllInputs entry");
-        if (!validator.validatorPath(commandCriteria.getPath())) {
+        if (!validator.isValidPath(commandCriteria.getPath())) {
             commandView.printErrorMessage("Invalid Path: ".concat(commandCriteria.getPath()));
             return false;
         }
