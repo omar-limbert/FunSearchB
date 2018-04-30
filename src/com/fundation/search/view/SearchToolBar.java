@@ -16,10 +16,23 @@ package com.fundation.search.view;
 import com.fundation.search.common.SearchLogger;
 import com.fundation.search.view.CriteriaPanels.*;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.JToolBar;
+import javax.swing.JToggleButton;
+import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.Vector;
 import java.util.logging.Logger;
 
 /**
