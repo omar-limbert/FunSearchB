@@ -246,7 +246,9 @@ public class MultimediaPanel extends JPanel {
         // Initialize audio bit rate
         audioBitRate = new JLabel("Audio Bit Rate :");
         audioBitRateTextFieldInit = new SearchTextField("From: e.g. 32000");
+        audioBitRateTextFieldInit.setPreferredSize(new Dimension(170, 32));
         audioBitRateTextFieldEnd = new SearchTextField("To: e.g. 128000");
+        audioBitRateTextFieldEnd.setPreferredSize(new Dimension(170, 32));
 
 
         // Sample Data

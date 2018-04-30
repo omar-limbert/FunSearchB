@@ -173,7 +173,7 @@ public class Search {
                                         , file.list().length);
                             }
                         } catch (java.io.IOException | java.lang.NullPointerException exception) {
-                            exception.printStackTrace();
+
                         }
                         return asset;
                     })

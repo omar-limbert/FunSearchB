@@ -841,4 +841,15 @@ public class MainSearchWindows extends JFrame {
     public void setMultimediaAudioBitRateEnd(String multimediaAudioBitRateEnd) {
         this.topPanel.setMultimediaAudioBitRateEnd(multimediaAudioBitRateEnd);
     }
+
+    /**
+     * This method is to set result process.
+     * Controller need use this.
+     *
+     * @param resultProcessTextField this is text to result process.
+     */
+    public void setResultProcessTextField(String resultProcessTextField) {
+        this.centerPanel.setResultProcessTextField(resultProcessTextField);
+    }
+
 }
