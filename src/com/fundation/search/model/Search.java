@@ -347,7 +347,7 @@ public class Search {
      */
     private void searchKeySensitive(String name) {
         LOOGER.info("Entry to searchKeySensitive Method");
-        assetList.removeIf(e -> !(e.getName().equals(name)));
+        assetList.removeIf(e -> !(e.getName().contains(name)));
         LOOGER.info("Exit of searchKeySensitive Method");
     }
 
