@@ -18,6 +18,7 @@ import com.fundation.search.view.SearchTextField;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.logging.Logger;
@@ -36,6 +37,11 @@ public class TypePanel extends JPanel {
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
+     * This is color to set all labels.
+     */
+    private static final Color FONT_COLOR = Color.WHITE;
+
+    /**
      * typeTextField, Type: JTextField, this is a JTextField for contains final type result.
      */
     private SearchTextField typeTextField;
@@ -50,6 +56,7 @@ public class TypePanel extends JPanel {
      */
     public TypePanel() {
         LOOGER.info("Get Result Entry");
+        this.setOpaque(false);
         this.setLayout(new FlowLayout());
         this.initComponents();
         this.addComponents();
@@ -64,6 +71,7 @@ public class TypePanel extends JPanel {
         LOOGER.info("Get init");
         //Initialize
         this.TypeLabelField = new JLabel("Type of File :");
+        this.TypeLabelField.setForeground(FONT_COLOR);
         this.typeTextField = new SearchTextField(".pdf");
         this.typeTextField.setPreferredSize(new Dimension(75, 32));
         LOOGER.info("init exit");

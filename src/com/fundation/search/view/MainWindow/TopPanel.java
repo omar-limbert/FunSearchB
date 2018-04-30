@@ -27,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -46,6 +47,11 @@ public class TopPanel extends JPanel {
      * Init logger  in Top Panel
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
+
+    /**
+     * This is color to set all labels.
+     */
+    private static final Color FONT_COLOR = Color.WHITE;
 
     /**
      * Separator of System
@@ -88,8 +94,10 @@ public class TopPanel extends JPanel {
      */
     public TopPanel() {
         LOOGER.info("Get top panel Entry");
+        this.setOpaque(false);
         this.searchButton = new JButton(new ImageIcon(System.getProperty("user.dir") + SEPARATOR + "resources" + SEPARATOR + "icons" + SEPARATOR + "search.png"));
         this.searchButton.setOpaque(true);
+        this.searchButton.setOpaque(false);
         //setup layout
         this.constraints = new GridBagConstraints();
         this.setLayout(new GridBagLayout());
@@ -108,6 +116,7 @@ public class TopPanel extends JPanel {
         this.criteriaPanel = new CriteriaPanel();
         // JLabel "Search".
         this.searchJLabel = new JLabel("Search: ");
+        this.searchJLabel.setForeground(FONT_COLOR);
         // JTextField with place holder.
         this.searchTextField = new SearchTextField("Searching...");
         // JToolbar with all buttons
@@ -122,6 +131,7 @@ public class TopPanel extends JPanel {
         LOOGER.info("Get add Components Entry");
 
         JPanel searchComponents = new JPanel(new FlowLayout());
+        searchComponents.setOpaque(false);
         searchComponents.add(searchJLabel);
         searchComponents.add(searchTextField);
         searchComponents.add(searchButton);

@@ -53,7 +53,7 @@ public class DataBaseSouthPanel extends JPanel {
      */
     public DataBaseSouthPanel() {
         LOOGER.info("Get top panel Entry");
-
+        this.setOpaque(false);
         this.initComponents();
         this.addComponents();
         this.repaint();

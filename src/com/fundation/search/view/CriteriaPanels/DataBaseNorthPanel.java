@@ -16,6 +16,7 @@ package com.fundation.search.view.CriteriaPanels;
 import com.fundation.search.common.SearchLogger;
 import com.fundation.search.view.SearchTextField;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JPanel;
@@ -35,6 +36,11 @@ public class DataBaseNorthPanel extends JPanel {
      * Init logger  in Top Panel.
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
+
+    /**
+     * This is color to set all jlabels.
+     */
+    private static final Color FONT_COLOR = Color.WHITE;
 
     /**
      * nameDBTextfield, Type: SearchTextField, this is input for initialize search.
@@ -62,6 +68,7 @@ public class DataBaseNorthPanel extends JPanel {
      */
     public DataBaseNorthPanel() {
         LOOGER.info("Get top panel Entry");
+        this.setOpaque(false);
         this.saveToDBButton = new JButton();
         this.saveToDBButton.setText("Save");
 
@@ -83,6 +90,7 @@ public class DataBaseNorthPanel extends JPanel {
         LOOGER.info("Get init components");
         // JLabel "Search".
         this.nameLabel = new JLabel("Name: ");
+        this.nameLabel.setForeground(FONT_COLOR);
         // JTextField with place holder.
         this.nameDBTextfield = new SearchTextField(placeHolderText);
         LOOGER.info("components exit");

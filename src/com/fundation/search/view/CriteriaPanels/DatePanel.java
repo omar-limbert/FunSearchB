@@ -17,6 +17,7 @@ package com.fundation.search.view.CriteriaPanels;
 import com.fundation.search.common.SearchLogger;
 import com.toedter.calendar.JDateChooser;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -40,6 +41,11 @@ public class DatePanel extends JPanel {
      * Init logger  in Date Panel
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
+
+    /**
+     * This is color to set all labels.
+     */
+    private static final Color FONT_COLOR = Color.WHITE;
 
     /**
      * SimpleDateFormat, Date format for all dates
@@ -99,6 +105,7 @@ public class DatePanel extends JPanel {
      */
     public DatePanel() {
         LOOGER.info("Get Result Entry");
+        this.setOpaque(false);
         this.setLayout(new FlowLayout());
         this.dateOfCriteria = new JComboBox<>();
         this.initComponents();
@@ -119,22 +126,30 @@ public class DatePanel extends JPanel {
             this.dateOfCriteria.addItem("Last Modified Date");
             this.dateOfCriteria.addItem("Last Access Date");
             this.to1 = new JLabel("to :");
+            this.to1.setForeground(FONT_COLOR);
             this.to2 = new JLabel("to :");
+            this.to2.setForeground(FONT_COLOR);
             this.to3 = new JLabel("to :");
+            this.to3.setForeground(FONT_COLOR);
             this.dateOfCriteria.getModel().setSelectedItem("Creation Date");
             this.dateOfCriteria.addItemListener(e -> this.dateOfCriteriaListener(e));
 
             // Initialize all dates
             this.dateCreationInitDateChooser = new JDateChooser(DATE_FORMAT.parse("01/01/1999"));
+            this.dateCreationInitDateChooser.setOpaque(false);
             this.dateCreationEndDateChooser = new JDateChooser(new Date());
+            this.dateCreationEndDateChooser.setOpaque(false);
             this.dateModificationInitDateChooser = new JDateChooser(DATE_FORMAT.parse("01/01/1999"));
+            this.dateModificationInitDateChooser.setOpaque(false);
             this.dateModificationEndDateChooser = new JDateChooser(new Date());
+            this.dateModificationEndDateChooser.setOpaque(false);
             this.dateLastAccessInitDateChooser = new JDateChooser(DATE_FORMAT.parse("01/01/1999"));
+            this.dateLastAccessInitDateChooser.setOpaque(false);
             this.dateLastAccessEndDateChooser = new JDateChooser(new Date());
+            this.dateLastAccessEndDateChooser.setOpaque(false);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        this.to3 = new JLabel("to ");
         this.dateLastAccessEndDateChooser = new JDateChooser(new Date());
         LOOGER.info("init exit");
     }

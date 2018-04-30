@@ -70,6 +70,7 @@ public class DataBaseCenterPanel extends JPanel {
      */
     private void addComponents() {
         LOOGER.info("addComponents entry");
+        this.setOpaque(false);
         this.add(dataBaseCriteriaTable, BorderLayout.CENTER);
         this.add(header, BorderLayout.NORTH);
         this.add(new JScrollPane(dataBaseCriteriaTable));

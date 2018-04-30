@@ -18,6 +18,7 @@ import com.fundation.search.view.SearchTextField;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.logging.Logger;
@@ -36,6 +37,11 @@ public class OwnerPanel extends JPanel {
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
+     * This is color to set all labels.
+     */
+    private static final Color FONT_COLOR = Color.WHITE;
+
+    /**
      * ownerTextField, Type: JTextField, this is a JTextField for contains final owner result.
      */
     private SearchTextField ownerTextField;
@@ -50,6 +56,7 @@ public class OwnerPanel extends JPanel {
      */
     public OwnerPanel() {
         LOOGER.info("Get Result Entry");
+        this.setOpaque(false);
         this.setLayout(new FlowLayout());
         this.initComponents();
         this.addComponents();
@@ -64,6 +71,7 @@ public class OwnerPanel extends JPanel {
         LOOGER.info("Get init");
         //Initialize
         this.ownerLabelField = new JLabel("Owner: ");
+        this.ownerLabelField.setForeground(FONT_COLOR);
         this.ownerTextField = new SearchTextField("e.g. Administrator");
         this.ownerTextField.setPreferredSize(new Dimension(250, 32));
         LOOGER.info("init exit");
