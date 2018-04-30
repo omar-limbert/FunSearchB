@@ -105,7 +105,7 @@ public class CenterPanel extends JPanel {
         LOOGER.info("Get init");
         String columnNames[] = {"Name", "Path", "Hidden", "Read only", "File System", "Directory", "Type", "Size", "Owner", "Date Created", "Last Modified", "Last Access"};
         String rowData[][] = {{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}};
-        this.resultProcessJLabel = new JLabel("Files Matched :");
+        this.resultProcessJLabel = new JLabel("Results :");
         this.resultProcessTextField = new SearchTextField("Results Found");
         this.resultProcessTextField.setPreferredSize(new Dimension(250, 32));
         this.resultProcessTextField.setEditable(false);

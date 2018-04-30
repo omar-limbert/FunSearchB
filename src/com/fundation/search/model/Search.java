@@ -374,7 +374,7 @@ public class Search {
                         e.printStackTrace();
                     }
                 }
-                if (fileToRead.getName().endsWith(".docx") || fileToRead.getName().endsWith(".doc") ) {
+                if (fileToRead.getName().endsWith(".docx") || fileToRead.getName().endsWith(".doc")) {
 
                     try {
                         FileInputStream fis = new FileInputStream(fileToRead.getPathFile());
@@ -436,7 +436,7 @@ public class Search {
             if (criteria.getIsReadOnly()) {
                 this.isReadOnly();
             }
-            if (criteria.getExtension() != null && !criteria.getExtension().isEmpty() ) {
+            if (criteria.getExtension() != null && !criteria.getExtension().isEmpty()) {
                 this.searchByExtension(criteria.getExtension());
             }
             if (criteria.getSize() > -1) {
@@ -467,16 +467,16 @@ public class Search {
             if (criteria.getMultimediaDuration() > -1 && criteria.isSearchMultimedia()) {
                 this.searchMultimediaByDuration(criteria.getMultimediaDuration(), criteria.getMultimediaDurationOperator());
             }
-            if (!criteria.getMultimediaVideoCodec().isEmpty() && criteria.isSearchMultimedia()) {
+            if (criteria.isSearchMultimedia()) {
                 this.searchMultimediaByVideoCodec(criteria.getMultimediaVideoCodec());
             }
-            if (!criteria.getMultimediaResolution().isEmpty() && criteria.isSearchMultimedia()) {
+            if (criteria.isSearchMultimedia()) {
                 this.searchMultimediaByResolution(criteria.getMultimediaResolution());
             }
-            if (!criteria.getMultimediaType().isEmpty() && criteria.isSearchMultimedia()) {
+            if (criteria.isSearchMultimedia()) {
                 this.searchMultimediaByType(criteria.getMultimediaType());
             }
-            if (!criteria.getFrameRateCriteria().isEmpty() && criteria.isSearchMultimedia()) {
+            if (criteria.isSearchMultimedia()) {
                 this.searchMultimediaByFrameRate(criteria.getFrameRateCriteria());
             }
             if (!criteria.getMultimediaAudioBitRateInit().isEmpty() && !criteria.getMultimediaAudioBitRateEnd().isEmpty() && criteria.isSearchMultimedia()) {
@@ -488,7 +488,6 @@ public class Search {
 
     /**
      * This method is for add multimedia attributes to Asset List.
-     *
      */
     private void addMultimediaAttributes() {
         // Obtains data for multimedia
@@ -577,7 +576,7 @@ public class Search {
      * This method is to search Multimedia by Audio Rate.
      *
      * @param bitRateInit Audio Rate Init.
-     * @param bitRateEnd Audio Rate End.
+     * @param bitRateEnd  Audio Rate End.
      */
     private void searchMultimediaByAudioBitRate(String bitRateInit, String bitRateEnd) {
         LOOGER.info("Entry to searchMultimediaByType Method");

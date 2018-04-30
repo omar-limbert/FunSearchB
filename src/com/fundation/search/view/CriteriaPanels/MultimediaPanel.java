@@ -241,14 +241,13 @@ public class MultimediaPanel extends JPanel {
         resolutionJComboBox = new JComboCheckBox(resolutionData);
         resolutionJComboBox.setPreferredSize(new Dimension(200, 34));
         resolutionJComboBox.addActionListener(e -> this.updateResolutionData());
-        LOOGER.info("init exit");
 
         // Initialize audio bit rate
         audioBitRate = new JLabel("Audio Bit Rate :");
         audioBitRateTextFieldInit = new SearchTextField("From: e.g. 32000");
-        audioBitRateTextFieldInit.setPreferredSize(new Dimension(170, 32));
+        audioBitRateTextFieldInit.setPreferredSize(new Dimension(130, 32));
         audioBitRateTextFieldEnd = new SearchTextField("To: e.g. 128000");
-        audioBitRateTextFieldEnd.setPreferredSize(new Dimension(170, 32));
+        audioBitRateTextFieldEnd.setPreferredSize(new Dimension(130, 32));
 
 
         // Sample Data
@@ -262,7 +261,8 @@ public class MultimediaPanel extends JPanel {
         multimediaTypeLabel = new JLabel("Multimedia Type:");
         multimediaType = new JComboCheckBox(multimediaTypeData);
         multimediaType.setPreferredSize(new Dimension(200, 34));
-        multimediaType.addActionListener(e->this.updateMultimediaTypeData());
+        multimediaType.addActionListener(e -> this.updateMultimediaTypeData());
+        LOOGER.info("init exit");
     }
 
     /**
@@ -270,6 +270,16 @@ public class MultimediaPanel extends JPanel {
      */
     private void updateResolutionData() {
         resolutionJComboBox.itemSelected();
+
+        // Action for option "All"
+        JCheckBox currently = resolutionJComboBox.getItemSelected();
+        if ("All".equalsIgnoreCase(currently.getText())) {
+            if (!currently.isSelected()) {
+                resolutionData.forEach(e -> e.setSelected(false));
+            } else {
+                resolutionData.forEach(e -> e.setSelected(true));
+            }
+        }
     }
 
     /**
@@ -277,6 +287,16 @@ public class MultimediaPanel extends JPanel {
      */
     private void updateVideoCodecData() {
         videoCodecJComboBox.itemSelected();
+
+        // Action for option "All"
+        JCheckBox currently = videoCodecJComboBox.getItemSelected();
+        if ("All".equalsIgnoreCase(currently.getText())) {
+            if (!currently.isSelected()) {
+                videoCodecData.forEach(e -> e.setSelected(false));
+            } else {
+                videoCodecData.forEach(e -> e.setSelected(true));
+            }
+        }
     }
 
     /**
@@ -284,6 +304,16 @@ public class MultimediaPanel extends JPanel {
      */
     private void updateFrameRateData() {
         frameRateJComboBox.itemSelected();
+
+        // Action for option "All"
+        JCheckBox currently = frameRateJComboBox.getItemSelected();
+        if ("All".equalsIgnoreCase(currently.getText())) {
+            if (!currently.isSelected()) {
+                frameRateData.forEach(e -> e.setSelected(false));
+            } else {
+                frameRateData.forEach(e -> e.setSelected(true));
+            }
+        }
     }
 
     /**
@@ -291,6 +321,16 @@ public class MultimediaPanel extends JPanel {
      */
     private void updateMultimediaTypeData() {
         multimediaType.itemSelected();
+
+        // Action for option "All"
+        JCheckBox currently = multimediaType.getItemSelected();
+        if ("All".equalsIgnoreCase(currently.getText())) {
+            if (!currently.isSelected()) {
+                multimediaTypeData.forEach(e -> e.setSelected(false));
+            } else {
+                multimediaTypeData.forEach(e -> e.setSelected(true));
+            }
+        }
     }
 
     /**
@@ -427,12 +467,11 @@ public class MultimediaPanel extends JPanel {
     public ArrayList<String> getFrameRateCriteria() {
         ArrayList<String> result = new ArrayList<>();
         frameRateData.forEach(e -> {
-            if(e.getText().equalsIgnoreCase("All")){
+            if (e.getText().equalsIgnoreCase("All")) {
                 if (e.isSelected()) {
                     result.add(e.getText());
                 }
-            }
-            else{
+            } else {
                 if (e.isSelected()) {
                     result.add(e.getText());
                 }
@@ -450,12 +489,11 @@ public class MultimediaPanel extends JPanel {
     public ArrayList<String> getVideoCodecCriteria() {
         ArrayList<String> result = new ArrayList<>();
         videoCodecData.forEach(e -> {
-            if(e.getText().equalsIgnoreCase("All")){
+            if (e.getText().equalsIgnoreCase("All")) {
                 if (e.isSelected()) {
                     result.add(e.getText());
                 }
-            }
-            else{
+            } else {
                 if (e.isSelected()) {
                     result.add(e.getText());
                 }
@@ -473,12 +511,11 @@ public class MultimediaPanel extends JPanel {
     public ArrayList<String> getResolutionCriteria() {
         ArrayList<String> result = new ArrayList<>();
         resolutionData.forEach(e -> {
-            if(e.getText().equalsIgnoreCase("All")){
+            if (e.getText().equalsIgnoreCase("All")) {
                 if (e.isSelected()) {
                     result.add(e.getText());
                 }
-            }
-            else{
+            } else {
                 if (e.isSelected()) {
                     result.add(e.getText());
                 }
@@ -496,12 +533,11 @@ public class MultimediaPanel extends JPanel {
     public ArrayList<String> getMultimediaTypeCriteria() {
         ArrayList<String> result = new ArrayList<>();
         multimediaTypeData.forEach(e -> {
-            if(e.getText().equalsIgnoreCase("All")){
+            if (e.getText().equalsIgnoreCase("All")) {
                 if (e.isSelected()) {
                     result.add(e.getText());
                 }
-            }
-            else{
+            } else {
                 if (e.isSelected()) {
                     result.add(e.getText());
                 }
@@ -510,6 +546,7 @@ public class MultimediaPanel extends JPanel {
         });
         return result;
     }
+
     /**
      * This method is for return Audio Rate Array.
      *
@@ -518,6 +555,7 @@ public class MultimediaPanel extends JPanel {
     public String getAudioBitRateInit() {
         return this.audioBitRateTextFieldInit.getText();
     }
+
     /**
      * This method is for return Audio Rate Array.
      *
@@ -535,6 +573,7 @@ public class MultimediaPanel extends JPanel {
     public void setMultimediaDurationCriteria(String multimediaDurationCriteria) {
         this.durationCriteria.getModel().setSelectedItem(multimediaDurationCriteria);
     }
+
     /**
      * This method is to update duration number criteria.
      *
@@ -558,11 +597,11 @@ public class MultimediaPanel extends JPanel {
      *
      * @param multimediaDurationFrameRate, this is ArrayList with all data.
      */
-    public void setMultimediaFrameRate(ArrayList<String>  multimediaDurationFrameRate) {
-        frameRateData.forEach(x->x.setSelected(false));
-        multimediaDurationFrameRate.forEach(e->{
-            frameRateData.forEach(checkbox-> {
-                if(checkbox.getText().equalsIgnoreCase(e)){
+    public void setMultimediaFrameRate(ArrayList<String> multimediaDurationFrameRate) {
+        frameRateData.forEach(x -> x.setSelected(false));
+        multimediaDurationFrameRate.forEach(e -> {
+            frameRateData.forEach(checkbox -> {
+                if (checkbox.getText().equalsIgnoreCase(e)) {
                     checkbox.setSelected(true);
                 }
             });
@@ -574,11 +613,11 @@ public class MultimediaPanel extends JPanel {
      *
      * @param multimediaDurationVideoCodec, this is ArrayList with all data.
      */
-    public void setMultimediaDurationVideoCodec(ArrayList<String>  multimediaDurationVideoCodec) {
-        videoCodecData.forEach(x->x.setSelected(false));
-        multimediaDurationVideoCodec.forEach(e->{
-            videoCodecData.forEach(checkbox-> {
-                if(checkbox.getText().equalsIgnoreCase(e)){
+    public void setMultimediaDurationVideoCodec(ArrayList<String> multimediaDurationVideoCodec) {
+        videoCodecData.forEach(x -> x.setSelected(false));
+        multimediaDurationVideoCodec.forEach(e -> {
+            videoCodecData.forEach(checkbox -> {
+                if (checkbox.getText().equalsIgnoreCase(e)) {
                     checkbox.setSelected(true);
                 }
             });
@@ -590,11 +629,11 @@ public class MultimediaPanel extends JPanel {
      *
      * @param multimediaDurationResolution, this is ArrayList with all data.
      */
-    public void setMultimediaResolution(ArrayList<String>  multimediaDurationResolution) {
-        resolutionData.forEach(x->x.setSelected(false));
-        multimediaDurationResolution.forEach(e->{
-            resolutionData.forEach(checkbox-> {
-                if(checkbox.getText().equalsIgnoreCase(e)){
+    public void setMultimediaResolution(ArrayList<String> multimediaDurationResolution) {
+        resolutionData.forEach(x -> x.setSelected(false));
+        multimediaDurationResolution.forEach(e -> {
+            resolutionData.forEach(checkbox -> {
+                if (checkbox.getText().equalsIgnoreCase(e)) {
                     checkbox.setSelected(true);
                 }
             });
@@ -606,11 +645,11 @@ public class MultimediaPanel extends JPanel {
      *
      * @param multimediaType, this is ArrayList with all data.
      */
-    public void setMultimediaType(ArrayList<String>  multimediaType) {
-        multimediaTypeData.forEach(x->x.setSelected(false));
-        multimediaType.forEach(e->{
-            multimediaTypeData.forEach(checkbox-> {
-                if(checkbox.getText().equalsIgnoreCase(e)){
+    public void setMultimediaType(ArrayList<String> multimediaType) {
+        multimediaTypeData.forEach(x -> x.setSelected(false));
+        multimediaType.forEach(e -> {
+            multimediaTypeData.forEach(checkbox -> {
+                if (checkbox.getText().equalsIgnoreCase(e)) {
                     checkbox.setSelected(true);
                 }
             });

@@ -115,15 +115,20 @@ public class SearchToolBar extends JToolBar {
      */
     public SearchToolBar(CriteriaPanel criteriaPanel) {
         LOOGER.info("Get Result Entry");
+        this.setFloatable( false);
         // This is a collection of buttons.
         this.toggleButtonCollection = new Vector<>();
         this.isSearchMultimedia = false;
+
         // Action for define button.
         this.action = "";
+
         // Dynamic JPanel for add all button panels.
         this.criteriaPanel = criteriaPanel;
+
         // Hashtable of all Criteria Panels
         this.panelList = new Hashtable<>();
+
         // Adding components
         this.addComponents();
         LOOGER.info("Constructor exit");
