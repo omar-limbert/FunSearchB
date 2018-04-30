@@ -76,6 +76,7 @@ public class DataBasePanel extends JPanel {
      */
     private void initComponents() {
         LOOGER.info("Get init");
+        this.setOpaque(false);
         this.setLayout(new BorderLayout());
         dataBaseNorthPanel = new DataBaseNorthPanel();
         dataBaseCenterPanel = new DataBaseCenterPanel();

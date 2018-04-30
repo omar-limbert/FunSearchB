@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -37,6 +38,11 @@ public class PathPanel extends JPanel {
      * Init logger  in Path Panel
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
+
+    /**
+     * This is color to set all labels.
+     */
+    private static final Color FONT_COLOR = Color.WHITE;
 
     /**
      * directoryChooser, Type: JFileChooser, this is a file chooser for get path of directory.
@@ -104,6 +110,7 @@ public class PathPanel extends JPanel {
      */
     public PathPanel() {
         LOOGER.info("Get Result Entry");
+        this.setOpaque(false);
         this.setLayout(new FlowLayout());
         this.initComponents();
         this.addComponents();
@@ -122,6 +129,7 @@ public class PathPanel extends JPanel {
         directoryChooser.setDialogTitle("Folder chooser for search files");
         directoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         inputLabel = new JLabel("Path: ");
+        inputLabel.setForeground(FONT_COLOR);
         directoryChooser.setAcceptAllFileFilterUsed(false);
         // Button for open Folder Chooser.
         pathButton = new JButton();
@@ -135,13 +143,17 @@ public class PathPanel extends JPanel {
         pathTextField.setEnabled(true);
         //Check box
         keySensitiveLabel = new JLabel("Key Sensitive");
+        keySensitiveLabel.setForeground(FONT_COLOR);
         keySensitiveCheck = new JCheckBox();
         readOnlyCheckBox = new JCheckBox();
         readOnlyLabel = new JLabel("Read Only");
+        readOnlyLabel.setForeground(FONT_COLOR);
         fileSystemCheckBox = new JCheckBox();
         fileSystemLabel = new JLabel("File System");
+        fileSystemLabel.setForeground(FONT_COLOR);
         directoryCheckBox = new JCheckBox();
         directoryLabel = new JLabel("Directory");
+        directoryLabel.setForeground(FONT_COLOR);
         LOOGER.info("init exit");
 
     }

@@ -14,15 +14,15 @@
 package com.fundation.search.view.CriteriaPanels;
 
 import com.fundation.search.common.SearchLogger;
-import com.fundation.search.view.JComboCheckBox;
 
-import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.BorderFactory;
+import javax.swing.border.TitledBorder;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.Map;
-import java.util.Vector;
 import java.util.logging.Logger;
 
 
@@ -44,22 +44,13 @@ public class CriteriaPanel extends JPanel {
     private GridBagConstraints constraints;
 
     /**
-     * JComboCheckBox, to Bit Rate with many options
-     */
-    private JComboCheckBox bitRateJComboBox;
-
-    /**
-     * Vector, all data for Bit Rate
-     */
-    private Vector<JCheckBox> bitRateData;
-
-    /**
      * Constructor for TopPanel.
      * This constructor call initComponents() after this
      * revalidate and repaint all panel.
      */
     public CriteriaPanel() {
         LOOGER.info("Get Result Entry");
+        this.setOpaque(false);
         this.constraints = new GridBagConstraints();
         this.setLayout(new GridBagLayout());
         this.initComponents();
@@ -104,9 +95,14 @@ public class CriteriaPanel extends JPanel {
     public void setBorderCriteriaPanel(String tittle) {
         LOOGER.info("setBorderCriteriaPanel init");
         if (tittle != null) {
-            this.setBorder(BorderFactory.createCompoundBorder(
-                    BorderFactory.createTitledBorder(tittle),
-                    BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+
+            this.setBorder(BorderFactory.createTitledBorder(
+                    null,
+                    tittle,
+                    TitledBorder.CENTER,
+                    TitledBorder.TOP,
+                    null,
+                    Color.WHITE));
         } else {
             this.setBorder(null);
         }

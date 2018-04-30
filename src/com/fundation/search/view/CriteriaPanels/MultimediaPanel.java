@@ -21,11 +21,11 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
+import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 import java.util.Vector;
 
@@ -40,6 +40,11 @@ public class MultimediaPanel extends JPanel {
      * Init logger  in Multimedia Panel
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
+
+    /**
+     * This is color to set all labels.
+     */
+    private static final Color FONT_COLOR = Color.WHITE;
 
     /**
      * Constrains to set layout on Criteria Panel
@@ -145,7 +150,7 @@ public class MultimediaPanel extends JPanel {
      */
     public MultimediaPanel() {
         LOOGER.info("Get Result Entry");
-
+        this.setOpaque(false);
         // Setting layout to GridBagLayout.
         this.constraints = new GridBagConstraints();
         this.setLayout(new GridBagLayout());
@@ -173,6 +178,7 @@ public class MultimediaPanel extends JPanel {
 
         // Initialize duration criteria
         duration = new JLabel("Duration :");
+        duration.setForeground(FONT_COLOR);
         durationCriteria = new JComboBox<>();
         durationCriteria.addItem("Major to:");
         durationCriteria.addItem("Minor to:");
@@ -195,7 +201,9 @@ public class MultimediaPanel extends JPanel {
 
         // Initialize Frame Rate criteria
         frameRate = new JLabel("Frame Rate :");
+        frameRate.setForeground(FONT_COLOR);
         frameRateJComboBox = new JComboCheckBox(frameRateData);
+        frameRateJComboBox.setOpaque(false);
         frameRateJComboBox.setPreferredSize(new Dimension(200, 34));
         frameRateJComboBox.addActionListener(e -> this.updateFrameRateData());
 
@@ -209,7 +217,9 @@ public class MultimediaPanel extends JPanel {
 
         // Initialize Video Codec
         videoCodec = new JLabel("Video Codec :");
+        videoCodec.setForeground(FONT_COLOR);
         videoCodecJComboBox = new JComboCheckBox(videoCodecData);
+        videoCodecJComboBox.setOpaque(false);
         videoCodecJComboBox.setPreferredSize(new Dimension(200, 34));
         videoCodecJComboBox.addActionListener(e -> this.updateVideoCodecData());
 
@@ -238,12 +248,15 @@ public class MultimediaPanel extends JPanel {
 
         // Initialize resolution
         resolution = new JLabel("Resolution :");
+        resolution.setForeground(FONT_COLOR);
         resolutionJComboBox = new JComboCheckBox(resolutionData);
+        resolutionJComboBox.setOpaque(false);
         resolutionJComboBox.setPreferredSize(new Dimension(200, 34));
         resolutionJComboBox.addActionListener(e -> this.updateResolutionData());
 
         // Initialize audio bit rate
         audioBitRate = new JLabel("Audio Bit Rate :");
+        audioBitRate.setForeground(FONT_COLOR);
         audioBitRateTextFieldInit = new SearchTextField("From: e.g. 32000");
         audioBitRateTextFieldInit.setPreferredSize(new Dimension(130, 32));
         audioBitRateTextFieldEnd = new SearchTextField("To: e.g. 128000");
@@ -259,7 +272,9 @@ public class MultimediaPanel extends JPanel {
 
         // Initialize Multimedia Type criteria
         multimediaTypeLabel = new JLabel("Multimedia Type:");
+        multimediaTypeLabel.setForeground(FONT_COLOR);
         multimediaType = new JComboCheckBox(multimediaTypeData);
+        multimediaType.setOpaque(false);
         multimediaType.setPreferredSize(new Dimension(200, 34));
         multimediaType.addActionListener(e -> this.updateMultimediaTypeData());
         LOOGER.info("init exit");

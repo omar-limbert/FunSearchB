@@ -14,21 +14,16 @@
 package com.fundation.search.view.MainWindow;
 
 import com.fundation.search.common.SearchLogger;
-import com.fundation.search.model.asset.Asset;
-import com.fundation.search.model.asset.FileResult;
-import com.fundation.search.model.asset.MultimediaResult;
 import com.fundation.search.view.SearchTextField;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSpinner.ListEditor;
 import javax.swing.JTable;
 import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableCellRenderer;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.logging.Logger;
@@ -44,6 +39,11 @@ public class CenterPanel extends JPanel {
      * Init logger  in Center Panel
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
+
+    /**
+     * This is color to set all labels.
+     */
+    private static final Color FONT_COLOR = Color.WHITE;
 
     /**
      * resultsOfCriteria, Type: JTable, this table is for show results.
@@ -71,11 +71,17 @@ public class CenterPanel extends JPanel {
     private JTableHeader header;
 
     /**
+     * copyright, Type:JPanel, is for show copyright of application.
+     */
+    private JPanel copyright;
+
+    /**
      * Constructor for CentralPanel.
      * This method is for set Layout to GirdLayout, call initComponents() and call addComponents().
      */
     public CenterPanel() {
         LOOGER.info("Get center");
+        this.setOpaque(false);
         this.setLayout(new BorderLayout(2, 1));
         this.initComponents();
         this.addComponents();
@@ -87,13 +93,35 @@ public class CenterPanel extends JPanel {
      */
     private void addComponents() {
         LOOGER.info("Get add");
+
+        // Result Process Panel
         JPanel resultProcess = new JPanel();
+        resultProcess.setOpaque(false);
         resultProcess.add(resultProcessJLabel);
         resultProcess.add(resultProcessTextField);
+
+        // CopyRight Panel
+        this.copyright = new JPanel();
+        this.copyright.setPreferredSize(new Dimension(45,94));
+        this.copyright.setOpaque(false);
+
+        // Right Justification
+        JPanel rightPanel = new JPanel();
+        rightPanel.setPreferredSize(new Dimension(45,94));
+        rightPanel.setOpaque(false);
+
+        // Left Justification
+        JPanel leftPanel = new JPanel();
+        leftPanel.setPreferredSize(new Dimension(45,94));
+        leftPanel.setOpaque(false);
+
         this.add(resultProcess, BorderLayout.NORTH);
         this.add(resultsOfCriteria, BorderLayout.CENTER);
         this.add(header, BorderLayout.CENTER);
         this.add(new JScrollPane(resultsOfCriteria));
+        this.add(copyright, BorderLayout.SOUTH);
+        this.add(rightPanel, BorderLayout.EAST);
+        this.add(leftPanel, BorderLayout.WEST);
         LOOGER.info("add exit");
 
     }
@@ -106,13 +134,20 @@ public class CenterPanel extends JPanel {
         String columnNames[] = {"Name", "Path", "Hidden", "Read only", "File System", "Directory", "Type", "Size", "Owner", "Date Created", "Last Modified", "Last Access"};
         String rowData[][] = {{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}};
         this.resultProcessJLabel = new JLabel("Results :");
-        this.resultProcessTextField = new SearchTextField("Results Found");
+        this.resultProcessJLabel.setForeground(FONT_COLOR);
+        this.resultProcessTextField = new SearchTextField("0 - Results Found");
         this.resultProcessTextField.setPreferredSize(new Dimension(250, 32));
         this.resultProcessTextField.setEditable(false);
         this.resultProcessTextField.setEnabled(false);
         this.resultProcessTextField.setPlaceHolderColor(Color.RED);
         this.resultsOfCriteria = new JTable();
-        this.modelOfJTableResult = new DefaultTableModel(rowData, columnNames);
+        this.modelOfJTableResult = new DefaultTableModel(rowData, columnNames){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        ;
         this.resultsOfCriteria.setModel(modelOfJTableResult);
         this.resultsOfCriteria.setAutoCreateRowSorter(true);
         this.header = resultsOfCriteria.getTableHeader();
@@ -168,9 +203,8 @@ public class CenterPanel extends JPanel {
 
     /**
      * This method is to change columns tittle for file.
-     *
      */
-    public void updateColumnsTittleToFile(){
+    public void updateColumnsTittleToFile() {
 
         // Setting Columns
         header.getColumnModel().getColumn(0).setHeaderValue("Name");
@@ -191,9 +225,8 @@ public class CenterPanel extends JPanel {
 
     /**
      * This method is to change columns tittle for Multimedia.
-     *
      */
-    public void updateColumnsTittleToMultimedia(){
+    public void updateColumnsTittleToMultimedia() {
 
         // Setting Columns
         header.getColumnModel().getColumn(0).setHeaderValue("Multimedia Name");

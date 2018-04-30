@@ -21,6 +21,7 @@ import com.fundation.search.view.SearchTextField;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.logging.Logger;
@@ -37,6 +38,11 @@ public class SizePanel extends JPanel {
      * Init logger  in Size Panel
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
+
+    /**
+     * This is color to set all labels.
+     */
+    private static final Color FONT_COLOR = Color.WHITE;
 
     /**
      * sizeTextField, Type: SearchTextField, this is a JTextField for contains final size result.
@@ -63,6 +69,7 @@ public class SizePanel extends JPanel {
      */
     public SizePanel() {
         LOOGER.info("Get Result Entry");
+        this.setOpaque(false);
         this.setLayout(new FlowLayout());
         this.initComponents();
         this.addComponents();
@@ -78,6 +85,7 @@ public class SizePanel extends JPanel {
         // Iniatilize
         this.sizeTextField = new SearchTextField("Size");
         this.sizeLabel = new JLabel("Size :");
+        this.sizeLabel.setForeground(FONT_COLOR);
         this.sizeTextField.setPreferredSize(new Dimension(100, 32));
         this.sizeComboBox = new JComboBox();
         this.sizeComboBox.addItem("Bytes");

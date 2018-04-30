@@ -23,10 +23,8 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
-import java.util.Vector;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.table.JTableHeader;
 import java.util.Date;
 
 /**
@@ -71,7 +69,8 @@ public class MainSearchWindows extends JFrame {
 
         // Setting tittle of application.
         this.setTitle("Search Application");
-
+        JPanelBackground background = new JPanelBackground("/Users/omar/Jala/PROG102/SearchApp/FunSearchB/resources/background.png");
+        this.setContentPane(background);
         // Initialize Top and Center Panel, you need add new Bottom panel for new functionalities.
         this.topPanel = new TopPanel();
         this.centerPanel = new CenterPanel();
@@ -851,5 +850,4 @@ public class MainSearchWindows extends JFrame {
     public void setResultProcessTextField(String resultProcessTextField) {
         this.centerPanel.setResultProcessTextField(resultProcessTextField);
     }
-
 }

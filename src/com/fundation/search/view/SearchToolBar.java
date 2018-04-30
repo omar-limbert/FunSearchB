@@ -16,9 +16,23 @@ package com.fundation.search.view;
 import com.fundation.search.common.SearchLogger;
 import com.fundation.search.view.CriteriaPanels.*;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.JToolBar;
+import javax.swing.JToggleButton;
+import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.Vector;
 import java.util.logging.Logger;
 
 /**
@@ -33,6 +47,11 @@ public class SearchToolBar extends JToolBar {
      */
 
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
+
+    /**
+     * This is color to set all labels.
+     */
+    private static final Color FONT_COLOR = Color.WHITE;
 
     /**
      * Separator of System
@@ -115,6 +134,7 @@ public class SearchToolBar extends JToolBar {
      */
     public SearchToolBar(CriteriaPanel criteriaPanel) {
         LOOGER.info("Get Result Entry");
+        this.setOpaque(false);
         this.setFloatable( false);
         // This is a collection of buttons.
         this.toggleButtonCollection = new Vector<>();
@@ -204,7 +224,6 @@ public class SearchToolBar extends JToolBar {
      */
     private void removingCriteriaPanelToActionListenerButton() {
         LOOGER.info("remove criteria Action listener of buttons init");
-        System.out.println(action);
         // Removing "All Tags Panel Criteria"
         if (action.equalsIgnoreCase("All Tags")) {
             panelList = new Hashtable<>();
@@ -328,6 +347,10 @@ public class SearchToolBar extends JToolBar {
         LOOGER.info("add button to toggle collection");
         JToggleButton buttonToAddCollection = new JToggleButton(nameOfJToggleButton);
         this.updateIcon(buttonToAddCollection,nameOfJToggleButton);
+        buttonToAddCollection.setForeground(FONT_COLOR);
+        buttonToAddCollection.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createTitledBorder(""),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         this.add(buttonToAddCollection);
         this.toggleButtonCollection.add(buttonToAddCollection);
         LOOGER.info("exit button to toggle collection");

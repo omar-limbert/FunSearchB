@@ -41,6 +41,11 @@ public class FileNamePanel extends JPanel {
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
 
     /**
+     * This is color to set all labels.
+     */
+    private static final Color FONT_COLOR = Color.WHITE;
+
+    /**
      * allWordsRadioButton, Type: JRadioButton, when file name contains all words.
      */
     private JRadioButton allWordsRadioButton;
@@ -88,7 +93,7 @@ public class FileNamePanel extends JPanel {
      */
     public FileNamePanel() {
         LOOGER.info("Get Result Entry");
-
+        this.setOpaque(false);
         // Setting layout to FlowLayout
         this.setLayout(new FlowLayout());
 
@@ -111,13 +116,19 @@ public class FileNamePanel extends JPanel {
         this.containsJTextField = new SearchTextField("<- Search inside a File");
         this.containsJTextField.setPreferredSize(new Dimension(200, 32));
         this.fileNameLabel = new JLabel("File Name :");
+        this.fileNameLabel.setForeground(FONT_COLOR);
         this.containsTextInside = new JCheckBox("Search Inside :");
+        this.containsTextInside.setForeground(FONT_COLOR);
         // Initialize RadioButtons.
         this.radioButtonGroup = new ButtonGroup();
         this.allWordsRadioButton = new JRadioButton("all words");
+        this.allWordsRadioButton.setForeground(FONT_COLOR);
         this.startWithRadioButton = new JRadioButton("start with");
+        this.startWithRadioButton.setForeground(FONT_COLOR);
         this.endWithRadioButton = new JRadioButton("end with");
+        this.endWithRadioButton.setForeground(FONT_COLOR);
         this.equalsToRadioButton = new JRadioButton("equal to");
+        this.equalsToRadioButton.setForeground(FONT_COLOR);
 
         // Setting Action Command.
         this.allWordsRadioButton.setActionCommand("all words");

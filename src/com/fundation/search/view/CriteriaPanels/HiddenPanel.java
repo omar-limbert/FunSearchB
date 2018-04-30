@@ -18,6 +18,7 @@ import com.fundation.search.common.SearchLogger;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.util.logging.Logger;
 
@@ -32,6 +33,12 @@ public class HiddenPanel extends JPanel {
      * Init logger  in Hidden Panel
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
+
+    /**
+     * This is color to set all labels.
+     */
+    private static final Color FONT_COLOR = Color.WHITE;
+
     /**
      * allFilesRadioButton, Type: JRadioButton, when show hidden file and no hidden file.
      */
@@ -56,6 +63,7 @@ public class HiddenPanel extends JPanel {
      */
     public HiddenPanel() {
         LOOGER.info("Get Result Entry");
+        this.setOpaque(false);
         // Setting layout to FlowLayout.
         this.setLayout(new FlowLayout());
         // Calling to initComponents() method.
@@ -75,8 +83,11 @@ public class HiddenPanel extends JPanel {
         // Initialize RadioButtons.
         this.radioButtonGroup = new ButtonGroup();
         this.allFilesRadioButton = new JRadioButton("all files");
+        this.allFilesRadioButton.setForeground(FONT_COLOR);
         this.onlyHiddenRadioButton = new JRadioButton("only hidden");
+        this.onlyHiddenRadioButton.setForeground(FONT_COLOR);
         this.withoutHiddenRadioButton = new JRadioButton("without hidden");
+        this.withoutHiddenRadioButton.setForeground(FONT_COLOR);
         // Setting Action Command.
         this.allFilesRadioButton.setActionCommand("all files");
         this.onlyHiddenRadioButton.setActionCommand("only hidden");

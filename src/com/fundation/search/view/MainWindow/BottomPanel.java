@@ -41,6 +41,7 @@ public class BottomPanel extends JPanel {
      */
     public BottomPanel() {
         LOOGER.info("Get top panel Entry");
+        this.setOpaque(false);
         this.initComponents();
         this.addComponents();
         this.repaint();
