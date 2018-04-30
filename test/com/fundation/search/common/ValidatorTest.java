@@ -76,7 +76,6 @@ public class ValidatorTest {
         assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "resources" + SEPARATOR + "Icons"));
         assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search"));
         assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "common"));
-        assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "controller"));
         assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "model"));
         assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "view"));
         assertTrue(validator.isValidPath(new File(".").getCanonicalPath() + SEPARATOR + "test" + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "FilesTest" + SEPARATOR + "test1" + SEPARATOR + "docs"));
