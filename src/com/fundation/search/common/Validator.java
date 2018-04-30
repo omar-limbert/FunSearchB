@@ -209,9 +209,8 @@ public class Validator {
         Pattern pattern = Pattern.compile("\\b(Major to:|Minor to:|Equal to:)\\s*[0-9]+\\s*(?:mb|kb|gb|bytes)", Pattern.CASE_INSENSITIVE);
         Matcher matcherCommand = pattern.matcher(commandSize);
         LOOGER.info("Exit validateCommandSize");
-        return matcherCommand.find();
+        return matcherCommand.matches();
     }
-
     /**
      * this method compares the options allowed in command line
      * for the search by hidden files.
@@ -221,8 +220,9 @@ public class Validator {
      */
     public boolean isOptionHidden(String optionHidden) {
         LOOGER.info("isOptionHidden: " + optionHidden);
-        return optionHidden.equalsIgnoreCase("only hidden") ||
-                optionHidden.equalsIgnoreCase("without hidden");
+        Pattern pattern = Pattern.compile("\\b(only hidden|without hidden)", Pattern.CASE_INSENSITIVE);
+        Matcher matcherCommand = pattern.matcher(optionHidden);
+        return matcherCommand.matches();
     }
 
     /**
@@ -234,9 +234,9 @@ public class Validator {
      */
     public boolean isOptionCriteriaFileName(String criteriaFileName) {
         LOOGER.info("isOptionCriteriaFileName: " + criteriaFileName);
-        return criteriaFileName.equalsIgnoreCase("start with") ||
-                criteriaFileName.equalsIgnoreCase("end with") ||
-                criteriaFileName.equalsIgnoreCase("equal to");
+        Pattern pattern = Pattern.compile("\\b(start with|end with|equal to)", Pattern.CASE_INSENSITIVE);
+        Matcher matcherCommand = pattern.matcher(criteriaFileName);
+        return matcherCommand.matches();
     }
 
     /**
@@ -248,8 +248,8 @@ public class Validator {
      */
     public boolean isTrueFalse(String criteria) {
         LOOGER.info("isTrueFalse validator: " + criteria);
-        return criteria.equalsIgnoreCase("true") ||
-                criteria.equalsIgnoreCase("false");
+        Pattern pattern = Pattern.compile("\\b(true|false)", Pattern.CASE_INSENSITIVE);
+        Matcher matcherCommand = pattern.matcher(criteria);
+        return matcherCommand.matches();
     }
-
 }
