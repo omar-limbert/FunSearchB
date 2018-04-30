@@ -246,9 +246,9 @@ public class MultimediaPanel extends JPanel {
         // Initialize audio bit rate
         audioBitRate = new JLabel("Audio Bit Rate :");
         audioBitRateTextFieldInit = new SearchTextField("From: e.g. 32000");
-        audioBitRateTextFieldInit.setPreferredSize(new Dimension(170, 32));
+        audioBitRateTextFieldInit.setPreferredSize(new Dimension(130, 32));
         audioBitRateTextFieldEnd = new SearchTextField("To: e.g. 128000");
-        audioBitRateTextFieldEnd.setPreferredSize(new Dimension(170, 32));
+        audioBitRateTextFieldEnd.setPreferredSize(new Dimension(130, 32));
 
 
         // Sample Data
@@ -270,6 +270,17 @@ public class MultimediaPanel extends JPanel {
      */
     private void updateResolutionData() {
         resolutionJComboBox.itemSelected();
+
+        // Action for option "All"
+        JCheckBox currently = resolutionJComboBox.getItemSelected();
+        if("All".equalsIgnoreCase(currently.getText())){
+            if(!currently.isSelected()){
+                resolutionData.forEach(e->e.setSelected(false));
+            }
+            else{
+                resolutionData.forEach(e->e.setSelected(true));
+            }
+        }
     }
 
     /**
@@ -277,6 +288,17 @@ public class MultimediaPanel extends JPanel {
      */
     private void updateVideoCodecData() {
         videoCodecJComboBox.itemSelected();
+
+        // Action for option "All"
+        JCheckBox currently = videoCodecJComboBox.getItemSelected();
+        if("All".equalsIgnoreCase(currently.getText())){
+            if(!currently.isSelected()){
+                videoCodecData.forEach(e->e.setSelected(false));
+            }
+            else{
+                videoCodecData.forEach(e->e.setSelected(true));
+            }
+        }
     }
 
     /**
@@ -284,6 +306,17 @@ public class MultimediaPanel extends JPanel {
      */
     private void updateFrameRateData() {
         frameRateJComboBox.itemSelected();
+
+        // Action for option "All"
+        JCheckBox currently = frameRateJComboBox.getItemSelected();
+        if("All".equalsIgnoreCase(currently.getText())){
+            if(!currently.isSelected()){
+                frameRateData.forEach(e->e.setSelected(false));
+            }
+            else{
+                frameRateData.forEach(e->e.setSelected(true));
+            }
+        }
     }
 
     /**
@@ -291,6 +324,17 @@ public class MultimediaPanel extends JPanel {
      */
     private void updateMultimediaTypeData() {
         multimediaType.itemSelected();
+
+        // Action for option "All"
+        JCheckBox currently = multimediaType.getItemSelected();
+        if("All".equalsIgnoreCase(currently.getText())){
+            if(!currently.isSelected()){
+                multimediaTypeData.forEach(e->e.setSelected(false));
+            }
+            else{
+                multimediaTypeData.forEach(e->e.setSelected(true));
+            }
+        }
     }
 
     /**

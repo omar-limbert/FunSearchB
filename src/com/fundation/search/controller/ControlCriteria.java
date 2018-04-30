@@ -519,7 +519,9 @@ public class ControlCriteria {
         MultimediaResult multimediaResult = (MultimediaResult) file;
         dataFromAsset[0] = multimediaResult.getName();
         dataFromAsset[1] = multimediaResult.getCodecLongName();
-        dataFromAsset[2] = multimediaResult.getrFrameRate().toString();
+        Double value = (Math.ceil(multimediaResult.getrFrameRate().doubleValue()));
+        String valueForCompare = value.intValue() + " fps";
+        dataFromAsset[2] = valueForCompare;
         dataFromAsset[3] = multimediaResult.getDisplayAspect();
         dataFromAsset[4] = multimediaResult.getWidth() + "x" + multimediaResult.getHeight();
         dataFromAsset[5] = multimediaResult.getExtensionFile();
