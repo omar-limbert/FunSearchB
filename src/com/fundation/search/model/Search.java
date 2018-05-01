@@ -13,6 +13,7 @@
  */
 package com.fundation.search.model;
 
+import com.fundation.search.common.Convertor;
 import com.fundation.search.common.SearchLogger;
 import com.fundation.search.controller.builder.SearchCriteria;
 import com.fundation.search.model.asset.Asset;
@@ -39,6 +40,9 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -60,6 +64,11 @@ public class Search {
      * LOOGER is the logger.
      */
     private static final Logger LOOGER = SearchLogger.getInstanceOfLogger().getLogger();
+
+    /**
+     * SimpleDateFormat, Date format for all dates
+     */
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
 
     /**
      * This is separator for manage paths.
@@ -272,7 +281,20 @@ public class Search {
      */
     private void lastModifiedTime(FileTime dateConditionInt, FileTime dateConditionEnd) {
         LOOGER.info("Entry to lastModifiedTime Method");
-        assetList.removeIf(e -> !(e.getLastModifiedTime().toMillis() >= dateConditionInt.toMillis() && e.getLastModifiedTime().toMillis() <= dateConditionEnd.toMillis()));
+        assetList.removeIf(e -> {
+            try {
+                Date dateAsset = DATE_FORMAT.parse(new Convertor().convertFileDateToDate(dateConditionInt));
+                Date dateInit = DATE_FORMAT.parse(new Convertor().convertFileDateToDate(dateConditionInt));
+                Date dateEnd = DATE_FORMAT.parse(new Convertor().convertFileDateToDate(dateConditionEnd));
+                if (!(dateAsset.compareTo(dateInit) >= 0 && dateEnd.compareTo(dateAsset) <= 0)) {
+                    return false;
+                }
+
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            }
+            return true;
+        });
         LOOGER.info("Exit of lastModifiedTime Method");
     }
 
@@ -284,7 +306,20 @@ public class Search {
      */
     private void creationTime(FileTime dateConditionInt, FileTime dateConditionEnd) {
         LOOGER.info("Entry to creationTime Method");
-        assetList.removeIf(e -> !(e.getCreationTime().toMillis() >= dateConditionInt.toMillis() && e.getCreationTime().toMillis() <= dateConditionEnd.toMillis()));
+        assetList.removeIf(e -> {
+            try {
+                Date dateAsset = DATE_FORMAT.parse(new Convertor().convertFileDateToDate(dateConditionInt));
+                Date dateInit = DATE_FORMAT.parse(new Convertor().convertFileDateToDate(dateConditionInt));
+                Date dateEnd = DATE_FORMAT.parse(new Convertor().convertFileDateToDate(dateConditionEnd));
+                if (!(dateAsset.compareTo(dateInit) >= 0 && dateEnd.compareTo(dateAsset) <= 0)) {
+                    return false;
+                }
+
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            }
+            return true;
+        });
         LOOGER.info("Exit of creationTime Method");
     }
 
@@ -296,8 +331,20 @@ public class Search {
      */
     private void lastAccessTime(FileTime dateConditionInt, FileTime dateConditionEnd) {
         LOOGER.info("Entry to lastAccessTime Method");
-        assetList.removeIf(e -> !(e.getLastAccessTime().toMillis() >= dateConditionInt.toMillis() && e.getLastAccessTime().toMillis() <= dateConditionEnd.toMillis()));
+        assetList.removeIf(e -> {
+            try {
+                Date dateAsset = DATE_FORMAT.parse(new Convertor().convertFileDateToDate(dateConditionInt));
+                Date dateInit = DATE_FORMAT.parse(new Convertor().convertFileDateToDate(dateConditionInt));
+                Date dateEnd = DATE_FORMAT.parse(new Convertor().convertFileDateToDate(dateConditionEnd));
+                if (!(dateAsset.compareTo(dateInit) >= 0 && dateEnd.compareTo(dateAsset) <= 0)) {
+                    return false;
+                }
 
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            }
+            return true;
+        });
         LOOGER.info("Exit of lastAccessTime Method");
 
     }
@@ -454,34 +501,44 @@ public class Search {
             if (criteria.getModifiedDateInit() != null && criteria.getModifiedDateEnd() != null) {
                 this.lastModifiedTime(criteria.getModifiedDateInit(), criteria.getModifiedDateEnd());
             }
+            System.out.println(assetList.size());
             if (criteria.getLastAccessDateInit() != null && criteria.getLastAccessDateEnd() != null) {
                 this.lastAccessTime(criteria.getLastAccessDateInit(), criteria.getLastAccessDateEnd());
             }
+            System.out.println(assetList.size());
             if (criteria.getIsContainsInsideFileCriteria()) {
                 this.searchIntoFile(criteria.getTextContainsInsideFileCriteria());
             }
+            System.out.println(assetList.size());
             // Multimedia Files
             if (criteria.isSearchMultimedia()) {
                 this.addMultimediaAttributes();
             }
+            System.out.println(assetList.size());
             if (criteria.getMultimediaDuration() > -1 && criteria.isSearchMultimedia()) {
                 this.searchMultimediaByDuration(criteria.getMultimediaDuration(), criteria.getMultimediaDurationOperator());
             }
+            System.out.println(assetList.size());
             if (criteria.isSearchMultimedia()) {
                 this.searchMultimediaByVideoCodec(criteria.getMultimediaVideoCodec());
             }
+            System.out.println(assetList.size());
             if (criteria.isSearchMultimedia()) {
                 this.searchMultimediaByResolution(criteria.getMultimediaResolution());
             }
+            System.out.println(assetList.size());
             if (criteria.isSearchMultimedia()) {
                 this.searchMultimediaByType(criteria.getMultimediaType());
             }
+            System.out.println(assetList.size());
             if (criteria.isSearchMultimedia()) {
                 this.searchMultimediaByFrameRate(criteria.getFrameRateCriteria());
             }
+            System.out.println(assetList.size());
             if (!criteria.getMultimediaAudioBitRateInit().isEmpty() && !criteria.getMultimediaAudioBitRateEnd().isEmpty() && criteria.isSearchMultimedia()) {
                 this.searchMultimediaByAudioBitRate(criteria.getMultimediaAudioBitRateInit(), criteria.getMultimediaAudioBitRateEnd());
             }
+            System.out.println(assetList.size());
         }
         LOOGER.info("Exit of filterByCriteria Method");
     }

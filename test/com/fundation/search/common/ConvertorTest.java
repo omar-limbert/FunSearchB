@@ -160,15 +160,15 @@ public class ConvertorTest {
         assertEquals("29878250bytes", convertor.convertSizeUnit(29878250, "bytes"));
         assertEquals("251704bytes", convertor.convertSizeUnit(251704, "bytes"));
         assertEquals("53990487bytes", convertor.convertSizeUnit(53990487, "bytes"));
-        assertEquals("102,83Kb", convertor.convertSizeUnit(105295, "Kb"));
-        assertEquals("291,26Kb", convertor.convertSizeUnit(298250, "Kb"));
-        assertEquals("484,39Kb", convertor.convertSizeUnit(496017, "Kb"));
-        assertEquals("518,79Mb", convertor.convertSizeUnit(543991704, "Mb"));
-        assertEquals("1,69Mb", convertor.convertSizeUnit(1770119, "Mb"));
-        assertEquals("11,99Mb", convertor.convertSizeUnit(12567188, "Mb"));
-        assertEquals("5,67Gb", convertor.convertSizeUnit(6085481932L, "Gb"));
-        assertEquals("16,31Gb", convertor.convertSizeUnit(17513972809L, "Gb"));
-        assertEquals("3,15Gb", convertor.convertSizeUnit(3384936952L, "Gb"));
+        assertEquals("102.83Kb", convertor.convertSizeUnit(105295, "Kb"));
+        assertEquals("291.26Kb", convertor.convertSizeUnit(298250, "Kb"));
+        assertEquals("484.39Kb", convertor.convertSizeUnit(496017, "Kb"));
+        assertEquals("518.79Mb", convertor.convertSizeUnit(543991704, "Mb"));
+        assertEquals("1.69Mb", convertor.convertSizeUnit(1770119, "Mb"));
+        assertEquals("11.99Mb", convertor.convertSizeUnit(12567188, "Mb"));
+        assertEquals("5.67Gb", convertor.convertSizeUnit(6085481932L, "Gb"));
+        assertEquals("16.31Gb", convertor.convertSizeUnit(17513972809L, "Gb"));
+        assertEquals("3.15Gb", convertor.convertSizeUnit(3384936952L, "Gb"));
     }
 
     /**
@@ -183,10 +183,10 @@ public class ConvertorTest {
         assertEquals("3 minute", convertor.convertTimeUnit(180, "minute"));
         assertEquals("60 minute", convertor.convertTimeUnit(3600, "minute"));
         assertEquals("330 minute", convertor.convertTimeUnit(19800, "minute"));
-        assertEquals("12535,8 minute", convertor.convertTimeUnit(752148, "minute"));
-        assertEquals("5,99 hour", convertor.convertTimeUnit(21548, "hour"));
-        assertEquals("4088,95 hour", convertor.convertTimeUnit(14720212, "hour"));
+        assertEquals("12535.8 minute", convertor.convertTimeUnit(752148, "minute"));
+        assertEquals("5.99 hour", convertor.convertTimeUnit(21548, "hour"));
+        assertEquals("4088.95 hour", convertor.convertTimeUnit(14720212, "hour"));
         assertEquals("1 hour", convertor.convertTimeUnit(3600, "hour"));
-        assertEquals("23,67 hour", convertor.convertTimeUnit(85210, "hour"));
+        assertEquals("23.67 hour", convertor.convertTimeUnit(85210, "hour"));
     }
 }

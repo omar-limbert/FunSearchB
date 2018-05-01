@@ -193,6 +193,19 @@ public class ControlCriteria {
             if (confirmDialog == JOptionPane.YES_OPTION) {
                 searchWindows.resetDataOfJTableResult();
                 this.getResults(searchCriteriaDB);
+                long size;
+                String sizeOperator;
+                String sizeCriteria;
+
+                if (searchCriteriaDB.getSize() == -1) {
+                    size = 0;
+                    sizeOperator = "upper";
+                    sizeCriteria = "Bytes";
+                } else {
+                    size = searchCriteriaDB.getSize();
+                    sizeOperator = searchCriteriaDB.getOperator();
+                    sizeCriteria = searchCriteriaDB.getType();
+                }
 
                 // Updating User Interface
                 searchWindows.setCreationDateEnd(converter.convertFileDateToDate(searchCriteriaDB.getCreationDateEnd()));
@@ -202,7 +215,9 @@ public class ControlCriteria {
                 searchWindows.setModifiedDateEnd(converter.convertFileDateToDate(searchCriteriaDB.getModifiedDateEnd()));
                 searchWindows.setModifiedDateInit(converter.convertFileDateToDate(searchCriteriaDB.getModifiedDateInit()));
                 searchWindows.setNameCriteria(searchCriteriaDB.getName());
-                searchWindows.setSizeCriteria(searchCriteriaDB.getSize());
+                searchWindows.setSizeCriteria(size);
+                searchWindows.setOperatorCriteria(sizeOperator);
+                searchWindows.setTypeCriteria(sizeCriteria);
                 searchWindows.setExtensionCriteria(searchCriteriaDB.getExtension());
                 searchWindows.setOwnerCriteria(searchCriteriaDB.getOwnerCriteria());
                 searchWindows.setPathCriteria(searchCriteriaDB.getPath());
@@ -210,8 +225,6 @@ public class ControlCriteria {
                 searchWindows.setIsDirectoryCriteria(searchCriteriaDB.getIsDirectory());
                 searchWindows.setIsFileSystemCriteria(searchCriteriaDB.getIsFileSystem());
                 searchWindows.setIsReadOnlyCriteria(searchCriteriaDB.getIsReadOnly());
-                searchWindows.setOperatorCriteria(searchCriteriaDB.getOperator());
-                searchWindows.setTypeCriteria(searchCriteriaDB.getType());
                 searchWindows.setIsHiddenCriteria(searchCriteriaDB.getHiddenCriteria());
                 searchWindows.setKeySensitiveOfCriteria(searchCriteriaDB.getKeySensitiveOfCriteria());
                 searchWindows.setIsContainsInsideFileCriteria(searchCriteriaDB.getIsContainsInsideFileCriteria());
@@ -445,25 +458,21 @@ public class ControlCriteria {
 
         // Folder counter
         final int[] folderCounter = {0};
-
         // Sending SearchCriteria to MODEL
         search.setSearchCriteria(searchCriteria);
-
         // Init Model
         search.initSearch();
-
         // Adding row to Table of Result
         search.getResultList().forEach(e -> {
-            if(!(e instanceof FolderResult)){
-                filesCounter[0] ++;
-            }
-            else{
-                folderCounter[0] ++;
+            if (!(e instanceof FolderResult)) {
+                filesCounter[0]++;
+            } else {
+                folderCounter[0]++;
             }
             searchWindows.insertDataOfJTableResult(this.getDataFromAsset(e));
         });
 
-        searchWindows.setResultProcessTextField(filesCounter[0]+" File(s), "+folderCounter[0]+" Directory(ies)");
+        searchWindows.setResultProcessTextField(filesCounter[0] + " File(s), " + folderCounter[0] + " Directory(ies)");
         LOOGER.info("Get Result Exit");
     }
 
@@ -503,11 +512,10 @@ public class ControlCriteria {
         dataFromAsset[5] = file.getIsDirectory();
         if (file instanceof FileResult || file instanceof MultimediaResult) {
             dataFromAsset[6] = file.getExtensionFile();
+        } else {
+            dataFromAsset[6] = file.getFilesQuantity() + " File(s)";
         }
-        else{
-            dataFromAsset[6] = file.getFilesQuantity()+" File(s)";
-        }
-        dataFromAsset[7] = converter.convertSizeUnit(file.getSizeFile(),searchWindows.getSizeOfCriteria()[2]);
+        dataFromAsset[7] = converter.convertSizeUnit(file.getSizeFile(), searchWindows.getSizeOfCriteria()[2]);
         dataFromAsset[8] = file.getOwnerFile();
         dataFromAsset[9] = converter.convertFileDateToDate(file.getCreationTime());
         dataFromAsset[10] = converter.convertFileDateToDate(file.getLastModifiedTime());
@@ -525,11 +533,11 @@ public class ControlCriteria {
         dataFromAsset[3] = multimediaResult.getDisplayAspect();
         dataFromAsset[4] = multimediaResult.getWidth() + "x" + multimediaResult.getHeight();
         dataFromAsset[5] = multimediaResult.getExtensionFile();
-        dataFromAsset[6] = converter.convertTimeUnit(multimediaResult.getDuration(),searchWindows.getDurationMultimediaTime());
+        dataFromAsset[6] = converter.convertTimeUnit(multimediaResult.getDuration(), searchWindows.getDurationMultimediaTime());
         dataFromAsset[7] = multimediaResult.getAudioCodecLongName();
         dataFromAsset[8] = multimediaResult.getAudioBitRate();
         dataFromAsset[9] = multimediaResult.getAudioChannels();
         dataFromAsset[10] = multimediaResult.getPathFile();
-        dataFromAsset[11] = converter.convertSizeUnit( multimediaResult.getSizeFile(),searchWindows.getSizeOfCriteria()[2]);
+        dataFromAsset[11] = converter.convertSizeUnit(multimediaResult.getSizeFile(), searchWindows.getSizeOfCriteria()[2]);
     }
 }
