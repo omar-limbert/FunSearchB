@@ -427,4 +427,30 @@ public class ValidatorTest {
         assertFalse(validator.isOptionCriteriaFileName("..'¿'0¿9"));
     }
 
+    /**
+     * This test check the invalid IsValidFormatBitRate.
+     * It must to be String.
+     */
+    @Test
+    public  void testIsValidFormatBitRate(){
+        assertTrue(validator.isValidFormatBitRate("52369"));
+        assertTrue(validator.isValidFormatBitRate("1"));
+        assertTrue(validator.isValidFormatBitRate("1999928523662"));
+
+    }
+
+    /**
+     * This test check the invalid testIsInvalidFormatBitRate.
+     * It must to be String.
+     */
+    @Test
+    public void testIsInvalidFormatBitRate(){
+        assertFalse(validator.isValidFormatBitRate("hello"));
+        assertFalse(validator.isValidFormatBitRate("ArG"));
+        assertFalse(validator.isValidFormatBitRate("el85"));
+        assertFalse(validator.isValidFormatBitRate("y@*-"));
+        assertFalse(validator.isValidFormatBitRate(" "));
+        
+    }
+
 }
