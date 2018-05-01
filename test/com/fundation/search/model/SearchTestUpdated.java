@@ -97,7 +97,7 @@ public class SearchTestUpdated {
                 + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest"
                 + SEPARATOR + "test1" + SEPARATOR + "docs" + SEPARATOR + "LAB - BAP Ticketing.docx"
                 , "LAB - BAP Ticketing.docx"
-                , 37518L, false, modified, creation, lastAccess, "DESKTOP-CPNM9MO\\Ariel Gonzales"
+                , 37518L, false, modified, creation, lastAccess, ""
                 , false, false, false, "docx", ""));
 
 
@@ -115,7 +115,7 @@ public class SearchTestUpdated {
                 + SEPARATOR + "test1" + SEPARATOR + "docs" + SEPARATOR + "WorkPlans.doc"
 
                 , "WorkPlans.doc"
-                , 67072L, false, modified, creation, lastAccess, "DESKTOP-CPNM9MO\\Ariel Gonzales"
+                , 67072L, false, modified, creation, lastAccess, ""
                 , true, false, false, ".jpg", ""));
 
         assetList.add(new FolderResult(new File(".").getCanonicalPath() + SEPARATOR + "test"
