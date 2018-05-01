@@ -501,44 +501,34 @@ public class Search {
             if (criteria.getModifiedDateInit() != null && criteria.getModifiedDateEnd() != null) {
                 this.lastModifiedTime(criteria.getModifiedDateInit(), criteria.getModifiedDateEnd());
             }
-            System.out.println(assetList.size());
             if (criteria.getLastAccessDateInit() != null && criteria.getLastAccessDateEnd() != null) {
                 this.lastAccessTime(criteria.getLastAccessDateInit(), criteria.getLastAccessDateEnd());
             }
-            System.out.println(assetList.size());
             if (criteria.getIsContainsInsideFileCriteria()) {
                 this.searchIntoFile(criteria.getTextContainsInsideFileCriteria());
             }
-            System.out.println(assetList.size());
             // Multimedia Files
             if (criteria.isSearchMultimedia()) {
                 this.addMultimediaAttributes();
             }
-            System.out.println(assetList.size());
             if (criteria.getMultimediaDuration() > -1 && criteria.isSearchMultimedia()) {
                 this.searchMultimediaByDuration(criteria.getMultimediaDuration(), criteria.getMultimediaDurationOperator());
             }
-            System.out.println(assetList.size());
             if (criteria.isSearchMultimedia()) {
                 this.searchMultimediaByVideoCodec(criteria.getMultimediaVideoCodec());
             }
-            System.out.println(assetList.size());
             if (criteria.isSearchMultimedia()) {
                 this.searchMultimediaByResolution(criteria.getMultimediaResolution());
             }
-            System.out.println(assetList.size());
             if (criteria.isSearchMultimedia()) {
                 this.searchMultimediaByType(criteria.getMultimediaType());
             }
-            System.out.println(assetList.size());
             if (criteria.isSearchMultimedia()) {
                 this.searchMultimediaByFrameRate(criteria.getFrameRateCriteria());
             }
-            System.out.println(assetList.size());
             if (!criteria.getMultimediaAudioBitRateInit().isEmpty() && !criteria.getMultimediaAudioBitRateEnd().isEmpty() && criteria.isSearchMultimedia()) {
                 this.searchMultimediaByAudioBitRate(criteria.getMultimediaAudioBitRateInit(), criteria.getMultimediaAudioBitRateEnd());
             }
-            System.out.println(assetList.size());
         }
         LOOGER.info("Exit of filterByCriteria Method");
     }
