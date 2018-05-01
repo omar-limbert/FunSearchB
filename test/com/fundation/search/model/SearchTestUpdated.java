@@ -69,24 +69,24 @@ public class SearchTestUpdated {
         search = new Search();
         convertor = new Convertor();
         FileTime lastAccess = convertor.convertStringToFileTime("01/05/2018");
-        FileTime creation = convertor.convertStringToFileTime("30/04/2018");
+        FileTime creation = convertor.convertStringToFileTime("01/05/2018");
         FileTime modified = convertor.convertStringToFileTime("30/04/2018");
         assetList.add(new FolderResult(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest"
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1"
                 + SEPARATOR + "test1" + SEPARATOR + "docs" + SEPARATOR + "folder", "folder"
                 , 0L, false, modified, creation, lastAccess, ""
                 , false, false, true, 1));
 
 
         assetList.add(new FileResult(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest"
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1"
                 + SEPARATOR + "test1" + SEPARATOR + "docs" + SEPARATOR + "blacks-factors-influence-estimation-supplement.pdf"
                 , "blacks-factors-influence-estimation-supplement.pdf"
                 , 11864L, false, modified, creation, lastAccess, ""
                 , false, false, true, "pdf", ""));
 
         assetList.add(new FileResult(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest"
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1"
                 + SEPARATOR + "test1" + SEPARATOR + "docs" + SEPARATOR + "folder" + SEPARATOR + "test1.txt"
                 , "test1.txt"
                 , 33L, false, modified, creation, lastAccess, ""
@@ -94,32 +94,32 @@ public class SearchTestUpdated {
 
 
         assetList.add(new FileResult(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest"
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1"
                 + SEPARATOR + "test1" + SEPARATOR + "docs" + SEPARATOR + "LAB - BAP Ticketing.docx"
                 , "LAB - BAP Ticketing.docx"
-                , 37518L, false, modified, creation, lastAccess, "DESKTOP-CPNM9MO\\Ariel Gonzales"
+                , 37518L, false, modified, creation, lastAccess, ""
                 , false, false, false, "docx", ""));
 
 
         assetList.add(new FileResult(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest"
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1"
                 + SEPARATOR + "test1" + SEPARATOR + "docs" + SEPARATOR + "Practice_03.docx"
 
                 , "Practice_03.docx"
-                , 104060L, true, modified, creation, lastAccess, "DESKTOP-CPNM9MO\\Ariel Gonzales"
+                , 104060L, true, modified, creation, lastAccess, ""
                 , false, false, false, "docx", ""));
 
 
         assetList.add(new FileResult(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest"
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1"
                 + SEPARATOR + "test1" + SEPARATOR + "docs" + SEPARATOR + "WorkPlans.doc"
 
                 , "WorkPlans.doc"
-                , 67072L, false, modified, creation, lastAccess, "DESKTOP-CPNM9MO\\Ariel Gonzales"
-                , true, false, false, ".jpg", ""));
+                , 67072L, false, modified, creation, lastAccess, ""
+                , false, false, false, ".jpg", ""));
 
         assetList.add(new FolderResult(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest"
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1"
                 + SEPARATOR + "test1" + SEPARATOR + "docs"
                 , "docs"
                 , 4096L, false, modified, creation, lastAccess, ""
@@ -136,7 +136,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .ownerCriteria("").multimediaDurationInputCriteria("", 0, "")
                 .multimediaAudioBitRateCriteriaInit("").multimediaAudioBitRateCriteriaEnd("");
         searchCriteria = new SearchCriteria(searchCriteriaBuilder);
@@ -161,7 +161,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .fileName("WorkPlans.doc").fileNameCriteria("all words")
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
@@ -184,7 +184,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .fileName("b").fileNameCriteria("start with")
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
@@ -207,7 +207,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .fileName("x").fileNameCriteria("end with")
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
@@ -231,7 +231,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .fileName("test1.txt").fileNameCriteria("equal to")
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
@@ -254,7 +254,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .sizeCriteria("Major to:", 37518L, "bytes")
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
@@ -278,7 +278,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .sizeCriteria("Minor to:", 67062L, "bytes")
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
@@ -305,7 +305,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .sizeCriteria("Equal to:", 104060L, "bytes")
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
@@ -328,7 +328,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .sizeCriteria("Major to:", 4L, "Kb")
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
@@ -354,7 +354,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .sizeCriteria("Minor to:", 101L, "Mb")
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
@@ -378,7 +378,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .hiddenCriteria("only hidden")
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
@@ -401,7 +401,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .hiddenCriteria("without hidden")
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
@@ -427,8 +427,8 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
-                .isReadCriteria(true)
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                .isReadCriteria(false)
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
                 .multimediaAudioBitRateCriteriaInit("").multimediaAudioBitRateCriteriaEnd("");
@@ -450,7 +450,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .isReadCriteria(false)
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
@@ -475,7 +475,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .isFileSystemCriteria(false)
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
@@ -501,7 +501,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .isDirectoryCriteria(true)
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
@@ -524,7 +524,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .isDirectoryCriteria(false)
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
@@ -550,7 +550,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .extensionCriteria(".docx")
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
@@ -574,7 +574,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .fileName("Pract").fileNameCriteria("all words").keySensitiveOfCriteria(true)
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
@@ -597,7 +597,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .isContainsInsideFileCriteria(true).textContainsInsideFileCriteria("orange")
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
@@ -620,7 +620,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .isContainsInsideFileCriteria(true).textContainsInsideFileCriteria("English")
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
@@ -643,7 +643,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .lastAccessDateCriteria(convertor.convertStringToFileTime("01/04/2018"), convertor.convertStringToFileTime("01/05/2020"))
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
@@ -670,7 +670,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .creationDateCriteria(convertor.convertStringToFileTime("01/04/2018"), convertor.convertStringToFileTime("01/05/2020"))
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
@@ -697,7 +697,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .modifiedDateCriteria(convertor.convertStringToFileTime("01/04/2018"), convertor.convertStringToFileTime("01/05/2020"))
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
@@ -723,7 +723,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .modifiedDateCriteria(convertor.convertStringToFileTime("15/02/2018"), convertor.convertStringToFileTime("18/03/2020"))
                 .creationDateCriteria(convertor.convertStringToFileTime("01/03/2018"), convertor.convertStringToFileTime("20/04/2020"))
                 .lastAccessDateCriteria(convertor.convertStringToFileTime("01/04/2018"), convertor.convertStringToFileTime("01/05/2020"))
@@ -751,7 +751,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .fileName("x").fileNameCriteria("end with")
                 .modifiedDateCriteria(convertor.convertStringToFileTime("15/02/2018"), convertor.convertStringToFileTime("18/03/2020"))
                 .creationDateCriteria(convertor.convertStringToFileTime("01/03/2018"), convertor.convertStringToFileTime("20/04/2020"))
@@ -777,7 +777,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .fileName("x").fileNameCriteria("end with")
                 .isReadCriteria(false).isDirectoryCriteria(false).isFileSystemCriteria(false)
                 .modifiedDateCriteria(convertor.convertStringToFileTime("15/02/2018"), convertor.convertStringToFileTime("18/03/2020"))
@@ -804,9 +804,9 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .fileName("WorkPlans.doc").fileNameCriteria("all words")
-                .isReadCriteria(true).isDirectoryCriteria(false).isFileSystemCriteria(false)
+                .isReadCriteria(false).isDirectoryCriteria(false).isFileSystemCriteria(false)
                 .modifiedDateCriteria(convertor.convertStringToFileTime("15/02/2018"), convertor.convertStringToFileTime("18/03/2020"))
                 .creationDateCriteria(convertor.convertStringToFileTime("01/03/2018"), convertor.convertStringToFileTime("20/04/2020"))
                 .lastAccessDateCriteria(convertor.convertStringToFileTime("01/04/2018"), convertor.convertStringToFileTime("01/05/2020"))
@@ -830,7 +830,7 @@ public class SearchTestUpdated {
         List<Asset> assetList1;
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .fileName("L").fileNameCriteria("start with")
                 .isReadCriteria(false).isDirectoryCriteria(false).isFileSystemCriteria(false)
                 .modifiedDateCriteria(convertor.convertStringToFileTime("15/02/2018"), convertor.convertStringToFileTime("18/03/2020"))
@@ -861,7 +861,7 @@ public class SearchTestUpdated {
         SearchCriteriaBuilder searchCriteriaBuilder;
 
         aux.add(new FileResult(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest"
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1"
                 + SEPARATOR + "test1" + SEPARATOR + "docs" + SEPARATOR + "Practice_03.docx"
                 , "Practice_03.docx"
                 , 104060L, true, modified1, creation1, lastAccess1, ""
@@ -869,7 +869,7 @@ public class SearchTestUpdated {
 
 
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest1" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .fileName("Practice_03.docx").fileNameCriteria("all words")
                 .hiddenCriteria("only hidden").isReadCriteria(false).isDirectoryCriteria(false).isFileSystemCriteria(false).keySensitiveOfCriteria(false)
                 .extensionCriteria(".docx")
