@@ -374,7 +374,7 @@ public class Search {
                         e.printStackTrace();
                     }
                 }
-                if (fileToRead.getName().endsWith(".docx") || fileToRead.getName().endsWith(".doc")) {
+                if (fileToRead.getName().endsWith(".docx")) {
 
                     try {
                         FileInputStream fis = new FileInputStream(fileToRead.getPathFile());
@@ -418,13 +418,13 @@ public class Search {
             if (criteria.getName() != null) {
                 this.searchByName(criteria.getName(), criteria.getFileNameCriteria());
             }
-            if (criteria.getHiddenCriteria().equalsIgnoreCase("all files")) {
+            if ("all files".equalsIgnoreCase(criteria.getHiddenCriteria())) {
                 this.searchHiddenFiles("all files");
             }
-            if (criteria.getHiddenCriteria().equalsIgnoreCase("only hidden")) {
+            if ("only hidden".equalsIgnoreCase(criteria.getHiddenCriteria())) {
                 this.searchHiddenFiles("only hidden");
             }
-            if (criteria.getHiddenCriteria().equalsIgnoreCase("without hidden")) {
+            if ("without hidden".equalsIgnoreCase(criteria.getHiddenCriteria())) {
                 this.searchHiddenFiles("without hidden");
             }
             if (criteria.getIsDirectory()) {
