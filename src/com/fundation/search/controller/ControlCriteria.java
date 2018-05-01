@@ -193,6 +193,19 @@ public class ControlCriteria {
             if (confirmDialog == JOptionPane.YES_OPTION) {
                 searchWindows.resetDataOfJTableResult();
                 this.getResults(searchCriteriaDB);
+                long size;
+                String sizeOperator;
+                String sizeCriteria;
+
+                if (searchCriteriaDB.getSize() == -1) {
+                    size = 0;
+                    sizeOperator = "upper";
+                    sizeCriteria = "Bytes";
+                } else {
+                    size = searchCriteriaDB.getSize();
+                    sizeOperator = searchCriteriaDB.getOperator();
+                    sizeCriteria = searchCriteriaDB.getType();
+                }
 
                 // Updating User Interface
                 searchWindows.setCreationDateEnd(converter.convertFileDateToDate(searchCriteriaDB.getCreationDateEnd()));
@@ -202,7 +215,9 @@ public class ControlCriteria {
                 searchWindows.setModifiedDateEnd(converter.convertFileDateToDate(searchCriteriaDB.getModifiedDateEnd()));
                 searchWindows.setModifiedDateInit(converter.convertFileDateToDate(searchCriteriaDB.getModifiedDateInit()));
                 searchWindows.setNameCriteria(searchCriteriaDB.getName());
-                searchWindows.setSizeCriteria(searchCriteriaDB.getSize());
+                searchWindows.setSizeCriteria(size);
+                searchWindows.setOperatorCriteria(sizeOperator);
+                searchWindows.setTypeCriteria(sizeCriteria);
                 searchWindows.setExtensionCriteria(searchCriteriaDB.getExtension());
                 searchWindows.setOwnerCriteria(searchCriteriaDB.getOwnerCriteria());
                 searchWindows.setPathCriteria(searchCriteriaDB.getPath());
@@ -210,8 +225,6 @@ public class ControlCriteria {
                 searchWindows.setIsDirectoryCriteria(searchCriteriaDB.getIsDirectory());
                 searchWindows.setIsFileSystemCriteria(searchCriteriaDB.getIsFileSystem());
                 searchWindows.setIsReadOnlyCriteria(searchCriteriaDB.getIsReadOnly());
-                searchWindows.setOperatorCriteria(searchCriteriaDB.getOperator());
-                searchWindows.setTypeCriteria(searchCriteriaDB.getType());
                 searchWindows.setIsHiddenCriteria(searchCriteriaDB.getHiddenCriteria());
                 searchWindows.setKeySensitiveOfCriteria(searchCriteriaDB.getKeySensitiveOfCriteria());
                 searchWindows.setIsContainsInsideFileCriteria(searchCriteriaDB.getIsContainsInsideFileCriteria());
@@ -414,13 +427,10 @@ public class ControlCriteria {
 
         // Folder counter
         final int[] folderCounter = {0};
-
         // Sending SearchCriteria to MODEL
         search.setSearchCriteria(searchCriteria);
-
         // Init Model
         search.initSearch();
-
         // Adding row to Table of Result
         search.getResultList().forEach(e -> {
             if (!(e instanceof FolderResult)) {
