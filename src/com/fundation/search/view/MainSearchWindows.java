@@ -25,6 +25,7 @@ import java.awt.BorderLayout;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import java.util.Date;
@@ -281,7 +282,11 @@ public class MainSearchWindows extends JFrame {
      */
     public Date getLastAccessDateEnd() {
         LOOGER.info("Get last access end");
-        return topPanel.getDateToLastOpenedCriteria();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(topPanel.getDateToLastOpenedCriteria());
+        calendar.add(Calendar.HOUR_OF_DAY, 1);
+        return calendar.getTime();
+
     }
 
     /**
