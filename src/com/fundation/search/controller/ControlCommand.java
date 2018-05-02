@@ -25,6 +25,7 @@ import com.fundation.search.view.command.SearchCommand;
 import com.fundation.search.controller.builder.SearchCriteriaBuilder;
 
 import java.nio.file.attribute.FileTime;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 /**
@@ -98,6 +99,7 @@ public class ControlCommand {
         FileTime[] dateModified = converter.convertStringToListFileTime(commandCriteria.getDateModified());
         FileTime[] dateLastAccess = converter.convertStringToListFileTime(commandCriteria.getDateLastAccess());
         String[] getSize = converter.splitGetSize(commandCriteria.getSize());
+        ArrayList<String> empty = new ArrayList<>();
         // Adding to SearchCriteria
         this.searchCriteria = new SearchCriteriaBuilder()
                 .pathCriteria(commandCriteria.getPath())
@@ -112,6 +114,18 @@ public class ControlCommand {
                 .sizeCriteria(getSize[0], converter.convertSizeStringToLong(getSize[1], getSize[2]), getSize[2])
                 .isDirectoryCriteria(Boolean.parseBoolean(commandCriteria.getIsDirectory()))
                 .extensionCriteria(commandCriteria.getExtension())
+                .nameOnDataBase("")
+                .keySensitiveOfCriteria(false)
+                .isContainsInsideFileCriteria(false)
+                .textContainsInsideFileCriteria("")
+                .multimediaDurationInputCriteria("", -1, "")
+                .multimediaVideoCodecCriteria(empty)
+                .searchMultimediaFrameCriteria(empty)
+                .multimediaResolutionCriteria(empty)
+                .multimediaAudioBitRateCriteriaInit("")
+                .multimediaAudioBitRateCriteriaEnd("")
+                .multimediaTypeCriteria(empty)
+                .searchMultimediaCriteria(false)
                 .build();
 
         // Shown results

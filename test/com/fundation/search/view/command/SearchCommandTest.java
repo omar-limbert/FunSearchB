@@ -16,6 +16,8 @@ package com.fundation.search.view.command;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Map;
+
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
@@ -43,9 +45,17 @@ public class SearchCommandTest {
      */
     private SearchCommand search4;
     /**
+     * search5 is a SearchCommand object.
+     */
+    private SearchCommand search5;
+    /**
+     * search6 is a SearchCommand object.
+     */
+    private SearchCommand search6;
+    /**
      * COMMAND_LIST1 to initialize search.
      */
-    private static final String[] COMMAND_LIST = {"-s", "F:\\1", "-f", "escar", "-cf", "", "-dc", "05/06/2018"};
+    private static final String[] COMMAND_LIST = {"-s", "F:\\1", "-f", "escar", "-cf", "start with", "-dc", "05/06/2018"};
     /**
      * COMMAND_LIST2 to initialize search1.
      */
@@ -58,10 +68,18 @@ public class SearchCommandTest {
      * COMMAND_LIST4 to initialize search3.
      */
     private static final String[] COMMAND_LIST4 = {"-f", "F:\\1", "-p", "f", "-f", "floa", "-p",};
-
+    /**
+     * COMMAND_LIST4 to initialize search3.
+     */
+    private static final String[] COMMAND_LIST5 = {"-version", "-help"};
+    /**
+     * COMMAND_LIST4 to initialize search4.
+     */
+    private static final String[] COMMAND_LIST6 = {"-help", "-version", "-h", "only hidden"};
     /**
      * initialize File Class.
      */
+
     @Before
     public void initialize() {
 
@@ -69,6 +87,8 @@ public class SearchCommandTest {
         search2 = new SearchCommand(COMMAND_LIST2);
         search3 = new SearchCommand(COMMAND_LIST3);
         search4 = new SearchCommand(COMMAND_LIST4);
+        search5 = new SearchCommand(COMMAND_LIST5);
+        search6 = new SearchCommand(COMMAND_LIST6);
     }
 
     /**
@@ -79,14 +99,6 @@ public class SearchCommandTest {
         assertTrue(search.validateCommandCriteria());
     }
 
-
-    /**
-     * testCriteriaValidatorDuplicatedTrue.
-     */
-    @Test
-    public void testAddCriteriaWithoutDuplicatedTrue() {
-        assertTrue(search.addCriteriaWithoutDuplicated());
-    }
 
     /**
      * testToValidateCommandFormatFalse.
@@ -136,4 +148,19 @@ public class SearchCommandTest {
         assertFalse(search4.addCriteriaWithoutDuplicated());
     }
 
+    /**
+     * testCriteriaValidatorDuplicatedFalse.
+     */
+    @Test
+    public void testToValidateHelper() {
+        assertTrue(search5.isVersionOrHelper());
+    }
+
+    /**
+     * testCriteriaValidatorDuplicatedFalse.
+     */
+    @Test
+    public void testToValidateVersion() {
+        assertTrue(search6.isVersionOrHelper());
+    }
 }
