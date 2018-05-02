@@ -113,7 +113,6 @@ public class SearchCommand {
         try {
             for (int i = 0; i < commandLine.length; i += 2) {
                 if (criterias.containsKey(commandLine[i])) {
-                    System.out.println("sta mal "+commandLine[i]);
                     return false;
                 } else {
                     criterias.put(commandLine[i], commandLine[i + 1]);
