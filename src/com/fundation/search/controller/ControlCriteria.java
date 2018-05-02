@@ -282,6 +282,11 @@ public class ControlCriteria {
         LOOGER.info("Action Search Button exit");
     }
 
+    /**
+     * This method is complement of getDataFromCriteriaMap.
+     *
+     * @param (idOfCriteria, searchCriteria) .
+     */
     private Object[] getDataFromCriteriaMap(Integer idOfCriteria, SearchCriteria searchCriteria) {
         //LOOGER.info("getDataFromAsset Entry");
 
@@ -472,6 +477,11 @@ public class ControlCriteria {
         return dataFromAsset;
     }
 
+    /**
+     * This method is complement of fileResultToTableResult.
+     *
+     * @param (dataFromAsset, file) .
+     */
     private void fileResultToTableResult(Object[] dataFromAsset, Asset file) {
         dataFromAsset[0] = file.getName();
         dataFromAsset[1] = file.getPathFile();
@@ -491,6 +501,11 @@ public class ControlCriteria {
         dataFromAsset[11] = converter.convertFileDateToDate(file.getLastAccessTime());
     }
 
+    /**
+     * This method is complement of multimediaToTableResult.
+     *
+     * @param (dataFromAsset, file) .
+     */
     private void multimediaToTableResult(Object[] dataFromAsset, Asset file) {
         // Setting Data
         MultimediaResult multimediaResult = (MultimediaResult) file;
