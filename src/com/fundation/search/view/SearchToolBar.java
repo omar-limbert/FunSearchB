@@ -561,6 +561,7 @@ public class SearchToolBar extends JToolBar {
      * @param isHiddenCriteria, this is hidden criteria.
      */
     public void setIsHiddenCriteria(String isHiddenCriteria) {
+        LOOGER.info("set Is Hidden Criteria");
         this.HIDDEN_PANEL.setIsHiddenCriteria(isHiddenCriteria);
     }
 
@@ -570,6 +571,7 @@ public class SearchToolBar extends JToolBar {
      * @param typeCriteria, this is type of size criteria.
      */
     public void setTypeCriteria(String typeCriteria) {
+        LOOGER.info("set Type Criteria");
         this.SIZE_PANEL.setTypeCriteria(typeCriteria);
     }
 
@@ -579,6 +581,7 @@ public class SearchToolBar extends JToolBar {
      * @param operatorCriteria, this is operator of size criteria.
      */
     public void setOperatorCriteria(String operatorCriteria) {
+        LOOGER.info("set Operator Criteria");
         this.SIZE_PANEL.setOperatorCriteria(operatorCriteria);
     }
 
@@ -588,6 +591,7 @@ public class SearchToolBar extends JToolBar {
      * @param sizeCriteria, this is size criteria.
      */
     public void setSizeCriteria(long sizeCriteria) {
+        LOOGER.info("set Size Criteria");
         this.SIZE_PANEL.setSizeCriteria(sizeCriteria);
     }
 
@@ -597,6 +601,7 @@ public class SearchToolBar extends JToolBar {
      * @param isReadOnlyCriteria, this is Read Only criteria.
      */
     public void setIsReadOnlyCriteria(boolean isReadOnlyCriteria) {
+        LOOGER.info("set Is Read Only Criteria");
         this.PATH_PANEL.setIsReadOnlyCriteria(isReadOnlyCriteria);
     }
 
@@ -606,6 +611,7 @@ public class SearchToolBar extends JToolBar {
      * @param isFileSystemCriteria, true is File System and false is not file system.
      */
     public void setIsFileSystemCriteria(boolean isFileSystemCriteria) {
+        LOOGER.info("set Is File System Criteria");
         this.PATH_PANEL.setIsFileSystemCriteria(isFileSystemCriteria);
     }
 
@@ -615,6 +621,7 @@ public class SearchToolBar extends JToolBar {
      * @param isDirectoryCriteria, true is directory and false is not directory.
      */
     public void setIsDirectoryCriteria(boolean isDirectoryCriteria) {
+        LOOGER.info("set Is Directory Criteria");
         this.PATH_PANEL.setIsDirectoryCriteria(isDirectoryCriteria);
     }
 
@@ -624,6 +631,7 @@ public class SearchToolBar extends JToolBar {
      * @param fileNameCriteria, this is file name criteria.
      */
     public void setFileNameCriteria(String fileNameCriteria) {
+        LOOGER.info("set File Name Criteria");
         this.FILE_NAME_PANEL.setFileNameCriteria(fileNameCriteria);
     }
 
@@ -633,6 +641,7 @@ public class SearchToolBar extends JToolBar {
      * @param pathCriteria, this is path criteria.
      */
     public void setPathCriteria(String pathCriteria) {
+        LOOGER.info("set Path Criteria");
         this.PATH_PANEL.setPathCriteria(pathCriteria);
     }
 
@@ -642,6 +651,7 @@ public class SearchToolBar extends JToolBar {
      * @param ownerCriteria, this is owner criteria.
      */
     public void setOwnerCriteria(String ownerCriteria) {
+        LOOGER.info("set Owner Criteria");
         this.OWNER_PANEL.setOwnerCriteria(ownerCriteria);
     }
 
@@ -651,6 +661,7 @@ public class SearchToolBar extends JToolBar {
      * @param extensionCriteria, this is file extension criteria.
      */
     public void setExtensionCriteria(String extensionCriteria) {
+        LOOGER.info("set Extension Criteria");
         this.TYPE_PANEL.setExtensionCriteria(extensionCriteria);
     }
 
@@ -660,6 +671,7 @@ public class SearchToolBar extends JToolBar {
      * @param modifiedDateInit, this is modified date init.
      */
     public void setModifiedDateInit(String modifiedDateInit) {
+        LOOGER.info("set Modified Date Init");
         this.DATE_PANEL.setModifiedDateInit(modifiedDateInit);
     }
 
@@ -670,6 +682,7 @@ public class SearchToolBar extends JToolBar {
      * @param modifiedDateEnd, this is modified date end.
      */
     public void setModifiedDateEnd(String modifiedDateEnd) {
+        LOOGER.info("set Modified Date End");
         this.DATE_PANEL.setModifiedDateEnd(modifiedDateEnd);
     }
 
@@ -680,6 +693,7 @@ public class SearchToolBar extends JToolBar {
      * @param lastAccessInit, this is last access date end.
      */
     public void setLastAccessInit(String lastAccessInit) {
+        LOOGER.info("set Last Access Init");
         this.DATE_PANEL.setLastAccessInit(lastAccessInit);
     }
 
@@ -689,6 +703,7 @@ public class SearchToolBar extends JToolBar {
      * @param lastAccessEnd, this is last access date end.
      */
     public void setLastAccessEnd(String lastAccessEnd) {
+        LOOGER.info("set Last Access End");
         this.DATE_PANEL.setLastAccessEnd(lastAccessEnd);
     }
 
@@ -698,6 +713,7 @@ public class SearchToolBar extends JToolBar {
      * @param creationDateInit, this is creation date init.
      */
     public void setCreationDateInit(String creationDateInit) {
+        LOOGER.info("set CreationDate Init");
         this.DATE_PANEL.setCreationDateInit(creationDateInit);
     }
 
@@ -707,6 +723,7 @@ public class SearchToolBar extends JToolBar {
      * @param creationDateEnd, this is creation date end.
      */
     public void setCreationDateEnd(String creationDateEnd) {
+        LOOGER.info("set Creation Date End");
         this.DATE_PANEL.setCreationDateEnd(creationDateEnd);
     }
 
@@ -716,6 +733,7 @@ public class SearchToolBar extends JToolBar {
      * @param keySensitiveOfCriteria, this is key sensitive criteria.
      */
     public void setKeySensitiveOfCriteria(boolean keySensitiveOfCriteria) {
+        LOOGER.info("set Key Sensitive Of Criteria");
         this.PATH_PANEL.setKeySensitiveOfCriteria(keySensitiveOfCriteria);
     }
 
@@ -725,6 +743,7 @@ public class SearchToolBar extends JToolBar {
      * @return boolean, true when is selected, false when is unselected.
      */
     public boolean getIsContainsInsideFileCriteria() {
+        LOOGER.info("get Is Contains Inside File Criteria");
         return FILE_NAME_PANEL.getIsContainsInsideFileCriteria();
     }
 
@@ -734,6 +753,7 @@ public class SearchToolBar extends JToolBar {
      * @return String, text of contains criteria.
      */
     public String getTextContainsInsideFileCriteria() {
+        LOOGER.info("get Text Contains Inside File Criteria");
         return FILE_NAME_PANEL.getTextContainsInsideFileCriteria();
     }
 
@@ -744,6 +764,7 @@ public class SearchToolBar extends JToolBar {
      * @param isContainsInsideFileCriteria, this is contains criteria.
      */
     public void setIsContainsInsideFileCriteria(boolean isContainsInsideFileCriteria) {
+        LOOGER.info("set Is Contains Inside file Criteria");
         this.FILE_NAME_PANEL.setIsContainsInsideFileCriteria(isContainsInsideFileCriteria);
     }
 
@@ -753,6 +774,7 @@ public class SearchToolBar extends JToolBar {
      * @param textContainsInsideFileCriteria, this is contains criteria.
      */
     public void setTextContainsInsideFileCriteria(String textContainsInsideFileCriteria) {
+        LOOGER.info("Get Fill button of Data Base Panel");
         this.FILE_NAME_PANEL.setTextContainsInsideFileCriteria(textContainsInsideFileCriteria);
     }
 
@@ -809,6 +831,7 @@ public class SearchToolBar extends JToolBar {
      * @return JButton, this is a JButton on Data Base pane.
      */
     public ListSelectionModel getSelectionModel() {
+        LOOGER.info("get Selection Model of Data Base Panel");
         return DB_PANEL.getSelectionModel();
     }
 
@@ -819,6 +842,7 @@ public class SearchToolBar extends JToolBar {
      * @return JTable, this is a Data Base JTable.
      */
     public JTable getDataBaseTableResult() {
+        LOOGER.info("get Data Base Table Result of Data Base Panel");
         return DB_PANEL.getDataBaseTableResult();
     }
 
@@ -828,6 +852,7 @@ public class SearchToolBar extends JToolBar {
      * @return JButton, this is Delete button of Data Base
      */
     public JButton getDeleteButtonOnDataBasePanel() {
+        LOOGER.info("get Delete Button of Data Base Panel");
         return this.DB_PANEL.getDeleteButtonOnDataBasePanel();
     }
 
@@ -837,6 +862,7 @@ public class SearchToolBar extends JToolBar {
      * @return String, this comparator for multimedia filter.
      */
     public String getDurationMultimediaCriteria() {
+        LOOGER.info("get Duration Multimedia Criteria");
         return this.MULTIMEDIA.getDurationMultimediaCriteria();
     }
 
@@ -846,6 +872,7 @@ public class SearchToolBar extends JToolBar {
      * @return String, this is number for filter multimedia files.
      */
     public String getDurationMultimediaNumber() {
+        LOOGER.info("get Duration Multimedia Number");
         return this.MULTIMEDIA.getDurationMultimediaNumber();
     }
 
@@ -855,6 +882,7 @@ public class SearchToolBar extends JToolBar {
      * @return String, this is type time {seconds,minutes,hours}.
      */
     public String getDurationMultimediaTime() {
+        LOOGER.info("get Duration Multimedia Time");
         return this.MULTIMEDIA.getDurationMultimediaTime();
     }
 
@@ -864,6 +892,7 @@ public class SearchToolBar extends JToolBar {
      * @return String[], this is String array with selected values.
      */
     public ArrayList<String> getFrameRateCriteria() {
+        LOOGER.info("get Frame Rate Criteria");
         return this.MULTIMEDIA.getFrameRateCriteria();
     }
 
@@ -873,6 +902,7 @@ public class SearchToolBar extends JToolBar {
      * @return String[], this is String array with selected values.
      */
     public ArrayList<String> getVideoCodecCriteria() {
+        LOOGER.info("get Video Codec Criteria");
         return this.MULTIMEDIA.getVideoCodecCriteria();
     }
 
@@ -882,6 +912,7 @@ public class SearchToolBar extends JToolBar {
      * @return String[], this is String array with selected values.
      */
     public ArrayList<String> getResolutionCriteria() {
+        LOOGER.info("get Resolution Criteria");
         return this.MULTIMEDIA.getResolutionCriteria();
     }
 
@@ -891,6 +922,7 @@ public class SearchToolBar extends JToolBar {
      * @return String[], this is String array with selected values.
      */
     public ArrayList<String> getMultimediaTypeCriteria() {
+        LOOGER.info("get Multimedia Type Criteria");
         return MULTIMEDIA.getMultimediaTypeCriteria();
     }
 
@@ -900,6 +932,7 @@ public class SearchToolBar extends JToolBar {
      * @return boolean, true when is selected, false when is unselected.
      */
     public boolean isSearchMultimedia() {
+        LOOGER.info("Get is Search Multimedia");
         return isSearchMultimedia;
     }
 
@@ -909,6 +942,7 @@ public class SearchToolBar extends JToolBar {
      * @return String
      */
     public String getAudioBitRateInit() {
+        LOOGER.info("get Audio Bit Rate Init");
         return this.MULTIMEDIA.getAudioBitRateInit();
     }
     /**
@@ -917,6 +951,7 @@ public class SearchToolBar extends JToolBar {
      * @return String
      */
     public String getAudioBitRateEnd() {
+        LOOGER.info("get Audio Bit Rate End ");
         return this.MULTIMEDIA.getAudioBitRateEnd();
     }
 
@@ -926,6 +961,7 @@ public class SearchToolBar extends JToolBar {
      * @param multimediaDurationCriteria, this duration criteria "Major to:", "Minor to:" and "Equal to:"
      */
     public void setMultimediaDurationCriteria(String multimediaDurationCriteria) {
+        LOOGER.info("set Multimedia Duration Criteria");
         this.MULTIMEDIA.setMultimediaDurationCriteria(multimediaDurationCriteria);
     }
     /**
@@ -934,6 +970,7 @@ public class SearchToolBar extends JToolBar {
      * @param multimediaDurationNumber, this duration number.
      */
     public void setMultimediaDurationNumber(String multimediaDurationNumber) {
+        LOOGER.info("set Multimedia Duration Number");
         this.MULTIMEDIA.setMultimediaDurationNumber(multimediaDurationNumber);
     }
 
@@ -943,6 +980,7 @@ public class SearchToolBar extends JToolBar {
      * @param multimediaDurationType, this duration type.
      */
     public void setMultimediaDurationType(String multimediaDurationType) {
+        LOOGER.info("set Multimedia Duration Type");
         this.MULTIMEDIA.setMultimediaDurationType(multimediaDurationType);
     }
 
@@ -952,6 +990,7 @@ public class SearchToolBar extends JToolBar {
      * @param multimediaDurationFrameRate, this is ArrayList with all data.
      */
     public void setMultimediaFrameRate(ArrayList<String>  multimediaDurationFrameRate) {
+        LOOGER.info("set Multimedia Frame Rate");
         this.MULTIMEDIA.setMultimediaFrameRate(multimediaDurationFrameRate);
     }
 
@@ -961,6 +1000,7 @@ public class SearchToolBar extends JToolBar {
      * @param multimediaDurationVideoCodec, this is ArrayList with all data.
      */
     public void setMultimediaDurationVideoCodec(ArrayList<String>  multimediaDurationVideoCodec) {
+        LOOGER.info("set Multimedia Duration Video Codec");
         this.MULTIMEDIA.setMultimediaDurationVideoCodec(multimediaDurationVideoCodec);
     }
 
@@ -970,6 +1010,7 @@ public class SearchToolBar extends JToolBar {
      * @param multimediaDurationResolution, this is ArrayList with all data.
      */
     public void setMultimediaResolution(ArrayList<String>  multimediaDurationResolution) {
+        LOOGER.info("set Multimedia Resolution");
         this.MULTIMEDIA.setMultimediaResolution(multimediaDurationResolution);
     }
 
@@ -979,6 +1020,7 @@ public class SearchToolBar extends JToolBar {
      * @param multimediaType, this is ArrayList with all data.
      */
     public void setMultimediaType(ArrayList<String>  multimediaType) {
+        LOOGER.info("set Multimedia Type");
         this.MULTIMEDIA.setMultimediaType(multimediaType);
     }
 
@@ -988,6 +1030,7 @@ public class SearchToolBar extends JToolBar {
      * @param multimediaAudioBitRateInit, this audio bit rate.
      */
     public void setMultimediaAudioBitRateInit(String multimediaAudioBitRateInit) {
+        LOOGER.info("se tMultimedia Audio Bit Rate Init");
         this.MULTIMEDIA.setMultimediaAudioBitRateInit(multimediaAudioBitRateInit);
     }
 
@@ -997,6 +1040,7 @@ public class SearchToolBar extends JToolBar {
      * @param multimediaAudioBitRateEnd, this audio bit rate.
      */
     public void setMultimediaAudioBitRateEnd(String multimediaAudioBitRateEnd) {
+        LOOGER.info("set Multimedia Audio Bit Rate End");
         this.MULTIMEDIA.setMultimediaAudioBitRateEnd(multimediaAudioBitRateEnd);
     }
 }
