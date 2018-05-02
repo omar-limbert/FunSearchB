@@ -15,7 +15,12 @@ package com.fundation.search.view.command;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.File;
+import java.io.IOException;
+
 import static org.junit.Assert.assertEquals;
+
 /**
  * This class is to test CommandViewTest.
  *
@@ -28,6 +33,11 @@ public class CommandViewTest {
      * for check the tests
      */
     private CommandView command;
+    /**
+     * This is separator for manage paths.
+     */
+
+    private static final String SEPARATOR = System.getProperty("file.separator");
 
     /**
      * Init the object command.
@@ -59,8 +69,14 @@ public class CommandViewTest {
      * this method check cut long path.
      */
     @Test
-    public void testCutPath() {
-        assertEquals("FunSearchB\\out\\production\\FunSearchB\\com", command.cutPath("FunSearchB\\out\\production\\FunSearchB\\com"));
-        assertEquals("FunSearchB\\out\\production\\FunSearchB\\com\\fundation\\search\\common\\table\\comman...", command.cutPath("FunSearchB\\out\\production\\FunSearchB\\com\\fundation\\search\\common\\table\\command\\findTable"));
+    public void testCutPath() throws IOException {
+        String path = new File(".").getCanonicalPath() + SEPARATOR + "test"
+                + SEPARATOR + "com" + SEPARATOR + "fundation";
+        String path2 = new File(".").getCanonicalPath() + SEPARATOR + "test"
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search1111";
+        String pathResult = new File(".").getCanonicalPath() + SEPARATOR + "test"
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "sear...";
+        assertEquals(path, command.cutPath(path));
+        assertEquals(pathResult, command.cutPath(path2));
     }
 }

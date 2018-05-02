@@ -110,7 +110,6 @@ public class ControlCommandTest {
     public void testToValidateCommandFormatTrue() throws IOException {
         String path = new File(".").getCanonicalPath() + SEPARATOR + "test"
                 + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "testCommand";
-        System.out.println(path);
         String[] COMMAND_LIST = {"-p", path, "-f", "do", "-cf", "start with", "-d", "false"};
         controlCommand = new ControlCommand(COMMAND_LIST);
         searchCommand = new SearchCommand(COMMAND_LIST);
