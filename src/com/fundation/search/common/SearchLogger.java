@@ -54,6 +54,8 @@ public class SearchLogger {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        // Set logger of on Console
+        logger.setUseParentHandlers(false);
     }
 
     /**
