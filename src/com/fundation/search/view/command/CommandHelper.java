@@ -34,7 +34,6 @@ public class CommandHelper {
      */
     public void printHelper() {
         LOOGER.info("Print Helpers entry");
-        // System.out.println(String.format("%10s %5s %-15s", "-v", " ", "Print product version"));
         System.out.println(String.format("%50s", "[value] and [options] write between \"\""));
         System.out.println(String.format("%10s", "[criteria][value]"));
         System.out.println(String.format("%10s %5s %-40s %-20s", "-p", " ", "[\"path\"] obligatory in all cases", "List path content"));
@@ -58,7 +57,12 @@ public class CommandHelper {
         System.out.println(String.format("%10s %5s %-40s %-20s", "-ro", " ", "[true/false]", "List files read only/without read only"));
         LOOGER.info("Print Helpers exit");
     }
-    public void printHelperMessage(){
+
+    public void printHelperErrorMessage() {
         System.out.println("Please,Write \"-help\" for help");
+    }
+
+    public void printVersion() {
+        System.out.println("  Fun Search Pro V1.0  ");
     }
 }

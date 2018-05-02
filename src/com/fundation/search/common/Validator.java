@@ -57,6 +57,7 @@ public class Validator {
                 return Files.exists(Paths.get(path));
             }
         } catch (InvalidPathException e) {
+            System.out.println("aqui");
             return false;
         }
         LOOGER.info("Exit Validator");

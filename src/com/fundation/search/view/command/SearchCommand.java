@@ -61,6 +61,7 @@ public class SearchCommand {
         commandLine = args;
         criteriaList = new ArrayList<>();
         helper = new CommandHelper();
+        criterias = new HashMap<>();
         this.addCriterias();
         this.validateCommand();
         LOOGER.info("Exit Constructor SearchCommand");
@@ -71,7 +72,8 @@ public class SearchCommand {
      */
     public void addCriterias() {
         LOOGER.info("AddCriterias entry");
-        criteriaList.add("-v");//version
+        criteriaList.add("-version");//version
+        criteriaList.add("-help");//help
         criteriaList.add("-p");//path
         criteriaList.add("-f");//file
         criteriaList.add("-cf");//criteriaFileName
@@ -95,9 +97,6 @@ public class SearchCommand {
         LOOGER.info("ValidateCommandFormat entry");
         for (int i = 0; i < commandLine.length; i += 2) {
             if (!criteriaList.contains(commandLine[i])) {
-                if (commandLine[i].equals("-help")) {
-                    helper.printHelper();
-                }
                 return false;
             }
         }
@@ -110,11 +109,11 @@ public class SearchCommand {
      * with citeria and values
      */
     public boolean addCriteriaWithoutDuplicated() {
-        criterias = new HashMap<>();
         LOOGER.info("addCriteriaWithoutDuplicated entry");
         try {
             for (int i = 0; i < commandLine.length; i += 2) {
-                if (criterias.containsKey(commandLine[i]) || commandLine[i + 1].equals(null)) {
+                if (criterias.containsKey(commandLine[i])) {
+                    System.out.println("sta mal "+commandLine[i]);
                     return false;
                 } else {
                     criterias.put(commandLine[i], commandLine[i + 1]);
@@ -128,13 +127,34 @@ public class SearchCommand {
     }
 
     /**
+     * Validate if the criteria is -help or -version
+     * and print the message.
+     */
+    public boolean isVersionOrHelper() {
+        LOOGER.info("isVersionOrHelper entry");
+        for (String command : commandLine) {
+            if ("-help".equals(command)) {
+                helper.printHelper();
+                return true;
+            } else if ("-version".equals(command)) {
+                helper.printVersion();
+                return true;
+            }
+        }
+        LOOGER.info("isVersionOrHelper exit");
+        return false;
+    }
+
+    /**
      * Impress "Please,Write -help for help" message if the command is invalid.
      */
     public void validateCommand() {
         LOOGER.info("ValidateCommand entry");
-        if (!validateCommandCriteria() || !addCriteriaWithoutDuplicated()) {
-            criterias = new HashMap<>();
-            helper.printHelperMessage();
+        if (!isVersionOrHelper()) {
+            if (!validateCommandCriteria() || !addCriteriaWithoutDuplicated()) {
+                criterias = new HashMap<>();
+                helper.printHelperErrorMessage();
+            }
         }
         LOOGER.info("ValidateCommand exit");
     }

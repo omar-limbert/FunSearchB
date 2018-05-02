@@ -14,8 +14,6 @@
 
 package com.fundation.search.common;
 
-import org.apache.poi.ddf.EscherColorRef;
-
 import java.nio.file.attribute.FileTime;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
