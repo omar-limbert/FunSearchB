@@ -120,19 +120,57 @@ public class SearchCriteria {
      */
     private String textContainsInsideFileCriteria;
 
+    //Search by Multimedia
 
+    /**
+     * multimediaDuration, is name on data base.
+     */
     private Double multimediaDuration;
+
+    /**
+     * multimediaDurationOperator, is name on data base.
+     */
     private String multimediaDurationOperator;
+
+    /**
+     * multimediaDurationType, is name on data base.
+     */
     private String multimediaDurationType;
+
+    /**
+     * multimediaVideoCodec, is name on data base.
+     */
     private ArrayList<String> multimediaVideoCodec;
+
+    /**
+     * multimediaResolution, is name on data base.
+     */
     private ArrayList<String> multimediaResolution;
+
+    /**
+     * multimediaType, is name on data base.
+     */
     private ArrayList<String> multimediaType;
+
+    /**
+     * searchMultimedia, is name on data base.
+     */
     private boolean searchMultimedia;
+
+    /**
+     * multimediaFrameRate, is name on data base.
+     */
     private ArrayList<String> multimediaFrameRate;
+
+    /**
+     * multimediaAudioBitRateInit, is name on data base.
+     */
     private String multimediaAudioBitRateInit;
+
+    /**
+     * multimediaAudioBitRateEnd, is name on data base.
+     */
     private String multimediaAudioBitRateEnd;
-
-
 
 
     /**
@@ -144,7 +182,7 @@ public class SearchCriteria {
     public SearchCriteria(SearchCriteriaBuilder builder) {
         LOOGER.info("Constructor entry");
 
-        // Initialize Builder
+        // Initialize Builder by Search Files
         this.path = builder.getPathCriteria();
         this.name = builder.getFileName();
         this.hiddenCriteria = builder.getHiddenCriteria();
@@ -167,6 +205,8 @@ public class SearchCriteria {
         this.keySensitiveOfCriteria = builder.getKeySensitiveOfCriteria();
         this.isContainsInsideFileCriteria = builder.getIsContainsInsideFileCriteria();
         this.textContainsInsideFileCriteria = builder.getTextContainsInsideFileCriteria();
+
+        // Initialize Builder by Search Multimedia
         this.multimediaDuration = builder.getMultimediaDuration();
         this.multimediaVideoCodec = builder.getMultimediaVideoCodec();
         this.multimediaResolution = builder.getMultimediaResolution();
@@ -180,7 +220,14 @@ public class SearchCriteria {
         LOOGER.info("Constructor Exit");
     }
 
+    /**
+     * This method is for get getMultimediaDurationOperatorDB.
+     *
+     * @return String return getMultimediaDurationOperatorDB.
+     */
     public String getMultimediaDurationOperatorDB() {
+        LOOGER.info("getMultimediaDurationOperatorDB Entry");
+
         if(multimediaDurationOperator.equalsIgnoreCase("upper")){
             return "Major to:";
         }
@@ -190,36 +237,117 @@ public class SearchCriteria {
         if(multimediaDurationOperator.equalsIgnoreCase("equal")){
             return "Equal to:";
         }
+        LOOGER.info("getMultimediaDurationOperatorDB Exit");
         return "Major to:";
     }
+
+    /**
+     * This method is for get getMultimediaAudioBitRateInit.
+     *
+     * @return String return multimediaAudioBitRateInit.
+     */
     public String getMultimediaAudioBitRateInit() {
+        LOOGER.info("getMultimediaAudioBitRateInit Entry");
+        LOOGER.info("getMultimediaAudioBitRateInit Exit");
         return multimediaAudioBitRateInit;
     }
+
+    /**
+     * This method is for get getMultimediaAudioBitRateEnd.
+     *
+     * @return String return multimediaAudioBitRateEnd.
+     */
     public String getMultimediaAudioBitRateEnd() {
+        LOOGER.info("getMultimediaAudioBitRateEnd Entry");
+        LOOGER.info("getMultimediaAudioBitRateEnd Exit");
         return multimediaAudioBitRateEnd;
     }
+
+    /**
+     * This method is for get getFrameRateCriteria.
+     *
+     * @return String return multimediaFrameRate.
+     */
     public ArrayList<String> getFrameRateCriteria() {
+        LOOGER.info("getFrameRateCriteria Entry");
+        LOOGER.info("getFrameRateCriteria Exit");
         return multimediaFrameRate;
     }
+
+    /**
+     * This method is for get isSearchMultimedia.
+     *
+     * @return String return searchMultimedia.
+     */
     public boolean isSearchMultimedia() {
+        LOOGER.info("isSearchMultimedia Entry");
+        LOOGER.info("isSearchMultimedia Exit");
         return searchMultimedia;
     }
+
+    /**
+     * This method is for get getMultimediaDurationType.
+     *
+     * @return String return multimediaDurationType.
+     */
     public String getMultimediaDurationType() {
+        LOOGER.info("getMultimediaDurationType Entry");
+        LOOGER.info("getMultimediaDurationType Exit");
         return multimediaDurationType;
     }
+
+    /**
+     * This method is for get getMultimediaDurationOperator.
+     *
+     * @return String return multimediaDurationOperator.
+     */
     public String getMultimediaDurationOperator() {
+        LOOGER.info("getMultimediaDurationOperator Entry");
+        LOOGER.info("getMultimediaDurationOperator Exit");
         return multimediaDurationOperator;
     }
+
+    /**
+     * This method is for get getMultimediaVideoCodec.
+     *
+     * @return String return multimediaVideoCodec.
+     */
     public ArrayList<String> getMultimediaVideoCodec() {
+        LOOGER.info("getMultimediaVideoCodec Entry");
+        LOOGER.info("getMultimediaVideoCodec Exit");
         return multimediaVideoCodec;
     }
+
+    /**
+     * This method is for get getMultimediaResolution.
+     *
+     * @return String return multimediaResolution.
+     */
     public ArrayList<String> getMultimediaResolution() {
+        LOOGER.info("getMultimediaResolution Entry");
+        LOOGER.info("getMultimediaResolution Exit");
         return multimediaResolution;
     }
+
+    /**
+     * This method is for get getMultimediaType.
+     *
+     * @return String return multimediaType.
+     */
     public ArrayList<String> getMultimediaType() {
+        LOOGER.info("getMultimediaType Entry");
+        LOOGER.info("getMultimediaType Exit");
         return multimediaType;
     }
+
+    /**
+     * This method is for get getMultimediaDuration.
+     *
+     * @return String return multimediaDuration.
+     */
     public Double getMultimediaDuration() {
+        LOOGER.info("getMultimediaDuration Entry");
+        LOOGER.info("getMultimediaDuration Exit");
         return multimediaDuration;
     }
 
@@ -427,6 +555,8 @@ public class SearchCriteria {
      * @return String return extension of file.
      */
     public String getNameOnDataBase() {
+        LOOGER.info("getNameOnDataBase Entry");
+        LOOGER.info("getNameOnDataBase Exit");
         return nameOnDataBase;
     }
 
@@ -436,6 +566,8 @@ public class SearchCriteria {
      * @return boolean return if this active.
      */
     public boolean getIsContainsInsideFileCriteria() {
+        LOOGER.info("getIsContainsInsideFileCriteria Entry");
+        LOOGER.info("getIsContainsInsideFileCriteria Exit");
         return isContainsInsideFileCriteria;
     }
 
@@ -445,6 +577,8 @@ public class SearchCriteria {
      * @return String return text for inside criteria.
      */
     public String getTextContainsInsideFileCriteria() {
+        LOOGER.info("getTextContainsInsideFileCriteria Entry");
+        LOOGER.info("getTextContainsInsideFileCriteria Exit");
         return textContainsInsideFileCriteria;
     }
 
@@ -454,6 +588,8 @@ public class SearchCriteria {
      * @return String return extension of file.
      */
     public String getExtension() {
+        LOOGER.info("getExtension Entry");
+        LOOGER.info("getExtension Exit");
         return extension;
     }
 
@@ -463,7 +599,8 @@ public class SearchCriteria {
      * @return String return extension of file.
      */
     public void updateNameOnDataBase(String nameOnDataBase) {
-
+        LOOGER.info("updateNameOnDataBase Entry");
+        LOOGER.info("updateNameOnDataBase Exit");
         this.nameOnDataBase = nameOnDataBase;
     }
 }
