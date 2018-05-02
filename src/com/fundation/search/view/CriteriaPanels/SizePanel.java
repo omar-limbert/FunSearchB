@@ -140,7 +140,15 @@ public class SizePanel extends JPanel {
      * @param operatorCriteria, this is operator of size criteria.
      */
     public void setOperatorCriteria(String operatorCriteria) {
-        majorMinorComboBox.getModel().setSelectedItem(operatorCriteria);
+        if("upper".equalsIgnoreCase(operatorCriteria)){
+            majorMinorComboBox.getModel().setSelectedItem("Major to:");
+        }
+        if("lower".equalsIgnoreCase(operatorCriteria)){
+            majorMinorComboBox.getModel().setSelectedItem("Minor to:");
+        }
+        if("equal".equalsIgnoreCase(operatorCriteria)){
+            majorMinorComboBox.getModel().setSelectedItem("Equal to:");
+        }
     }
 
     /**

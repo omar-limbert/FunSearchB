@@ -21,6 +21,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -57,7 +58,7 @@ public class Validator {
                 return Files.exists(Paths.get(path));
             }
         } catch (InvalidPathException e) {
-            System.out.println("aqui");
+            LOOGER.warning("Invalid Path " + path);
             return false;
         }
         LOOGER.info("Exit Validator");
@@ -212,6 +213,7 @@ public class Validator {
         LOOGER.info("Exit validateCommandSize");
         return matcherCommand.matches();
     }
+
     /**
      * this method compares the options allowed in command line
      * for the search by hidden files.

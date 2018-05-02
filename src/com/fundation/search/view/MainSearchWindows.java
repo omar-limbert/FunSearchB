@@ -282,10 +282,7 @@ public class MainSearchWindows extends JFrame {
      */
     public Date getLastAccessDateEnd() {
         LOOGER.info("Get last access end");
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(topPanel.getDateToLastOpenedCriteria());
-        calendar.add(Calendar.HOUR_OF_DAY, 1);
-        return calendar.getTime();
+        return topPanel.getDateToLastOpenedCriteria();
 
     }
 
@@ -756,7 +753,7 @@ public class MainSearchWindows extends JFrame {
      * This method is to change columns tittle for file.
      * Controller need use this.
      */
-    public void setColumnsTittleToFile(){
+    public void setColumnsTittleToFile() {
         this.centerPanel.updateColumnsTittleToFile();
     }
 
@@ -764,7 +761,7 @@ public class MainSearchWindows extends JFrame {
      * This method is to change columns tittle for Multimedia.
      * Controller need use this.
      */
-    public void setColumnsTittleToMultimedia(){
+    public void setColumnsTittleToMultimedia() {
         this.centerPanel.updateColumnsTittleToMultimedia();
     }
 
@@ -804,7 +801,7 @@ public class MainSearchWindows extends JFrame {
      *
      * @param multimediaDurationFrameRate, this is ArrayList with all data.
      */
-    public void setMultimediaFrameRate(ArrayList<String>  multimediaDurationFrameRate) {
+    public void setMultimediaFrameRate(ArrayList<String> multimediaDurationFrameRate) {
         this.topPanel.setMultimediaFrameRate(multimediaDurationFrameRate);
     }
 
@@ -814,7 +811,7 @@ public class MainSearchWindows extends JFrame {
      *
      * @param multimediaDurationVideoCodec, this is ArrayList with all data.
      */
-    public void setMultimediaDurationVideoCodec(ArrayList<String>  multimediaDurationVideoCodec) {
+    public void setMultimediaDurationVideoCodec(ArrayList<String> multimediaDurationVideoCodec) {
         this.topPanel.setMultimediaDurationVideoCodec(multimediaDurationVideoCodec);
     }
 
@@ -824,7 +821,7 @@ public class MainSearchWindows extends JFrame {
      *
      * @param multimediaDurationResolution, this is ArrayList with all data.
      */
-    public void setMultimediaResolution(ArrayList<String>  multimediaDurationResolution) {
+    public void setMultimediaResolution(ArrayList<String> multimediaDurationResolution) {
         this.topPanel.setMultimediaResolution(multimediaDurationResolution);
     }
 
@@ -834,7 +831,7 @@ public class MainSearchWindows extends JFrame {
      *
      * @param multimediaType, this is ArrayList with all data.
      */
-    public void setMultimediaType(ArrayList<String>  multimediaType) {
+    public void setMultimediaType(ArrayList<String> multimediaType) {
         this.topPanel.setMultimediaType(multimediaType);
     }
 
