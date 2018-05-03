@@ -59,7 +59,7 @@ public class SearchTestUpdated {
     private Convertor convertor;
 
     /**
-     * This method init a list to compare with the results of Seacrh class.
+     * This method init a list to compare with the results of Seacrh class..
      *
      * @throws IOException to use a generic Path
      */
@@ -68,7 +68,7 @@ public class SearchTestUpdated {
         assetList = new ArrayList<>();
         search = new Search();
         convertor = new Convertor();
-        FileTime lastAccess = convertor.convertStringToFileTime("01/05/2018");
+        FileTime lastAccess = convertor.convertStringToFileTime("02/05/2018");
         FileTime creation = convertor.convertStringToFileTime("01/05/2018");
         FileTime modified = convertor.convertStringToFileTime("30/04/2018");
         assetList.add(new FolderResult(new File(".").getCanonicalPath() + SEPARATOR + "test"
