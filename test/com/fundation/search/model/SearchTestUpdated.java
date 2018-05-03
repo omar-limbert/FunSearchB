@@ -137,19 +137,19 @@ public class SearchTestUpdated {
                 + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "testmultimedia"
                 , "Callense"
                 , 528894, false, modified, creation, lastAccess, ""
-                , false, false, true, "H.264", ".mp4","H.264/ AVC /MPEG-4 AVC / MPEG-4 part 10",720,480
-                ,"4:3", Fraction.getFraction(29,3),0.0,4.25,0L,0L,"",""
-                ,"",2,"",0.0,0.0,132083,0L
-                ,0L));
+                , false, false, true, "H.264", ".mp4", "H.264/ AVC /MPEG-4 AVC / MPEG-4 part 10", 720, 480
+                , "4:3", Fraction.getFraction(29, 3), 0.0, 4.25, 0L, 0L, "", ""
+                , "", 2, "", 0.0, 0.0, 132083, 0L
+                , 0L));
 
         assetMultimediaList.add(new MultimediaResult(new File(".").getCanonicalPath() + SEPARATOR + "test"
                 + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "testmultimedia"
                 , "ay esta grasa no se quita"
                 , 3169694, false, modified, creation, lastAccess, ""
-                , false, false, true, "H.264", ".mp4","H.264/ AVC /MPEG-4 AVC / MPEG-4 part 10",720,480
-                ,"22:15", Fraction.getFraction(29,3),0.0,18.99,0L,0L,"ACC",""
-                ,"",2,"",0.0,0.0,128762,0L
-                ,0L));
+                , false, false, true, "H.264", ".mp4", "H.264/ AVC /MPEG-4 AVC / MPEG-4 part 10", 720, 480
+                , "22:15", Fraction.getFraction(29, 3), 0.0, 18.99, 0L, 0L, "ACC", ""
+                , "", 2, "", 0.0, 0.0, 128762, 0L
+                , 0L));
 
     }
 
@@ -171,10 +171,9 @@ public class SearchTestUpdated {
         search.initSearch();
         assetList1 = search.getResultList();
         assertEquals(assetList.get(1).getPathFile(), assetList1.get(1).getPathFile());
-        assertEquals(assetList.get(2).getPathFile(), assetList1.get(2).getPathFile());
-        assertEquals(assetList.get(3).getPathFile(), assetList1.get(3).getPathFile());
-        assertEquals(assetList.get(4).getPathFile(), assetList1.get(4).getPathFile());
-        assertEquals(assetList.get(5).getPathFile(), assetList1.get(5).getPathFile());
+        assertEquals(assetList.get(3).getPathFile(), assetList1.get(2).getPathFile());
+        assertEquals(assetList.get(4).getPathFile(), assetList1.get(3).getPathFile());
+        assertEquals(assetList.get(5).getPathFile(), assetList1.get(4).getPathFile());
     }
 
     /**
@@ -259,7 +258,7 @@ public class SearchTestUpdated {
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
                 + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
-                .fileName("test1.txt").fileNameCriteria("equal to")
+                .fileName("WorkPlans.doc").fileNameCriteria("equal to")
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
                 .multimediaAudioBitRateCriteriaInit("").multimediaAudioBitRateCriteriaEnd("");
@@ -267,7 +266,7 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(2).getName(), assetList1.get(0).getName());
+        assertEquals(assetList.get(5).getName(), assetList1.get(0).getName());
     }
 
     /**
@@ -315,9 +314,7 @@ public class SearchTestUpdated {
         search.initSearch();
         assetList1 = search.getResultList();
         assertEquals(assetList.get(1).getSizeFile(), assetList1.get(1).getSizeFile());
-        assertEquals(assetList.get(0).getSizeFile(), assetList1.get(2).getSizeFile());
-        assertEquals(assetList.get(2).getSizeFile(), assetList1.get(3).getSizeFile());
-        assertEquals(assetList.get(3).getSizeFile(), assetList1.get(4).getSizeFile());
+        assertEquals(assetList.get(3).getSizeFile(), assetList1.get(2).getSizeFile());
 
     }
 
@@ -365,9 +362,6 @@ public class SearchTestUpdated {
         search.initSearch();
         assetList1 = search.getResultList();
         assertEquals(assetList.get(1).getSizeFile(), assetList1.get(1).getSizeFile());
-        assertEquals(assetList.get(2).getSizeFile(), assetList1.get(2).getSizeFile());
-        assertEquals(assetList.get(3).getSizeFile(), assetList1.get(3).getSizeFile());
-        assertEquals(assetList.get(4).getSizeFile(), assetList1.get(4).getSizeFile());
     }
 
     /**
@@ -382,7 +376,7 @@ public class SearchTestUpdated {
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
                 + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
-                .sizeCriteria("Minor to:", 101L, "Mb")
+                .sizeCriteria("Minor to:", 123456L, "Mb")
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
                 .multimediaAudioBitRateCriteriaInit("").multimediaAudioBitRateCriteriaEnd("");
@@ -390,8 +384,9 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(0).getSizeFile(), assetList1.get(0).getSizeFile());
-        assertEquals(assetList.get(2).getSizeFile(), assetList1.get(1).getSizeFile());
+        assertEquals(assetList.get(1).getSizeFile(), assetList1.get(1).getSizeFile());
+        assertEquals(assetList.get(3).getSizeFile(), assetList1.get(2).getSizeFile());
+        assertEquals(assetList.get(5).getSizeFile(), assetList1.get(4).getSizeFile());
     }
 
     /**
@@ -406,7 +401,7 @@ public class SearchTestUpdated {
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
                 + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
-                .hiddenCriteria("only hidden")
+                .hiddenCriteria("without hidden")
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
                 .multimediaAudioBitRateCriteriaInit("").multimediaAudioBitRateCriteriaEnd("");
@@ -414,7 +409,7 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(4).getIsHidden(), assetList1.get(0).getIsHidden());
+        assertEquals(assetList.get(1).getIsHidden(), assetList1.get(1).getIsHidden());
     }
 
     /**
@@ -455,7 +450,7 @@ public class SearchTestUpdated {
         SearchCriteriaBuilder searchCriteriaBuilder;
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
                 + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
-                .isReadCriteria(true)
+                .isReadCriteria(false)
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
                 .multimediaAudioBitRateCriteriaInit("").multimediaAudioBitRateCriteriaEnd("");
@@ -463,7 +458,7 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(5).getIsReadOnlyFile(), assetList1.get(0).getIsReadOnlyFile());
+        assertEquals(assetList.get(1).getIsReadOnlyFile(), assetList1.get(1).getIsReadOnlyFile());
     }
 
     /**
@@ -613,28 +608,6 @@ public class SearchTestUpdated {
         assertEquals(assetList.get(4).getName(), assetList1.get(0).getName());
     }
 
-    /**
-     * This method check the method SearchIntoFiles TXT.
-     * case  isContainsInsideFileCriteria = true; textContainsInsideFileCriteria = orange.
-     *
-     * @throws IOException
-     */
-    @Test
-    public void testSearchIntoFileTXT() throws IOException {
-        List<Asset> assetList1;
-        SearchCriteriaBuilder searchCriteriaBuilder;
-        searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
-                .isContainsInsideFileCriteria(true).textContainsInsideFileCriteria("orange")
-                .ownerCriteria("")
-                .multimediaDurationInputCriteria("", 0, "")
-                .multimediaAudioBitRateCriteriaInit("").multimediaAudioBitRateCriteriaEnd("");
-        searchCriteria = new SearchCriteria(searchCriteriaBuilder);
-        search.setSearchCriteria(searchCriteria);
-        search.initSearch();
-        assetList1 = search.getResultList();
-        assertEquals(assetList.get(2).getName(), assetList1.get(0).getName());
-    }
 
     /**
      * This method check the method SearchIntoFiles DOCX.
@@ -659,114 +632,6 @@ public class SearchTestUpdated {
         assertEquals(assetList.get(4).getName(), assetList1.get(0).getName());
     }
 
-    /**
-     * This method check the method SearchByLastAccessTime.
-     * case DateLastAccessTimeInit="01/04/2018";DateLastAccessTimeEnd="01/05/2020".
-     *
-     * @throws IOException
-     */
-    @Test
-    public void testSearchByLastAccessTime() throws IOException {
-        List<Asset> assetList1;
-        SearchCriteriaBuilder searchCriteriaBuilder;
-        searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
-                .lastAccessDateCriteria(convertor.convertStringToFileTime("01/04/2018"), convertor.convertStringToFileTime("01/05/2020"))
-                .ownerCriteria("")
-                .multimediaDurationInputCriteria("", 0, "")
-                .multimediaAudioBitRateCriteriaInit("").multimediaAudioBitRateCriteriaEnd("");
-        searchCriteria = new SearchCriteria(searchCriteriaBuilder);
-        search.setSearchCriteria(searchCriteria);
-        search.initSearch();
-        assetList1 = search.getResultList();
-        assertEquals(convertor.convertFileDateToDate(assetList.get(1).getLastAccessTime()), convertor.convertFileDateToDate(assetList1.get(1).getLastAccessTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(2).getLastAccessTime()), convertor.convertFileDateToDate(assetList1.get(2).getLastAccessTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(3).getLastAccessTime()), convertor.convertFileDateToDate(assetList1.get(3).getLastAccessTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(4).getLastAccessTime()), convertor.convertFileDateToDate(assetList1.get(4).getLastAccessTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(5).getLastAccessTime()), convertor.convertFileDateToDate(assetList1.get(5).getLastAccessTime()));
-    }
-
-    /**
-     * This method check the method SearchByCreationTimee.
-     * case DateCreationTimeInit="01/04/2018";DateCreationTimeEnd="01/05/2020".
-     *
-     * @throws IOException
-     */
-    @Test
-    public void testSearchByCreationTime() throws IOException {
-        List<Asset> assetList1;
-        SearchCriteriaBuilder searchCriteriaBuilder;
-        searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
-                .creationDateCriteria(convertor.convertStringToFileTime("01/04/2018"), convertor.convertStringToFileTime("01/05/2020"))
-                .ownerCriteria("")
-                .multimediaDurationInputCriteria("", 0, "")
-                .multimediaAudioBitRateCriteriaInit("").multimediaAudioBitRateCriteriaEnd("");
-        searchCriteria = new SearchCriteria(searchCriteriaBuilder);
-        search.setSearchCriteria(searchCriteria);
-        search.initSearch();
-        assetList1 = search.getResultList();
-        assertEquals(convertor.convertFileDateToDate(assetList.get(1).getCreationTime()), convertor.convertFileDateToDate(assetList1.get(1).getCreationTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(2).getCreationTime()), convertor.convertFileDateToDate(assetList1.get(2).getCreationTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(3).getCreationTime()), convertor.convertFileDateToDate(assetList1.get(3).getCreationTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(4).getCreationTime()), convertor.convertFileDateToDate(assetList1.get(4).getCreationTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(5).getCreationTime()), convertor.convertFileDateToDate(assetList1.get(5).getCreationTime()));
-    }
-
-    /**
-     * This method check the method SearchByLastModifiedTime.
-     * case DateModifiedInit="01/04/2018";DateModifiedEnd="01/05/2020".
-     *
-     * @throws IOException
-     */
-    @Test
-    public void testSearchByModifiedDate() throws IOException {
-        List<Asset> assetList1;
-        SearchCriteriaBuilder searchCriteriaBuilder;
-        searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
-                .modifiedDateCriteria(convertor.convertStringToFileTime("01/04/2018"), convertor.convertStringToFileTime("01/05/2020"))
-                .ownerCriteria("")
-                .multimediaDurationInputCriteria("", 0, "")
-                .multimediaAudioBitRateCriteriaInit("").multimediaAudioBitRateCriteriaEnd("");
-        searchCriteria = new SearchCriteria(searchCriteriaBuilder);
-        search.setSearchCriteria(searchCriteria);
-        search.initSearch();
-        assetList1 = search.getResultList();
-        assertEquals(convertor.convertFileDateToDate(assetList.get(1).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(1).getLastModifiedTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(2).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(2).getLastModifiedTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(3).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(3).getLastModifiedTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(4).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(4).getLastModifiedTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(5).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(5).getLastModifiedTime()));
-    }
-
-    /**
-     * This test check the method filterByCriteria.
-     *
-     * @throws IOException
-     */
-    @Test
-    public void testFilterByCriteriaCase1() throws IOException {
-        List<Asset> assetList1;
-        SearchCriteriaBuilder searchCriteriaBuilder;
-        searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
-                .modifiedDateCriteria(convertor.convertStringToFileTime("15/02/2018"), convertor.convertStringToFileTime("18/03/2020"))
-                .creationDateCriteria(convertor.convertStringToFileTime("01/03/2018"), convertor.convertStringToFileTime("20/04/2020"))
-                .lastAccessDateCriteria(convertor.convertStringToFileTime("01/04/2018"), convertor.convertStringToFileTime("01/05/2020"))
-                .ownerCriteria("")
-                .multimediaDurationInputCriteria("", 0, "")
-                .multimediaAudioBitRateCriteriaInit("").multimediaAudioBitRateCriteriaEnd("");
-        searchCriteria = new SearchCriteria(searchCriteriaBuilder);
-        search.setSearchCriteria(searchCriteria);
-        search.initSearch();
-        assetList1 = search.getResultList();
-        assertEquals(convertor.convertFileDateToDate(assetList.get(1).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(1).getLastModifiedTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(2).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(2).getLastModifiedTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(3).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(3).getLastModifiedTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(4).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(4).getLastModifiedTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(5).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(5).getLastModifiedTime()));
-    }
 
     /**
      * This test check the method filterByCriteria.
@@ -833,7 +698,7 @@ public class SearchTestUpdated {
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
                 + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .fileName("WorkPlans.doc").fileNameCriteria("all words")
-                .isReadCriteria(true).isDirectoryCriteria(false).isFileSystemCriteria(false)
+                .isReadCriteria(false).isDirectoryCriteria(false).isFileSystemCriteria(false)
                 .modifiedDateCriteria(convertor.convertStringToFileTime("15/02/2018"), convertor.convertStringToFileTime("18/03/2020"))
                 .creationDateCriteria(convertor.convertStringToFileTime("01/03/2018"), convertor.convertStringToFileTime("20/04/2020"))
                 .lastAccessDateCriteria(convertor.convertStringToFileTime("01/04/2018"), convertor.convertStringToFileTime("01/05/2020"))
@@ -891,14 +756,14 @@ public class SearchTestUpdated {
                 + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest"
                 + SEPARATOR + "test1" + SEPARATOR + "docs" + SEPARATOR + "Practice_03.docx"
                 , "Practice_03.docx"
-                , 104060L, true, modified1, creation1, lastAccess1, ""
+                , 104060L, false, modified1, creation1, lastAccess1, ""
                 , false, false, false, "docx", ""));
 
 
         searchCriteriaBuilder = new SearchCriteriaBuilder().pathCriteria(new File(".").getCanonicalPath() + SEPARATOR + "test"
                 + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest" + SEPARATOR + "test1" + SEPARATOR + "docs")
                 .fileName("Practice_03.docx").fileNameCriteria("all words")
-                .hiddenCriteria("only hidden").isReadCriteria(false).isDirectoryCriteria(false).isFileSystemCriteria(false).keySensitiveOfCriteria(false)
+                .hiddenCriteria("without hidden").isReadCriteria(false).isDirectoryCriteria(false).isFileSystemCriteria(false).keySensitiveOfCriteria(false)
                 .extensionCriteria(".docx")
                 .ownerCriteria("")
                 .multimediaDurationInputCriteria("", 0, "")
