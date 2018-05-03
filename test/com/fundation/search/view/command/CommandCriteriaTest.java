@@ -55,89 +55,101 @@ public class CommandCriteriaTest {
         criteriasMap.put("-ex", ".txt");
         commandCriteria = new CommandCriteria(criteriasMap);
     }
+
     /**
      * testToValidateGetPath.
      */
     @Test
     public void testToValidateGetPath() {
-        assertEquals("test\\com\\fundation\\search\\model\\filesTest\\test1",commandCriteria.getPath());
+        assertEquals("test\\com\\fundation\\search\\model\\filesTest\\test1", commandCriteria.getPath());
     }
+
     /**
      * testToValidateGetFile.
      */
     @Test
-    public void  testToValidateGetFile() {
-        assertEquals("hola",commandCriteria.getFileName());
+    public void testToValidateGetFile() {
+        assertEquals("hola", commandCriteria.getFileName());
     }
+
     /**
      * testToValidateGetHidden.
      */
     @Test
-    public void  testToValidateGetHidden() {
-        assertEquals("only hidden",commandCriteria.getIsHidden());
+    public void testToValidateGetHidden() {
+        assertEquals("only hidden", commandCriteria.getIsHidden());
     }
+
     /**
      * testToValidateGetOwner.
      */
     @Test
-    public void  testToValidateGetOwner() {
-        assertEquals("Escarleth Ledezma",commandCriteria.getOwner());
+    public void testToValidateGetOwner() {
+        assertEquals("Escarleth Ledezma", commandCriteria.getOwner());
     }
+
     /**
      * testToValidateGetCriteriaFileName.
      */
     @Test
-    public void  testToValidateGetCriteriaFileName() {
-        assertEquals("start with",commandCriteria.getCriteriaName());
+    public void testToValidateGetCriteriaFileName() {
+        assertEquals("start with", commandCriteria.getCriteriaName());
     }
+
     /**
      * testToValidateGetSize.
      */
     @Test
-    public void  testToValidateGetSize() {
-        assertEquals("",commandCriteria.getSize());
+    public void testToValidateGetSize() {
+        assertEquals("", commandCriteria.getSize());
     }
+
     /**
      * testToValidateGetDateCreation.
      */
     @Test
-    public void  testToValidateGetDateCreation() {
-        assertEquals("25/09/2018",commandCriteria.getDateCreation());
+    public void testToValidateGetDateCreation() {
+        assertEquals("25/09/2018", commandCriteria.getDateCreation());
     }
+
     /**
      * testToValidateGetDateLastAccess.
      */
     @Test
-    public void  testToValidateGetDateLastAccess() {
-        assertEquals("",commandCriteria.getDateLastAccess());
+    public void testToValidateGetDateLastAccess() {
+        assertEquals("", commandCriteria.getDateLastAccess());
     }
+
     /**
      * testToValidateGetDateModified.
      */
     @Test
-    public void  testToValidateGetDateModified() {
-        assertEquals("15/09/2018",commandCriteria.getDateModified());
+    public void testToValidateGetDateModified() {
+        assertEquals("15/09/2018", commandCriteria.getDateModified());
     }
+
     /**
      * testToValidateGetReadOnly.
      */
     @Test
-    public void  testToValidateGetReadOnly() {
-        assertEquals("false",commandCriteria.getReadOnly());
+    public void testToValidateGetReadOnly() {
+        assertEquals("false", commandCriteria.getReadOnly());
     }
+
     /**
      * testToValidateGetIsDirectory.
      */
     @Test
-    public void  testToValidateGetIsDirectory() {
-        assertEquals("true",commandCriteria.getIsDirectory());
+    public void testToValidateGetIsDirectory() {
+        assertEquals("true", commandCriteria.getIsDirectory());
     }
+
     /**
      * testToValidateGetExtension.
      */
     @Test
-    public void  testToValidateGetExtension() {
-        assertEquals(".txt",commandCriteria.getExtension());
+    public void testToValidateGetExtension() {
+        assertEquals(".txt", commandCriteria.getExtension());
     }
 
 }
