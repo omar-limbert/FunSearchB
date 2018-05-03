@@ -19,6 +19,8 @@ import com.fundation.search.controller.builder.SearchCriteriaBuilder;
 import com.fundation.search.model.asset.Asset;
 import com.fundation.search.model.asset.FileResult;
 import com.fundation.search.model.asset.FolderResult;
+import com.fundation.search.model.asset.MultimediaResult;
+import org.apache.commons.lang3.math.Fraction;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -45,6 +47,11 @@ public class SearchTestUpdated {
      * This is an List of Assets.
      */
     private List<Asset> assetList;
+
+    /**
+     * This is an List of AssetMultimedia.
+     */
+    private List<MultimediaResult> assetMultimediaList;
     /**
      * This is an Object from SearchCriteria class.
      */
@@ -66,6 +73,7 @@ public class SearchTestUpdated {
     @Before
     public void init() throws IOException {
         assetList = new ArrayList<>();
+        assetMultimediaList = new ArrayList<>();
         search = new Search();
         convertor = new Convertor();
         FileTime lastAccess = convertor.convertStringToFileTime("01/05/2018");
@@ -124,6 +132,25 @@ public class SearchTestUpdated {
                 , "docs"
                 , 4096L, false, modified, creation, lastAccess, ""
                 , false, false, true, 9));
+
+        assetMultimediaList.add(new MultimediaResult(new File(".").getCanonicalPath() + SEPARATOR + "test"
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "testmultimedia"
+                , "Callense"
+                , 528894, false, modified, creation, lastAccess, ""
+                , false, false, true, "H.264", ".mp4","H.264/ AVC /MPEG-4 AVC / MPEG-4 part 10",720,480
+                ,"4:3", Fraction.getFraction(29,3),0.0,4.25,0L,0L,"",""
+                ,"",2,"",0.0,0.0,132083,0L
+                ,0L));
+
+        assetMultimediaList.add(new MultimediaResult(new File(".").getCanonicalPath() + SEPARATOR + "test"
+                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "testmultimedia"
+                , "ay esta grasa no se quita"
+                , 3169694, false, modified, creation, lastAccess, ""
+                , false, false, true, "H.264", ".mp4","H.264/ AVC /MPEG-4 AVC / MPEG-4 part 10",720,480
+                ,"22:15", Fraction.getFraction(29,3),0.0,18.99,0L,0L,"ACC",""
+                ,"",2,"",0.0,0.0,128762,0L
+                ,0L));
+
     }
 
     /**
