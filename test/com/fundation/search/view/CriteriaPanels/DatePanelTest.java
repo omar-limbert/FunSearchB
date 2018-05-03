@@ -52,40 +52,43 @@ public class DatePanelTest {
     @Test
     public void testGetDateCreationCriteria() {
         try {
-            assertEquals(DATE_FORMAT.parse("01/01/1999"),datePanel.getDateCreationCriteria());
+            assertEquals(DATE_FORMAT.parse("01/01/1999"), datePanel.getDateCreationCriteria());
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }
+
     @Test
     public void testGetDateToCreationCriteria() {
-        assertEquals(datePanel.getDateToCreationCriteria(),datePanel.getDateToCreationCriteria());
+        assertEquals(datePanel.getDateToCreationCriteria(), datePanel.getDateToCreationCriteria());
     }
 
     @Test
     public void testGetDateModificationCriteria() {
         try {
-            assertEquals(DATE_FORMAT.parse("01/01/1999"),datePanel.getDateModificationCriteria());
+            assertEquals(DATE_FORMAT.parse("01/01/1999"), datePanel.getDateModificationCriteria());
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }
+
     @Test
     public void testGetDateToModificationCriteria() {
-        assertEquals(datePanel.getDateToModificationCriteria(),datePanel.getDateToModificationCriteria());
+        assertEquals(datePanel.getDateToModificationCriteria(), datePanel.getDateToModificationCriteria());
     }
 
     @Test
     public void testGetDateLastOpenedCriteria() {
         try {
-            assertEquals(DATE_FORMAT.parse("01/01/1999"),datePanel.getDateLastOpenedCriteria());
+            assertEquals(DATE_FORMAT.parse("01/01/1999"), datePanel.getDateLastOpenedCriteria());
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }
+
     @Test
     public void testGetDateToLastOpenedCriteria() {
-        assertEquals(datePanel.getDateToLastOpenedCriteria(),datePanel.getDateToLastOpenedCriteria());
+        assertEquals(datePanel.getDateToLastOpenedCriteria(), datePanel.getDateToLastOpenedCriteria());
     }
 
 }

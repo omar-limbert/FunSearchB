@@ -48,18 +48,18 @@ public class FileNamePanelTest {
 
     @Test
     public void testGetFileNameCriteriaTrue() {
-        assertEquals("all words",fileNamePanel.getFileNameCriteria());
+        assertEquals("all words", fileNamePanel.getFileNameCriteria());
     }
 
     @Test
     public void testGetFileNameCriteriaFalse() {
-        assertNotEquals("all",fileNamePanel.getFileNameCriteria());
+        assertNotEquals("all", fileNamePanel.getFileNameCriteria());
     }
 
     @Test
     public void testSetFileNameCriteria() {
         fileNamePanel.setFileNameCriteria("start with");
-        assertEquals("start with",fileNamePanel.getFileNameCriteria());
+        assertEquals("start with", fileNamePanel.getFileNameCriteria());
     }
 
     @Test
@@ -67,6 +67,7 @@ public class FileNamePanelTest {
         fileNamePanel.setIsContainsInsideFileCriteria(true);
         assertTrue(fileNamePanel.getIsContainsInsideFileCriteria());
     }
+
     @Test
     public void testGetIsContainsInsideFileCriteriaIsNotSelected() {
         fileNamePanel.setIsContainsInsideFileCriteria(false);
@@ -75,7 +76,7 @@ public class FileNamePanelTest {
 
     @Test
     public void testGetTextContainsInsideFileCriteria() {
-        assertEquals("",fileNamePanel.getTextContainsInsideFileCriteria());
+        assertEquals("", fileNamePanel.getTextContainsInsideFileCriteria());
     }
 
     @Test
@@ -87,6 +88,6 @@ public class FileNamePanelTest {
     @Test
     public void setTextContainsInsideFileCriteria() {
         fileNamePanel.setTextContainsInsideFileCriteria("test");
-        assertEquals("test",fileNamePanel.getTextContainsInsideFileCriteria());
+        assertEquals("test", fileNamePanel.getTextContainsInsideFileCriteria());
     }
 }

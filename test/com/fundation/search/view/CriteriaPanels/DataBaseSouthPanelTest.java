@@ -65,6 +65,7 @@ public class DataBaseSouthPanelTest {
         dataBaseSouthPanel.getFillButtonOnDataBasePanel().setVisible(false);
         assertFalse(dataBaseSouthPanel.getFillButtonOnDataBasePanel().isVisible());
     }
+
     @Test
     public void testGetDeleteButtonOnDataBasePanelNotIsVisible() {
         dataBaseSouthPanel.getDeleteButtonOnDataBasePanel().setVisible(false);
