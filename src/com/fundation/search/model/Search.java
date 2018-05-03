@@ -281,20 +281,7 @@ public class Search {
      */
     private void lastModifiedTime(FileTime dateConditionInt, FileTime dateConditionEnd) {
         LOOGER.info("Entry to lastModifiedTime Method");
-        assetList.removeIf(e -> {
-            try {
-                Date dateAsset = DATE_FORMAT.parse(new Convertor().convertFileDateToDate(dateConditionInt));
-                Date dateInit = DATE_FORMAT.parse(new Convertor().convertFileDateToDate(dateConditionInt));
-                Date dateEnd = DATE_FORMAT.parse(new Convertor().convertFileDateToDate(dateConditionEnd));
-                if (!(dateAsset.compareTo(dateInit) >= 0 && dateEnd.compareTo(dateAsset) <= 0)) {
-                    return false;
-                }
-
-            } catch (ParseException e1) {
-                e1.printStackTrace();
-            }
-            return true;
-        });
+        assetList.removeIf(e -> !(e.getLastModifiedTime().toMillis() >= dateConditionInt.toMillis() && e.getLastModifiedTime().toMillis() <= dateConditionEnd.toMillis()));
         LOOGER.info("Exit of lastModifiedTime Method");
     }
 
@@ -306,20 +293,8 @@ public class Search {
      */
     private void creationTime(FileTime dateConditionInt, FileTime dateConditionEnd) {
         LOOGER.info("Entry to creationTime Method");
-        assetList.removeIf(e -> {
-            try {
-                Date dateAsset = DATE_FORMAT.parse(new Convertor().convertFileDateToDate(dateConditionInt));
-                Date dateInit = DATE_FORMAT.parse(new Convertor().convertFileDateToDate(dateConditionInt));
-                Date dateEnd = DATE_FORMAT.parse(new Convertor().convertFileDateToDate(dateConditionEnd));
-                if (!(dateAsset.compareTo(dateInit) >= 0 && dateEnd.compareTo(dateAsset) <= 0)) {
-                    return false;
-                }
+        assetList.removeIf(e -> !(e.getLastModifiedTime().toMillis() >= dateConditionInt.toMillis() && e.getLastModifiedTime().toMillis() <= dateConditionEnd.toMillis()));
 
-            } catch (ParseException e1) {
-                e1.printStackTrace();
-            }
-            return true;
-        });
         LOOGER.info("Exit of creationTime Method");
     }
 
