@@ -59,7 +59,7 @@ public class SearchTestUpdated {
     private Convertor convertor;
 
     /**
-     * This method init a list to compare with the results of Seacrh class.
+     * This method init a list to compare with the results of Seacrh class..
      *
      * @throws IOException to use a generic Path
      */
@@ -68,15 +68,9 @@ public class SearchTestUpdated {
         assetList = new ArrayList<>();
         search = new Search();
         convertor = new Convertor();
-        FileTime lastAccess = convertor.convertStringToFileTime("01/05/2018");
+        FileTime lastAccess = convertor.convertStringToFileTime("02/05/2018");
         FileTime creation = convertor.convertStringToFileTime("01/05/2018");
         FileTime modified = convertor.convertStringToFileTime("30/04/2018");
-        assetList.add(new FolderResult(new File(".").getCanonicalPath() + SEPARATOR + "test"
-                + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest"
-                + SEPARATOR + "test1" + SEPARATOR + "docs" + SEPARATOR + "folder", "folder"
-                , 0L, false, modified, creation, lastAccess, ""
-                , false, false, true, 1));
-
 
         assetList.add(new FileResult(new File(".").getCanonicalPath() + SEPARATOR + "test"
                 + SEPARATOR + "com" + SEPARATOR + "fundation" + SEPARATOR + "search" + SEPARATOR + "testFolder" + SEPARATOR + "filesTest"
@@ -143,11 +137,11 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(1).getPathFile(), assetList1.get(1).getPathFile());
-        assertEquals(assetList.get(2).getPathFile(), assetList1.get(2).getPathFile());
-        assertEquals(assetList.get(3).getPathFile(), assetList1.get(3).getPathFile());
-        assertEquals(assetList.get(4).getPathFile(), assetList1.get(4).getPathFile());
-        assertEquals(assetList.get(5).getPathFile(), assetList1.get(5).getPathFile());
+        assertEquals(assetList.get(0).getPathFile(), assetList1.get(1).getPathFile());
+        assertEquals(assetList.get(1).getPathFile(), assetList1.get(2).getPathFile());
+        assertEquals(assetList.get(2).getPathFile(), assetList1.get(3).getPathFile());
+        assertEquals(assetList.get(3).getPathFile(), assetList1.get(4).getPathFile());
+        assertEquals(assetList.get(4).getPathFile(), assetList1.get(5).getPathFile());
     }
 
     /**
@@ -170,7 +164,7 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(5).getName(), assetList1.get(0).getName());
+        assertEquals(assetList.get(4).getName(), assetList1.get(0).getName());
     }
 
     /**
@@ -193,7 +187,7 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(1).getName(), assetList1.get(0).getName());
+        assertEquals(assetList.get(0).getName(), assetList1.get(0).getName());
     }
 
     /**
@@ -216,8 +210,8 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(3).getName(), assetList1.get(0).getName());
-        assertEquals(assetList.get(4).getName(), assetList1.get(1).getName());
+        assertEquals(assetList.get(2).getName(), assetList1.get(0).getName());
+        assertEquals(assetList.get(3).getName(), assetList1.get(1).getName());
     }
 
     /**
@@ -240,7 +234,7 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(2).getName(), assetList1.get(0).getName());
+        assertEquals(assetList.get(1).getName(), assetList1.get(0).getName());
     }
 
     /**
@@ -263,8 +257,8 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(4).getSizeFile(), assetList1.get(0).getSizeFile());
-        assertEquals(assetList.get(5).getSizeFile(), assetList1.get(1).getSizeFile());
+        assertEquals(assetList.get(3).getSizeFile(), assetList1.get(0).getSizeFile());
+        assertEquals(assetList.get(4).getSizeFile(), assetList1.get(1).getSizeFile());
     }
 
     /**
@@ -287,10 +281,9 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(1).getSizeFile(), assetList1.get(1).getSizeFile());
-        assertEquals(assetList.get(0).getSizeFile(), assetList1.get(2).getSizeFile());
-        assertEquals(assetList.get(2).getSizeFile(), assetList1.get(3).getSizeFile());
-        assertEquals(assetList.get(3).getSizeFile(), assetList1.get(4).getSizeFile());
+        assertEquals(assetList.get(0).getSizeFile(), assetList1.get(1).getSizeFile());
+        assertEquals(assetList.get(1).getSizeFile(), assetList1.get(3).getSizeFile());
+        assertEquals(assetList.get(2).getSizeFile(), assetList1.get(4).getSizeFile());
 
     }
 
@@ -314,7 +307,7 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(4).getSizeFile(), assetList1.get(0).getSizeFile());
+        assertEquals(assetList.get(3).getSizeFile(), assetList1.get(0).getSizeFile());
     }
 
     /**
@@ -337,10 +330,10 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(1).getSizeFile(), assetList1.get(1).getSizeFile());
-        assertEquals(assetList.get(2).getSizeFile(), assetList1.get(2).getSizeFile());
-        assertEquals(assetList.get(3).getSizeFile(), assetList1.get(3).getSizeFile());
-        assertEquals(assetList.get(4).getSizeFile(), assetList1.get(4).getSizeFile());
+        assertEquals(assetList.get(0).getSizeFile(), assetList1.get(1).getSizeFile());
+        assertEquals(assetList.get(1).getSizeFile(), assetList1.get(2).getSizeFile());
+        assertEquals(assetList.get(2).getSizeFile(), assetList1.get(3).getSizeFile());
+        assertEquals(assetList.get(3).getSizeFile(), assetList1.get(4).getSizeFile());
     }
 
     /**
@@ -363,8 +356,7 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(0).getSizeFile(), assetList1.get(0).getSizeFile());
-        assertEquals(assetList.get(2).getSizeFile(), assetList1.get(1).getSizeFile());
+        assertEquals(assetList.get(1).getSizeFile(), assetList1.get(1).getSizeFile());
     }
 
     /**
@@ -387,7 +379,7 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(4).getIsHidden(), assetList1.get(0).getIsHidden());
+        assertEquals(assetList.get(3).getIsHidden(), assetList1.get(0).getIsHidden());
     }
 
     /**
@@ -410,10 +402,9 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(1).getIsHidden(), assetList1.get(1).getIsHidden());
-        assertEquals(assetList.get(2).getIsHidden(), assetList1.get(2).getIsHidden());
-        assertEquals(assetList.get(3).getIsHidden(), assetList1.get(3).getIsHidden());
-        assertEquals(assetList.get(5).getIsHidden(), assetList1.get(4).getIsHidden());
+        assertEquals(assetList.get(0).getIsHidden(), assetList1.get(1).getIsHidden());
+        assertEquals(assetList.get(1).getIsHidden(), assetList1.get(2).getIsHidden());
+        assertEquals(assetList.get(2).getIsHidden(), assetList1.get(3).getIsHidden());
     }
 
     /**
@@ -436,7 +427,7 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(5).getIsReadOnlyFile(), assetList1.get(0).getIsReadOnlyFile());
+        assertEquals(assetList.get(4).getIsReadOnlyFile(), assetList1.get(0).getIsReadOnlyFile());
     }
 
     /**
@@ -459,9 +450,9 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(1).getIsReadOnlyFile(), assetList1.get(1).getIsReadOnlyFile());
-        assertEquals(assetList.get(2).getIsReadOnlyFile(), assetList1.get(2).getIsReadOnlyFile());
-        assertEquals(assetList.get(3).getIsReadOnlyFile(), assetList1.get(3).getIsReadOnlyFile());
+        assertEquals(assetList.get(0).getIsReadOnlyFile(), assetList1.get(1).getIsReadOnlyFile());
+        assertEquals(assetList.get(1).getIsReadOnlyFile(), assetList1.get(2).getIsReadOnlyFile());
+        assertEquals(assetList.get(2).getIsReadOnlyFile(), assetList1.get(3).getIsReadOnlyFile());
     }
 
     /**
@@ -484,10 +475,10 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(1).getIsFileSystemFile(), assetList1.get(1).getIsFileSystemFile());
-        assertEquals(assetList.get(2).getIsFileSystemFile(), assetList1.get(2).getIsFileSystemFile());
-        assertEquals(assetList.get(3).getIsFileSystemFile(), assetList1.get(3).getIsFileSystemFile());
-        assertEquals(assetList.get(4).getIsFileSystemFile(), assetList1.get(4).getIsFileSystemFile());
+        assertEquals(assetList.get(0).getIsFileSystemFile(), assetList1.get(1).getIsFileSystemFile());
+        assertEquals(assetList.get(1).getIsFileSystemFile(), assetList1.get(2).getIsFileSystemFile());
+        assertEquals(assetList.get(2).getIsFileSystemFile(), assetList1.get(3).getIsFileSystemFile());
+        assertEquals(assetList.get(3).getIsFileSystemFile(), assetList1.get(4).getIsFileSystemFile());
     }
 
     /**
@@ -510,7 +501,7 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(5).getIsFileSystemFile(), assetList1.get(0).getIsFileSystemFile());
+        assertEquals(assetList.get(4).getIsFileSystemFile(), assetList1.get(0).getIsFileSystemFile());
     }
 
     /**
@@ -533,10 +524,10 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(5).getIsFileSystemFile(), assetList1.get(0).getIsFileSystemFile());
-        assertEquals(assetList.get(1).getIsFileSystemFile(), assetList1.get(1).getIsFileSystemFile());
-        assertEquals(assetList.get(2).getIsFileSystemFile(), assetList1.get(2).getIsFileSystemFile());
-        assertEquals(assetList.get(3).getIsFileSystemFile(), assetList1.get(3).getIsFileSystemFile());
+        assertEquals(assetList.get(4).getIsFileSystemFile(), assetList1.get(0).getIsFileSystemFile());
+        assertEquals(assetList.get(0).getIsFileSystemFile(), assetList1.get(1).getIsFileSystemFile());
+        assertEquals(assetList.get(1).getIsFileSystemFile(), assetList1.get(2).getIsFileSystemFile());
+        assertEquals(assetList.get(2).getIsFileSystemFile(), assetList1.get(3).getIsFileSystemFile());
     }
 
     /**
@@ -559,8 +550,8 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(3).getIsFileSystemFile(), assetList1.get(0).getIsFileSystemFile());
-        assertEquals(assetList.get(4).getIsFileSystemFile(), assetList1.get(1).getIsFileSystemFile());
+        assertEquals(assetList.get(2).getIsFileSystemFile(), assetList1.get(0).getIsFileSystemFile());
+        assertEquals(assetList.get(3).getIsFileSystemFile(), assetList1.get(1).getIsFileSystemFile());
     }
 
     /**
@@ -583,7 +574,7 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(4).getName(), assetList1.get(0).getName());
+        assertEquals(assetList.get(3).getName(), assetList1.get(0).getName());
     }
 
     /**
@@ -606,7 +597,7 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(2).getName(), assetList1.get(0).getName());
+        assertEquals(assetList.get(1).getName(), assetList1.get(0).getName());
     }
 
     /**
@@ -629,7 +620,7 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(4).getName(), assetList1.get(0).getName());
+        assertEquals(assetList.get(3).getName(), assetList1.get(0).getName());
     }
 
     /**
@@ -652,11 +643,11 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(convertor.convertFileDateToDate(assetList.get(1).getLastAccessTime()), convertor.convertFileDateToDate(assetList1.get(1).getLastAccessTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(2).getLastAccessTime()), convertor.convertFileDateToDate(assetList1.get(2).getLastAccessTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(3).getLastAccessTime()), convertor.convertFileDateToDate(assetList1.get(3).getLastAccessTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(4).getLastAccessTime()), convertor.convertFileDateToDate(assetList1.get(4).getLastAccessTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(5).getLastAccessTime()), convertor.convertFileDateToDate(assetList1.get(5).getLastAccessTime()));
+        assertEquals(convertor.convertFileDateToDate(assetList.get(0).getLastAccessTime()), convertor.convertFileDateToDate(assetList1.get(1).getLastAccessTime()));
+        assertEquals(convertor.convertFileDateToDate(assetList.get(1).getLastAccessTime()), convertor.convertFileDateToDate(assetList1.get(2).getLastAccessTime()));
+        assertEquals(convertor.convertFileDateToDate(assetList.get(2).getLastAccessTime()), convertor.convertFileDateToDate(assetList1.get(3).getLastAccessTime()));
+        assertEquals(convertor.convertFileDateToDate(assetList.get(3).getLastAccessTime()), convertor.convertFileDateToDate(assetList1.get(4).getLastAccessTime()));
+        assertEquals(convertor.convertFileDateToDate(assetList.get(4).getLastAccessTime()), convertor.convertFileDateToDate(assetList1.get(5).getLastAccessTime()));
     }
 
     /**
@@ -679,11 +670,11 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(convertor.convertFileDateToDate(assetList.get(1).getCreationTime()), convertor.convertFileDateToDate(assetList1.get(1).getCreationTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(2).getCreationTime()), convertor.convertFileDateToDate(assetList1.get(2).getCreationTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(3).getCreationTime()), convertor.convertFileDateToDate(assetList1.get(3).getCreationTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(4).getCreationTime()), convertor.convertFileDateToDate(assetList1.get(4).getCreationTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(5).getCreationTime()), convertor.convertFileDateToDate(assetList1.get(5).getCreationTime()));
+        assertEquals(convertor.convertFileDateToDate(assetList.get(0).getCreationTime()), convertor.convertFileDateToDate(assetList1.get(1).getCreationTime()));
+        assertEquals(convertor.convertFileDateToDate(assetList.get(1).getCreationTime()), convertor.convertFileDateToDate(assetList1.get(2).getCreationTime()));
+        assertEquals(convertor.convertFileDateToDate(assetList.get(2).getCreationTime()), convertor.convertFileDateToDate(assetList1.get(3).getCreationTime()));
+        assertEquals(convertor.convertFileDateToDate(assetList.get(3).getCreationTime()), convertor.convertFileDateToDate(assetList1.get(4).getCreationTime()));
+        assertEquals(convertor.convertFileDateToDate(assetList.get(4).getCreationTime()), convertor.convertFileDateToDate(assetList1.get(5).getCreationTime()));
     }
 
     /**
@@ -706,11 +697,11 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(convertor.convertFileDateToDate(assetList.get(1).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(1).getLastModifiedTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(2).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(2).getLastModifiedTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(3).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(3).getLastModifiedTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(4).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(4).getLastModifiedTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(5).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(5).getLastModifiedTime()));
+        assertEquals(convertor.convertFileDateToDate(assetList.get(0).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(1).getLastModifiedTime()));
+        assertEquals(convertor.convertFileDateToDate(assetList.get(1).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(2).getLastModifiedTime()));
+        assertEquals(convertor.convertFileDateToDate(assetList.get(2).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(3).getLastModifiedTime()));
+        assertEquals(convertor.convertFileDateToDate(assetList.get(3).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(4).getLastModifiedTime()));
+        assertEquals(convertor.convertFileDateToDate(assetList.get(4).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(5).getLastModifiedTime()));
     }
 
     /**
@@ -734,11 +725,11 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(convertor.convertFileDateToDate(assetList.get(1).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(1).getLastModifiedTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(2).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(2).getLastModifiedTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(3).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(3).getLastModifiedTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(4).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(4).getLastModifiedTime()));
-        assertEquals(convertor.convertFileDateToDate(assetList.get(5).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(5).getLastModifiedTime()));
+        assertEquals(convertor.convertFileDateToDate(assetList.get(0).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(1).getLastModifiedTime()));
+        assertEquals(convertor.convertFileDateToDate(assetList.get(1).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(2).getLastModifiedTime()));
+        assertEquals(convertor.convertFileDateToDate(assetList.get(2).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(3).getLastModifiedTime()));
+        assertEquals(convertor.convertFileDateToDate(assetList.get(3).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(4).getLastModifiedTime()));
+        assertEquals(convertor.convertFileDateToDate(assetList.get(4).getLastModifiedTime()), convertor.convertFileDateToDate(assetList1.get(5).getLastModifiedTime()));
     }
 
     /**
@@ -763,8 +754,8 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(3).getName(), assetList1.get(0).getName());
-        assertEquals(assetList.get(4).getName(), assetList1.get(1).getName());
+        assertEquals(assetList.get(2).getName(), assetList1.get(0).getName());
+        assertEquals(assetList.get(3).getName(), assetList1.get(1).getName());
     }
 
     /**
@@ -790,8 +781,8 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(3).getName(), assetList1.get(0).getName());
-        assertEquals(assetList.get(4).getName(), assetList1.get(1).getName());
+        assertEquals(assetList.get(2).getName(), assetList1.get(0).getName());
+        assertEquals(assetList.get(3).getName(), assetList1.get(1).getName());
     }
 
     /**
@@ -817,7 +808,7 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(5).getName(), assetList1.get(0).getName());
+        assertEquals(assetList.get(4).getName(), assetList1.get(0).getName());
     }
 
     /**
@@ -843,7 +834,7 @@ public class SearchTestUpdated {
         search.setSearchCriteria(searchCriteria);
         search.initSearch();
         assetList1 = search.getResultList();
-        assertEquals(assetList.get(3).getName(), assetList1.get(0).getName());
+        assertEquals(assetList.get(2).getName(), assetList1.get(0).getName());
     }
 
     /**
