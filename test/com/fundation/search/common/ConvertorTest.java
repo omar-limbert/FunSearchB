@@ -16,6 +16,8 @@ package com.fundation.search.common;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -189,4 +191,25 @@ public class ConvertorTest {
         assertEquals("1 hour", convertor.convertTimeUnit(3600, "hour"));
         assertEquals("23,67 hour", convertor.convertTimeUnit(85210, "hour"));
     }
+
+    
+
+    @Test
+    public void testConvertToBytes() {
+        assertEquals(452362, convertor.convertToBytes(452.362,"Kb"));
+        assertEquals(482362, convertor.convertToBytes(482.362,"Kb"));
+        assertEquals(55236000, convertor.convertToBytes(55.236,"Mb"));
+        assertEquals(2362000000L, convertor.convertToBytes(2.362,"Gb"));
+    }
+
+    @Test
+    public void testConvertSizeStringToLong() {
+        assertEquals(452362, convertor.convertSizeStringToLong("452.362","Kb"));
+        assertEquals(452362, convertor.convertSizeStringToLong("452.362","Kb"));
+        assertEquals(5230000000L, convertor.convertSizeStringToLong("5.23","Gb"));
+        assertEquals(2, convertor.convertSizeStringToLong("2","bytes"));
+        assertEquals(2362000, convertor.convertSizeStringToLong("2.362","Mb"));
+    }
+
+
 }
